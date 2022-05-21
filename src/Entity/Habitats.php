@@ -30,7 +30,7 @@ class Habitats
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
-    #[ORM\ManyToOne(targetEntity: utilisateurs::class, inversedBy: 'habitats')]
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
     private $proprietaire;
 
     #[ORM\Column(type: 'boolean')]
@@ -42,10 +42,10 @@ class Habitats
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
     private $reservations;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: equipements::class)]
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
     private $equipements;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: activites::class)]
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
     private $activites;
 
     public function __construct()
@@ -120,12 +120,12 @@ class Habitats
         return $this;
     }
 
-    public function getProprietaire(): ?utilisateurs
+    public function getProprietaire(): ?Utilisateurs
     {
         return $this->proprietaire;
     }
 
-    public function setProprietaire(?utilisateurs $proprietaire): self
+    public function setProprietaire(?Utilisateurs $proprietaire): self
     {
         $this->proprietaire = $proprietaire;
 
@@ -194,7 +194,7 @@ class Habitats
         return $this->equipements;
     }
 
-    public function addEquipement(equipements $equipement): self
+    public function addEquipement(Equipements $equipement): self
     {
         if (!$this->equipements->contains($equipement)) {
             $this->equipements[] = $equipement;
@@ -217,14 +217,14 @@ class Habitats
     }
 
     /**
-     * @return Collection<int, activites>
+     * @return Collection<int, Activites>
      */
     public function getActivites(): Collection
     {
         return $this->activites;
     }
 
-    public function addActivite(activites $activite): self
+    public function addActivite(Activites $activite): self
     {
         if (!$this->activites->contains($activite)) {
             $this->activites[] = $activite;
@@ -234,7 +234,7 @@ class Habitats
         return $this;
     }
 
-    public function removeActivite(activites $activite): self
+    public function removeActivite(Activites $activite): self
     {
         if ($this->activites->removeElement($activite)) {
             // set the owning side to null (unless already changed)

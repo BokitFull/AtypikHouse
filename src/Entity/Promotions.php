@@ -13,7 +13,7 @@ class Promotions
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToOne(targetEntity: reservations::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Reservations::class, cascade: ['persist', 'remove'])]
     private $reservation;
 
     #[ORM\Column(type: 'float')]
