@@ -1,0 +1,28 @@
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: lightgray;
+}
+
+.green {
+    color: #2b7929;
+}
+
+.nav-item > .nav-link {
+    color: #2b7929 !important;
+}
+
+#navbarSupportedContent {
+    justify-content: flex-end;
+}
+
+footer {
+    width: 40%;
+    position: absolute;
+    bottom: 10px;
+    margin: 0 30%;
+}
+
+footer span, footer a {
+    font-size: small;
+}
