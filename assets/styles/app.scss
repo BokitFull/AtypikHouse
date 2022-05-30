@@ -8,21 +8,53 @@ body {
     color: #2b7929;
 }
 
-.nav-item > .nav-link {
-    color: #2b7929 !important;
+.black {
+    color: black;
+}
+
+.white {
+    color: #e4e0d9;
+}
+
+.orange {
+    color: #b87247;
+}
+
+.brown {
+    color: #998763;
 }
 
 #navbarSupportedContent {
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
+}
+.nav-link:hover {
+    color: #998763;
+}
+
+.div-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 footer {
     width: 40%;
-    position: absolute;
-    bottom: 10px;
-    margin: 0 30%;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 footer span, footer a {
     font-size: small;
+}
+
+a {
+    text-decoration: none;
+    color: #2b7929;
+}
+a:hover {
+    color: #998763;
+}
+a.selected {
+    color: #998763;
 }
