@@ -24,29 +24,14 @@ body {
     color: #998763;
 }
 
-#navbarSupportedContent {
-    justify-content: center;
-    width: 100%;
-}
 .nav-link:hover {
     color: #998763;
-}
-
-.profile-logo {
-    justify-self: flex-end;
-    margin-left: 50px;
 }
 
 .div-footer {
     width: 100%;
     position: absolute;
     bottom: 0;
-}
-
-footer {
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
 }
 
 footer span, footer a {
@@ -62,4 +47,83 @@ a:hover {
 }
 a.selected {
     color: #998763;
+}
+
+#navbarSupportedContent {
+    width: 100%;
+}
+
+.profile-logo {
+    justify-self: flex-end;
+    margin: 0;
+}
+
+
+@media (min-width: 1024px) {
+    footer {
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+}
+
+@media (max-width: 1024px) {
+    footer {
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+@media (min-width: 992px) {
+    #navbarSupportedContent {
+        justify-content: center;
+    }
+
+    .profile-logo {
+        margin-left: 50px;
+    }
+
+    #imgLogo {
+        width: 80%;
+    }
+}
+
+@media (max-width: 992px) {
+    #imgLogo {
+        width: 50%;
+    }
+}
+
+@media (max-width: 700px) {
+    footer {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .navbar-brand {
+        width: 80%;
+    }
+}
+
+@media (min-width: 620px) {
+    
+    // #imgLogo {
+    //     // src: url('/assets/images/atypik_icon_transparent.png');
+    // }
+}
+
+@media (max-width: 620px) {
+    
+    // #imgLogo {
+    //     // src: url('/assets/images/atypik_icon_transparent.png');
+    // }
+}
+
+@media (max-width: 520px) {
+    footer {
+        margin: 0;
+        flex-direction: column;
+        width: 100%;
+    }
 }
