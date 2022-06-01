@@ -13,11 +13,26 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+            <script type="text/javascript">
+
+                $(document).ready(function() {
+
+                    $(".nav-link").on("click", function() {
+                        console.log(this);
+
+                        $(".nav-link.selected").each(function() { $(this).removeClass("selected"); })
+
+                        $(this).addClass("selected");
+                    });
+                })
+            </script> 
+
     </head>
     <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ path('home') }}">
                 <img id="imgLogo" src="/images/atypik_long_transparent.png" alt="logo_long">
                 {# <img src="{{ asset('/images/atypik_long.png') }}" alt="logo_long" width="80%"> #}
             </a>
