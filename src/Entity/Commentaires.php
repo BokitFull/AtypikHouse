@@ -16,13 +16,13 @@ class Commentaires
     #[ORM\Column(type: 'text')]
     private $commentaire;
 
-    #[ORM\OneToOne(targetEntity: utilisateurs::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Utilisateurs::class, cascade: ['persist', 'remove'])]
     private $utilisateur;
 
-    #[ORM\OneToOne(targetEntity: reservations::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Reservations::class, cascade: ['persist', 'remove'])]
     private $reservation;
 
-    #[ORM\OneToOne(targetEntity: commentaires::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Commentaires::class, cascade: ['persist', 'remove'])]
     private $commentaire_parent;
 
     public function getId(): ?int

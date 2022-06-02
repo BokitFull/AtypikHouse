@@ -16,10 +16,10 @@ class Codes
     #[ORM\Column(type: 'float')]
     private $montant;
 
-    #[ORM\OneToOne(targetEntity: utilisateurs::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Utilisateurs::class, cascade: ['persist', 'remove'])]
     private $utilisateur_debiteur;
 
-    #[ORM\OneToOne(targetEntity: utilisateurs::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Utilisateurs::class, cascade: ['persist', 'remove'])]
     private $utilisateur_crediteur;
 
     #[ORM\Column(type: 'datetime_immutable')]

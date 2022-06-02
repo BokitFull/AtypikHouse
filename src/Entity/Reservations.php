@@ -13,10 +13,10 @@ class Reservations
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: utilisateurs::class, inversedBy: 'reservations')]
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'reservations')]
     private $utilisateur;
 
-    #[ORM\ManyToOne(targetEntity: habitats::class, inversedBy: 'reservations')]
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'reservations')]
     private $habitat;
     
     #[ORM\Column(type: 'float')]
