@@ -21,7 +21,7 @@ class Habitats
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
 
-    #[ORM\Column(type: 'string', length: 5)]
+    #[ORM\Column(type: 'string', length: 10)]
     private $code_postal;
 
     #[ORM\Column(type: 'string', length: 80)]
