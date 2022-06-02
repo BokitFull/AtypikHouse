@@ -1,59 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}AtypikHousee{% endblock %}</title>
-        <link src="/fontawesome-5.15.4/css/all.min.css"></link>
-
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-
-    </head>
-    <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img id="imgLogo" src="/images/atypik_long_transparent.png" alt="logo_long">
-                {# <img src="{{ asset('/images/atypik_long.png') }}" alt="logo_long" width="80%"> #}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Destination</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Hébergements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Devenir hôte</a>
-                    </li>
-                </ul>
-                <div class="profile-logo">
-                <a class="black" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <hr />
-        {% block body %}{% endblock %}
- 
-    <div class="div-footer bg-light">
-        <footer class="d-flex justify-content-between align-items-center">
-            <span>Copyright 2022 - Tout droits réservés</span>
-            <a rel="Mentions légales" href="#">Mentions légales</a>
-            <a rel="Confidentialités" href="#">Confidentialités</a>
-        </footer>
-    </div>
-    </body>
-</html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}AtypikHousee
+			{% endblock %}
+		</title>
+		<link src="/fontawesome-5.15.4/css/all.min.css"></head>
+</html></link>{% block stylesheets %}
+{{ encore_entry_link_tags('app') }}{% endblock %}{% block javascripts %}
+{{ encore_entry_script_tags('app') }}{% endblock %}</head><body><nav class="navbar navbar-expand-lg">
+<div class="container-fluid">
+	<div class="left_nav">
+		<a class="navbar-brand" href="#">
+			<img
+			id="imgLogo" src="/images/atypik_long_transparent.png" alt="logo_long">
+		{# <img src="{{ asset('/images/atypik_long.png') }}" alt="logo_long" width="80%"> #}
+		</a>
+	</div>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon fa fa-bars"></span>
+	</button>
+	<div class="right_nav">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link green" href="#">Destination</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link green" href="#">Hébergements</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link green" href="#">Contact</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link green" href="#">Devenir hôte</a>
+				</li>
+			</ul>
+		</div>
+		<a class="black" href="#">
+			<i class="fa fa-user-circle" aria-hidden="true"></i>
+		</a>
+	</div>
+</div></nav>{% block body %}{% endblock %}<div class="div-footer bg-light">
+<footer class="d-flex justify-content-between align-items-center">
+	<span>Copyright 2022 - Tout droits réservés</span>
+	<a rel="Mentions légales" href="#">Mentions légales</a>
+	<a rel="Confidentialités" href="#">Confidentialités</a>
+</footer></div></body></html>

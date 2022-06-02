@@ -30,7 +30,7 @@ class Habitats
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
-    #[ORM\ManyToOne(targetEntity: utilisateurs::class, inversedBy: 'habitats')]
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
     private $proprietaire;
 
     #[ORM\Column(type: 'boolean')]
@@ -42,10 +42,10 @@ class Habitats
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
     private $reservations;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: equipements::class)]
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
     private $equipements;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: activites::class)]
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
     private $activites;
 
     public function __construct()
