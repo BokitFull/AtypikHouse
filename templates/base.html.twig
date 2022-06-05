@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        
         <title>{% block title %}AtypikHouse{% endblock %}</title>
-        <link src="/fontawesome-5.15.4/css/all.min.css"></link>
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -14,46 +14,42 @@
         {% endblock %}
 
     </head>
-    <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img id="imgLogo" src="/images/atypik_long_transparent.png" alt="logo_long">
-                {# <img src="{{ asset('/images/atypik_long.png') }}" alt="logo_long" width="80%"> #}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Destination</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Hébergements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Devenir hôte</a>
-                    </li>
-                </ul>
-                <div class="profile-logo">
-                <a class="black" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
+    <header>
+        <div class="container-80">
+            <nav class="nav-col">
+                <div class="nav-col-logo">
+                    <a href="/">
+                        <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
+                    </a>
                 </div>
-            </div>
+                <div id="nav-col-menu">
+                    <input id="menu-toggle" type="checkbox" />
+                    <label id="menu-btn" for="menu-toggle">
+                        <span id="first-pan"></span>
+                        <span id="burger"></span>
+                        <span id="second-pan"></span>
+                    </label>
+                    <ul id="menu-box">
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 green-text" href="/">Destinations <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 green-text" href="/">Hébergements <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 green-text" href="/">Contact<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item d-md-none">
+                            <a class="nav-link fs-5 green-text">Devenir hôte<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        <div>
+    </header>
+    <body>
+        <div>
+            {% block content %}{% endblock %}
         </div>
-    </nav>
-    <hr />
-        {% block body %}{% endblock %}
- 
-    <div class="div-footer bg-light">
-        <footer class="d-flex justify-content-between align-items-center">
-            <span>Copyright 2022 - Tout droits réservés</span>
-            <a rel="Mentions légales" href="#">Mentions légales</a>
-            <a rel="Confidentialités" href="#">Confidentialités</a>
-        </footer>
-    </div>
     </body>
 </html>
