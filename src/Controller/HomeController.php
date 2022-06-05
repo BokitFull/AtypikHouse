@@ -20,7 +20,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function home(): Response
+    public function index(): Response
     {   
         return $this->render('base.html.twig');
     }
