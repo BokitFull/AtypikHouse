@@ -3,8 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -13,7 +11,42 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+    <header>
+        <div class="container-80">
+            <nav class="nav-col">
+                <div class="nav-col-logo">
+                    <a href="/">
+                        <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
+                    </a>
+                </div>
+                <div id="nav-col-menu">
+                    <input id="menu-toggle" type="checkbox" />
+                    <label id="menu-btn" for="menu-toggle">
+                        <span id="first-pan"></span>
+                        <span id="burger"></span>
+                        <span id="second-pan"></span>
+                    </label>
+                    <ul id="menu-box">
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 green-text" href="/">Destinations <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 green-text" href="/">Hébergements <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 green-text" href="/">Contact<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item d-md-none">
+                            <a class="nav-link fs-5 green-text">Devenir hôte<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        <div>
+    </header>
     <body>
-        {% block body %}{% endblock %}
+        <div>
+            {% block content %}{% endblock %}
+        </div>
     </body>
 </html>

@@ -1,0 +1,281 @@
+body {
+    background-color: #e4e0d9 !important;
+}
+
+.green-text {
+    color: #2B7929 !important;
+}
+
+.container-80 {
+    width: 80%;
+    margin: 0 auto; 
+}
+
+.nav-col{
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    display: grid;
+    grid-template:
+        'logo       menu        login'      auto /
+         35%        45%         18%
+    ;
+    gap: 1rem;
+    border-bottom: 0.1em solid;
+}
+
+.nav-col-logo {
+    grid-area: logo;
+}
+
+#nav-col-menu {
+    grid-area: menu;
+}
+
+.nav-col-login {
+    grid-area: login;
+    display: flex;
+    justify-content: end;
+}
+
+#nav-col-menu ul {
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.nav-logo {
+    height: auto;
+    width: 12em;
+}
+
+#menu-toggle, #menu-btn{
+    display: none;
+}
+
+#login_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 400px;
+    margin-top: 50px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.login-image{
+    max-width:100%;
+    max-height:100%;
+    object-fit: none;
+}
+
+.login-input {
+    background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0px;
+	width: 100%;
+}
+
+.submit-btn {
+    margin-top: 8px;
+}
+
+#login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-div-input{
+    width: 70%;
+}
+
+#register_form {
+    display: none;
+}
+
+.login-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+// #form-toggle{
+//     display: none;
+// }
+
+// #form-toggle:checked ~ #login_form {
+//     display: none;
+// }
+
+// #form-toggle:not(:checked) ~ #login-label {
+//     pointer-events:none;
+// }
+
+// #form-toggle:checked ~ #login-label {
+//     cursor: pointer;
+// }
+// #form-toggle:checked ~ #register_form {
+//     display: block;
+// }
+
+// #form-toggle:not(:checked) ~ #register-label {
+//     cursor: pointer;
+// }
+
+// #form-toggle:checked ~ #register-label {
+//     pointer-events:none;
+// }
+
+// .form-label {
+//     display: inline-block;
+//     justify-content: center;
+// }
+// .form-btn{
+//     #menu-toggle:checked + #menu-btn > #second-pan {
+//         transform: translate(220px, -9px) rotate(45deg);
+//         }
+// }
+
+@media only screen and (max-width:1200px){
+    .container-80 {
+        width: 90%;
+        margin: 0 auto; 
+    }
+    
+    .nav-col{
+        display: grid;
+        grid-template:
+            'logo        menu        login'      auto /
+             30%         50%         18%
+        ;
+    }
+    
+    .nav-logo {
+        width: 12em;
+    }
+}
+
+@media only screen and (max-width:992px) {
+    .container-80 {
+        width: 90%;
+    }
+    
+    .nav-col{
+        display: grid;
+        grid-template:
+            'logo        menu        login'      auto /
+             20%         55%         23%
+        ;
+    }
+    
+    .nav-logo {
+        width: 10em;
+    }
+}
+
+@media only screen and (max-width:768px) {
+
+    .nav-col{
+        display: grid;
+        grid-template:
+            'menu       logo       login'      auto /
+            1fr         1fr         1fr
+        ;
+    }
+
+    .nav-logo {
+        width: 12em;
+    }
+    
+    #nav-col-menu ul {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        list-style: none;
+    }
+
+    #menu-toggle:checked + #menu-btn > #burger {
+        transform: translate(220px) rotate(-45deg);
+    }
+
+    #menu-toggle:checked + #menu-btn > #first-pan {
+    transform: translate(220px, 7px) rotate(45deg);
+    }
+
+    #menu-toggle:checked + #menu-btn > #second-pan {
+    transform: translate(220px, -9px) rotate(45deg);
+    }
+
+    #menu-toggle:checked ~ #menu-box {
+    left: 0 !important;
+    }
+
+    #menu-btn {
+    position: fixed;
+    display: block;
+    top: 30px;
+    left: 40px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+    }
+
+    #nav-col-menu + #menu-toggle {
+        z-index:100;
+    }
+
+    #first-pan{
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+    z-index: 1;
+    }
+
+    #burger{
+    display: block;
+    width: 30px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+    z-index: 1;
+    }
+
+    #second-pan{
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+    z-index: 1;
+    }
+
+    #menu-box {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    ;
+    background-color: #ECEFF1;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition-duration: .25s;
+    }
+}
+
+
+@import "~bootstrap/scss/bootstrap";
+
