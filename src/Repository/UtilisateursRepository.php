@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Utilisateurs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<Utilisateurs>
@@ -14,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Utilisateurs[]    findAll()
  * @method Utilisateurs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UtilisateursRepository extends ServiceEntityRepository
+class UtilisateursRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -30,6 +33,12 @@ class UtilisateursRepository extends ServiceEntityRepository
         }
     }
 
+    public function Update(Utilisateurs $entity): void
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+    }
+
     public function remove(Utilisateurs $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -37,6 +46,20 @@ class UtilisateursRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Used to upgrade (rehash) the user's password automatically over time.
+     */
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        if (!$user instanceof Utilisateurs) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        }
+
+        $user->setPassword($newHashedPassword);
+
+        $this->add($user, true);
     }
 
 //    /**
