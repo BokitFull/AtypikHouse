@@ -54,6 +54,9 @@ body {
 .green-text {
     color: #2B7929 !important;
 }
+.border-success {
+    border-color: #2b7929!important;
+}
 
 #main-container {
     width: 80%;
@@ -87,18 +90,17 @@ body {
 #nav-col-menu {
     grid-area: menu;
 }
+  #nav-col-menu ul {
+      margin: 0 auto;
+      display:flex;
+      justify-content: space-around;
+      list-style: none;
+  }
 
 .nav-col-login {
     grid-area: login;
     display: flex;
     justify-content: end;
-}
-
-#nav-col-menu ul {
-    margin: 0 auto;
-    display:flex;
-    justify-content: space-around;
-    list-style: none;
 }
 
 .nav-logo {
@@ -128,6 +130,10 @@ body {
     ;
 }
 
+.selected {
+    color: #998763!important;
+}
+
 #login_div_image {
     background-image: url('/public/images/login_image.jpg');
     grid-area: image;
@@ -147,13 +153,71 @@ body {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.authentication_form{
+.authentication_form {
     width: 70%;
     height: 240px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#payment_form {
+    background-color: #998763;
+}
+
+.image-row {
+    max-height: fit-content;
+}
+.image-row > div {
+    height: 400px;
+    overflow: hidden;
+}
+
+.img-fluid {
+    cursor: pointer;
+}
+
+.image-side img {
+    width: 200px;
+}
+.image-central img {
+    width: 400px;
+}
+
+.separator {
+    color: #2b7929;
+    width: 100%;
+}
+
+.horizontal-lign {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    margin-bottom: 2rem;
+}
+
+.button {
+    background-color: #2b7929;
+    color: white;
+    border-radius: 10px;
+    border-width: 0;
+    padding: 4px 16px;
+}
+.button:hover {
+    background-color: #998763;
+    color: black;
+}
+
+.profile-picture {
+    width: 8%;
+}
+
+.card {
+    background-color: #e4e0d9;
 }
 
 #register_form{
