@@ -57,12 +57,15 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
     private $reservations;
-
+  
     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
     private $habitats;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
+
+    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
+    private $habitats;
 
     public function __construct()
     {

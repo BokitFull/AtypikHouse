@@ -2,17 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}AtypikHouse{% endblock %}</title>
-        <link src="/fontawesome-5.15.4/css/all.min.css"></link>
-
+        <title>{% block title %}AtypikHouse!{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('navbar') }}
         {% endblock %}
-
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
         <script type="text/javascript">
 
@@ -27,7 +26,23 @@
                 });
             })
         </script> 
-
+        
+    </head>
+    <header>
+        <nav class="nav-col">
+            <div class="nav-col-logo">
+                <a href="/">
+                    <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
+                </a>
+            </div>
+            <div id="nav-col-menu">
+                <input id="menu-toggle" type="checkbox" />
+                <label id="menu-btn" for="menu-toggle">
+                    <span id="first-pan"></span>
+                    <span id="burger"></span>
+                    <span id="second-pan"></span>
+                </label>
+                <ul id="menu-box">
     </head>
     <body>
     <nav class="navbar navbar-expand-lg">
@@ -42,33 +57,33 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link green" href="#">Destination</a>
+                        <a class="nav-link fs-5 green-text" href="/">Destinations <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link green" href="{{ path('habitat.index') }}">Hébergements</a>
+                        <a class="nav-link fs-5 green-text" href="{{ path('habitat.index') }}">Hébergements <span class="sr-only">(current)</span></a>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link green" href="#">Contact</a>
+                        <a class="nav-link fs-5 green-text" href="/">Contact<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link green" href="#">Devenir hôte</a>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link fs-5 green-text" href="{{ path('hote_presentation') }}">Devenir hôte<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-                <div class="profile-logo">
-                <a class="black" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
-                </div>
             </div>
+            {{ render(controller('App\\Controller\\UtilisateursController::userNav')) }}
+        </nav>
+    </header>
+    <body>
+        <div id="main-container">
+            {% block content %}{% endblock %}
         </div>
-    </nav>
-    <hr />
-        {% block body %}{% endblock %}
- 
-    <div class="div-footer bg-light">
-        <footer class="d-flex justify-content-between align-items-center">
+    </body>
+    <footer>
+        <div id="footer-div">
             <span>Copyright 2022 - Tout droits réservés</span>
             <a rel="Mentions légales" href="#">Mentions légales</a>
             <a rel="Confidentialités" href="#">Confidentialités</a>
-        </footer>
-    </div>
-    </body>
+        </div>
+    </footer>
 </html>

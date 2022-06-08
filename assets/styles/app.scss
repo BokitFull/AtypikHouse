@@ -1,64 +1,165 @@
-@import "~bootstrap/scss/bootstrap";
-
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-    background-color: lightgray;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-.green {
-    color: #2b7929;
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    min-height: 100vh;
+    background-color: #e4e0d9 !important;
+}
+
+.green-text {
+    color: #2B7929 !important;
 }
 .border-success {
     border-color: #2b7929!important;
 }
 
-.black {
-    color: black;
+#main-container {
+    width: 80%;
+    margin: 0 auto; 
 }
 
-.white {
-    color: #e4e0d9;
-}
+/*---------------------
+        NAVBAR
+---------------------*/
 
-.orange {
-    color: #b87247;
-}
-
-.brown {
-    color: #998763;
-}
-
-.nav-link:hover {
-    color: #998763;
-}
-
-.div-footer {
+.nav-col{
     width: 100%;
-    position: relative;
-    bottom: 0;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    display: grid;
+    grid-template:
+        'logo       menu        login'      auto /
+         35%        45%         17%
+    ;
+    gap: 1rem;
+    border-bottom: 0.1em solid;
 }
 
-footer span, footer a {
-    font-size: small;
+.nav-col-logo {
+    grid-area: logo;
 }
 
-a {
-    text-decoration: none;
-    color: #2b7929;
+#nav-col-menu {
+    grid-area: menu;
 }
-a:hover {
-    color: #998763;
+  #nav-col-menu ul {
+      margin: 0 auto;
+      display:flex;
+      justify-content: space-around;
+      list-style: none;
+  }
+
+.nav-col-login {
+    grid-area: login;
+    display: flex;
+    justify-content: end;
 }
+
+.nav-logo {
+    height: auto;
+    width: 12em;
+}
+
+#menu-toggle, #menu-btn{
+    display: none;
+}
+
+.site-background-color{
+    background-color: #e4e0d9 !important;
+}
+
+/*---------------------
+        LOGIN PAGE
+---------------------*/
+#login_div{
+    width: 100%;
+    height: 500px;
+    align-items: center;
+    display: grid;
+    grid-template:
+        'image       form' auto /
+        40%         60%      
+    ;
+}
+
 .selected {
     color: #998763!important;
 }
 
-#navbarSupportedContent {
+#login_div_image {
+    background-image: url('/public/images/login_image.jpg');
+    grid-area: image;
     width: 100%;
+    height: 100%;
 }
 
-.profile-logo {
-    justify-self: flex-end;
-    margin: 0;
+#login_div_form {
+    grid-area: form;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.authentication_form {
+    width: 70%;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #payment_form {
@@ -118,97 +219,209 @@ a:hover {
 .card {
     background-color: #e4e0d9;
 }
-// .images-side, .image-central {
-//     max-height: 400px;
-// }
-// .images-side div {
-//     max-width: 200px;
-//     margin: 10px 0;
-//     height: 50%;
-// }
-// .images-side img {
-//     height: auto;
-// }
 
-// .image-central div {
-//     margin: 10px 0;
-//     height: 100%;
-// }
-// .image-central img {
-//     max-height: 100%;
-// }
-
-@media (min-width: 1024px) {
-    footer {
-        width: 40%;
-        margin-left: 30%;
-        margin-right: 30%;
-    }
+#register_form{
+    display: none;   
 }
 
-@media (max-width: 1024px) {
-    footer {
-        width: 60%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-}
-@media (min-width: 992px) {
-    #navbarSupportedContent {
-        justify-content: center;
-    }
-
-    .profile-logo {
-        margin-left: 50px;
-    }
-
-    #imgLogo {
-        width: 80%;
-    }
+.authentication_form input {
+    background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0px;
+	width: 100%;
 }
 
-@media (max-width: 992px) {
-    #imgLogo {
-        width: 50%;
-    }
+.submit-btn {
+    margin-bottom: 8px;
+    width: fit-content;
 }
 
-@media (max-width: 700px) {
-    footer {
-        width: 80%;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-
-    .navbar-brand {
-        width: 80%;
-    }
+#login_btn_div{
+    display: flex;
+    justify-content: center;
+    gap:10px;
 }
 
-@media (min-width: 620px) {
+#login_btn_div button{
+    background:none;
+    border:none;
+}
+
+#login_form_btn{
+    display: none;
+}
+
+/*---------------------
+        FOOTER
+---------------------*/
+
+#footer-div {
+    width: 100%;
+    height: 40px;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#footer-div a{
+   text-decoration: none;
+   color: #616161;
+}
+
+@media only screen and (max-width:1200px){
+    .container-80 {
+        width: 90%;
+        margin: 0 auto; 
+    }
     
-    // #imgLogo {
-    //     // src: url('/assets/images/atypik_icon_transparent.png');
-    // }
-}
-
-@media (max-width: 620px) {
+    .nav-col{
+        display: grid;
+        grid-template:
+            'logo        menu        login'      auto /
+             30%         50%         18%
+        ;
+    }
     
-    // #imgLogo {
-    //     // src: url('/assets/images/atypik_icon_transparent.png');
-    // }
+    .nav-logo {
+        width: 12em;
+    }
 }
 
-@media (max-width: 520px) {
-    footer {
-        margin: 0;
+@media only screen and (max-width:992px) {
+    .container-80 {
+        width: 90%;
+    }
+    
+    .nav-col{
+        display: grid;
+        grid-template:
+            'logo        menu        login'      auto /
+             20%         55%         23%
+        ;
+    }
+    
+    .nav-logo {
+        width: 10em;
+    }
+
+    #login_div{
+        grid-template:
+            'image  form' auto /
+             30%    70%      
+        ;
+    }
+}
+
+@media only screen and (max-width:768px) {
+
+    .nav-col{
+        display: grid;
+        grid-template:
+            'menu       logo       login'      auto /
+            1fr         1fr         1fr
+        ;
+    }
+
+    .nav-logo {
+        width: 12em;
+    }
+    
+    #nav-col-menu ul {
+        display: flex;
+        justify-content: flex-start;
         flex-direction: column;
-        width: 100%;
+        list-style: none;
+    }
+
+    #menu-toggle:checked + #menu-btn > #burger {
+        transform: rotate(-45deg);
+    }
+
+    #menu-toggle:checked + #menu-btn > #first-pan {
+        transform: translate(0, 7px) rotate(45deg);
+    }
+
+    #menu-toggle:checked + #menu-btn > #second-pan {
+        transform: translate(0, -9px) rotate(45deg);
+    }
+
+    #menu-toggle:checked + #menu-btn {
+        transform: translate(220px);
+    }
+
+    #menu-toggle:checked ~ #menu-box {
+    left: 0 !important;
+    }
+
+    #menu-btn {
+    position: relative;
+    display: block;
+    left: 40px;
+    cursor: pointer;
+    z-index: 1;
+    }
+
+    #nav-col-menu + #menu-toggle {
+        z-index:100;
+    }
+
+    #first-pan{
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+    z-index: 1;
+    }
+
+    #burger{
+    display: block;
+    width: 30px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+    z-index: 1;
+    }
+
+    #second-pan{
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: #616161;
+    transition-duration: .25s;
+    z-index: 1;
+    }
+
+    #menu-box {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    ;
+    background-color: #ECEFF1;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition-duration: .25s;
+    }
+
+    #login_div{
+        grid-template:
+            'image  form' auto /
+             0%     100%      
+        ;
     }
 }
 
-@media (max-width: 350px) {
-    .navbar-brand {
-        width: 40%;
-    }
+@import "~bootstrap/scss/bootstrap";
+
+a.selected {
+    color: #998763;
 }

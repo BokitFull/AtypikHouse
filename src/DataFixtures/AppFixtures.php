@@ -29,7 +29,6 @@ class AppFixtures extends Fixture
 
         // create 20 products! Bam!
         for ($i = 0; $i < 10; $i++) {
-
             $utilisateur = new Utilisateurs();
             $utilisateur->setNom($faker->firstName);
             $utilisateur->setprenom($faker->lastName);
