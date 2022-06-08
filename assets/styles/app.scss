@@ -130,10 +130,6 @@ body {
     ;
 }
 
-.selected {
-    color: #998763!important;
-}
-
 #login_div_image {
     background-image: url('/public/images/login_image.jpg');
     grid-area: image;
@@ -162,9 +158,9 @@ body {
     align-items: center;
 }
 
-#payment_form {
-    background-color: #998763;
-}
+/*------------------------
+    DETAILS HABITAT PAGE
+------------------------*/
 
 .image-row {
     max-height: fit-content;
@@ -181,6 +177,7 @@ body {
 .image-side img {
     width: 200px;
 }
+
 .image-central img {
     width: 400px;
 }
@@ -196,9 +193,22 @@ body {
     margin: 0;
 }
 
-.container {
-    margin-bottom: 2rem;
+.profile-picture {
+    width: 8%;
 }
+
+.card {
+    background-color: #e4e0d9;
+}
+
+/*-------------------
+    PAYMENT FORM
+-------------------*/
+
+#payment_form {
+    background-color: #998763;
+}
+
 
 .button {
     background-color: #2b7929;
@@ -212,12 +222,11 @@ body {
     color: black;
 }
 
-.profile-picture {
-    width: 8%;
+.selected {
+    color: #998763!important;
 }
-
-.card {
-    background-color: #e4e0d9;
+a.selected {
+    color: #998763;
 }
 
 #register_form{
@@ -421,7 +430,3 @@ body {
 }
 
 @import "~bootstrap/scss/bootstrap";
-
-a.selected {
-    color: #998763;
-}
