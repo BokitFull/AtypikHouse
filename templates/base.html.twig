@@ -11,21 +11,6 @@
             {{ encore_entry_script_tags('app') }}
             {{ encore_entry_script_tags('navbar') }}
         {% endblock %}
-        
-        <script type="text/javascript">
-
-            $(document).ready(function() {
-
-                $(".nav-link").on("click", function() {
-                    console.log(this);
-
-                    $(".nav-link.selected").each(function() { $(this).removeClass("selected"); })
-
-                    $(this).addClass("selected");
-                });
-            })
-        </script> 
-        
     </head>
     <header>
         <nav class="nav-col">
@@ -42,25 +27,11 @@
                     <span id="second-pan"></span>
                 </label>
                 <ul id="menu-box">
-    </head>
-    <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('home') }}">
-                <img id="imgLogo" src="/images/atypik_long_transparent.png" alt="logo_long">
-                {# <img src="{{ asset('/images/atypik_long.png') }}" alt="logo_long" width="80%"> #}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link fs-5 green-text" href="/">Destinations <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fs-5 green-text" href="{{ path('habitat.index') }}">Hébergements <span class="sr-only">(current)</span></a>
-
+                        <a class="nav-link fs-5 green-text" href="{{path('habitat.index')}}">Hébergements <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link fs-5 green-text" href="/">Contact<span class="sr-only">(current)</span></a>
