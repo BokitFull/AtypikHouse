@@ -2,27 +2,31 @@
 
 namespace App\Form;
 
+use App\Entity\Habitats;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PaymentFormType extends AbstractType
+class HabitatType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('number_card')
-            ->add('validity_date')
-            ->add('code')
-            ->add('amount')
-            ->add('_token')
+            ->add('libelle')
+            ->add('adresse')
+            ->add('code_postal')
+            ->add('ville')
+            ->add('pays')
+            ->add('est_disponible')
+            ->add('created_at')
+            ->add('proprietaire')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Habitats::class,
         ]);
     }
 }

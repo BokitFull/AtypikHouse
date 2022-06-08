@@ -25,6 +25,9 @@ class Commentaires
     #[ORM\OneToOne(targetEntity: commentaires::class, cascade: ['persist', 'remove'])]
     private $commentaire_parent;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $created_at;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Commentaires
     public function setCommentaireParent(?commentaires $commentaire_parent): self
     {
         $this->commentaire_parent = $commentaire_parent;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

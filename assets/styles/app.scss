@@ -7,6 +7,9 @@ body {
 .green {
     color: #2b7929;
 }
+.border-success {
+    border-color: #2b7929!important;
+}
 
 .black {
     color: black;
@@ -30,7 +33,7 @@ body {
 
 .div-footer {
     width: 100%;
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 
@@ -46,7 +49,7 @@ a:hover {
     color: #998763;
 }
 .selected {
-    color: #998763;
+    color: #998763!important;
 }
 
 #navbarSupportedContent {
@@ -61,6 +64,79 @@ a:hover {
 #payment_form {
     background-color: #998763;
 }
+
+.image-row {
+    max-height: fit-content;
+}
+.image-row > div {
+    height: 400px;
+    overflow: hidden;
+}
+
+.img-fluid {
+    cursor: pointer;
+}
+
+.image-side img {
+    width: 200px;
+}
+.image-central img {
+    width: 400px;
+}
+
+.separator {
+    color: #2b7929;
+    width: 100%;
+}
+
+.horizontal-lign {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    margin-bottom: 2rem;
+}
+
+.button {
+    background-color: #2b7929;
+    color: white;
+    border-radius: 10px;
+    border-width: 0;
+    padding: 4px 16px;
+}
+.button:hover {
+    background-color: #998763;
+    color: black;
+}
+
+.profile-picture {
+    width: 8%;
+}
+
+.card {
+    background-color: #e4e0d9;
+}
+// .images-side, .image-central {
+//     max-height: 400px;
+// }
+// .images-side div {
+//     max-width: 200px;
+//     margin: 10px 0;
+//     height: 50%;
+// }
+// .images-side img {
+//     height: auto;
+// }
+
+// .image-central div {
+//     margin: 10px 0;
+//     height: 100%;
+// }
+// .image-central img {
+//     max-height: 100%;
+// }
 
 @media (min-width: 1024px) {
     footer {

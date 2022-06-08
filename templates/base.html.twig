@@ -14,19 +14,19 @@
         {% endblock %}
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-            <script type="text/javascript">
+        <script type="text/javascript">
 
-                $(document).ready(function() {
+            $(document).ready(function() {
 
-                    $(".nav-link").on("click", function() {
-                        console.log(this);
+                $(".nav-link").on("click", function() {
+                    console.log(this);
 
-                        $(".nav-link.selected").each(function() { $(this).removeClass("selected"); })
+                    $(".nav-link.selected").each(function() { $(this).removeClass("selected"); })
 
-                        $(this).addClass("selected");
-                    });
-                })
-            </script> 
+                    $(this).addClass("selected");
+                });
+            })
+        </script> 
 
     </head>
     <body>
@@ -45,7 +45,7 @@
                         <a class="nav-link green" href="#">Destination</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link green" href="#">Hébergements</a>
+                        <a class="nav-link green" href="{{ path('habitat.index') }}">Hébergements</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link green" href="#">Contact</a>
