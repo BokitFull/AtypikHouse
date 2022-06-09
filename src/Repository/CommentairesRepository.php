@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commentaires;
+use App\Entity\Habitats;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,18 @@ class CommentairesRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByHabitat(Habitats $entity) {
+        return 
+        $this->createQueryBuilder('c')
+        ->select('c')
+        ->leftJoin('c.reservation', 'r')
+        ->leftJoin('r.habitat', 'h')
+        ->andWhere('h.id = :id')
+        ->setParameter('id', $entity->getId())
+        ->getQuery()
+        ->getResult();
     }
 
 //    /**

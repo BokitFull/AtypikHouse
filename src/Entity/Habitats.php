@@ -58,11 +58,18 @@ class Habitats
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: InformationsPratiques::class)]
+    private $informations_pratiques;
+
+    #[ORM\Column(type: 'json')]
+    private $informations_generales = [];
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->equipements = new ArrayCollection();
         $this->activites = new ArrayCollection();
+        $this->informations_pratiques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -288,6 +295,48 @@ class Habitats
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InformationsPratiques>
+     */
+    public function getInformationsPratiques(): Collection
+    {
+        return $this->informations_pratiques;
+    }
+
+    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        if (!$this->informations_pratiques->contains($informationsPratique)) {
+            $this->informations_pratiques[] = $informationsPratique;
+            $informationsPratique->setHabitats($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        if ($this->informations_pratiques->removeElement($informationsPratique)) {
+            // set the owning side to null (unless already changed)
+            if ($informationsPratique->getHabitats() === $this) {
+                $informationsPratique->setHabitats(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getInformationsGenerales(): ?array
+    {
+        return $this->informations_generales;
+    }
+
+    public function setInformationsGenerales(array $informations_generales): self
+    {
+        $this->informations_generales = $informations_generales;
 
         return $this;
     }

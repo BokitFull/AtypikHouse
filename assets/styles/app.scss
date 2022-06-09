@@ -54,6 +54,13 @@ body {
 .green-text {
     color: #2B7929 !important;
 }
+.orange-text {
+    color: #b87247 !important;
+}
+.brown-text {
+    color: #998763 !important;
+}
+
 .border-success {
     border-color: #2b7929!important;
 }
@@ -162,13 +169,13 @@ body {
     DETAILS HABITAT PAGE
 ------------------------*/
 
-.image-row {
-    max-height: fit-content;
-}
-.image-row > div {
-    height: 400px;
-    overflow: hidden;
-}
+// .image-row {
+//     max-height: fit-content;
+// }
+// .image-row > div {
+//     height: 400px;
+//     overflow: hidden;
+// }
 
 .img-fluid {
     cursor: pointer;
@@ -272,6 +279,7 @@ a.selected {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #footer-div a{
