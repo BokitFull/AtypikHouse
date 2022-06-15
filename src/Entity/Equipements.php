@@ -25,7 +25,7 @@ class Equipements
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'equipements')]
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'Equipements')]
     private $habitats;
 
     public function getId(): ?int

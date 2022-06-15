@@ -30,7 +30,7 @@ class Habitats
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
-    #[ORM\ManyToOne(targetEntity: utilisateurs::class, inversedBy: 'habitats')]
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
     private $proprietaire;
 
     #[ORM\Column(type: 'boolean')]
@@ -40,19 +40,19 @@ class Habitats
     private $created_at;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
-    private $reservations;
+    private $Reservations;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: equipements::class)]
-    private $equipements;
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
+    private $Equipements;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: activites::class)]
-    private $activites;
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
+    private $Activites;
 
     public function __construct()
     {
-        $this->reservations = new ArrayCollection();
-        $this->equipements = new ArrayCollection();
-        $this->activites = new ArrayCollection();
+        $this->Reservations = new ArrayCollection();
+        $this->Equipements = new ArrayCollection();
+        $this->Activites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,12 +120,12 @@ class Habitats
         return $this;
     }
 
-    public function getProprietaire(): ?utilisateurs
+    public function getProprietaire(): ?Utilisateurs
     {
         return $this->proprietaire;
     }
 
-    public function setProprietaire(?utilisateurs $proprietaire): self
+    public function setProprietaire(?Utilisateurs $proprietaire): self
     {
         $this->proprietaire = $proprietaire;
 
@@ -161,13 +161,13 @@ class Habitats
      */
     public function getReservations(): Collection
     {
-        return $this->reservations;
+        return $this->Reservations;
     }
 
     public function addReservation(Reservations $reservation): self
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations[] = $reservation;
+        if (!$this->Reservations->contains($reservation)) {
+            $this->Reservations[] = $reservation;
             $reservation->setHabitat($this);
         }
 
@@ -176,7 +176,7 @@ class Habitats
 
     public function removeReservation(Reservations $reservation): self
     {
-        if ($this->reservations->removeElement($reservation)) {
+        if ($this->Reservations->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
             if ($reservation->getHabitat() === $this) {
                 $reservation->setHabitat(null);
@@ -187,26 +187,26 @@ class Habitats
     }
 
     /**
-     * @return Collection<int, equipements>
+     * @return Collection<int, Equipements>
      */
     public function getEquipements(): Collection
     {
-        return $this->equipements;
+        return $this->Equipements;
     }
 
-    public function addEquipement(equipements $equipement): self
+    public function addEquipement(Equipements $equipement): self
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements[] = $equipement;
+        if (!$this->Equipements->contains($equipement)) {
+            $this->Equipements[] = $equipement;
             $equipement->setHabitats($this);
         }
 
         return $this;
     }
 
-    public function removeEquipement(equipements $equipement): self
+    public function removeEquipement(Equipements $equipement): self
     {
-        if ($this->equipements->removeElement($equipement)) {
+        if ($this->Equipements->removeElement($equipement)) {
             // set the owning side to null (unless already changed)
             if ($equipement->getHabitats() === $this) {
                 $equipement->setHabitats(null);
@@ -217,26 +217,26 @@ class Habitats
     }
 
     /**
-     * @return Collection<int, activites>
+     * @return Collection<int, Activites>
      */
     public function getActivites(): Collection
     {
-        return $this->activites;
+        return $this->Activites;
     }
 
-    public function addActivite(activites $activite): self
+    public function addActivite(Activites $activite): self
     {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
+        if (!$this->Activites->contains($activite)) {
+            $this->Activites[] = $activite;
             $activite->setHabitats($this);
         }
 
         return $this;
     }
 
-    public function removeActivite(activites $activite): self
+    public function removeActivite(Activites $activite): self
     {
-        if ($this->activites->removeElement($activite)) {
+        if ($this->Activites->removeElement($activite)) {
             // set the owning side to null (unless already changed)
             if ($activite->getHabitats() === $this) {
                 $activite->setHabitats(null);

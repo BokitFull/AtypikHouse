@@ -16,10 +16,10 @@ class Commentaires
     #[ORM\Column(type: 'text')]
     private $commentaire;
 
-    #[ORM\OneToOne(targetEntity: utilisateurs::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Utilisateurs::class, cascade: ['persist', 'remove'])]
     private $utilisateur;
 
-    #[ORM\OneToOne(targetEntity: reservations::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Reservations::class, cascade: ['persist', 'remove'])]
     private $reservation;
 
     #[ORM\OneToOne(targetEntity: commentaires::class, cascade: ['persist', 'remove'])]
@@ -42,24 +42,24 @@ class Commentaires
         return $this;
     }
 
-    public function getUtilisateur(): ?utilisateurs
+    public function getUtilisateur(): ?Utilisateurs
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?utilisateurs $utilisateur): self
+    public function setUtilisateur(?Utilisateurs $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function getReservation(): ?reservations
+    public function getReservation(): ?Reservations
     {
         return $this->reservation;
     }
 
-    public function setReservation(?reservations $reservation): self
+    public function setReservation(?Reservations $reservation): self
     {
         $this->reservation = $reservation;
 
