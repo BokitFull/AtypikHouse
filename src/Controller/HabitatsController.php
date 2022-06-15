@@ -16,9 +16,16 @@ class HabitatsController extends AbstractController
     #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
     public function index(HabitatsRepository $habitatsRepository): Response
     {
-        return $this->render('habitats/index.html.twig', [
-            'habitats' => $habitatsRepository->findAll(),
-        ]);
+        if(isset($_GET["dep"])){
+            return $this->render('habitats/index.html.twig', [
+                'habitats' => $habitatsRepository->findBy(array('code_postal' => $_GET["dep"])),
+            ]);
+        }
+        else{
+            return $this->render('habitats/index.html.twig', [
+                'habitats' => $habitatsRepository->findAll(),
+            ]);
+        }
     }
 
     #[Route('/new', name: 'app_habitats_new', methods: ['GET', 'POST'])]
