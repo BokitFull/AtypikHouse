@@ -40,8 +40,9 @@
 	{% else %}
 		<span colspan="9">no records found</span>
 	{% endfor %}
-
-	{{ dump(dep) }}
+	<div class="navigation">
+		{{ knp_pagination_render(habitats) }}
+	</div>
 
 	<div class="modal fade" id="filtre_list_modal" tabindex="-1" aria-labelledby="filtre_list_modal_label" aria-hidden="true">
 		<div class="modal-dialog">
@@ -70,12 +71,12 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <a id="applyFilter" class="btn btn-primary" href="#">Appliquer</a>
+					<a id="applyFilter" class="btn btn-primary" href="#">Appliquer</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<a href="{{ path('app_habitats_new') }}">Create new</a>
+	<!--<a href="{{ path('app_habitats_new') }}">Create new</a>-->
 {% endblock %}

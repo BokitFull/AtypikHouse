@@ -9,21 +9,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
     #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
-    public function index(HabitatsRepository $habitatsRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
     {
-        if(isset($_GET["dep"])){
+        if (isset($_GET["dep"])) {
+            
+            // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+            $donnees = $habitatsRepository->findBy(array('code_postal' => $_GET["dep"]));
+            
+            $habitats = $paginator->paginate(
+                $donnees, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                6 // Nombre de résultats par page
+            );
+            
             return $this->render('habitats/index.html.twig', [
-                'habitats' => $habitatsRepository->findBy(array('code_postal' => $_GET["dep"])),
+                'habitats' => $habitats,
             ]);
-        }
-        else{
+        } else {
+
+            // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+            $donnees = $habitatsRepository->findAll();
+
+            $habitats = $paginator->paginate(
+                $donnees, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                6 // Nombre de résultats par page
+            );
+
             return $this->render('habitats/index.html.twig', [
-                'habitats' => $habitatsRepository->findAll(),
+                'habitats' => $habitats,
             ]);
         }
     }
@@ -76,7 +96,7 @@ class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'app_habitats_delete', methods: ['POST'])]
     public function delete(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$habitat->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $habitat->getId(), $request->request->get('_token'))) {
             $habitatsRepository->remove($habitat, true);
         }
 

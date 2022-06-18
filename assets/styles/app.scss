@@ -187,3 +187,23 @@ a.selected {
     align-items: center;
     place-content: space-between;
 }
+
+.pagination {
+    justify-content: center;
+    span {
+        background-color: #2b7929;
+        color: #ffffff;
+        border: black 1px solid;
+        padding: 5px;
+        min-width: 35px;
+        text-align: center;
+    }
+    a {
+        background-color: #2b7929;
+        color: #ffffff;
+    }
+    .current {
+        color: #2b7929 !important;
+        background-color: #ffffff !important;
+    }
+}
