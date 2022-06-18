@@ -2,18 +2,70 @@
 <html>
     <head>
         <meta charset="UTF-8">
+{# <<<<<<< HEAD #}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}AtypikHouse!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+{# ======= #}
+        <title>{% block title %}AtypikHouse!{% endblock %}</title>
+{# >>>>>>> d9d2f983fbb01e0f9f338ca760f8476d70102e12 #}
         {% block stylesheets %}
         {% endblock %}
+{# <<<<<<< HEAD #}
         {% block javascripts %} 
+{# ======= #}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('navbar') }}
+{# >>>>>>> d9d2f983fbb01e0f9f338ca760f8476d70102e12 #}
         {% endblock %}
     </head>
+    <header>
+        <nav class="nav-col">
+            <div class="nav-col-logo">
+                <a href="/">
+                    <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
+                </a>
+            </div>
+            <div id="nav-col-menu">
+                <input id="menu-toggle" type="checkbox" />
+                <label id="menu-btn" for="menu-toggle">
+                    <span id="first-pan"></span>
+                    <span id="burger"></span>
+                    <span id="second-pan"></span>
+                </label>
+                <ul id="menu-box">
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 green-text" href="/">Destinations <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 green-text" href="{{path('habitat.index')}}">Hébergements <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 green-text" href="/">Contact<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link fs-5 green-text" href="{{ path('hote_presentation') }}">Devenir hôte<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            {{ render(controller('App\\Controller\\UtilisateursController::userNav')) }}
+        </nav>
+    </header>
     <body>
-        {% block body %}{% endblock %}
+        <div id="main-container">
+            {% block content %}{% endblock %}
+        </div>
     </body>
+    <footer>
+        <div id="footer-div">
+            <span>Copyright 2022 - Tout droits réservés</span>
+            <a rel="Mentions légales" href="#">Mentions légales</a>
+            <a rel="Confidentialités" href="#">Confidentialités</a>
+        </div>
+    </footer>
 </html>

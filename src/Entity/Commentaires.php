@@ -22,8 +22,11 @@ class Commentaires
     #[ORM\OneToOne(targetEntity: Reservations::class, cascade: ['persist', 'remove'])]
     private $reservation;
 
-    #[ORM\OneToOne(targetEntity: commentaires::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Commentaires::class, cascade: ['persist', 'remove'])]
     private $commentaire_parent;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $created_at;
 
     public function getId(): ?int
     {
@@ -66,14 +69,26 @@ class Commentaires
         return $this;
     }
 
-    public function getCommentaireParent(): ?commentaires
+    public function getCommentaireParent(): ?Commentaires
     {
         return $this->commentaire_parent;
     }
 
-    public function setCommentaireParent(?commentaires $commentaire_parent): self
+    public function setCommentaireParent(?Commentaires $commentaire_parent): self
     {
         $this->commentaire_parent = $commentaire_parent;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

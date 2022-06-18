@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
+use App\Entity\Equipements;
 use App\Entity\Notes;
 use App\Entity\Reservations;
 use App\Entity\Utilisateurs;
@@ -14,8 +15,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AppFixtures extends Fixture
-{   
+class AppFixtures extends Fixture {
     public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
     $this->passwordHasher = $userPasswordHasher;
@@ -40,11 +40,25 @@ class AppFixtures extends Fixture
             $utilisateur->setCodePostal($faker->postcode);
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
+            $utilisateur->setImage('');
+
             $utilisateur->setCreatedAt(new DateTimeImmutable('now'));
 
             array_push($utilisateurs, $utilisateur);
             $manager->persist($utilisateur);
         
+        }
+
+        $equipements = array();
+        for ($i = 0; $i < 10; $i++) {
+            $equipement = new Equipements();
+            $equipement->setLibelle($faker->company);
+            $equipement->setDescription($faker->sentence(20));
+            $equipement->setEtat($faker->sentence(1));
+            $equipement->setCreatedAt(new DateTimeImmutable('now'));
+
+            array_push($equipements, $equipement);
+            $manager->persist($equipement);
         }
 
         $habitats = array();
@@ -56,7 +70,16 @@ class AppFixtures extends Fixture
             $habitat->setVille($faker->city);
             $habitat->setPays($faker->country);
             $habitat->setEstDisponible(1);
+
             $habitat->setCreatedAt(new DateTimeImmutable('now'));
+
+            $habitat->setDescriptionTitle($faker->sentence(2));
+            $habitat->setDescription($faker->sentence(20));
+            $habitat->addEquipement($equipements[rand(0, 10)]);
+            $habitat->setCreatedAt(new DateTimeImmutable('now'));
+
+            $imageEncode = array("url" => "/images/exemple.jpg", "title" => "image_test");
+            $habitat->setImages($imageEncode);
             $habitat->setProprietaire($utilisateurs[rand(7,9)]);
 
             array_push($habitats, $habitat);
@@ -72,7 +95,6 @@ class AppFixtures extends Fixture
             array_push($commentaires, $commentaire);
             $manager->persist($commentaire);
         }
-
 
 
         $reservations = array();
@@ -122,6 +144,28 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $note = new Notes();
             $note->setNote(rand(0, 5));
+
+        $commentaires = array();
+        for ($i = 0; $i < 10; $i++) {
+            $commentaire = new Commentaires();
+            $commentaire->setCommentaire($faker->sentence(40));
+            $commentaire->setUtilisateur($utilisateurs[$i]);
+            $commentaire->setReservation($reservations[$i]);
+            $commentaire->setCreatedAt(new DateTimeImmutable('now'));
+            
+            array_push($commentaires, $commentaire);
+            $manager->persist($commentaire);
+        }
+
+        $notes = array();
+        for ($i = 0; $i < 10; $i++) {
+            $note = new Notes();
+            $note->setNoteProprete(rand(0,5));
+            $note->setNoteAccueil(rand(0,5));
+            $note->setNoteEmplacement(rand(0,5));
+            $note->setNoteQualitePrix(rand(0,5));
+            $note->setNoteEquipements(rand(0,5));
+
             $note->setUtilisateur($utilisateurs[$i]);
             $note->setReservation($reservations[$i]);
             array_push($notes, $note);
@@ -131,4 +175,5 @@ class AppFixtures extends Fixture
 
         $manager->flush();
     }
+}
 }

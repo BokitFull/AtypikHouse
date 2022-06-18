@@ -21,7 +21,7 @@ class Habitats
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
 
-    #[ORM\Column(type: 'string', length: 5)]
+    #[ORM\Column(type: 'string', length: 10)]
     private $code_postal;
 
     #[ORM\Column(type: 'string', length: 80)]
@@ -42,11 +42,28 @@ class Habitats
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
     private $Reservations;
 
+
     #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
     private $Equipements;
 
     #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
     private $Activites;
+
+
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
+    private $activites;
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private $images = [];
+
+    #[ORM\ManyToMany(targetEntity: Equipements::class, inversedBy: 'habitats')]
+    private $equipements;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $description_title;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $description;
 
     public function __construct()
     {
@@ -164,27 +181,28 @@ class Habitats
         return $this->Reservations;
     }
 
-    public function addReservation(Reservations $reservation): self
-    {
-        if (!$this->Reservations->contains($reservation)) {
-            $this->Reservations[] = $reservation;
-            $reservation->setHabitat($this);
-        }
+    // public function addReservation(Reservations $reservation): self
+    // {
+    // // 
+    // //     if (!$this->Reservations->contains($reservation)) {
+    // //         $this->Reservations[] = $reservation;
+    // //         $reservation->setHabitat($this);
+    // //     }
 
-        return $this;
-    }
+    //     // return $this;
+    // }
 
-    public function removeReservation(Reservations $reservation): self
-    {
-        if ($this->Reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getHabitat() === $this) {
-                $reservation->setHabitat(null);
-            }
-        }
+    // public function removeReservation(Reservations $reservation): self
+    // {
+    //     // if ($this->Reservations->removeElement($reservation)) {
+    //     //     // set the owning side to null (unless already changed)
+    //     //     if ($reservation->getHabitat() === $this) {
+    //     //         $reservation->setHabitat(null);
+    //     //     }
+    //     // }
 
-        return $this;
-    }
+    //     // return $this;
+    // }
 
     /**
      * @return Collection<int, Equipements>
@@ -204,17 +222,17 @@ class Habitats
         return $this;
     }
 
-    public function removeEquipement(Equipements $equipement): self
-    {
-        if ($this->Equipements->removeElement($equipement)) {
-            // set the owning side to null (unless already changed)
-            if ($equipement->getHabitats() === $this) {
-                $equipement->setHabitats(null);
-            }
-        }
+    // public function removeEquipement(Equipements $equipement): self
+    // {
+    //     // if ($this->Equipements->removeElement($equipement)) {
+    //     //     // set the owning side to null (unless already changed)
+    //     //     if ($equipement->getHabitats() === $this) {
+    //     //         $equipement->setHabitats(null);
+    //     //     }
+    //     // }
 
-        return $this;
-    }
+    //     // return $this;
+    // }
 
     /**
      * @return Collection<int, Activites>
@@ -242,6 +260,42 @@ class Habitats
                 $activite->setHabitats(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): self
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    public function getDescriptionTitle(): ?string
+    {
+        return $this->description_title;
+    }
+
+    public function setDescriptionTitle(string $description_title): self
+    {
+        $this->description_title = $description_title;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -55,15 +55,30 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Reservations::class)]
-    private $Reservations;
+// <<<<<<< HEAD
+//     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Reservations::class)]
+//     private $Reservations;
+
+//     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
+//     private $habitats;
+
+//     public function __construct()
+//     {
+//         $this->Reservations = new ArrayCollection();
+// =======
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
+    private $reservations;
 
     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
     private $habitats;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
+
     public function __construct()
     {
-        $this->Reservations = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+
         $this->habtats = new ArrayCollection();
     }
 
@@ -250,7 +265,8 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getReservations(): Collection
     {
-        return $this->Reservations;
+        return $this->reservations;
+
     }
 
     /**
@@ -260,4 +276,18 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->habitats;
     }
+
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 }

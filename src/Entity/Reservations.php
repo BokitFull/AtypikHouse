@@ -13,10 +13,12 @@ class Reservations
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'Reservations')]
+
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'reservations')]
     private $utilisateur;
 
-    #[ORM\ManyToOne(targetEntity: habitats::class, inversedBy: 'Reservations')]
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'reservations')]
+
     private $habitat;
     
     #[ORM\Column(type: 'float')]
@@ -49,12 +51,12 @@ class Reservations
         return $this;
     }
 
-    public function getHabitat(): ?habitats
+    public function getHabitat(): ?Habitats
     {
         return $this->habitat;
     }
 
-    public function setHabitat(?habitats $habitat): self
+    public function setHabitat(?Habitats $habitat): self
     {
         $this->habitat = $habitat;
 
