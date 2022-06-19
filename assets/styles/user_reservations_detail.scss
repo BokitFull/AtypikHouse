@@ -1,0 +1,146 @@
+#reservation-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+#reservation-title{
+    width: 100%;
+    display: flex;
+}
+
+#reservation-title *{
+    width: 50%;
+    text-align: center;
+}
+
+#reservation-status{
+    border-right: 2px solid #998763;
+}
+
+hr {
+    background-color: #998763;
+    width: 60%;
+}
+
+#reservation-recap{
+    display: flex;
+    justify-content: flex-start;
+}
+
+#reservation-detail {
+    width: 50%;
+}
+
+#reservation-habitat {
+    width: 50%;
+}
+
+#reservation-review{
+    display: grid;
+    grid-template:
+    'comment    star'auto/
+    70%         30%;
+}
+
+#reservation-comment{
+    grid-area: comment;
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0px;
+    width: 100%;
+}
+
+#reservation-star{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+#category-title p{
+    margin-bottom: 2px;
+}
+
+.category-star{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#reservation-star label{
+    color: black;
+}
+
+#reservation-star label:hover ~ label{
+    color: black !important;
+}
+
+#reservation-star input:checked + label, 
+#reservation-star label:not(#reservation-star input:checked ~ label){
+    color: #998763;
+}
+
+
+// #reservation-star input:checked ~ #reservation-star label:hover ~ label{
+//     color: #998763 !important;
+// }
+
+// #reservation-star label:hover ~ label, #reservation-star input:checked ~ label:not(#reservation-star input:checked + label){
+//     color: black
+// } 
+
+// #reservation-star label, #reservation-star input:checked + label{
+//     color: #998763;
+// }
+
+// #reservation-star input:checked ~ label:hover{
+//     color: #998763 !important;
+// }
+
+// #reservation-star input:checked ~ #reservation-star label:hover ~ label{
+//     color: #998763 !important;
+// }
+
+// #reservation-star label:hover ~ label, #reservation-star input:checked ~ label:not(#reservation-star input:checked + label){
+//     color: black
+// }  
+
+// #reservation-star label:not(#reservation-star input:checked:first-of-type ~ label) {
+// #reservation-star label:first-of-type ~ label:not(#reservation-star label:hover ~ label){
+//     color: black;
+// }  
+
+// #reservation-star label:not(#reservation-star label:hover ~ label){
+//     color: #998763;
+// }  
+
+// #reservation-star input:checked + #reservation-star label:hover{
+//     color: #998763 !important;
+// }
+// #reservation-star input:checked ~ label{
+//     color: #998763;
+// }
+
+// #reservation-star input:checked ~ label:hover  {
+//     color:#998763 !important;
+// }
+
+// #reservation-star input:checked ~ label:hover, #reservation-star input:checked ~ label:hover ~ label + :not(#reservation-star input:checked ~ label:hover ~ label) {
+//     color:#998763 !important;
+// }
+
+// #reservation-star input:checked ~ label{
+//     color:#998763 !important;
+// }
+
+// #reservation-star input:checked ~ label:hover ~ label{
+//     color: black !important;
+// }
+
+#reservation-star input{
+    display: none;
+}

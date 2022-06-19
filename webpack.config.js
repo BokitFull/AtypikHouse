@@ -18,11 +18,23 @@ Encore
      * ENTRY CONFIG
      *
      * Each entry will result in one JavaScript file (e.g. app.js)
+     * 
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
     .addEntry('login', './assets/js/login.js')
     .addEntry('navbar', './assets/js/navbar.js')
+    .addEntry('calendar', './assets/js/calendar.js')
+
+    .addStyleEntry('user_home', './assets/styles/user_home.scss')
+    .addStyleEntry('user_edit', './assets/styles/user_edit.scss')
+    .addStyleEntry('user_reservations', './assets/styles/user_reservations.scss')
+    .addStyleEntry('user_reservations_detail', './assets/styles/user_reservations_detail.scss')
+    .addStyleEntry('footer', './assets/styles/footer.scss')
+    .addStyleEntry('navbar_s', './assets/styles/navbar.scss')
+    .addStyleEntry('hote_habitats', './assets/styles/hotes/habitats.scss')
+    .addStyleEntry('habitat_edit', './assets/styles/habitat_edit.scss')
+    .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
