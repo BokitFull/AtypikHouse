@@ -1,126 +1,164 @@
-@import "~bootstrap/scss/bootstrap";
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
 body {
-    background-color: lightgray;
+    line-height: 1;
 }
 
-.green {
-    color: #2b7929;
+ol,
+ul {
+    list-style: none;
 }
 
-.black {
-    color: black;
+blockquote,
+q {
+    quotes: none;
 }
 
-.white {
-    color: #e4e0d9;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
 }
 
-.orange {
-    color: #b87247;
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
-.brown {
-    color: #998763;
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    min-height: 100vh;
+    background-color: #e4e0d9 !important;
 }
 
-.nav-link:hover {
-    color: #998763;
+.green-text {
+    color: #2B7929 !important;
 }
 
-.div-footer {
-    width: 100%;
-    position: relative;
-    bottom: 0;
+.border-success {
+    border-color: #2b7929!important;
 }
 
-footer span,
-footer a {
-    font-size: small;
+#main-container {
+    width: 80%;
+    margin: 0 auto;
 }
 
-a {
-    text-decoration: none;
-    color: #2b7929;
-}
-
-a:hover {
-    color: #998763;
+.site-background-color {
+    background-color: #e4e0d9 !important;
 }
 
 a.selected {
     color: #998763;
-}
-
-.profile-logo {
-    justify-self: flex-end;
-    margin: 0;
-}
-
-@media (min-width: 1024px) {
-    footer {
-        width: 40%;
-        margin-left: 30%;
-        margin-right: 30%;
-    }
-}
-
-@media (max-width: 1024px) {
-    footer {
-        width: 60%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-}
-
-@media (min-width: 992px) {
-    .profile-logo {
-        margin-left: 50px;
-    }
-    #imgLogo {
-        width: 80%;
-    }
-}
-
-@media (max-width: 992px) {
-    #imgLogo {
-        width: 50%;
-    }
-}
-
-@media (max-width: 700px) {
-    footer {
-        width: 80%;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-    .navbar-brand {
-        width: 80%;
-    }
-}
-
-@media (min-width: 620px) {
-    // #imgLogo {
-    //     // src: url('/assets/images/atypik_icon_transparent.png');
-    // }
-}
-
-@media (max-width: 620px) {
-    // #imgLogo {
-    //     // src: url('/assets/images/atypik_icon_transparent.png');
-    // }
-}
-
-@media (max-width: 520px) {
-    footer {
-        margin: 0;
-        flex-direction: column;
-        width: 100%;
-    }
-}
-
-.right_nav {
-    display: flex;
-    align-items: center;
 }
 
 .ligne_liste_habitats {
@@ -207,3 +245,18 @@ a.selected {
         background-color: #ffffff !important;
     }
 }
+
+@media only screen and (max-width:1200px) {
+    .container-80 {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width:992px) {
+    .container-80 {
+        width: 90%;
+    }
+}
+
+@import "~bootstrap/scss/bootstrap";

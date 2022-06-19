@@ -67,30 +67,49 @@ class HabitatsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_habitats_show', methods: ['GET'])]
+    #[Route('/calendar', name: 'habitat_calendar', methods: ['GET'])]
+    public function calendar(): Response
+    {   
+        $context = [];
+        $habitats = $this->getUser()->getHabitats();
+        $reservations_date = [];
+        foreach($habitats as $habitat){
+            $dates = [];
+            foreach($habitat->getReservations() as $reservation){
+                    $dates[$reservation->getId()] = [
+                        'start'=> $reservation->getDateDebut()->format('Y-m-d'), 
+                        'end'=>  $reservation->getDateFin()->format('Y-m-d')
+                    ];
+                }
+            $reservations_date[$habitat->getId()] = $dates;
+        }
+        $context['reservations_date'] = $reservations_date;
+        return $this->render('habitats/calendar.html.twig', $context);
+    }
+    
+    #[Route('/{id}', name: 'habitats_detail', methods: ['GET'])]
     public function show(Habitats $habitat): Response
-    {
-        return $this->render('habitats/show.html.twig', [
-            'habitat' => $habitat,
-        ]);
+    {   
+        $context = [];
+        
+        return $this->render('habitats/show.html.twig', $context);
     }
 
-    #[Route('/{id}/edit', name: 'app_habitats_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
     {
-        $form = $this->createForm(HabitatsType::class, $habitat);
-        $form->handleRequest($request);
+        $context = [];
 
+        $form = $this->createForm(Habitats1Type::class, $habitat);
+        $context['form'] = $form;
+        $context['habitat'] = $habitat;
         if ($form->isSubmitted() && $form->isValid()) {
             $habitatsRepository->add($habitat, true);
 
-            return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('habitats_detail', ['id'=>  $habitat->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('habitats/edit.html.twig', [
-            'habitat' => $habitat,
-            'form' => $form,
-        ]);
+        return $this->renderForm('habitats/edit.html.twig', $context);
     }
 
     #[Route('/{id}', name: 'app_habitats_delete', methods: ['POST'])]

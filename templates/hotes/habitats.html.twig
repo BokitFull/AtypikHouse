@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UtilisateursController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('habitat_edit') }}
+{% endblock %}
+
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nom</th>
+                <th>Statut</th>
+                <th>Réservé</th>
+                <th>Revenu/mois</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for habitat in app.user.habitats%}
+            <tr>
+                <td>{{ loop.index}}</td>
+                <td>{{ habitat.libelle }}</td>
+                <td>Icone</td>
+                <td>Icone</td>
+                <td>10000€</td>
+                <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

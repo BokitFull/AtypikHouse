@@ -42,24 +42,24 @@ class Codes
         return $this;
     }
 
-    public function getUtilisateurDebiteur(): ?utilisateurs
+    public function getUtilisateurDebiteur(): ?Utilisateurs
     {
         return $this->utilisateur_debiteur;
     }
 
-    public function setUtilisateurDebiteur(?utilisateurs $utilisateur_debiteur): self
+    public function setUtilisateurDebiteur(?Utilisateurs $utilisateur_debiteur): self
     {
         $this->utilisateur_debiteur = $utilisateur_debiteur;
 
         return $this;
     }
 
-    public function getUtilisateurCrediteur(): ?utilisateurs
+    public function getUtilisateurCrediteur(): ?Utilisateurs
     {
         return $this->utilisateur_crediteur;
     }
 
-    public function setUtilisateurCrediteur(?utilisateurs $utilisateur_crediteur): self
+    public function setUtilisateurCrediteur(?Utilisateurs $utilisateur_crediteur): self
     {
         $this->utilisateur_crediteur = $utilisateur_crediteur;
 

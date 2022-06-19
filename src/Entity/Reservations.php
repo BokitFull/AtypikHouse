@@ -37,24 +37,24 @@ class Reservations
         return $this->id;
     }
 
-    public function getUtilisateur(): ?utilisateurs
+    public function getUtilisateur(): ?Utilisateurs
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?utilisateurs $utilisateur): self
+    public function setUtilisateur(?Utilisateurs $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function getHabitat(): ?habitats
+    public function getHabitat(): ?Habitats
     {
         return $this->habitat;
     }
 
-    public function setHabitat(?habitats $habitat): self
+    public function setHabitat(?Habitats $habitat): self
     {
         $this->habitat = $habitat;
 

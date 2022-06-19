@@ -1,0 +1,179 @@
+#reservation-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.reservation{
+    width: 100%; 
+    display: inherit;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+}
+
+.reservation-info{
+    width: 50%;
+    padding: 20px 0 20px 30px;
+    display: grid;
+    gap: 20px;
+    grid-template:
+        'libelle libelle libelle libelle  libelle'     
+        'date    date    address address  address' 
+        'detail detail detail detail  detail' auto/
+         1fr     1fr     1fr     1fr      1fr;
+}
+
+.reservation-info p{
+    margin-bottom: 0;
+}
+
+.reservation-title{
+    grid-area: libelle;
+    border-bottom: 2px solid #998763;
+}
+
+.reservation-date{
+    grid-area: date;
+    border-right: 2px solid #998763;
+}
+
+.reservation-address{
+    grid-area: address;
+}
+
+.reservation-picture {
+    width: 50%;
+}
+
+.reservation-picture img{
+    width: 50%;
+}
+
+.reservation-detail{
+    grid-area: detail;
+    border-top: 2px solid #998763;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+// .reservation-facture{
+//     grid-area: facture;
+//     border-top: 2px solid #998763;
+
+// }
+
+// .reservation-habitat{
+//     grid-area: habitat;
+//     border-top: 2px solid #998763;
+// }
+
+
+// #reservation-table{
+//     width: 100%;
+// }
+// 
+// thead {
+//     background-color: #95A5A6;
+//     font-size: 14px;
+//     text-transform: uppercase;
+//     letter-spacing: 0.03em;
+// }
+
+// #reservation-table-header{
+//     width: 100%;
+//     display: grid;
+//     grid-template:
+//         'th-1  th-2   th-3   th-4' auto /
+//         20%    30%    20%    30%
+//     ;
+//     align-items: center;
+//     height: 50px;
+// }
+
+
+
+// .th-1{
+//     grid-area: th-1;
+//     text-align: center;
+// }
+
+// .th-2{
+//     grid-area: th-2;
+//     text-align: center;
+// }
+
+// .th-3{
+//     grid-area: th-3;
+//     text-align: center;
+// }
+
+// .th-4{
+//     grid-area: th-4;
+//     text-align: center;
+// }
+
+// tbody{
+//     display: flex;
+//     justify-content: flex-start;
+//     flex-direction: column;
+//     gap: 20px;
+//  }
+
+// .table-row {
+//     display: grid;
+//     grid-template:
+//         'col-1  col-2   col-3   col-4' auto /
+//         20%    30%    20%    30%
+//     ;
+//     background-color: #ffffff;
+//     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+// }
+
+// .td-col-1{
+//     grid-area: col-1;
+//     text-align: center;
+// }
+
+// .td-col-2{
+//     grid-area: col-2;
+//     text-align: center;
+// }
+
+// .td-col-3{
+//     grid-area: col-3;
+//     text-align: center;
+// }
+
+// .td-col-4{
+//     grid-area: col-4;
+//     text-align: center;
+// }
+
+// @media all and (max-width: 767px) {
+//     .table-header {
+//     display: none;
+//     }
+//     .table-row{
+    
+//     }
+//     li {
+//     display: block;
+//     }
+//     .col {
+    
+//     flex-basis: 100%;
+    
+//     }
+//     .col {
+//     display: flex;
+//     padding: 10px 0;
+//     &:before {
+//         color: #6C7A89;
+//         padding-right: 10px;
+//         content: attr(data-label);
+//         flex-basis: 50%;
+//         text-align: right;
+//     }
+//     }
+// }

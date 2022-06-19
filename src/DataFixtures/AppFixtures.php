@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
+use App\Entity\Equipements;
 use App\Entity\Notes;
 use App\Entity\Reservations;
 use App\Entity\Utilisateurs;
@@ -26,7 +27,7 @@ class AppFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
         $utilisateurs = array();
 
-        // create 20 products! Bam!
+        // create 10 products! Bam!
         for ($i = 0; $i < 10; $i++) {
             $utilisateur = new Utilisateurs();
             $utilisateur->setNom($faker->firstName);
@@ -37,14 +38,27 @@ class AppFixtures extends Fixture
             $utilisateur->setRoles($i < 7 ? ['ROLE_USER'] : ['ROLE_HOTE']);
             $utilisateur->setTelephone($faker->serviceNumber);
             $utilisateur->setAdresse(rand(1, 80) ." ". $faker->streetPrefix . $faker->asciify(str_repeat('*', rand(6, 10))));
-            $utilisateur->setCodePostal($faker->postcode);
+            $utilisateur->setCodePostal(strval(rand(1, 97)));
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
+            $utilisateur->setImage('');
             $utilisateur->setCreatedAt(new DateTimeImmutable('now'));
 
             array_push($utilisateurs, $utilisateur);
             $manager->persist($utilisateur);
         
+        }
+
+        $equipements = array();
+        for ($i = 0; $i < 10; $i++) {
+            $equipement = new Equipements();
+            $equipement->setLibelle($faker->company);
+            $equipement->setDescription($faker->sentence(20));
+            $equipement->setEtat($faker->sentence(1));
+            $equipement->setCreatedAt(new DateTimeImmutable('now'));
+
+            array_push($equipements, $equipement);
+            $manager->persist($equipement);
         }
 
         $habitats = array();
@@ -56,24 +70,18 @@ class AppFixtures extends Fixture
             $habitat->setVille($faker->city);
             $habitat->setPays($faker->country);
             $habitat->setEstDisponible(1);
+            $habitat->setDescriptionTitle($faker->sentence(2));
+            $habitat->setDescription($faker->sentence(20));
+           // $habitat->addEquipement($equipements[rand(0, 10)]);
             $habitat->setCreatedAt(new DateTimeImmutable('now'));
+
+            $imageEncode = array("url" => "/images/exemple.jpg", "title" => "image_test");
+            $habitat->setImages($imageEncode);
             $habitat->setProprietaire($utilisateurs[rand(7,9)]);
 
             array_push($habitats, $habitat);
             $manager->persist($habitat);
         }
-
-        $commentaires = array();
-        for ($i = 0; $i < 10; $i++) {
-            $commentaire = new Commentaires();
-            $commentaire->setCommentaire($faker->sentence(40));
-            $commentaire->setUtilisateur($utilisateurs[$i]);
-            
-            array_push($commentaires, $commentaire);
-            $manager->persist($commentaire);
-        }
-
-
 
         $reservations = array();
         for ($i = 0; $i < 10; $i++) {
@@ -87,7 +95,7 @@ class AppFixtures extends Fixture
                 $reservation->setHabitat($habitats[rand(0, count($habitats)-1)]);
                 $reservation->setDateDebut($faker->dateTimeBetween('-3 week', '+3 week'));
                 $date_fin = $reservation->getDateDebut();
-
+                
                 $habitat = $reservation->getHabitat();
                 $habitat_reservations = [];
                 foreach ($reservations as $res) {
@@ -118,10 +126,26 @@ class AppFixtures extends Fixture
             $manager->persist($reservation);
         }
 
+        $commentaires = array();
+        for ($i = 0; $i < 10; $i++) {
+            $commentaire = new Commentaires();
+            $commentaire->setCommentaire($faker->sentence(40));
+            $commentaire->setUtilisateur($utilisateurs[$i]);
+            $commentaire->setReservation($reservations[$i]);
+            $commentaire->setCreatedAt(new DateTimeImmutable('now'));
+            
+            array_push($commentaires, $commentaire);
+            $manager->persist($commentaire);
+        }
+
         $notes = array();
         for ($i = 0; $i < 10; $i++) {
             $note = new Notes();
-            $note->setNote(rand(0, 5));
+            $note->setNoteProprete(rand(0,5));
+            $note->setNoteAccueil(rand(0,5));
+            $note->setNoteEmplacement(rand(0,5));
+            $note->setNoteQualitePrix(rand(0,5));
+            $note->setNoteEquipements(rand(0,5));
             $note->setUtilisateur($utilisateurs[$i]);
             $note->setReservation($reservations[$i]);
             array_push($notes, $note);

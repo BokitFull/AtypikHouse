@@ -57,6 +57,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
     private $reservations;
+  
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
 
     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
     private $habitats;
@@ -259,5 +262,17 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function getHabitats(): Collection
     {
         return $this->habitats;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

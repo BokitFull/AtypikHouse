@@ -1,0 +1,217 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-12">
+            <h2>{{habitat.libelle}}</h2>
+        </div>
+
+
+        <div class="col-12">
+            <div class="row image-row w-100">
+                <div class="col-3 d-none d-lg-block image-side">
+                    {% if (habitat.images[0]["url"]|default) %}
+                    <div class="d-flex justify-content-center mb-2">
+                        <img src="{{ habitat.images[0]["url"] }}" class="img-fluid" title="{{habitat.images[0]["title"]}}">
+                    </div> 
+                    {% else %}
+                    <div class="d-flex justify-content-center mb-2">
+                        <img src="/images/atypik.png" class="img-fluid" title="default">
+                    </div> 
+                    {% endif %}
+
+                    {% if (habitat.images[1]["url"]|default) %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <img src="{{ habitat.images[1]["url"] }}" class="img-fluid" title="{{habitat.images[1]["title"]}}">
+                    </div> 
+                    {% else %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <img src="/images/atypik.png" class="img-fluid" title="default">
+                    </div> 
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-6 col-sm-12 image-central">
+
+                        {% if (habitat.images[3]["url"]|default) %}
+                        <div class="d-flex justify-content-center">
+                            <img src="{{ habitat.images[3]["url"] }}" class="img-fluid" title="{{habitat.images[3]["title"]}}">
+                        </div> 
+                        {% else %}
+                        <div class="d-flex justify-content-center">
+                            <img src="/images/atypik.png" class="img-fluid" title="default">
+                        </div> 
+                        {% endif %}
+
+                </div>
+
+                <div class="col-3 d-none d-lg-block image-side">
+                        {% if (habitat.images[4]["url"]|default) %}
+                        <div class="d-flex justify-content-center mb-2">
+                            <img src="{{ habitat.images[4]["url"] }}" class="img-fluid" title="{{habitat.images[4]["title"]}}">
+                        </div> 
+                        {% else %}
+                        <div class="d-flex justify-content-center mb-2">
+                            <img src="/images/atypik.png" class="img-fluid" title="default">
+                        </div> 
+                        {% endif %}
+
+                        {% if (habitat.images[5]["url"]|default) %}
+                        <div class="d-flex justify-content-center mt-2">
+                            <img src="{{ habitat.images[5]["url"] }}" class="img-fluid" title="{{habitat.images[5]["title"]}}">
+                        </div> 
+                        {% else %}
+                        <div class="d-flex justify-content-center mt-2">
+                            <img src="/images/atypik.png" class="img-fluid" title="default">
+                        </div> 
+                        {% endif %}
+                </div>
+
+            </div>
+            
+        </div>
+
+        {# Bloc de séparateur #}
+        <div class="col-3"></div>
+        <div class="col-6"><hr class="separator" size="7"></div>
+        <div class="col-3"></div>
+
+        <div class="col-12">
+            <h4>L'hébergement : <span>2 personnes - 1 chambre - 1 lit</span></h4>
+
+            <p><h5>{{habitat.descriptionTitle}}</h5></p>
+            <p>{{habitat.description}}</p>
+        </div>
+
+        {# Bloc de séparateur #}
+        <div class="col-3"></div>
+        <div class="col-6"><hr class="separator" size="7"></div>
+        <div class="col-3"></div>
+        
+        <div class="col-12">
+            <div class="row">
+
+                <div class="col-lg-6 col-sm-12 mb-2 mb-lg-0">
+
+                    <h4>Équipements et services</h4>
+                    <div class="row w-100">
+                    {% if (habitat.equipements is empty) %}
+                        <div class="col-12">
+                            <span>Aucun équipement ou service</span>
+                        </div>
+                    {% else %}
+                    {% for equipement in habitat.equipements|slice(0, 4) %}
+                        <div class="col-6">
+                            <span>{{ equipement.libelle }}</span>
+                        </div>
+                    {% endfor %}
+
+                        <div class="col-12 mt-3">
+                            <button type="button" class="button">Voir plus</button>
+                        </div>  
+                    {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12 mt-2 mt-lg-0">
+
+                    <h4>Informations pratiques</h4>
+                    <div class="row w-100">
+                    {% if true %}
+                        <div class="col-12">
+                            <span>Aucune information supplémentaire</span>
+                        </div>
+                    {% else %}
+                        <div class="col-12 mt-3">
+                            <button type="button" class="button">Voir plus</button>
+                        </div>
+                    {% endif %}
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        {# Bloc de séparateur #}
+        <div class="col-3"></div>   
+        <div class="col-6"><hr class="separator" size="7"></div>
+        <div class="col-3"></div>
+
+        <div class="row col-12">
+            <h4>Notes et avis</h4>
+            <div class="row col-lg-6 col-sm-12 align-items-end">
+                <p class="d-flex col-12 justify-content-center">
+                    <span class="border border-2 border-success rounded-circle p-3 fs-4">{{notes[0]["note_generale"]|number_format(1, '.', ' ')}}</span>
+                </p>
+                <div class="d-flex col-12 align-items-center">
+                    <span class="col-3">Propreté</span>
+                    <div class="col-sm-7 d-sm-block">
+                        <span><hr class="horizontal-lign green" size="5" style="width: {{ notes[0]["note_proprete"] * 100 / 5 }}%;"></span>
+                    </div>
+                    <span class="col-9 col-sm-2 text-center">{{notes[0]["note_proprete"]|number_format(1, '.', ' ')}}</span>
+                </div>
+                <div class="d-flex col-12 align-items-center">
+                    <span class="col-3">Accueil</span>
+                    <div class="col-sm-7 d-sm-block">
+                        <span><hr class="horizontal-lign green" size="5" style="width: {{ notes[0]["note_accueil"] * 100 / 5 }}%;"></span>
+                    </div>
+                    <span class="col-9 col-sm-2 text-center">{{notes[0]["note_accueil"]|number_format(1, '.', ' ')}}</span>
+                </div>
+                <div class="d-flex col-12 align-items-center">
+                    <span class="col-3">Emplacement</span>
+                    <div class="col-sm-7 d-sm-block">
+                        <span><hr class="horizontal-lign green" size="5" style="width: {{ notes[0]["note_emplacement"] * 100 / 5 }}%;"></span>
+                    </div>
+                    <span class="col-9 col-sm-2 text-center">{{notes[0]["note_emplacement"]|number_format(1, '.', ' ')}}</span>
+                </div>
+                <div class="d-flex col-12 align-items-center">
+                    <span class="col-3">Qualité/Prix</span>
+                    <div class="col-sm-7 d-sm-block">
+                        <span><hr class="horizontal-lign green" size="5" style="width: {{ notes[0]["note_qualite_prix"] * 100 / 5 }}%;"></span>
+                    </div> 
+                    <span class="col-9 col-sm-2 text-center">{{notes[0]["note_qualite_prix"]|number_format(1, '.', ' ')}}</span>
+                </div>
+                <div class="d-flex col-12 align-items-center">
+                    <span class="col-3">Équipements</span>
+                    <div class="col-sm-7 d-sm-block">
+                        <span><hr class="horizontal-lign green" size="5" style="width: {{ notes[0]["note_equipements"] * 100 / 5 }}%;"></span>                        </div>
+                    <span class="col-9 col-sm-2 text-center">{{notes[0]["note_equipements"]|number_format(1, '.', ' ')}}</span>
+                </div>
+           </div> 
+
+            <div class="row col-lg-6 col-sm-12 align-items-end mt-4 mt-lg-auto">
+
+            {% if (commentaires is not empty) %}
+
+            {% for commentaire in commentaires %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+
+                        {% if commentaire.utilisateur.image is empty %}
+                        <img src="/images/exemple.jpg" class="rounded-circle profile-picture" alt="image_profil">
+                        {% else %}
+                        <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
+                        {% endif %}
+                        <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
+                        </h5>
+                        <span class="card-subtitle small">{{commentaire.createdAt|date('M-Y')}}</span>
+
+                        <p class="card-text">{{commentaire.commentaire|slice(0, 100)}}...</span>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="col-12 float-end mt-3">
+                <button type="button" class="button">Plus d'avis</button>
+            </div>
+
+            </div> 
+        </div>
+
+    </div>
+
+
+{% endblock %}

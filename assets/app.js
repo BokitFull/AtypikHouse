@@ -8,19 +8,12 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-// start the Stimulus application
-import './bootstrap';
-
-//fontawesome
-import './fontawesome-5.15.4/js/all'
-import './fontawesome-5.15.4/css/all.min.css'
-
 import 'bootstrap';
 
-$(document).ready(function() {
-    $('#applyFilter').click(function() {
-        var value = $('#ddlViewBy').find(":selected").val();
-        $('#applyFilter').attr("href", "?dep=" + value);
-        console.log(value)
-    });
-});
+require('jquery-ui/ui/widgets/slider');
+import $ from 'jquery';
+
+
+//fontawesome
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');
