@@ -26,7 +26,7 @@ class AppFixtures extends Fixture {
         $faker = Faker\Factory::create('fr_FR');
         $utilisateurs = array();
 
-        // create 20 products! Bam!
+        // create 10 products! Bam!
         for ($i = 0; $i < 10; $i++) {
             $utilisateur = new Utilisateurs();
             $utilisateur->setNom($faker->firstName);
@@ -37,7 +37,8 @@ class AppFixtures extends Fixture {
             $utilisateur->setRoles($i < 7 ? ['ROLE_USER'] : ['ROLE_HOTE']);
             $utilisateur->setTelephone($faker->serviceNumber);
             $utilisateur->setAdresse(rand(1, 80) ." ". $faker->streetPrefix . $faker->asciify(str_repeat('*', rand(6, 10))));
-            $utilisateur->setCodePostal($faker->postcode);
+            $utilisateur->setCodePostal(strval(rand(10000, 99999)));
+            var_dump($utilisateur->getCodePostal());
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
             $utilisateur->setImage('');
@@ -109,7 +110,7 @@ class AppFixtures extends Fixture {
                 $reservation->setHabitat($habitats[rand(0, count($habitats)-1)]);
                 $reservation->setDateDebut($faker->dateTimeBetween('-3 week', '+3 week'));
                 $date_fin = $reservation->getDateDebut();
-
+                
                 $habitat = $reservation->getHabitat();
                 $habitat_reservations = [];
                 foreach ($reservations as $res) {
