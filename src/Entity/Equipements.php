@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EquipementsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipementsRepository::class)]
@@ -25,8 +27,13 @@ class Equipements
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'equipements')]
+    #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'equipements')]
     private $habitats;
+
+    public function __construct()
+    {
+        $this->habitats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +96,25 @@ class Equipements
     public function setHabitats(?Habitats $habitats): self
     {
         $this->habitats = $habitats;
+
+        return $this;
+    }
+
+    public function addHabitat(Habitats $habitat): self
+    {
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats[] = $habitat;
+            $habitat->addEquipement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitat(Habitats $habitat): self
+    {
+        if ($this->habitats->removeElement($habitat)) {
+            $habitat->removeEquipement($this);
+        }
 
         return $this;
     }

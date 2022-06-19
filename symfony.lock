@@ -288,6 +288,9 @@
     "stella-maris/clock": {
         "version": "0.1.4"
     },
+    "stripe/stripe-php": {
+        "version": "v8.4.0"
+    },
     "symfony/asset": {
         "version": "v6.0.7"
     },
