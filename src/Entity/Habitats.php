@@ -62,7 +62,16 @@ class Habitats
     private $informations_pratiques;
 
     #[ORM\Column(type: 'json')]
-    private $informations_generales = [];
+    private $informations_supplementaires = [];
+
+    #[ORM\Column(type: 'float')]
+    private $prix;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $type;
+
+    #[ORM\Column(type: 'integer')]
+    private $nombre_personnes_max;
 
     public function __construct()
     {
@@ -329,14 +338,50 @@ class Habitats
         return $this;
     }
 
-    public function getInformationsGenerales(): ?array
+    public function getInformationsSupplementaires(): ?array
     {
-        return $this->informations_generales;
+        return $this->informations_supplementaires;
     }
 
-    public function setInformationsGenerales(array $informations_generales): self
+    public function setInformationsSupplementaires(array $informations_supplementaires): self
     {
-        $this->informations_generales = $informations_generales;
+        $this->informations_supplementaires = $informations_supplementaires;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNombrePersonnesMax(): ?int
+    {
+        return $this->nombre_personnes_max;
+    }
+
+    public function setNombrePersonnesMax(int $nombre_personnes_max): self
+    {
+        $this->nombre_personnes_max = $nombre_personnes_max;
 
         return $this;
     }
