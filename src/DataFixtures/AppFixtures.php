@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
            // $habitat->addEquipement($equipements[rand(0, 10)]);
             $habitat->setCreatedAt(new DateTimeImmutable('now'));
 
-            $imageEncode = array("url" => "/images/exemple.jpg", "title" => "image_test");
+            $imageEncode = array(array("url" => "/images/exemple.jpg", "title" => "image_test"));
             $habitat->setImages($imageEncode);
             $habitat->setProprietaire($utilisateurs[rand(7,9)]);
 

@@ -58,11 +58,27 @@ class Habitats
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: InformationsPratiques::class)]
+    private $informations_pratiques;
+
+    #[ORM\Column(type: 'json')]
+    private $informations_supplementaires = [];
+
+    #[ORM\Column(type: 'float')]
+    private $prix;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $type;
+
+    #[ORM\Column(type: 'integer')]
+    private $nombre_personnes_max;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->equipements = new ArrayCollection();
         $this->activites = new ArrayCollection();
+        $this->informations_pratiques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -288,6 +304,84 @@ class Habitats
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InformationsPratiques>
+     */
+    public function getInformationsPratiques(): Collection
+    {
+        return $this->informations_pratiques;
+    }
+
+    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        if (!$this->informations_pratiques->contains($informationsPratique)) {
+            $this->informations_pratiques[] = $informationsPratique;
+            $informationsPratique->setHabitats($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        if ($this->informations_pratiques->removeElement($informationsPratique)) {
+            // set the owning side to null (unless already changed)
+            if ($informationsPratique->getHabitats() === $this) {
+                $informationsPratique->setHabitats(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getInformationsSupplementaires(): ?array
+    {
+        return $this->informations_supplementaires;
+    }
+
+    public function setInformationsSupplementaires(array $informations_supplementaires): self
+    {
+        $this->informations_supplementaires = $informations_supplementaires;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNombrePersonnesMax(): ?int
+    {
+        return $this->nombre_personnes_max;
+    }
+
+    public function setNombrePersonnesMax(int $nombre_personnes_max): self
+    {
+        $this->nombre_personnes_max = $nombre_personnes_max;
 
         return $this;
     }

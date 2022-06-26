@@ -33,7 +33,7 @@ class HabitatController extends AbstractController
     {
         $habitat = $this->repository->find($id);
         $notes = $this->notesRepository->findNotesMoyennesByHabitat($habitat);
-        $commentaires = $this->commsRepository->findBy(array(), array('id' => 'ASC'), 3);
+        $commentaires = $this->commsRepository->findByHabitat($habitat);
 
         return $this->render('habitat/show.html.twig', [
             'controller_name' => 'HabitatController',
