@@ -9,51 +9,21 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            {{ encore_entry_script_tags('navbar') }}
         {% endblock %}
     </head>
-    <header>
-        <nav class="nav-col">
-            <div class="nav-col-logo">
-                <a href="/">
-                    <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
-                </a>
-            </div>
-            <div id="nav-col-menu">
-                <input id="menu-toggle" type="checkbox" />
-                <label id="menu-btn" for="menu-toggle">
-                    <span id="first-pan"></span>
-                    <span id="burger"></span>
-                    <span id="second-pan"></span>
-                </label>
-                <ul id="menu-box">
-                    <li class="nav-item">
-                        <a class="nav-link fs-5 green-text" href="/">Destinations <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-5 green-text" href="{{path('habitat.index')}}">Hébergements <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-5 green-text" href="/">Contact<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item d-md-none">
-                        <a class="nav-link fs-5 green-text" href="{{ path('hote_presentation') }}">Devenir hôte<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-            </div>
-            {{ render(controller('App\\Controller\\UtilisateursController::userNav')) }}
-        </nav>
-    </header>
     <body>
-        <div id="main-container">
-            {% block content %}{% endblock %}
-        </div>
+        <header>
+            {% if not app.user or app.user.roles == ["ROLE_USER"] %}
+                {{ include('_header.html.twig') }}
+            {% elseif app.user.roles == ["ROLE_HOTE"] %}
+                {{ include('hotes/_nav.html.twig') }}
+            {% endif %}
+        </header>
+        <section id="main-container">
+            {% block body %}{% endblock %}
+        </section>
+        <footer>
+            {{ include('_footer.html.twig') }}
+        </footer>
     </body>
-    <footer>
-        <div id="footer-div">
-            <span>Copyright 2022 - Tout droits réservés</span>
-            <a rel="Mentions légales" href="#">Mentions légales</a>
-            <a rel="Confidentialités" href="#">Confidentialités</a>
-        </div>
-    </footer>
 </html>

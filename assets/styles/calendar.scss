@@ -1,0 +1,18 @@
+#calendar{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#month-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+#month-name{
+    text-align: center;
+}
+
+#days div {
+    width: 100%;
+}

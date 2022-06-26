@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UtilisateursController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('habitat_edit') }}
+{% endblock %}
+
+{% block body %}
+    <h1>Détail de l'habitat</h1>
+    {{ form_start(form, { 'attr': {'id': 'form'}}) }}
+        <div id="form-input-div">
+            {{ form_row(form._token) }}
+            {{ form_row(form.libelle, { 'attr': {'class': 'input-field ', 'placeholder': 'Libelle'} }) }}
+            {{ form_row(form.adresse, { 'attr': {'class': 'input-field ', 'placeholder': 'Adresse'} }) }}
+            {{ form_row(form.code_postal, { 'attr': {'class': 'input-field ', 'placeholder': 'Code postal'} }) }}
+            {{ form_row(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
+            {{ form_row(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'Pays'} }) }}
+            {{ form_row(form.est_disponible, { 'attr': {'class': 'input-field', 'placeholder': 'Est disponible'} }) }}
+        </div>
+        <div id="form-btn-div">
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a href="{{ path('accueil_utilisateur') }}" class="btn btn-outline-secondary">Retour</a>
+        </div>
+    {{ form_end(form, {render_rest: false}) }}
+    {{ include('habitats/_delete_form.html.twig') }}
+{% endblock %}

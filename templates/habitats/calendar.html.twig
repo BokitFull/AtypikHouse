@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UtilisateursController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('calendar_s') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('calendar') }}
+    <script>
+        var reservations_date = "{{reservations_date|json_encode|e('js')}}";
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div id="calendar">
+        <div id="month-container">
+            <button type="button" class="btn btn-outline-success" id="previous-month"><i class="fa-solid fa-arrow-left"></i></button>
+            <p id="month-name"></p>
+            <button type="button" class="btn btn-outline-success" id="next-month"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <table>
+            <thead>
+                <tr id="days">
+                    <th>Habitat/Jour</th>
+                    {% for i in 1..31 %}
+                        <th>{{i}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for habitat in app.user.habitats %}
+                    <tr id="habitat-{{habitat.id}}">
+                        <td>{{ habitat.libelle }}</td>
+                        {% for i in 1..31 %}
+                            <td></td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
