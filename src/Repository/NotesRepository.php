@@ -56,24 +56,7 @@ class NotesRepository extends ServiceEntityRepository
         ->andWhere('h.id = :id')
         ->setParameter('id', $entity->getId())
         ->getQuery()
-        ->getResult();
-
-        // $rsm = new ResultSetMapping();
-        // // build rsm here
-        // return $this->getEntityManager()->createNativeQuery(
-        //     'SELECT 
-        //     AVG(n.note_proprete) note_proprete, 
-        //     AVG(n.note_accueil) note_accueil, 
-        //     AVG(n.note_emplacement) note_emplacement, 
-        //     AVG(n.note_qualite_prix) note_qualite_prix, 
-        //     AVG(n.note_equipements) note_equipements, 
-        //     AVG((n.note_proprete + n.note_accueil + n.note_emplacement + n.note_qualite_prix + n.note_equipements) / 5) note_generale 
-        //     FROM notes n left join 
-        //     reservations r on n.reservation_id = r.id left join 
-        //     habitats h on r.habitat_id = h.id 
-        //     WHERE h.id = ' . $entity->getId()
-        //     , $rsm)
-        //     ->getResult();                         
+        ->getResult();                       
     }
 
 //    /**
