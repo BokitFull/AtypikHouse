@@ -38,6 +38,9 @@ class Reservations
     #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: Commentaires::class)]
     private $commentaires;
 
+    #[ORM\Column(type: 'boolean')]
+    private $Statut;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -147,6 +150,18 @@ class Reservations
                 $commentaire->setReservation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->Statut;
+    }
+
+    public function setStatut(bool $Statut): self
+    {
+        $this->Statut = $Statut;
 
         return $this;
     }

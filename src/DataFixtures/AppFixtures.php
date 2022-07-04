@@ -61,6 +61,8 @@ class AppFixtures extends Fixture
             $habitat->setPays($faker->country);
             $habitat->setEstDisponible(1);
             $habitat->setDescriptionTitle($faker->sentence(2));
+            $habitat->setType($faker->sentence(2));
+            $habitat->setNombrePersonnesMax(rand(1, 10  ));
             $habitat->setDescription($faker->sentence(20));
            // $habitat->addEquipement($equipements[rand(0, 10)]);
             $habitat->setCreatedAt(new DateTimeImmutable('now'));

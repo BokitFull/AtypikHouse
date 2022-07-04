@@ -80,6 +80,12 @@ class Habitats
     #[ORM\Column(type: 'integer')]
     private $nombre_personnes_max;
 
+    #[ORM\ManyToOne(targetEntity: TypeHabitats::class, inversedBy: 'habitats')]
+    private $TypeHabitat;
+
+    #[ORM\Column(type: 'boolean')]
+    private $statut;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -390,6 +396,30 @@ class Habitats
     public function setNombrePersonnesMax(int $nombre_personnes_max): self
     {
         $this->nombre_personnes_max = $nombre_personnes_max;
+
+        return $this;
+    }
+
+    public function getTypeHabitat(): ?TypeHabitats
+    {
+        return $this->TypeHabitat;
+    }
+
+    public function setTypeHabitat(?TypeHabitats $TypeHabitat): self
+    {
+        $this->TypeHabitat = $TypeHabitat;
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(bool $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

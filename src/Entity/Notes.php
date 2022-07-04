@@ -21,8 +21,7 @@ class Notes
 
     private $reservation;
 
-    #[ORM\OneToOne(targetEntity: Utilisateurs::class, cascade: ['persist', 'remove'])]
-    private $utilisateur;
+
 
     #[ORM\Column(type: 'float', scale: 1)]
     private $note_proprete;
@@ -58,17 +57,6 @@ class Notes
     }
 
 
-    public function getUtilisateur(): ?Utilisateurs
-    {
-        return $this->utilisateur;
-    }
-
-    public function setUtilisateur(?Utilisateurs $utilisateur): self
-    {
-        $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
 
     public function getReservation(): ?Reservations
     {

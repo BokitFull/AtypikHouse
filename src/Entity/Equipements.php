@@ -21,9 +21,6 @@ class Equipements
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    private $etat;
-
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
@@ -67,17 +64,6 @@ class Equipements
         return $this;
     }
 
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {

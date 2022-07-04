@@ -32,11 +32,17 @@ class HomeController extends AbstractController
         //show only last three comments
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
         $departement = $repoHabitat->findAll();
+        $nombreDepersonne = $repoHabitat->findAll( array('nombrePersonnesMax' => 'DESC'));
+        $hebermenetType = $repoHabitat->findAll();
+
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'commentaires' => $commentaires , 
-            'habitats' => $departement
+            'commentaires' => $commentaires ,
+            'habitats' => $departement ,
+            'habitats' =>  $nombreDepersonne ,
+            'habitats' =>  $hebermenetType 
+
 
         ]);
     }
