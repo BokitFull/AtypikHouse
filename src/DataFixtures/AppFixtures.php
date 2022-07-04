@@ -74,6 +74,7 @@ class AppFixtures extends Fixture
             $habitat->setDescription($faker->sentence(20));
            // $habitat->addEquipement($equipements[rand(0, 10)]);
             $habitat->setCreatedAt(new DateTimeImmutable('now'));
+            $habitat->setPrix(rand(10,300));
 
             $imageEncode = array("url" => "/images/exemple.jpg", "title" => "image_test");
             $habitat->setImages($imageEncode);

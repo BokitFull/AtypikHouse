@@ -3,6 +3,11 @@
 {% block title %}Habitats index
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('all_habitats') }}
+{% endblock %}
+
 {% block body %}
 	<div class="row div_titre_filtre">
 		<h1 class="titre_liste_habitats">Hébergement répondant à un critère</h1>
@@ -27,7 +32,7 @@
 					<p class="liste_habitat_lieu">{{ habitat.ville }}
 						({{habitat.codePostal|slice(0,2) }})</p>
 				</div>
-				<p class="liste_habitat_prix">50€/nuit</p>
+				<p class="liste_habitat_prix">{{ habitat.prix }}€/nuit</p>
 			</div>
 
 			{% set i = i + 1 %}
@@ -47,36 +52,37 @@
 	<div class="modal fade" id="filtre_list_modal" tabindex="-1" aria-labelledby="filtre_list_modal_label" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="filtre_list_modal_label">Filtrer</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div>
-						<label for="customRange1" class="form-label">Prix maximum :
-						</label>
-						<input type="range" value="24" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
-						<output>24</output>
+				<form action="/habitats" method="GET">
+					<div class="modal-header">
+						<h5 class="modal-title" id="filtre_list_modal_label">Filtrer</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div>
-						<label for="customRange1" class="form-label">Département :
-						</label>
-						<select id="ddlViewBy">
-							<option selected="selected">Sélectionner une valeur</option>
-							{% for odep in dep %}
-								<option value={{odep}}>{{odep|slice(0,2)}}</option>
-							{% endfor %}
-						</select>
+					<div class="modal-body">
+						<div>
+							<label for="customRange1" class="form-label">Prix maximum :
+							</label>
+							<input id="price" name="price" type="range" value="24" min="10" max="300" oninput="this.nextElementSibling.value = this.value">
+							<output>24</output>
+						</div>
+						<div>
+							<label for="customRange1" class="form-label">Département :
+							</label>
+							<select id="ddlViewBy" name="dep">
+								<option selected="selected">Sélectionner une valeur</option>
+								{% for odep in dep %}
+									<option value={{odep}}>{{odep|slice(0,2)}}</option>
+								{% endfor %}
+							</select>
+						</div>
 					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						<input type="submit" id="applyFilter" class="btn btn-primary" value="Appliquer">
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-					<a id="applyFilter" class="btn btn-primary" href="#">Appliquer</a>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
+</div>
 
 
-	<!--<a href="{{ path('app_habitats_new') }}">Create new</a>-->
-{% endblock %}
+<!--<a href="{{ path('app_habitats_new') }}">Create new</a>-->{% endblock %}

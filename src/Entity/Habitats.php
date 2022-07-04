@@ -58,6 +58,9 @@ class Habitats
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
+    #[ORM\Column(type: 'integer')]
+    private $prix;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -288,6 +291,18 @@ class Habitats
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

@@ -17,11 +17,17 @@ class HabitatsController extends AbstractController
     #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
     {
-        if (isset($_GET["dep"])) {
+        if (isset($_GET["dep"]) && isset($_GET["price"])) {
+
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            $criteria2 = new \Doctrine\Common\Collections\Criteria();
+            $criteria->where(\Doctrine\Common\Collections\Criteria::expr()->eq('code_postal', $_GET["dep"]));
+            $criteria2->where(\Doctrine\Common\Collections\Criteria::expr()->lt('prix', $_GET["price"]));
+
+            $donnees1 = $habitatsRepository->matching($criteria);
+            $donnees = $donnees1->matching($criteria2);
             
-            // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
-            $donnees = $habitatsRepository->findBy(array('code_postal' => $_GET["dep"]));
-            
+
             $habitats = $paginator->paginate(
                 $donnees, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
