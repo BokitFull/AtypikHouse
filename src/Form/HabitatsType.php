@@ -13,6 +13,7 @@ class HabitatsType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('images')
             ->add('adresse')
             ->add('code_postal')
             ->add('ville')

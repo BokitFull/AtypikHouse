@@ -89,3 +89,24 @@
         background-color: #ffffff !important;
     }
 }
+
+.displayed-card {
+    display: block;
+    cursor: pointer;
+    // max-width: 1000px;
+    // max-height: auto;
+    // flex-direction: column;
+    // justify-content: space-around;
+    // min-width: 200px;
+    // height: 140px;
+    // box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+}
+
+.displayed-card, .displayed-card:hover, a.displayed-card:focus, .displayed-card:active {
+    text-decoration: none;
+    color: #616161;
+}
+
+.selected, a.selected {
+    color: #998763!important;
+}

@@ -24,16 +24,21 @@
 			<div class="row ligne_liste_habitats">
 			{% endif %}
 
-
-			<div class="col-lg-3">
-				<img src="https://www.crem.fr/wp-content/uploads/2013/01/sample-img.png" alt="Girl in a jacket" width="100%" height="80%">
-				<div class="div_titre_et_lieu">
-					<p class="liste_habitat_titre">{{ habitat.libelle }}</p>
-					<p class="liste_habitat_lieu">{{ habitat.ville }}
-						({{habitat.codePostal|slice(0,2) }})</p>
+			<a href="{{ path('habitats_detail', {'id': habitat.id }) }}" class="col-lg-3 displayed-card">
+				<div>
+					{% if (habitat.images[0]["url"]|default) %}
+					<img src="{{ habitat.images[0]["url"] }}" alt="" width="100%" height="80%">
+					{% else %}
+					<img src="/images/default.png" alt="" width="100%" height="80%">
+					{% endif %}
+					<div class="div_titre_et_lieu">
+						<p class="liste_habitat_titre">{{ habitat.libelle }}</p>
+						<p class="liste_habitat_lieu">{{ habitat.ville }}
+							({{habitat.codePostal|slice(0,2) }})</p>
+					</div>
+					<p class="liste_habitat_prix">{{ habitat.prix }}€/nuit</p>
 				</div>
-				<p class="liste_habitat_prix">{{ habitat.prix }}€/nuit</p>
-			</div>
+			</a>
 
 			{% set i = i + 1 %}
 

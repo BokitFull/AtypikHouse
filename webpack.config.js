@@ -21,21 +21,23 @@ Encore
  * 
  * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
  */
-.addEntry('app', './assets/app.js')
+    .addEntry('app', './assets/app.js')
     .addEntry('login', './assets/js/login.js')
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('calendar', './assets/js/calendar.js')
-
-.addStyleEntry('user_home', './assets/styles/user_home.scss')
-    .addStyleEntry('user_edit', './assets/styles/user_edit.scss')
-    .addStyleEntry('user_reservations', './assets/styles/user_reservations.scss')
-    .addStyleEntry('user_reservations_detail', './assets/styles/user_reservations_detail.scss')
-    .addStyleEntry('footer', './assets/styles/footer.scss')
+    
     .addStyleEntry('navbar_s', './assets/styles/navbar.scss')
-    .addStyleEntry('hote_habitats', './assets/styles/hotes/habitats.scss')
-    .addStyleEntry('habitat_edit', './assets/styles/habitat_edit.scss')
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
-    .addStyleEntry('all_habitats', './assets/styles/all_habitats.scss')
+    .addStyleEntry('footer', './assets/styles/footer.scss')
+    .addStyleEntry('user_home', './assets/styles/users/user_home.scss')
+    .addStyleEntry('user_edit', './assets/styles/users/user_edit.scss')
+    .addStyleEntry('user_reservations', './assets/styles/users/user_reservations.scss')
+    .addStyleEntry('user_reservations_detail', './assets/styles/users/user_reservations_detail.scss')
+    .addStyleEntry('hote_habitats', './assets/styles/hotes/habitats.scss')
+    .addStyleEntry('habitat_show', './assets/styles/habitats/habitats_detail.scss')
+    .addStyleEntry('habitat_edit', './assets/styles/habitats/habitats_edit.scss')
+    .addStyleEntry('habitat_delete', './assets/styles/habitats/habitats_delete.scss')
+    .addStyleEntry('all_habitats', './assets/styles/habitats/all_habitats.scss')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')

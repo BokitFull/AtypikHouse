@@ -1,33 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursController!{% endblock %}
+{% block title %}Vos habitats{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('habitat_edit') }}
+    {{ encore_entry_link_tags('hote_habitats') }}
+    {{ encore_entry_link_tags('habitat_delete') }}
 {% endblock %}
 
 {% block body %}
-    <table>
+    <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>N°</th>
                 <th>Nom</th>
                 <th>Statut</th>
                 <th>Réservé</th>
                 <th>Revenu/mois</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for habitat in app.user.habitats%}
             <tr>
+                <td><img src="{{ habitat.images[0]["url"]|default }}" class="vignette"></img></td>
                 <td>{{ loop.index}}</td>
                 <td>{{ habitat.libelle }}</td>
                 <td>Icone</td>
                 <td>Icone</td>
-                <td>10000€</td>
+                <td>{{ habitat.prix }}</td>
                 <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td>{{ include('habitats/_delete_form.html.twig') }}</td>
             </tr>
             {% endfor %}
         </tbody>

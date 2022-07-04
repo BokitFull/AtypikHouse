@@ -11,12 +11,12 @@
     justify-content: space-between;
 }
 
-#form-input-div div{
+#form-input-div > div:not(.btn-div){
     width: 40%;
     justify-content: space-between;
 }
 
-input {
+input:not([type='checkbox']) {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -24,7 +24,12 @@ input {
     width: 100%;
 }
 
-#form-btn-div{
+input[type='checkbox'] {
+    margin: 0 8px;
+    vertical-align: middle;
+}
+
+#form-btn-div, .btn-div{
     display: flex;
     justify-content: flex-start;
     gap: 20px;

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursController!{% endblock %}
+{% block title %}Modification de l'habitat{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -18,11 +18,41 @@
             {{ form_row(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
             {{ form_row(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'Pays'} }) }}
             {{ form_row(form.est_disponible, { 'attr': {'class': 'input-field', 'placeholder': 'Est disponible'} }) }}
+            <div class="btn-div">
+                <div>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary" type="button">Télécharger une nouvelle image</button>
+                    <small>Fichiers autorisés: jpg, jpeg, png (max size: 5000ko)</small>
+                </div>
+
+                <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content site-background-color">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center">Toutes les images</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body row">
+                            {% for image in form.images %}
+                                <div class="col-6 mb-2">
+                                    <img src="{{ image["url"] }}" class="img-fluid" title="{{image["title"]}}" alt="image-habitat">
+                                </div>  
+                            {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>  
+                    </div>
+                </div> 
+            </div>
+                {# {{ form_row(image, { 'attr': {'class': 'file-imput', 'placeholder': 'Image', 'src': '{{ image["url"] }}'} }) }} #}
+
         </div>
         <div id="form-btn-div">
             <button type="submit" class="btn btn-success">Enregistrer</button>
-            <a href="{{ path('accueil_utilisateur') }}" class="btn btn-outline-secondary">Retour</a>
+            <a href="{{ path('hote_habitats') }}" class="btn btn-outline-secondary">Retour</a>
         </div>
     {{ form_end(form, {render_rest: false}) }}
-    {{ include('habitats/_delete_form.html.twig') }}
 {% endblock %}

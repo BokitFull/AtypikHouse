@@ -24,7 +24,7 @@ class HabitatsController extends AbstractController
     }
 
 
-    #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
+    #[Route('/', name: 'habitats_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
     {
         if (isset($_GET["dep"]) && isset($_GET["price"])) {
@@ -64,25 +64,6 @@ class HabitatsController extends AbstractController
         }
     }
 
-    #[Route('/new', name: 'app_habitats_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, HabitatsRepository $habitatsRepository): Response
-    {
-        $habitat = new Habitats();
-        $form = $this->createForm(HabitatsType::class, $habitat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $habitatsRepository->add($habitat, true);
-
-            return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('habitats/new.html.twig', [
-            'habitat' => $habitat,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/calendar', name: 'habitat_calendar', methods: ['GET'])]
     public function calendar(): Response
     {   
@@ -117,12 +98,31 @@ class HabitatsController extends AbstractController
         ]);
     }
 
+    #[Route('/new', name: 'app_habitats_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, HabitatsRepository $habitatsRepository): Response
+    {
+        $habitat = new Habitats();
+        $form = $this->createForm(HabitatsType::class, $habitat);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $habitatsRepository->add($habitat, true);
+
+            return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('habitats/new.html.twig', [
+            'habitat' => $habitat,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
     {
         $context = [];
 
-        $form = $this->createForm(Habitats1Type::class, $habitat);
+        $form = $this->createForm(HabitatsType::class, $habitat);
         $context['form'] = $form;
         $context['habitat'] = $habitat;
         if ($form->isSubmitted() && $form->isValid()) {

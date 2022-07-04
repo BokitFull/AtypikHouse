@@ -14,10 +14,10 @@
         </label>
         <ul id="menu-box">
             <li class="nav-item">
-                <a class="nav-link fs-5 green-text" href="{{ path('hote_accueil')}}">Accueil</a>
+                <a class="nav-link fs-5 green-text" href="{{ path('accueil_utilisateur') }}">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fs-5 green-text" href="/">Habitats</a>
+                <a class="nav-link fs-5 green-text" href="{{ path('hote_habitats') }}">Habitats</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="/">Calendrier</a>
@@ -25,14 +25,14 @@
         </ul>
     </div>
     <div class="nav-col-login">
-        <a href="{{ path('hote_presentation') }}" class="btn green-text d-none d-md-block">Devenir hôte</a>
+        {# <a href="{{ path('hote_presentation') }}" class="btn green-text d-none d-md-block">Devenir hôte</a> #}
         <div class="dropdown">
             <button type="button" class="btn"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="fa-solid fa-user-circle"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Profil</a></li>
-                <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Mode utilisateur</a></li>
+                {# <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Mode utilisateur</a></li> #}
                 <li><a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a></li>
             </ul>
         </div>
