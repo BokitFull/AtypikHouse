@@ -74,8 +74,6 @@ class Habitats
     #[ORM\Column(type: 'float')]
     private $prix;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type;
 
     #[ORM\Column(type: 'integer')]
     private $nombre_personnes_max;
@@ -376,17 +374,7 @@ class Habitats
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
 
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function getNombrePersonnesMax(): ?int
     {
