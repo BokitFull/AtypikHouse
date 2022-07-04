@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitats index{% endblock %}
+
+{% block body %}
+    <h1>Habitats index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Adresse</th>
+                <th>Code_postal</th>
+                <th>Ville</th>
+                <th>Pays</th>
+                <th>Est_disponible</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for habitat in habitats %}
+            <tr>
+                <td>{{ habitat.id }}</td>
+                <td>{{ habitat.libelle }}</td>
+                <td>{{ habitat.adresse }}</td>
+                <td>{{ habitat.codePostal }}</td>
+                <td>{{ habitat.ville }}</td>
+                <td>{{ habitat.pays }}</td>
+                <td>{{ habitat.estDisponible ? 'Yes' : 'No' }}</td>
+                <td>{{ habitat.createdAt ? habitat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_habitats_show', {'id': habitat.id}) }}">show</a>
+                    <a href="{{ path('app_habitats_edit', {'id': habitat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_habitats_new') }}">Create new</a>
+{% endblock %}

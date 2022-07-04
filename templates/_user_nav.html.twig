@@ -1,3 +1,4 @@
+{{ encore_entry_link_tags('navbar_s') }}
 <div class="nav-col-login">
     <a href="/" class="btn green-text d-none d-md-block">Devenir hôte</a>
     {% if app.user %}
@@ -11,6 +12,7 @@
             </ul>
         </div>
     {% else %}
+    {{ encore_entry_script_tags('navbar') }}
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <span class="fa-solid fa-user-circle"></span>
         </button>

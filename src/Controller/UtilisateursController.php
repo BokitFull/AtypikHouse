@@ -60,7 +60,7 @@ class UtilisateursController extends AbstractController
         return $this->render('utilisateurs/reservations.html.twig', $context);
     }
 
-    #[Route('/{id}/edit', name: 'app_utilisateurs_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'informations_personnelles', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateurs $utilisateur, UtilisateursRepository $utilisateursRepository): Response
     {
         $form = $this->createForm(RegistrationFormType::class, $utilisateur);
@@ -68,11 +68,10 @@ class UtilisateursController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $utilisateursRepository->add($utilisateur, true);
-
-            return $this->redirectToRoute('app_utilisateurs_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('utilisateurs/edit.html.twig', [
+        return $this->renderForm('utilisateurs/informations_personnelles.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
         ]);
