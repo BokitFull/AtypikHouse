@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReservationsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationsRepository::class)]
@@ -30,6 +32,14 @@ class Reservations
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
+
+    #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: Commentaires::class)]
+    private $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -105,6 +115,36 @@ class Reservations
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaires>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setReservation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getReservation() === $this) {
+                $commentaire->setReservation(null);
+            }
+        }
 
         return $this;
     }

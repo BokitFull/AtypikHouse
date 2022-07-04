@@ -144,6 +144,14 @@ body {
     color: #2B7929 !important;
 }
 
+.orange-text {
+    color: #b87247 !important;
+}
+
+.brown-text {
+    color: #998763 !important;
+}
+
 .border-success {
     border-color: #2b7929!important;
 }
@@ -157,8 +165,170 @@ body {
     background-color: #e4e0d9 !important;
 }
 
+
+/*---------------------
+        LOGIN PAGE
+---------------------*/
+
+#login_div {
+    width: 100%;
+    height: 500px;
+    align-items: center;
+    display: grid;
+    grid-template: 'image       form' auto / 40% 60%;
+}
+
+#login_div_image {
+    background-image: url('/public/images/login_image.jpg');
+    grid-area: image;
+    width: 100%;
+    height: 100%;
+}
+
+#login_div_form {
+    grid-area: form;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.authentication_form {
+    width: 70%;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*------------------------
+    DETAILS HABITAT PAGE
+------------------------*/
+
+// .image-row {
+//     max-height: fit-content;
+// }
+// .image-row > div {
+//     height: 400px;
+//     overflow: hidden;
+// }
+.img-fluid {
+    cursor: pointer;
+}
+
+.image-side img {
+    width: 200px;
+}
+
+.image-central img {
+    width: 400px;
+}
+
+.separator {
+    color: #2b7929;
+    width: 100%;
+}
+
+.horizontal-lign {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-picture {
+    width: 8%;
+}
+
+.card {
+    background-color: #e4e0d9;
+}
+
+
+/*-------------------
+    PAYMENT FORM
+-------------------*/
+
+#payment_form {
+    background-color: #998763;
+}
+
+.button {
+    background-color: #2b7929;
+    color: white;
+    border-radius: 10px;
+    border-width: 0;
+    padding: 4px 16px;
+}
+
+.button:hover {
+    background-color: #998763;
+    color: black;
+}
+
+.selected {
+    color: #998763!important;
+}
+
 a.selected {
     color: #998763;
+}
+
+#register_form {
+    display: none;
+}
+
+.authentication_form input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0px;
+    width: 100%;
+}
+
+.submit-btn {
+    margin-bottom: 8px;
+    width: fit-content;
+}
+
+#login_btn_div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#login_btn_div button {
+    background: none;
+    border: none;
+}
+
+#login_form_btn {
+    display: none;
+}
+
+
+/*---------------------
+        FOOTER
+---------------------*/
+
+#footer-div {
+    width: 100%;
+    height: 40px;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#footer-div a {
+    text-decoration: none;
+    color: #616161;
 }
 
 @media only screen and (max-width:1200px) {

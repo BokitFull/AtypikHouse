@@ -63,11 +63,15 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
     private $habitats;
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaires::class)]
+    private $commentaires;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->habtats = new ArrayCollection();
+        $this->habitats = new ArrayCollection();
+        $this->reservation = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -272,6 +276,36 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaires>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUtilisateur() === $this) {
+                $commentaire->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
