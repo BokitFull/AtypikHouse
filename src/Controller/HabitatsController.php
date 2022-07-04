@@ -6,6 +6,8 @@ use App\Entity\Habitats;
 use App\Entity\Utilisateurs;
 use App\Form\Habitats1Type;
 use App\Repository\HabitatsRepository;
+use App\Repository\CommentairesRepository;
+use App\Repository\NotesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
+    public function __construct(HabitatsRepository $repository, 
+    NotesRepository $notesRepository, CommentairesRepository $commsRepository) {
+        $this->repository = $repository;
+        $this->notesRepository = $notesRepository;
+        $this->commsRepository = $commsRepository;
+    }
+
+
     #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
     public function index(HabitatsRepository $habitatsRepository): Response
     {
@@ -63,19 +73,16 @@ class HabitatsController extends AbstractController
     
     #[Route('/{id}', name: 'habitats_detail', methods: ['GET'])]
     public function show(Habitats $habitat): Response
-    {   
-        $context = [];
-        $context['habitat'] = $habitat;
-        $context['not_authenticated'] = false;
-        $context['utilisateur'] = $this->getUser();
+    {
+        $notes = $this->notesRepository->findNotesMoyennesByHabitat($habitat);
+        $commentaires = $this->commsRepository->findByHabitat($habitat);
 
-        if (!$context['utilisateur']) {
-            $utilisateur = new Utilisateurs();
-            $context['not_authenticated'] = true;
-            $context['register_form'] = $this->createForm(RegistrationFormType::class, $utilisateur)->createView();
-            $context['login_form'] = $this->createForm(LoginFormType::class, $utilisateur)->createView();
-        } 
-        return $this->render('habitats/show.html.twig', $context);
+        return $this->render('habitats/show.html.twig', [
+            'controller_name' => 'HabitatsController',
+            'habitat' => $habitat,
+            'notes' => $notes,
+            'commentaires' => $commentaires,
+        ]);
     }
 
     #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]

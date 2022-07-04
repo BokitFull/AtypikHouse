@@ -70,7 +70,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->habtats = new ArrayCollection();
+        $this->habitats = new ArrayCollection();
         $this->reservation = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
