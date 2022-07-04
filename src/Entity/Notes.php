@@ -12,12 +12,16 @@ class Notes
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-  
-    #[ORM\OneToOne(targetEntity: reservations::class, cascade: ['persist', 'remove'])]
+
+
+    #[ORM\Column(type: 'string', length: 20)]
+    private $note;
+
+    #[ORM\OneToOne(targetEntity: Reservations::class, cascade: ['persist', 'remove'])]
+
     private $reservation;
 
-    #[ORM\OneToOne(targetEntity: Utilisateurs::class, cascade: ['persist', 'remove'])]
-    private $utilisateur;
+
 
     #[ORM\Column(type: 'float', scale: 1)]
     private $note_proprete;
@@ -39,17 +43,20 @@ class Notes
         return $this->id;
     }
 
-    public function getUtilisateur(): ?Utilisateurs
+
+    public function getNote(): ?string
     {
-        return $this->utilisateur;
+        return $this->note;
     }
 
-    public function setUtilisateur(?utilisateurs $utilisateur): self
+    public function setNote(string $note): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->note = $note;
 
         return $this;
     }
+
+
 
     public function getReservation(): ?Reservations
     {

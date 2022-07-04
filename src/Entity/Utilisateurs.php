@@ -56,19 +56,34 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+// <<<<<<< HEAD
+//     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Reservations::class)]
+//     private $Reservations;
+
+//     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
+//     private $habitats;
+
+//     public function __construct()
+//     {
+//         $this->Reservations = new ArrayCollection();
+// =======
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
     private $reservations;
   
-    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
-    private $habitats;
-
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
+
+    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
+    private $habitats;
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaires::class)]
+    private $commentaires;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->habtats = new ArrayCollection();
+        $this->habitats = new ArrayCollection();
+        $this->reservation = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,6 +270,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function getReservations(): Collection
     {
         return $this->reservations;
+
     }
 
     /**
@@ -265,6 +281,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->habitats;
     }
 
+
     public function getImage(): ?string
     {
         return $this->image;
@@ -273,6 +290,36 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaires>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUtilisateur() === $this) {
+                $commentaire->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

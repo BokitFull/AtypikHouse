@@ -34,7 +34,7 @@ class Activites
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'activites')]
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'Activites')]
     private $habitats;
 
     public function getId(): ?int

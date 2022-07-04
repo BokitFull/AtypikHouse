@@ -19,7 +19,6 @@ class HabitatsType extends AbstractType
             ->add('pays')
             ->add('est_disponible')
             ->add('created_at')
-            ->add('proprietaire')
         ;
     }
 
