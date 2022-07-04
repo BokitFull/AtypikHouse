@@ -96,6 +96,7 @@ body {
 
 #nav-col-menu {
     grid-area: menu;
+    z-index: 1;
 }
   #nav-col-menu ul {
       margin: 0 auto;
