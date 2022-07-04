@@ -15,10 +15,12 @@ class Reservations
     #[ORM\Column(type: 'integer')]
     private $id;
 
+
     #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'reservations')]
     private $utilisateur;
 
     #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'reservations')]
+
     private $habitat;
     
     #[ORM\Column(type: 'float')]
@@ -35,6 +37,9 @@ class Reservations
 
     #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: Commentaires::class)]
     private $commentaires;
+
+    #[ORM\Column(type: 'boolean')]
+    private $Statut;
 
     public function __construct()
     {
@@ -145,6 +150,18 @@ class Reservations
                 $commentaire->setReservation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->Statut;
+    }
+
+    public function setStatut(bool $Statut): self
+    {
+        $this->Statut = $Statut;
 
         return $this;
     }

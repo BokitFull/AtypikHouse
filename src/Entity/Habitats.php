@@ -40,7 +40,14 @@ class Habitats
     private $created_at;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
-    private $reservations;
+    private $Reservations;
+
+
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
+    private $Equipements;
+
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
+    private $Activites;
 
 
     #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
@@ -67,11 +74,15 @@ class Habitats
     #[ORM\Column(type: 'float')]
     private $prix;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type;
 
     #[ORM\Column(type: 'integer')]
     private $nombre_personnes_max;
+
+    #[ORM\ManyToOne(targetEntity: TypeHabitats::class, inversedBy: 'habitats')]
+    private $TypeHabitat;
+
+    #[ORM\Column(type: 'boolean')]
+    private $statut;
 
     public function __construct()
     {
@@ -187,73 +198,74 @@ class Habitats
      */
     public function getReservations(): Collection
     {
-        return $this->reservations;
+        return $this->Reservations;
     }
 
-    public function addReservation(Reservations $reservation): self
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations[] = $reservation;
-            $reservation->setHabitat($this);
-        }
+    // public function addReservation(Reservations $reservation): self
+    // {
+    // // 
+    // //     if (!$this->Reservations->contains($reservation)) {
+    // //         $this->Reservations[] = $reservation;
+    // //         $reservation->setHabitat($this);
+    // //     }
 
-        return $this;
-    }
+    //     // return $this;
+    // }
 
-    public function removeReservation(Reservations $reservation): self
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getHabitat() === $this) {
-                $reservation->setHabitat(null);
-            }
-        }
+    // public function removeReservation(Reservations $reservation): self
+    // {
+    //     // if ($this->Reservations->removeElement($reservation)) {
+    //     //     // set the owning side to null (unless already changed)
+    //     //     if ($reservation->getHabitat() === $this) {
+    //     //         $reservation->setHabitat(null);
+    //     //     }
+    //     // }
 
-        return $this;
-    }
+    //     // return $this;
+    // }
 
     /**
-     * @return Collection<int, equipements>
+     * @return Collection<int, Equipements>
      */
     public function getEquipements(): Collection
     {
-        return $this->equipements;
+        return $this->Equipements;
     }
 
     public function addEquipement(Equipements $equipement): self
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements[] = $equipement;
+        if (!$this->Equipements->contains($equipement)) {
+            $this->Equipements[] = $equipement;
             $equipement->setHabitats($this);
         }
 
         return $this;
     }
 
-    public function removeEquipement(equipements $equipement): self
-    {
-        if ($this->equipements->removeElement($equipement)) {
-            // set the owning side to null (unless already changed)
-            if ($equipement->getHabitats() === $this) {
-                $equipement->setHabitats(null);
-            }
-        }
+    // public function removeEquipement(Equipements $equipement): self
+    // {
+    //     // if ($this->Equipements->removeElement($equipement)) {
+    //     //     // set the owning side to null (unless already changed)
+    //     //     if ($equipement->getHabitats() === $this) {
+    //     //         $equipement->setHabitats(null);
+    //     //     }
+    //     // }
 
-        return $this;
-    }
+    //     // return $this;
+    // }
 
     /**
      * @return Collection<int, Activites>
      */
     public function getActivites(): Collection
     {
-        return $this->activites;
+        return $this->Activites;
     }
 
     public function addActivite(Activites $activite): self
     {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
+        if (!$this->Activites->contains($activite)) {
+            $this->Activites[] = $activite;
             $activite->setHabitats($this);
         }
 
@@ -262,7 +274,7 @@ class Habitats
 
     public function removeActivite(Activites $activite): self
     {
-        if ($this->activites->removeElement($activite)) {
+        if ($this->Activites->removeElement($activite)) {
             // set the owning side to null (unless already changed)
             if ($activite->getHabitats() === $this) {
                 $activite->setHabitats(null);
@@ -362,17 +374,7 @@ class Habitats
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
 
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function getNombrePersonnesMax(): ?int
     {
@@ -382,6 +384,30 @@ class Habitats
     public function setNombrePersonnesMax(int $nombre_personnes_max): self
     {
         $this->nombre_personnes_max = $nombre_personnes_max;
+
+        return $this;
+    }
+
+    public function getTypeHabitat(): ?TypeHabitats
+    {
+        return $this->TypeHabitat;
+    }
+
+    public function setTypeHabitat(?TypeHabitats $TypeHabitat): self
+    {
+        $this->TypeHabitat = $TypeHabitat;
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(bool $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

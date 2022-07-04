@@ -21,11 +21,11 @@ class Equipements
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    private $etat;
-
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
+
+
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'Equipements')]
 
     #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'equipements')]
     private $habitats;
@@ -64,17 +64,6 @@ class Equipements
         return $this;
     }
 
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -88,10 +77,10 @@ class Equipements
         return $this;
     }
 
-    public function getHabitats(): ?Habitats
-    {
-        return $this->habitats;
-    }
+    // public function getHabitats(): ?Habitats
+    // {
+    //     return $this->habitats;
+    // }
 
     public function setHabitats(?Habitats $habitats): self
     {
@@ -102,19 +91,19 @@ class Equipements
 
     public function addHabitat(Habitats $habitat): self
     {
-        if (!$this->habitats->contains($habitat)) {
-            $this->habitats[] = $habitat;
-            $habitat->addEquipement($this);
-        }
+        // if (!$this->habitats->contains($habitat)) {
+        //     $this->habitats[] = $habitat;
+        //     $habitat->addEquipement($this);
+        // }
 
         return $this;
     }
 
     public function removeHabitat(Habitats $habitat): self
     {
-        if ($this->habitats->removeElement($habitat)) {
-            $habitat->removeEquipement($this);
-        }
+        // if ($this->habitats->removeElement($habitat)) {
+        //     $habitat->removeEquipement($this);
+        // }
 
         return $this;
     }

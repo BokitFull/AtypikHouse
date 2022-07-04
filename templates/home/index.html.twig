@@ -1,6 +1,415 @@
 {% extends 'base.html.twig' %}
-{% block content %}
 
-    <h1>Hello</h1>
-    
+{% block title %}AtypikHouse!
+{% endblock %}
+
+{% block body %}
+	<style>
+		{
+			# .formCenter.page-Acceuil {
+
+				position: absolute;
+				z-index: 1;
+				align-items: center;
+				top: 35%;
+				bottom: 0;
+				right: 50%;
+				height: 0;
+			} #
+		}
+
+
+		.bg-image {
+			width: 100%;
+			height: 500px;
+			object-fit: cover;
+		}
+
+		.btn-notdark {
+			background-color: #B87247;
+			color: white;
+			padding-right: 50px;
+			padding-left: 50px;
+
+		}
+		.filtre-buttons {
+			align-items: center;
+			justify-content: center;
+			display: flex;
+			position: absolute;
+    top: 115%;
+		}
+
+		.messageHome {
+			position: absolute;
+			z-index: 1;
+			align-items: center;
+			top: 25%;
+			bottom: 0;
+			left: 28%;
+			height: 0;
+			color: white;
+		}
+		.container {
+			margin: 0;
+			padding: 0;
+			min-width: 100%;
+		}
+
+		.form-home {
+			display: flex;
+			/* justify-content: center; */
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 20px;
+
+		}
+
+		.custom-select {
+			margin-left: 5px;
+		}
+
+		.formCenter.page-Acceuil {
+			position: absolute;
+			top: 35%;
+			left: 27%;
+		}
+
+		.btn:hover {
+			color: var(--bs-btn-hover-color);
+			background-color: #B87247;
+			border-color: #B87247;
+		}
+
+		element.style {}
+		.trait.trait.home {
+			width: 30%;
+		}
+		hr.traithome {
+			border: 3px solid #b69255;
+			border-radius: 5px;
+		}
+		.trait.trait.home {
+			position: relative;
+			top: 20%;
+			left: 35%;
+		}
+		.destinations-Carte img {
+			width: 100%;
+			height: 250px;
+			object-fit: cover;
+			border-radius: 20px;
+			box-shadow: 0 50px 0 #B87247;
+		}
+
+		.destinations-Carte.info-carte {
+			background: red;
+			width: 150px;
+			position: absolute;
+		}
+
+		.nos-destinations {
+			display: flex;
+			justify-content: center;
+			margin-right: 30px;
+			margin-left: 30px;
+			margin-bottom: 35px;
+		}
+
+
+		.titlesHomes {
+			display: flex;
+			justify-content: center;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+
+		.titre-destination {
+			position: absolute;
+			margin-top: 255px;
+		}
+
+		.atypiquoi.paragraph,
+		.quisommenous {
+			margin-left: 70px;
+			margin-right: 70px;
+		}
+		.atypiquoi {
+			padding-top: 10px;
+			padding-bottom: 15px;
+			background: green;
+			color: white;
+		}
+		a.quisommeatypik {
+			background: #b87247;
+			color: white;
+			padding: 10px;
+		}
+
+		.comcontainer {
+			display: flex;
+			justify-content: space-around;
+
+		}
+
+		.commentaire {
+			width: 350px;
+			background: #B87247;
+			border-radius: 20px;
+			padding: 10px;
+			color: white;
+			font-size: 20px;
+		}
+		.ideeContainer {
+			display: flex;
+			justify-content: space-around;
+
+		}
+		.ideeNewsletter {
+			width: 350px;
+		}
+		.ideesocialnetwork {
+			width: 350px;
+		}
+
+		.ideeContainer {
+			margin-bottom: 50px;
+		}
+		.homeFooter {
+			display: flex;
+
+			background: white;
+			justify-content: center;
+			position: relative;
+			bottom: 0;
+		}
+		.homeFooter span {
+			margin-right: 30px;
+		}
+		.ideeContainer {
+			background-color: green;
+			color: white;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+	</style>
+
+	<div class="container">
+
+		<div class="bg-image" style="background-image: url('https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg');"></div>
+
+		<div class="messageHome">
+
+			<h2>
+				A la découverte de nouvelles expériences
+			</h2>
+		</div>
+
+
+		<div class="formCenter page-Acceuil">
+
+			<form class="form-home" action="/habitats" method="GET">
+
+				<select name="dep" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+					<option selected>
+						Destinations
+					</option>
+					{% for departement  in habitats %}
+						<option  value={{departement.codePostal}}>{{departement.codePostal|slice(0,2)}}</option>
+					{% endfor %}
+				</select>
+
+
+				<select name="type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+					<option selected>
+						Hebergement
+					</option>
+					{% for hebermenetType  in habitats %}
+						<option  value={{hebermenetType.type}}>{{hebermenetType.type}}</option>
+					{% endfor %}
+				</select>
+
+					<select name="nombre" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+					<option selected>
+						Combien de Personnes ?
+					</option>
+					{% for nombreDepersonne  in habitats %}
+						<option  value={{nombreDepersonne.nombrePersonnesMax}}>{{nombreDepersonne.nombrePersonnesMax}}</option>
+					{% endfor %}
+				</select>
+
+				<input class="custom-select" type="date" id="start">
+				<input class="custom-select" type="date" id="end">
+
+				<div class="filtre-buttons">
+					<input value="Rechercher" type="submit" class="btn btn-notdark">
+					
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+
+	<div class="trait trait home">
+
+		<hr class="traithome">
+
+	</div>
+
+	<h3 class="titlesHomes">
+		Nos top destinations
+	</h3>
+
+	<div class="nos-destinations">
+
+
+		<div
+			class="nos-destinations destinations-Carte">
+			<!-- destination carte -->
+			<img src="https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg" alt="destinations-image"/>
+			<h4 class="titre-destination">
+				Province
+			</h4>
+		</div>
+		<!-- destination carte -->
+
+		<div
+			class="nos-destinations destinations-Carte">
+			<!-- destination carte -->
+			<img src="https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg" alt="destinations-image"/>
+
+			<h4 class="titre-destination">
+				Province
+			</h4>
+		</div>
+		<!-- destination carte -->
+
+
+		<div
+			class="nos-destinations destinations-Carte">
+			<!-- destination carte -->
+			<img src="https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg" alt="destinations-image"/>
+
+			<h4 class="titre-destination">
+				Province
+			</h4>
+
+
+		</div>
+		<!-- destination carte -->
+
+
+	</div>
+
+	<div class="trait trait home">
+
+		<hr class="traithome">
+
+	</div>
+
+
+	<h3 class="titlesHomes">
+		AtypikHouse
+	</h3>
+
+	<div class="atypiquoi">
+		<div class="atypiquoi paragraph">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.
+			</p>
+		</div>
+
+		<div class="atypiquoi quisommenous">
+			<span>
+				Pour mieux nous connaître
+			</span>
+			<span>
+				<a class="quisommeatypik" href="#">
+					Atypiquoi?
+				</a>
+			</span>
+
+		</div>
+
+	</div>
+
+	<div class="trait trait home">
+
+		<hr class="traithome">
+
+	</div>
+
+	<h3 class="titlesHomes">
+		Ils ont aimé
+	</h3>
+
+
+	<div class="comcontainer">
+		{% for comment in commentaires %}
+
+			<div class="commentaire">
+				<p>{{ comment.commentaire|slice(0, 100) }}</p>
+				<span>
+					{{ comment.utilisateur.nom }}
+				</span>
+				<span>
+					{{ comment.createdAt|date('d-m-Y') }}
+				</span>
+			</div>
+		{% endfor %}
+	</div>
+
+
+	<div class="trait trait home">
+
+		<hr class="traithome">
+
+	</div>
+
+	<h3 class="titlesHomes">
+		Envie d'idées
+	</h3>
+
+	<div class="ideeContainer">
+
+		<div class="ideeNewsletter">
+			<p>
+				Pour plus d'idées de voyage n'hésitez pas à vous abonnez à notre newsletter</p>
+			<span>
+				<a class="quisommeatypik" href="#">
+					S'abonner
+				</a>
+			</span>
+		</div>
+
+		<div class="ideesocialnetwork">
+			<p>
+				Pour plus d'idées de voyage n'hésitez pas à venir nous visitez sur les réseaux sociaux</p>
+			<span>
+				Pierre
+			</span>
+		</div>
+
+
+	</div>
+
+	<footer class="homeFooter">
+
+		<span>
+			Copyright 2022 - Tout droits réservés
+		</span>
+		<span>
+			<a href="#">
+				Mentions légales
+			</a>
+		</span>
+		<span>
+			<a href="#">
+				Confidentialités
+			</a>
+		</span>
+
+	</footer>
+
 {% endblock %}
