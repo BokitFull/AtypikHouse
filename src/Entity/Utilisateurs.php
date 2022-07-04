@@ -58,19 +58,18 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
     private $reservations;
   
-    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
-    private $habitats;
-
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
+    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
+    private $habitats;
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaires::class)]
     private $commentaires;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->habtats = new ArrayCollection();
+        $this->habitats = new ArrayCollection();
         $this->reservation = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }

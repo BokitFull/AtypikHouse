@@ -38,8 +38,7 @@ class AppFixtures extends Fixture
             $utilisateur->setRoles($i < 7 ? ['ROLE_USER'] : ['ROLE_HOTE']);
             $utilisateur->setTelephone($faker->serviceNumber);
             $utilisateur->setAdresse(rand(1, 80) ." ". $faker->streetPrefix . $faker->asciify(str_repeat('*', rand(6, 10))));
-            $utilisateur->setCodePostal(strval(rand(10000, 99999)));
-            var_dump($utilisateur->getCodePostal());
+            $utilisateur->setCodePostal(strval(rand(1, 97)));
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
             $utilisateur->setImage('');
@@ -75,6 +74,7 @@ class AppFixtures extends Fixture
             $habitat->setDescription($faker->sentence(20));
            // $habitat->addEquipement($equipements[rand(0, 10)]);
             $habitat->setCreatedAt(new DateTimeImmutable('now'));
+            $habitat->setPrix(rand(10,300));
 
             $imageEncode = array(array("url" => "/images/exemple.jpg", "title" => "image_test"));
             $habitat->setImages($imageEncode);

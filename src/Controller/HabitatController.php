@@ -20,13 +20,6 @@ class HabitatController extends AbstractController
         $this->commsRepository = $commsRepository;
     }
 
-    #[Route('/habitats', name: 'habitat.index')]
-    public function index(): Response
-    {
-        return $this->render('habitat/index.html.twig', [
-            'controller_name' => 'HabitatController',
-        ]);
-    }
 
     #[Route('/habitat/{id}', name: 'habitat.show')]
     public function show($id): Response
