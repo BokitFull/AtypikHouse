@@ -2,7 +2,7 @@
 
 {% block title %}Habitats{% endblock %}
 
-{% block content %}
+{% block body %}
     <h1>Habitats</h1>
 
     <table class="table">
@@ -44,7 +44,7 @@
 
     <a href="{{ path('app_habitats_index') }}">back to list</a>
 
-    <a href="{{ path('habitats_modification', {'id': habitat.id}) }}">edit</a>
+    <a href="{{ path('edit_habitat', {'id': habitat.id}) }}">edit</a>
 
     {{ include('habitats/_delete_form.html.twig') }}
 {% endblock %}

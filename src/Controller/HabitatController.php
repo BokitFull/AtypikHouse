@@ -20,20 +20,13 @@ class HabitatController extends AbstractController
         $this->commsRepository = $commsRepository;
     }
 
-    #[Route('/habitats', name: 'habitat.index')]
-    public function index(): Response
-    {
-        return $this->render('habitat/index.html.twig', [
-            'controller_name' => 'HabitatController',
-        ]);
-    }
 
     #[Route('/habitat/{id}', name: 'habitat.show')]
     public function show($id): Response
     {
         $habitat = $this->repository->find($id);
         $notes = $this->notesRepository->findNotesMoyennesByHabitat($habitat);
-        $commentaires = $this->commsRepository->findBy(array(), array('id' => 'ASC'), 3);
+        $commentaires = $this->commsRepository->findByHabitat($habitat);
 
         return $this->render('habitat/show.html.twig', [
             'controller_name' => 'HabitatController',

@@ -3,30 +3,62 @@
 namespace App\Controller;
 
 use App\Entity\Habitats;
-use App\Entity\Utilisateurs;
-use App\Form\Habitats1Type;
+use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
     #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
-    public function index(HabitatsRepository $habitatsRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
     {
-        return $this->render('habitats/index.html.twig', [
-            'habitats' => $habitatsRepository->findAll(),
-        ]);
+        if (isset($_GET["dep"]) && isset($_GET["price"])) {
+
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            $criteria2 = new \Doctrine\Common\Collections\Criteria();
+            $criteria->where(\Doctrine\Common\Collections\Criteria::expr()->eq('code_postal', $_GET["dep"]));
+            $criteria2->where(\Doctrine\Common\Collections\Criteria::expr()->lt('prix', $_GET["price"]));
+
+            $donnees1 = $habitatsRepository->matching($criteria);
+            $donnees = $donnees1->matching($criteria2);
+            
+
+            $habitats = $paginator->paginate(
+                $donnees, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                6 // Nombre de résultats par page
+            );
+            
+            return $this->render('habitats/index.html.twig', [
+                'habitats' => $habitats,
+            ]);
+        } else {
+
+            // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+            $donnees = $habitatsRepository->findAll();
+
+            $habitats = $paginator->paginate(
+                $donnees, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                6 // Nombre de résultats par page
+            );
+
+            return $this->render('habitats/index.html.twig', [
+                'habitats' => $habitats,
+            ]);
+        }
     }
 
     #[Route('/new', name: 'app_habitats_new', methods: ['GET', 'POST'])]
     public function new(Request $request, HabitatsRepository $habitatsRepository): Response
     {
         $habitat = new Habitats();
-        $form = $this->createForm(Habitats1Type::class, $habitat);
+        $form = $this->createForm(HabitatsType::class, $habitat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -65,16 +97,7 @@ class HabitatsController extends AbstractController
     public function show(Habitats $habitat): Response
     {   
         $context = [];
-        $context['habitat'] = $habitat;
-        $context['not_authenticated'] = false;
-        $context['utilisateur'] = $this->getUser();
-
-        if (!$context['utilisateur']) {
-            $utilisateur = new Utilisateurs();
-            $context['not_authenticated'] = true;
-            $context['register_form'] = $this->createForm(RegistrationFormType::class, $utilisateur)->createView();
-            $context['login_form'] = $this->createForm(LoginFormType::class, $utilisateur)->createView();
-        } 
+        
         return $this->render('habitats/show.html.twig', $context);
     }
 
@@ -98,7 +121,7 @@ class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'app_habitats_delete', methods: ['POST'])]
     public function delete(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$habitat->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $habitat->getId(), $request->request->get('_token'))) {
             $habitatsRepository->remove($habitat, true);
         }
 
