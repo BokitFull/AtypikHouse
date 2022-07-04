@@ -2,19 +2,79 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\GetHabitatsController;
 use App\Repository\HabitatsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'read:collection'
+                ]
+            ],
+            'list_habitats' => [    
+                'pagination_enabled'=>false,
+                'method' => 'GET',
+                'path' => 'get/habitats',
+                'controller' => GetHabitatsController::class,
+                'filters' => [],
+                'openapi_context' => [
+                    'summary' => 'Récupère une liste',
+                    'parameters' => [
+                        [
+                            'in' => 'query',
+                            'name' => 'id',
+                            'schema' => [
+                                'type' => 'integer'
+                            ]
+    
+                        ]
+                    ]
+                ]
+            ]
+        ], 
+    itemOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'comment:item'
+                ]
+            ],
+        // 'list_habitats' => [    
+        //     'method' => 'GET',
+        //     'path' => 'get/habitats/{id_array}',
+        //     'controller' => GetHabitatsController::class,
+        //     'filters' => [],
+        //     'openapi_context' => [
+        //         'summary' => 'Récupère une liste',
+        //         'parameters' => [
+        //             [
+        //                 'in' => 'query',
+        //                 'name' => 'habitats',
+        //                 'schema' => [
+        //                     'type' => 'array'
+        //                 ]
+
+        //             ]
+        //         ]
+        //     ]
+        ]
+    // ],
+
+)]
 class Habitats
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups([ 'read:collection', 'comment:item', 'list_habitats'])]
     private $id;
-
+    
     #[ORM\Column(type: 'string', length: 150)]
     private $libelle;
 
@@ -40,8 +100,8 @@ class Habitats
     private $created_at;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
+    #[Groups(['comment:list', 'comment:item', 'list_habitats'])]
     private $reservations;
-
 
     #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
     private $activites;

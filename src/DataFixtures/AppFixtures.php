@@ -39,7 +39,6 @@ class AppFixtures extends Fixture
             $utilisateur->setTelephone($faker->serviceNumber);
             $utilisateur->setAdresse(rand(1, 80) ." ". $faker->streetPrefix . $faker->asciify(str_repeat('*', rand(6, 10))));
             $utilisateur->setCodePostal(strval(rand(10000, 99999)));
-            var_dump($utilisateur->getCodePostal());
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
             $utilisateur->setImage('');

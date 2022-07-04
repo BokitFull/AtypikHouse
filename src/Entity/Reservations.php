@@ -4,13 +4,75 @@ namespace App\Entity;
 
 use App\Repository\ReservationsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\GetReservationsController;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Annotation\Context;
 
 #[ORM\Entity(repositoryClass: ReservationsRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'read:collection'
+                ]
+            ],
+            'list_reservations' => [    
+                'pagination_enabled'=>false,
+                'method' => 'GET',
+                'path' => 'get/reservations',
+                'controller' => GetReservationsController::class,
+                'filters' => [],
+                'openapi_context' => [
+                    'summary' => 'Récupère une liste',
+                    'parameters' => [
+                        [
+                            'in' => 'query',
+                            'name' => 'id',
+                            'schema' => [
+                                'type' => 'integer'
+                            ]
+    
+                        ]
+                    ]
+                ]
+            ]
+        ], 
+    itemOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'comment:item'
+                ]
+            ],
+        // 'list_habitats' => [    
+        //     'method' => 'GET',
+        //     'path' => 'get/habitats/{id_array}',
+        //     'controller' => GetHabitatsController::class,
+        //     'filters' => [],
+        //     'openapi_context' => [
+        //         'summary' => 'Récupère une liste',
+        //         'parameters' => [
+        //             [
+        //                 'in' => 'query',
+        //                 'name' => 'habitats',
+        //                 'schema' => [
+        //                     'type' => 'array'
+        //                 ]
+
+        //             ]
+        //         ]
+        //     ]
+        ]
+    // ],
+
+)]
 class Reservations
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['read:collection', 'comment:item', 'list_reservations'])]
     private $id;
 
     #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'reservations')]
@@ -22,9 +84,13 @@ class Reservations
     #[ORM\Column(type: 'float')]
     private $montant;
 
+    #[Groups(['comment:list', 'comment:item'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     #[ORM\Column(type: 'datetime')]
     private $date_debut;
-
+    
+    #[Groups(['comment:list', 'comment:item'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     #[ORM\Column(type: 'datetime')]
     private $date_fin;
 
