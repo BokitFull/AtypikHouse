@@ -55,6 +55,17 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+// <<<<<<< HEAD
+//     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Reservations::class)]
+//     private $Reservations;
+
+//     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
+//     private $habitats;
+
+//     public function __construct()
+//     {
+//         $this->Reservations = new ArrayCollection();
+// =======
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
     private $reservations;
   
@@ -258,6 +269,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function getReservations(): Collection
     {
         return $this->reservations;
+
     }
 
     /**
@@ -267,6 +279,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->habitats;
     }
+
 
     public function getImage(): ?string
     {
