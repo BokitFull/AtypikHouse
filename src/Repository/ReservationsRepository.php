@@ -39,6 +39,25 @@ class ReservationsRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Reservations[] Returns an array of Habitats objects
+    */
+    public function findByExampleField($value): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('h.id, r.id, r.date_debut, r.date_fin')
+            ->Where('h.id IN (:id)')
+            ->leftjoin('r.habitat', 'h')
+            ->setParameter('id', $value)
+            //  ->indexBy('h', 'h.id')
+            // ->andWhere('p.category = :category')
+            // ->setParameter('category', $category)
+            //  ->orderBy('h.id', 'ASC')
+            //->setMaxResults(10)
+             ->getQuery()
+             ->getResult()
+         ;
+    }
 //    /**
 //     * @return Reservations[] Returns an array of Reservations objects
 //     */

@@ -76,7 +76,11 @@ class Habitats
     private $id;
     
     #[ORM\Column(type: 'string', length: 150)]
-    private $libelle;
+    private $titre;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $utilisateur;
 
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
@@ -85,62 +89,62 @@ class Habitats
     private $code_postal;
 
     #[ORM\Column(type: 'string', length: 80)]
-    private $ville;
-
-    #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
-    private $proprietaire;
-
-    #[ORM\Column(type: 'boolean')]
-    private $est_disponible;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $created_at;
-
-    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
-    private $reservations;
-
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
-    private $activites;
-
-    #[ORM\Column(type: 'json', nullable: true)]
-    private $images = [];
-
-    #[ORM\ManyToMany(targetEntity: Equipements::class, inversedBy: 'habitats')]
-    private $equipements;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $description_title;
-
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: InformationsPratiques::class)]
-    private $informations_pratiques;
-
-    #[ORM\Column(type: 'json')]
-    private $informations_supplementaires = [];
+    #[ORM\Column(type: 'integer')]
+    private $nb_personnes;
 
     #[ORM\Column(type: 'float')]
     private $prix;
 
-    #[ORM\Column(type: 'integer')]
-    private $nombre_personnes_max;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $debut_disponibilite;
 
-    #[ORM\ManyToOne(targetEntity: TypeHabitats::class, inversedBy: 'habitats')]
-    private $TypeHabitat;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $fin_disponibilite;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $created_at;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $updated_at;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $deleted_at;
 
     #[ORM\Column(type: 'boolean')]
-    private $statut;
+    private $est_valide;
+
+    #[ORM\ManyToOne(targetEntity: TypesHabitat::class, inversedBy: 'habitats')]
+    private $type;
+
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
+    private $caracteristiquesHabitats;
+
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
+    private $reservations;
+
+    #[ORM\ManyToMany(targetEntity: Prestations::class, inversedBy: 'habitats')]
+    private $prestations;
+
+    #[ORM\Column(type: 'boolean')]
+    private $est_actif;
+
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: ImagesHabitat::class)]
+    private $imagesHabitats;
+
+    #[ORM\Column(type: 'string', length: 80)]
+    private $ville;
 
     public function __construct()
     {
+        $this->caracteristiquesHabitats = new ArrayCollection();
         $this->reservations = new ArrayCollection();
-        $this->equipements = new ArrayCollection();
-        $this->activites = new ArrayCollection();
-        $this->informations_pratiques = new ArrayCollection();
+        $this->prestations = new ArrayCollection();
+        $this->imagesHabitats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,14 +152,26 @@ class Habitats
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getTitre(): ?string
     {
-        return $this->libelle;
+        return $this->titre;
     }
 
-    public function setLibelle(string $libelle): self
+    public function setTitre(string $titre): self
     {
-        $this->libelle = $libelle;
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateurs
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateurs $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
@@ -184,18 +200,6 @@ class Habitats
         return $this;
     }
 
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
     public function getPays(): ?string
     {
         return $this->pays;
@@ -204,157 +208,6 @@ class Habitats
     public function setPays(string $pays): self
     {
         $this->pays = $pays;
-
-        return $this;
-    }
-
-    public function getProprietaire(): ?Utilisateurs
-    {
-        return $this->proprietaire;
-    }
-
-    public function setProprietaire(?Utilisateurs $proprietaire): self
-    {
-        $this->proprietaire = $proprietaire;
-
-        return $this;
-    }
-
-    public function isEstDisponible(): ?bool
-    {
-        return $this->est_disponible;
-    }
-
-    public function setEstDisponible(bool $est_disponible): self
-    {
-        $this->est_disponible = $est_disponible;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservations>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    // public function addReservation(Reservations $reservation): self
-    // {
-    // // 
-    // //     if (!$this->Reservations->contains($reservation)) {
-    // //         $this->Reservations[] = $reservation;
-    // //         $reservation->setHabitat($this);
-    // //     }
-
-    //     // return $this;
-    // }
-
-    // public function removeReservation(Reservations $reservation): self
-    // {
-    //     // if ($this->Reservations->removeElement($reservation)) {
-    //     //     // set the owning side to null (unless already changed)
-    //     //     if ($reservation->getHabitat() === $this) {
-    //     //         $reservation->setHabitat(null);
-    //     //     }
-    //     // }
-
-    //     // return $this;
-    // }
-
-    /**
-     * @return Collection<int, Equipements>
-     */
-    public function getEquipements(): Collection
-    {
-        return $this->equipements;
-    }
-
-    public function addEquipement(Equipements $equipement): self
-    {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements[] = $equipement;
-            $equipement->addHabitat($this);
-        }
-
-        return $this;
-    }   
-
-    public function removeEquipement(Equipements $equipement): self
-    {
-        if ($this->equipements->removeElement($equipement)) {
-            // set the owning side to null (unless already changed)
-            if ($equipement->getHabitats() === $this) {
-                $equipement->removeHabitat($this);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Activites>
-     */
-    public function getActivites(): Collection
-    {
-        return $this->Activites;
-    }
-
-    public function addActivite(Activites $activite): self
-    {
-        if (!$this->Activites->contains($activite)) {
-            $this->Activites[] = $activite;
-            $activite->setHabitats($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivite(Activites $activite): self
-    {
-        if ($this->Activites->removeElement($activite)) {
-            // set the owning side to null (unless already changed)
-            if ($activite->getHabitats() === $this) {
-                $activite->setHabitats(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getImages(): ?array
-    {
-        return $this->images;
-    }
-
-    public function setImages(?array $images): self
-    {
-        $this->images = $images;
-
-        return $this;
-    }
-
-    public function getDescriptionTitle(): ?string
-    {
-        return $this->description_title;
-    }
-
-    public function setDescriptionTitle(string $description_title): self
-    {
-        $this->description_title = $description_title;
 
         return $this;
     }
@@ -371,44 +224,14 @@ class Habitats
         return $this;
     }
 
-    /**
-     * @return Collection<int, InformationsPratiques>
-     */
-    public function getInformationsPratiques(): Collection
+    public function getNbPersonnes(): ?int
     {
-        return $this->informations_pratiques;
+        return $this->nb_personnes;
     }
 
-    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
+    public function setNbPersonnes(int $nb_personnes): self
     {
-        if (!$this->informations_pratiques->contains($informationsPratique)) {
-            $this->informations_pratiques[] = $informationsPratique;
-            $informationsPratique->setHabitats($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
-    {
-        if ($this->informations_pratiques->removeElement($informationsPratique)) {
-            // set the owning side to null (unless already changed)
-            if ($informationsPratique->getHabitats() === $this) {
-                $informationsPratique->setHabitats(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getInformationsSupplementaires(): ?array
-    {
-        return $this->informations_supplementaires;
-    }
-
-    public function setInformationsSupplementaires(array $informations_supplementaires): self
-    {
-        $this->informations_supplementaires = $informations_supplementaires;
+        $this->nb_personnes = $nb_personnes;
 
         return $this;
     }
@@ -425,40 +248,224 @@ class Habitats
         return $this;
     }
 
-
-
-    public function getNombrePersonnesMax(): ?int
+    public function getDebutDisponibilite(): ?\DateTimeImmutable
     {
-        return $this->nombre_personnes_max;
+        return $this->debut_disponibilite;
     }
 
-    public function setNombrePersonnesMax(int $nombre_personnes_max): self
+    public function setDebutDisponibilite(\DateTimeImmutable $debut_disponibilite): self
     {
-        $this->nombre_personnes_max = $nombre_personnes_max;
+        $this->debut_disponibilite = $debut_disponibilite;
 
         return $this;
     }
 
-    public function getTypeHabitat(): ?TypeHabitats
+    public function getFinDisponibilite(): ?\DateTimeImmutable
     {
-        return $this->TypeHabitat;
+        return $this->fin_disponibilite;
     }
 
-    public function setTypeHabitat(?TypeHabitats $TypeHabitat): self
+    public function setFinDisponibilite(\DateTimeImmutable $fin_disponibilite): self
     {
-        $this->TypeHabitat = $TypeHabitat;
+        $this->fin_disponibilite = $fin_disponibilite;
 
         return $this;
     }
 
-    public function isStatut(): ?bool
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->statut;
+        return $this->created_at;
     }
 
-    public function setStatut(bool $statut): self
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
-        $this->statut = $statut;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(\DateTimeImmutable $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function isEstValide(): ?bool
+    {
+        return $this->est_valide;
+    }
+
+    public function setEstValide(bool $est_valide): self
+    {
+        $this->est_valide = $est_valide;
+
+        return $this;
+    }
+
+    public function getType(): ?TypesHabitat
+    {
+        return $this->type;
+    }
+
+    public function setType(?TypesHabitat $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CaracteristiquesHabitat>
+     */
+    public function getCaracteristiquesHabitats(): Collection
+    {
+        return $this->caracteristiquesHabitats;
+    }
+
+    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    {
+        if (!$this->caracteristiquesHabitats->contains($caracteristiquesHabitat)) {
+            $this->caracteristiquesHabitats[] = $caracteristiquesHabitat;
+            $caracteristiquesHabitat->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    {
+        if ($this->caracteristiquesHabitats->removeElement($caracteristiquesHabitat)) {
+            // set the owning side to null (unless already changed)
+            if ($caracteristiquesHabitat->getHabitat() === $this) {
+                $caracteristiquesHabitat->setHabitat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservations>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservations $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservations $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getHabitat() === $this) {
+                $reservation->setHabitat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prestations>
+     */
+    public function getPrestations(): Collection
+    {
+        return $this->prestations;
+    }
+
+    public function addPrestation(Prestations $prestation): self
+    {
+        if (!$this->prestations->contains($prestation)) {
+            $this->prestations[] = $prestation;
+        }
+
+        return $this;
+    }
+
+    public function removePrestation(Prestations $prestation): self
+    {
+        $this->prestations->removeElement($prestation);
+
+        return $this;
+    }
+
+    public function isEstActif(): ?bool
+    {
+        return $this->est_actif;
+    }
+
+    public function setEstActif(bool $est_actif): self
+    {
+        $this->est_actif = $est_actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImagesHabitat>
+     */
+    public function getImagesHabitats(): Collection
+    {
+        return $this->imagesHabitats;
+    }
+
+    public function addImagesHabitat(ImagesHabitat $imagesHabitat): self
+    {
+        if (!$this->imagesHabitats->contains($imagesHabitat)) {
+            $this->imagesHabitats[] = $imagesHabitat;
+            $imagesHabitat->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImagesHabitat(ImagesHabitat $imagesHabitat): self
+    {
+        if ($this->imagesHabitats->removeElement($imagesHabitat)) {
+            // set the owning side to null (unless already changed)
+            if ($imagesHabitat->getHabitat() === $this) {
+                $imagesHabitat->setHabitat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

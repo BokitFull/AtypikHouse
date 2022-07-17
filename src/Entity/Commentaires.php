@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\CommentairesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentairesRepository::class)]
@@ -15,42 +13,127 @@ class Commentaires
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'text')]
-    private $commentaire;
+    #[ORM\ManyToOne(targetEntity: Reservations::class, inversedBy: 'commentaires')]
+    private $reservation;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $reponse;
+
+    #[ORM\Column(type: 'integer')]
+    private $note_proprete;
+
+    #[ORM\Column(type: 'integer')]
+    private $note_accueil;
+
+    #[ORM\Column(type: 'integer')]
+    private $note_qualite_prix;
+
+    #[ORM\Column(type: 'integer')]
+    private $note_emplacement;
+
+    #[ORM\Column(type: 'integer')]
+    private $note_equipements;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'commentaires')]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $updated_at;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $deleted_at;
+
+    #[ORM\Column(type: 'text')]
+    private $contenu;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class)]
     private $utilisateur;
-
-    #[ORM\ManyToOne(targetEntity: Reservations::class, inversedBy: 'commentaires')]
-    private $reservation;
-
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'commentaires')]
-    private $commentaire_parent;
-
-    #[ORM\OneToMany(mappedBy: 'commentaire_parent', targetEntity: self::class)]
-    private $commentaires;
-
-    public function __construct()
-    {
-        $this->commentaires = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCommentaire(): ?string
+    public function getReservation(): ?Reservations
     {
-        return $this->commentaire;
+        return $this->reservation;
     }
 
-    public function setCommentaire(string $commentaire): self
+    public function setReservation(?Reservations $reservation): self
     {
-        $this->commentaire = $commentaire;
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    public function getReponse(): ?string
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?string $reponse): self
+    {
+        $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    public function getNoteProprete(): ?int
+    {
+        return $this->note_proprete;
+    }
+
+    public function setNoteProprete(int $note_proprete): self
+    {
+        $this->note_proprete = $note_proprete;
+
+        return $this;
+    }
+
+    public function getNoteAccueil(): ?int
+    {
+        return $this->note_accueil;
+    }
+
+    public function setNoteAccueil(int $note_accueil): self
+    {
+        $this->note_accueil = $note_accueil;
+
+        return $this;
+    }
+
+    public function getNoteQualitePrix(): ?int
+    {
+        return $this->note_qualite_prix;
+    }
+
+    public function setNoteQualitePrix(int $note_qualite_prix): self
+    {
+        $this->note_qualite_prix = $note_qualite_prix;
+
+        return $this;
+    }
+
+    public function getNoteEmplacement(): ?int
+    {
+        return $this->note_emplacement;
+    }
+
+    public function setNoteEmplacement(int $note_emplacement): self
+    {
+        $this->note_emplacement = $note_emplacement;
+
+        return $this;
+    }
+
+    public function getNoteEquipements(): ?int
+    {
+        return $this->note_equipements;
+    }
+
+    public function setNoteEquipements(int $note_equipements): self
+    {
+        $this->note_equipements = $note_equipements;
 
         return $this;
     }
@@ -67,6 +150,42 @@ class Commentaires
         return $this;
     }
 
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(\DateTimeImmutable $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(string $contenu): self
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
     public function getUtilisateur(): ?Utilisateurs
     {
         return $this->utilisateur;
@@ -75,60 +194,6 @@ class Commentaires
     public function setUtilisateur(?Utilisateurs $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
-
-    public function getReservation(): ?Reservations
-    {
-        return $this->reservation;
-    }
-
-    public function setReservation(?Reservations $reservation): self
-    {
-        $this->reservation = $reservation;
-
-        return $this;
-    }
-
-    public function getCommentaireParent(): ?self
-    {
-        return $this->commentaire_parent;
-    }
-
-    public function setCommentaireParent(?self $commentaire_parent): self
-    {
-        $this->commentaire_parent = $commentaire_parent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
-
-    public function addCommentaire(self $commentaire): self
-    {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setCommentaireParent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(self $commentaire): self
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getCommentaireParent() === $this) {
-                $commentaire->setCommentaireParent(null);
-            }
-        }
 
         return $this;
     }

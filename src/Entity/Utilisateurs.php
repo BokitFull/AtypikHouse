@@ -4,14 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UtilisateursRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UtilisateursRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,7 +17,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 100, unique: true)]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -28,7 +26,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 80)]
+    #[ORM\Column(type: 'string', length: 50)]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 80)]
@@ -43,45 +41,40 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $adresse;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[ORM\Column(type: 'string', length: 5, nullable: true)]
     private $code_postal;
 
-    #[ORM\Column(type: 'string', length: 80, nullable: true)]
+    #[ORM\Column(type: 'string', length: 70, nullable: true)]
     private $ville;
 
     #[ORM\Column(type: 'string', length: 80, nullable: true)]
     private $pays;
-    
+
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-// <<<<<<< HEAD
-//     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Reservations::class)]
-//     private $Reservations;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $updated_at;
 
-//     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
-//     private $habitats;
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $deleted_at;
 
-//     public function __construct()
-//     {
-//         $this->Reservations = new ArrayCollection();
-// =======
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Habitats::class)]
+    private $habitats;
+
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reservations::class)]
     private $reservations;
-  
-    #[ORM\Column(type: 'string', length: 255)]
-    private $image;
 
-    #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Habitats::class)]
-    private $habitats;
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaires::class)]
     private $commentaires;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $photo_profil;
+
     public function __construct()
     {
-        $this->reservations = new ArrayCollection();
         $this->habitats = new ArrayCollection();
-        $this->reservation = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
 
@@ -119,8 +112,8 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        // $roles[] = 'ROLE_USER';
-
+        $roles[] = 'ROLE_USER';
+        
         return array_unique($roles);
     }
 
@@ -250,7 +243,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
@@ -263,13 +256,28 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservations>
-     */
-    public function getReservations(): Collection
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->reservations;
+        return $this->updated_at;
+    }
 
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
     }
 
     /**
@@ -280,15 +288,54 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->habitats;
     }
 
-
-    public function getImage(): ?string
+    public function addHabitat(Habitats $habitat): self
     {
-        return $this->image;
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats[] = $habitat;
+            $habitat->setUtilisateur($this);
+        }
+
+        return $this;
     }
 
-    public function setImage(string $image): self
+    public function removeHabitat(Habitats $habitat): self
     {
-        $this->image = $image;
+        if ($this->habitats->removeElement($habitat)) {
+            // set the owning side to null (unless already changed)
+            if ($habitat->getUtilisateur() === $this) {
+                $habitat->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservations>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservations $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservations $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUtilisateur() === $this) {
+                $reservation->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
@@ -301,24 +348,14 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->commentaires;
     }
 
-    public function addCommentaire(Commentaires $commentaire): self
+    public function getPhotoProfil(): ?string
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setUtilisateur($this);
-        }
-
-        return $this;
+        return $this->photo_profil;
     }
 
-    public function removeCommentaire(Commentaires $commentaire): self
+    public function setPhotoProfil(?string $photo_profil): self
     {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getUtilisateur() === $this) {
-                $commentaire->setUtilisateur(null);
-            }
-        }
+        $this->photo_profil = $photo_profil;
 
         return $this;
     }
