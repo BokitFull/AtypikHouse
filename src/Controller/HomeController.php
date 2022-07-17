@@ -5,6 +5,7 @@ namespace App\Controller;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
+use App\Entity\TypesHabitat;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,11 +30,13 @@ class HomeController extends AbstractController
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
+        $repoType = $doctrine-> getRepository(TypesHabitat::class); 
         //show only last three comments
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
+        //
         $departement = $repoHabitat->findAll();
         $nombreDepersonne = $repoHabitat->findAll( array('nombrePersonnesMax' => 'DESC'));
-        $hebergementType = $repoHabitat->findAll();
+        $typeHebergement = $repoType->findAll();
 
 
         return $this->render('home/index.html.twig', [
@@ -41,9 +44,7 @@ class HomeController extends AbstractController
             'commentaires' => $commentaires ,
             'habitats' => $departement ,
             'habitats' =>  $nombreDepersonne ,
-            'habitats' =>  $hebergementType 
-
-
+            'TypesHabitat' =>  $typeHebergement 
         ]);
     }
 

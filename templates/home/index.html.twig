@@ -1,4 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+   {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('homeJs') }}
+{% endblock %}
 
 {% block title %}AtypikHouse!
 {% endblock %}
@@ -11,7 +21,8 @@
 {% block body %}
 	<div class="container">
 
-		<div class="bg-image" style="background-image: url('https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg');"></div>
+		<div class="bg-image" >
+		<img src="https://c4.wallpaperflare.com/wallpaper/644/970/427/lights-trees-yellow-cozy-wallpaper-preview.jpg" alt=" home banniere"/> </div>
 
 		<div class="messageHome">
 
@@ -25,7 +36,7 @@
 
 			<form class="form-home" action="/habitats" method="GET">
 
-				<select name="dep" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+				<select name="code_postal" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
 						Destinations
 					</option>
@@ -35,26 +46,26 @@
 				</select>
 
 
-				<select name="type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+				<select name="type_habitat_id" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
 						Hébergement
 					</option>
-					{% for habitat in habitats %}
-						<option  value={{ habitat.TypeHabitat.libelle|default }}>{{ habitat.TypeHabitat.libelle|default }}</option>
+					{% for typeHebergement  in TypesHabitat %}
+						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
 					{% endfor %}
 				</select>
 
-					<select name="nombre" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+					<select name="nombre_personnes_max" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
 						Combien de Personnes ?
 					</option>
-					{% for i in 1..10 %}
-						<option  value={{i}}>{{i}}</option>
+					{% for nombreDepersonne  in habitats %}
+						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
 					{% endfor %}
 				</select>
+				
+                <input type="text" name="daterange" value="" />
 
-				<input class="custom-select" type="date" id="start">
-				<input class="custom-select" type="date" id="end">
 
 				<div class="filtre-buttons">
 					<input value="Rechercher" type="submit" class="btn btn-notdark">
@@ -164,13 +175,22 @@
 		{% for comment in commentaires %}
 
 			<div class="commentaire">
+			<div> 
 				<p>{{ comment.contenu|slice(0, 100) }}</p>
+				</div>
+				<div> 
+				<div>
 				<span>
 					{{ comment.utilisateur.nom }}
 				</span>
+					</div>
+					<div> 
 				<span>
-					{{ comment.createdAt|date('d-m-Y') }}
+					{{ comment.createdAt|date('m-Y') }}
 				</span>
+				</div>
+				</div>
+			
 			</div>
 		{% endfor %}
 	</div>

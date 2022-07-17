@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @extends ServiceEntityRepository<Utilisateurs>
+ * @extends ServiceEntityRepository<User>
  *
  * @method Utilisateurs|null find($id, $lockMode = null, $lockVersion = null)
  * @method Utilisateurs|null findOneBy(array $criteria, array $orderBy = null)
@@ -31,12 +31,6 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-    }
-
-    public function Update(Utilisateurs $entity): void
-    {
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush();
     }
 
     public function remove(Utilisateurs $entity, bool $flush = false): void
@@ -63,7 +57,7 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
     }
 
 //    /**
-//     * @return Utilisateurs[] Returns an array of Utilisateurs objects
+//     * @return User[] Returns an array of User objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -77,7 +71,7 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Utilisateurs
+//    public function findOneBySomeField($value): ?User
 //    {
 //        return $this->createQueryBuilder('u')
 //            ->andWhere('u.exampleField = :val')
