@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Commentaires;
+use App\Entity\CaracteristiquesTypeHabitat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Commentaires>
+ * @extends ServiceEntityRepository<CaracteristiquesTypeHabitat>
  *
- * @method Commentaires|null find($id, $lockMode = null, $lockVersion = null)
- * @method Commentaires|null findOneBy(array $criteria, array $orderBy = null)
- * @method Commentaires[]    findAll()
- * @method Commentaires[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CaracteristiquesTypeHabitat|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CaracteristiquesTypeHabitat|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CaracteristiquesTypeHabitat[]    findAll()
+ * @method CaracteristiquesTypeHabitat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CommentairesRepository extends ServiceEntityRepository
+class CaracteristiquesTypeHabitatRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Commentaires::class);
+        parent::__construct($registry, CaracteristiquesTypeHabitat::class);
     }
 
-    public function add(Commentaires $entity, bool $flush = false): void
+    public function add(CaracteristiquesTypeHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CommentairesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Commentaires $entity, bool $flush = false): void
+    public function remove(CaracteristiquesTypeHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CommentairesRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Commentaires[] Returns an array of Commentaires objects
+//     * @return CaracteristiquesTypeHabitat[] Returns an array of CaracteristiquesTypeHabitat objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class CommentairesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Commentaires
+//    public function findOneBySomeField($value): ?CaracteristiquesTypeHabitat
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')
