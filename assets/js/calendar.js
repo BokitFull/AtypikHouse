@@ -52,7 +52,7 @@ main_container.addEventListener('click', (e) => {
   if (e.target == document.querySelector('#previous-month')){
     let data = new FormData();
     data.append('habitats', reservations_date.keys())
-    let response = fetch('/getReservationsByHabitats')
+    let response = fetch('/api/habitats/' + habitat)
   }
 
   if (e.target == document.querySelector('#next-month')){
