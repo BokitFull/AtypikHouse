@@ -3,7 +3,7 @@
     <a href="/" class="btn green-text d-none d-md-block">Devenir hôte</a>
     {% if app.user %}
         <div class="dropdown">
-            <button type="button" class="btn"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="fa-solid fa-user-circle"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -13,7 +13,7 @@
         </div>
     {% else %}
     {{ encore_entry_script_tags('navbar') }}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <span class="fa-solid fa-user-circle"></span>
         </button>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

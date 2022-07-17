@@ -6,42 +6,70 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+// use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Form\PaymentFormType;
-use Stripe\Charge;
-use Stripe\Error\Base;
-use Stripe\Stripe;
+use App\Repository\ReservationsRepository;
 
 class StripeController extends AbstractController
 {
+    public function __construct(ReservationsRepository $repository) {
+        $this->repository = $repository;
+    }
 
-    #[Route('/payment', name: 'app_payment')]
-    public function paymentAction() : Response {
-        $form = $this->createForm(PaymentFormType::class, null, array());
-        // $request = $this->container->get('request');
-        // $message = '';
-        // if($request->get('test'))
-        // {
-        //     Stripe::setApiKey('sk_test_4zvcPWcVyDPt4wZcVwqe95Xc');
+    #[Route('/payment', name: 'payment_action', methods: ['GET', 'POST'])]
+    public function paymentAction(Request $request) : Response {
+        
+        function getReservationAmount(?array $items): int {
+            // Replace this constant with a calculation of the order's amount
+            // Calculate the order total on the server to prevent
+            // people from directly manipulating the amount on the client
+            return 2000;
+        }
 
-        //     $token = $request->get('stripeToken');
+        \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+        $apiKey = $this->getParameter('stripe_public_key');
 
-        //     $customer = \Stripe_Customer::create(array(
-        //           'email' => 'customer@example.com',
-        //           'card'  => $token
-        //     ));
+        $jsonStr = $request->get('args');
+        $jsonObj = json_decode($jsonStr);
 
-        //     $charge = Stripe_Charge::create(array(
-        //           'customer' => $customer->id,
-        //           'amount'   => 5000,
-        //           'currency' => 'usd'
-        //     ));
+        $payment = $this->getParameter('payment');
 
-        //     $message = '<h1>Successfully charged $50.00!</h1>';
-        // }
+        $amount = getReservationAmount($jsonObj);
+        $currency = $payment['currency'];
+
+        $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => $amount,
+            'currency' => $currency,
+            'automatic_payment_methods' => [
+                'enabled' => true,
+            ],
+        ]);
 
         return $this->render('payment/index.html.twig', [
-        'form' => $form->createView(),
-        'stripe_public_key' => $this->getParameter('stripe_public_key'),
+            'clientSecret' => $this->getParameter('stripe_secret_key'),
+            'clientKey' => $apiKey
         ]);
+
     }
+
+    #[Route('/confirmPayment', name: 'confirm_payment', methods: ['GET'])]
+    public function paymentConfirm(Request $request) : Response {
+
+    }
+    // #[Route('/payment/OK', name: 'success_payment', methods: ['GET'])]
+    // public function checkoutSuccess(Request $request) : Response {
+
+    //     return $this->render('payment/success.html.twig', [
+    //         'result' => $request,
+    //     ]);
+    // }
+
+    // #[Route('/payment/CANCEL', name: 'cancel_payment', methods: ['GET'])]
+    // public function checkoutCancel(Request $request) : Response {
+
+    //     return $this->render('payment/cancel.html.twig', [
+    //         'result' => $request,
+    //     ]);
+    // }
 }

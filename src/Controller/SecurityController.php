@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-    // #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new Utilisateurs();
@@ -52,24 +52,11 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-    
+
     #[Route(path: '/login', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
-        $context = [];
-        // $context['error'] = $authenticationUtils->getLastAuthenticationError();
-        // // last username entered by the user
-        // $context['last_username'] = $authenticationUtils->getLastUsername();
-        // $utilisateur = new Utilisateurs();
-        // $context['register_form'] = $this->createForm(RegistrationFormType::class, $utilisateur)->createView();
-        // $context['login_form'] = $this->createForm(LoginFormType::class, $utilisateur)->createView();
-
-        return $this->render('security/login.html.twig', $context);
+        return $this->render('security/login.html.twig', []);
     }
 
     public function authentication_form(AuthenticationUtils $authenticationUtils): Response

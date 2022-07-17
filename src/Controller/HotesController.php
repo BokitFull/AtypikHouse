@@ -27,32 +27,23 @@ class HotesController extends AbstractController
 
     #[Route('/', name: 'hote_presentation', methods: ['GET', 'POST'])]
     public function hotePresentation(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
-    {   $context = [];
-        $context['not_authenticated'] = false;
-        if (!$this->security->getUser()) {
-            $utilisateur = new Utilisateurs();
-            $context['not_authenticated'] = true;
-            $context['register_form'] = $this->createForm(RegistrationFormType::class, $utilisateur)->createView();
-            $context['login_form'] = $this->createForm(LoginFormType::class, $utilisateur);
-            $context['login_form']->handleRequest($request);
-            $context['login_form'] = $context['login_form']->createView();
-        }
-        return $this->render('hotes/presentation.html.twig', $context);
+    {   
+        return $this->render('hotes/presentation.html.twig', []);
     }
     
-    #[Route('/home', name: 'hote_accueil', methods: ['GET', 'POST'])]
-    public function hoteAcceuil(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
-    {   
-        $context = [];
+    // #[Route('/home', name: 'hote_accueil', methods: ['GET', 'POST'])]
+    // public function hoteAccueil(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
+    // {   
+    //     $context = [];
 
-        if($request->isMethod('POST')){
-            if($this->getUser()){
-                $this->getUser()->setRoles(['ROLE_HOTE']);
-            }
-        }
+    //     if($request->isMethod('POST')){
+    //         if($this->getUser()){
+    //             $this->getUser()->setRoles(['ROLE_HOTE']);
+    //         }
+    //     }
 
-        return $this->render('hotes/accueil.html.twig', $context);
-    }
+    //     return $this->render('hotes/accueil.html.twig', $context);
+    // }
 
     #[Route('/habitats', name: 'hote_habitats', methods: ['GET', 'POST'])]
     public function habitats(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response

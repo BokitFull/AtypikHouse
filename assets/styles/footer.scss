@@ -1,10 +1,17 @@
-#footer-div {
+footer {
+    position: relative;
+    bottom: 0;
     width: 100%;
+}
+
+#footer-div {
     height: 40px;
     background-color: #eee;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: relative;
+    bottom: 0;
 }
 
 #footer-div a{

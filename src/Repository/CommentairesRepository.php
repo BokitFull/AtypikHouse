@@ -3,9 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Commentaires;
-use App\Entity\Habitats;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Habitats;
 
 /**
  * @extends ServiceEntityRepository<Commentaires>
@@ -50,6 +50,24 @@ class CommentairesRepository extends ServiceEntityRepository
         ->setParameter('id', $entity->getId())
         ->getQuery()
         ->getResult();
+    }
+
+    public function findNotesMoyennesByHabitat(Habitats $entity) : Array {
+        return 
+        $this->createQueryBuilder('n')
+        ->select('
+            AVG(n.note_proprete) note_proprete, 
+            AVG(n.note_accueil) note_accueil, 
+            AVG(n.note_emplacement) note_emplacement, 
+            AVG(n.note_qualite_prix) note_qualite_prix, 
+            AVG(n.note_equipements) note_equipements, 
+            ((n.note_proprete + n.note_accueil + n.note_emplacement + n.note_qualite_prix + n.note_equipements) / 5) note_generale')
+        ->leftJoin('n.reservation', 'r')
+        ->leftJoin('r.habitat', 'h')
+        ->andWhere('h.id = :id')
+        ->setParameter('id', $entity->getId())
+        ->getQuery()
+        ->getResult();                       
     }
 
 //    /**

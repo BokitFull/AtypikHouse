@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursController!{% endblock %}
+{% block title %}AtypikHouse!{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -9,20 +15,118 @@
 
 {% block body %}
     <h1>Détail de l'habitat</h1>
-    {{ form_start(form, { 'attr': {'id': 'form'}}) }}
+
+    {{ include('habitats/_form.html.twig') }}
+    {# {{ form_start(form, { 'attr': {'id': 'form'}}) }}
         <div id="form-input-div">
             {{ form_row(form._token) }}
+            {{ form_row(form.est_disponible, { 'attr': {'class': 'input-field', 'placeholder': 'Est disponible'} }) }}
+            {{ form_row(form.statut, { 'attr': {'class': 'input-field', 'placeholder': 'Statut'} }) }}
             {{ form_row(form.libelle, { 'attr': {'class': 'input-field ', 'placeholder': 'Libelle'} }) }}
             {{ form_row(form.adresse, { 'attr': {'class': 'input-field ', 'placeholder': 'Adresse'} }) }}
             {{ form_row(form.code_postal, { 'attr': {'class': 'input-field ', 'placeholder': 'Code postal'} }) }}
             {{ form_row(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
             {{ form_row(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'Pays'} }) }}
-            {{ form_row(form.est_disponible, { 'attr': {'class': 'input-field', 'placeholder': 'Est disponible'} }) }}
+            {# {{ form_row(form.informations_supplementaires, { 'attr': {'class': 'input-field', 'placeholder': 'Informations supplémentaires'} }) }}
+            {{ form_row(form.TypeHabitat, { 'attr': {'class': 'select-field', 'placeholder': 'Type habitat'} }) }}
+            {{ form_row(form.description_title, { 'attr': {'class': 'input-field', 'placeholder': 'Titre description'} }) }}
+            {{ form_row(form.description, { 'attr': {'class': 'input-field', 'placeholder': 'Description'} }) }}
+            {{ form_row(form.prix, { 'attr': {'class': 'input-field', 'placeholder': 'Prix'} }) }}
+            {{ form_row(form.nombre_personnes_max, { 'attr': {'class': 'input-field', 'placeholder': 'Nombre personnes max'} }) }}
+            <div id="div-equipements">
+                <label for="habitats_equipements" class="required">Équipements</label>
+                <ul id="equipements-fields-list"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.Equipements|length }}">
+                    {% for equipement in form.Equipements %}
+                    <li>
+                        {{ form_row(equipement, { 'attr': {'class': 'input-field', 'placeholder': 'Nombre personnes max'} }) }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="div-informationsPratiques">
+                <label for="habitats_informationPratiques" class="required">Informations pratiques</label>
+                <ul id="habitats_informationPratiques-fields-list"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.informations_pratiques|length }}">
+                    {% for info in form.informations_pratiques %}
+                    <li>
+                        {{ form_row(info, { 'attr': {'class': 'input-field', 'placeholder': 'Nombre personnes max'} }) }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="div-images">
+                {# <label for="habitats_images" class="required">Images</label>
+                <div>
+                    <button id="btnShowImages" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
+                </div>
+                <div>
+                    {# <label for="habitats_new_image">Télécharger une nouvelle image</label>
+                    <input id="newFile" class="btn btn-outline-primary d-block" type="file" title="" accept=".jpg,.jpeg,.png"></input>
+                    <p><small>Fichiers autorisés: jpg, jpeg, png (max size: 5000ko)</small></p>
+                    <button id="btnValidUpload" class="btn btn-primary" type="button" onclick="uploadImage();">Télécharger l'image</button>
+                    {# <button id="btnValidUpload" class="btn btn-primary" type="submit">Télécharger l'image</button>
+                </div>
+
+                <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content site-background-color">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center">Toutes les images</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body row">
+                                {% for image in form.images %}
+                                <div class="col-12 mb-2">
+                                    <img src="{{ image }}" alt="image-habitat" class="img-fluid"> 
+                                    {# {{ form_row(image, { 'attr': {'class': 'file-field img-fluid', 'alt': 'image-habitat'} }) }}
+                                    {# <img src="{{ image["url"] }}" class="img-fluid" title="{{image["title"]}}" alt="image-habitat">
+                                </div>  
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>  
+                    </div>
+                </div> 
+            </div>
+            {# <div class="btn-div">
+                <div>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary" type="button">Télécharger une nouvelle image</button>
+                    <small>Fichiers autorisés: jpg, jpeg, png (max size: 5000ko)</small>
+                </div>
+
+                <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content site-background-color">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center">Toutes les images</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body row">
+                            {% for image in habitat.images %}
+                                <div class="col-6 mb-2">
+                                    <img src="{{ image["url"] }}" class="img-fluid" title="{{image["title"]}}" alt="image-habitat">
+                                </div>  
+                            {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>  
+                    </div>
+                </div> 
+            </div> #}
+            {# {{ form_row(form.images, { 'attr': {'class': 'file-input', 'placeholder': 'Image', 'src': '{{ image["url"] }}'} }) }}
+
         </div>
         <div id="form-btn-div">
             <button type="submit" class="btn btn-success">Enregistrer</button>
-            <a href="{{ path('accueil_utilisateur') }}" class="btn btn-outline-secondary">Retour</a>
+            <a href="{{ path('hote_habitats') }}" class="btn btn-outline-secondary">Retour</a>
         </div>
-    {{ form_end(form, {render_rest: false}) }}
-    {{ include('habitats/_delete_form.html.twig') }}
+    {{ form_end(form, {render_rest: false}) }} #}
 {% endblock %}
