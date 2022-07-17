@@ -25,13 +25,13 @@
 
 			<a href="{{ path('habitats_detail', {'id': habitat.id }) }}" class="col-lg-3 displayed-card">
 				<div>
-					{% if (habitat.images[0]|default) %}
-					<img src="{{ habitat.images[0] }}" alt="" width="100%" height="80%">
+					{% if (habitat.imagesHabitats[0]|default) %}
+					<img src="{{ habitat.imagesHabitats[0].chemin }}" alt="" width="100%" height="80%">
 					{% else %}
 					<img src="/images/default.png" alt="" width="100%" height="80%">
 					{% endif %}
 					<div class="div_titre_et_lieu">
-						<p class="liste_habitat_titre">{{ habitat.libelle }}</p>
+						<p class="liste_habitat_titre">{{ habitat.titre }}</p>
 						<p class="liste_habitat_lieu">{{ habitat.ville }}
 							({{habitat.codePostal|slice(0,2) }})</p>
 					</div>

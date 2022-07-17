@@ -13,15 +13,15 @@
     <div class="row">
 
         <div class="col-12">
-            <h2>{{habitat.libelle}}</h2>
+            <h2>{{habitat.titre}}</h2>
         </div>
 
         <div class="col-12">
             <div class="row">
                 <div class="col-3 d-none d-lg-block image-side">
-                    {% if (habitat.images[0]|default) %}
+                    {% if (habitat.imagesHabitats[0]|default) %}
                         <div class="d-flex justify-content-center mb-2">
-                            <img src="{{ habitat.images[0] }}" class="img-fluid" title="" alt="image-habitat-1">
+                            <img src="{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
                         </div> 
                     {% else %}
                         <div class="d-flex justify-content-center mb-2">
@@ -29,9 +29,9 @@
                         </div> 
                     {% endif %}
 
-                    {% if (habitat.images[1]|default) %}
+                    {% if (habitat.imagesHabitats[1]|default) %}
                         <div class="d-flex justify-content-center mt-2">
-                            <img src="{{ habitat.images[1] }}" class="img-fluid" title="" alt="image-habitat-2">
+                            <img src="{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
                         </div> 
                     {% else %}
                         <div class="d-flex justify-content-center mt-2">
@@ -42,9 +42,9 @@
 
                 <div class="col-lg-6 col-sm-12 image-central">
 
-                    {% if (habitat.images[3]|default) %}
+                    {% if (habitat.imagesHabitats[3]|default) %}
                         <div class="d-flex justify-content-center">
-                            <img src="{{ habitat.images[3] }}" class="img-fluid" title="" alt="image-habitat-3">
+                            <img src="{{ habitat.imagesHabitats[3].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
                         </div> 
                     {% else %}
                         <div class="d-flex justify-content-center">
@@ -56,9 +56,9 @@
 
                 <div class="col-3 d-none d-lg-block image-side">
 
-                    {% if (habitat.images[4]|default) %}
+                    {% if (habitat.imagesHabitats[4]|default) %}
                         <div class="d-flex justify-content-center mb-2">
-                            <img src="{{ habitat.images[4] }}" class="img-fluid" title="" alt="image-habitat-4">
+                            <img src="{{ habitat.imagesHabitats[4].chemin }}" class="img-fluid" title="" alt="image-habitat-4">
                         </div> 
                     {% else %}
                         <div class="d-flex justify-content-center mb-2">
@@ -66,9 +66,9 @@
                         </div> 
                     {% endif %}
 
-                    {% if (habitat.images[5]|default) %}
+                    {% if (habitat.imagesHabitats[5]|default) %}
                         <div class="d-flex justify-content-center mt-2">
-                            <img src="{{ habitat.images[5] }}" class="img-fluid" title="" alt="image-habitat-5">
+                            <img src="{{ habitat.iimagesHabitatsmages[5].chemin }}" class="img-fluid" title="" alt="image-habitat-5">
                         </div> 
                     {% else %}
                         <div class="d-flex justify-content-center mt-2">
@@ -77,7 +77,7 @@
                     {% endif %}
                 </div>
 
-                {% if (habitat.images is not empty and habitat.images|length > 5) %}
+                {% if (habitat.imagesHabitats is not empty and habitat.imagesHabitats|length > 5) %}
                     <div class="row col-12 mt-2">
                         <div class="col-3 col-lg-5"></div>
                         <div class="col-6 col-lg-2 text-center">
@@ -91,7 +91,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body row">
-                                            {% for image in habitat.images %}
+                                            {% for image in habitat.imagesHabitats %}
                                                 <div class="col-6 mb-2">
                                                     <img src="{{ image }}" class="img-fluid" title="" alt="image-habitat">
                                                 </div>  
@@ -117,9 +117,8 @@
         <div class="col-3"></div>
 
         <div class="col-12">
-            <h4>L'hébergement : <span>{{ habitat.nombrePersonnesMax }} personnes - {{ habitat.informationsSupplementaires|join(" - ") }}</span></h4>
+            <h4>L'hébergement : <span>{{ habitat.nbPersonnes }} personnes</span></h4>
 
-            <p><h5>{{habitat.descriptionTitle}}</h5></p>
             <p>{{habitat.description}}</p>
         </div>
 
@@ -129,89 +128,39 @@
         <div class="col-3"></div>
         
         <div class="col-12">
-            <div class="row">
 
-                <div class="col-lg-6 col-sm-12 mb-2 mb-lg-0">
+            <div class="row col-12 mb-2 mb-lg-0">
 
-                    <h4>Équipements et services</h4>
-                    <div class="row w-100">
-                        {% if (habitat.equipements is empty) %}
-                            <div class="col-12">
-                                <span>Aucun équipement ou service</span>
-                            </div>
-                        {% else %}
-                            {% for equipement in habitat.equipements|slice(0, 4) %}
-                                <div class="col-6">
-                                    <span>{{ equipement.libelle }}</span>
-                                </div>
-                            {% endfor %}
-
-                            {% if (habitat.equipements.count > 4) %}
-                                <div class="col-12 mt-3">
-                                    <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalEquipements">Voir plus</button>
-
-                                    <div class="modal fade" id="modalEquipements" tabindex="-1" aria-labelledby="modalEquipementsLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-md modal-dialog-scrollable">
-                                            <div class="modal-content site-background-color">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title w-100 text-center">Tous les équipements</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <ul>
-                                                        {% for equipement in habitat.equipements %}
-                                                            <li>
-                                                                <div>
-                                                                    <span>{{ equipement.libelle }}</span>
-                                                                </div>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-                                                <div class="modal-footer">
-                                                </div>
-                                            </div>  
-                                        </div>
-                                    </div>  
-                                </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-sm-12 mt-2 mt-lg-0">
-
-                    <h4>Informations pratiques</h4>
-                    <div class="row w-100">
-                    {% if habitat.informationsPratiques is empty %}
+                <h4>Prestations</h4>
+                <div class="row w-100">
+                    {% if (habitat.prestations is empty) %}
                         <div class="col-12">
-                            <span>Aucune information supplémentaire</span>
+                            <span>Aucun équipement ou service</span>
                         </div>
                     {% else %}
-
-                        {% for information in habitat.informationsPratiques|slice(0, 4) %}
+                        {% for prestation in habitat.prestations|slice(0, 4) %}
                             <div class="col-6">
-                                <span>{{ information.libelle }}</span>
+                                <span>{{ prestation.nom }}</span>
                             </div>
                         {% endfor %}
 
-                        {% if (habitat.informationsPratiques.count > 4) %}
+                        {% if (habitat.prestations.count > 4) %}
                             <div class="col-12 mt-3">
-                                <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalInformations">Voir plus</button>
+                                <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
 
-                                <div class="modal fade" id="modalInformations" tabindex="-1" aria-labelledby="modalInformationsLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalPrestations" tabindex="-1" aria-labelledby="modalPrestationsLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-md modal-dialog-scrollable">
                                         <div class="modal-content site-background-color">
                                             <div class="modal-header">
-                                                <h5 class="modal-title w-100 text-center">Toutes les informations pratiques</h5>
+                                                <h5 class="modal-title w-100 text-center">Tous les équipements</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <ul>
-                                                    {% for information in habitat.informationsPratiques %}
+                                                    {% for prestation in habitat.prestations %}
                                                         <li>
                                                             <div>
-                                                                <span>{{ information.libelle }}</span>
+                                                                <span>{{ prestation.libelle }}</span>
                                                             </div>
                                                         </li>
                                                     {% endfor %}
@@ -221,13 +170,13 @@
                                             </div>
                                         </div>  
                                     </div>
-                                </div> 
+                                </div>  
                             </div>
                         {% endif %}
                     {% endif %}
-                    </div> 
                 </div>
             </div>
+
         </div>
 
         {# Bloc de séparateur #}
@@ -298,19 +247,21 @@
                                 
 
                                 <span class="card-subtitle small green-text">
-                                    {% if commentaire.commentaireParent is not empty %}
-                                    <i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>
-                                    <i class="small">Réponse à {{ commentaire.commentaireParent.utilisateur.nom }} {{ commentaire.commentaireParent.utilisateur.prenom }}</i><br>
-                                    {% endif %}
-
                                     {{commentaire.createdAt|date('M-Y')}}
                                 </span>
                                 
                                 
-                                <p class="card-text">{{commentaire.commentaire|slice(0, 57)}}
-                                {% if commentaire.commentaire|length > 57 %}
+                                <p class="card-text">{{commentaire.contenu|slice(0, 57)}}
+                                {% if commentaire.contenu|length > 57 %}
                                     ...
                                 {% endif %}
+
+                                <div class="ms-3">
+                                    {% if commentaire.reponse is not empty %}
+                                        <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
+                                        <p>{{ commentaire.reponse }}</p><br>
+                                    {% endif %}
+                                </div>
                                     
                                 </span>
                             </div>

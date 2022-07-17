@@ -71,6 +71,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $photo_profil;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
+
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
@@ -356,6 +359,18 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhotoProfil(?string $photo_profil): self
     {
         $this->photo_profil = $photo_profil;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

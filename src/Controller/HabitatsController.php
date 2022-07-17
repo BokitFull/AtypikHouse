@@ -6,7 +6,6 @@ use App\Entity\Habitats;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use App\Repository\CommentairesRepository;
-// use App\Repository\NotesRepository;
 use App\Repository\ReservationsRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +19,8 @@ use Symfony\Component\Validator\Constraints\Date;
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
-    public function __construct(HabitatsRepository $repository, 
-    NotesRepository $notesRepository, CommentairesRepository $commsRepository) {
+    public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository) {
         $this->repository = $repository;
-        $this->notesRepository = $notesRepository;
         $this->commsRepository = $commsRepository;
     }
 
@@ -114,14 +111,14 @@ class HabitatsController extends AbstractController
     #[Route('/{id}', name: 'habitats_detail', methods: ['GET'])]
     public function show(Habitats $habitat): Response
     {
-        $notes = $this->notesRepository->findNotesMoyennesByHabitat($habitat);
         $commentaires = $this->commsRepository->findByHabitat($habitat);
+        $notes = $this->commsRepository->findNotesMoyennesByHabitat($habitat);
 
         return $this->render('habitats/show.html.twig', [
             'controller_name' => 'HabitatsController',
             'habitat' => $habitat,
-            'notes' => $notes,
             'commentaires' => $commentaires,
+            'notes' => $notes,
         ]);
     }
 
