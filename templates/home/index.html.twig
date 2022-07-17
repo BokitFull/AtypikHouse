@@ -14,8 +14,6 @@
 {% endblock %}
 
 {% block body %}
-
-
 	<div class="container">
 
 		<div class="bg-image" >
@@ -38,14 +36,14 @@
 						Destinations
 					</option>
 					{% for departement  in habitats %}
-						<option  value={{departement.codePostal}}>{{departement.codePostal|slice(0,2)}}</option>
+						<option  value={{departement.codePostal}}>({{departement.codePostal|slice(0,2)}})</option>
 					{% endfor %}
 				</select>
 
 
 				<select name="type_habitat_id" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
-						Hebergement
+						Hébergement
 					</option>
 					{% for typeHebergement  in TypesHabitat %}
 						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
@@ -225,23 +223,5 @@
 
 
 	</div>
-
-	<footer class="homeFooter">
-
-		<span>
-			Copyright 2022 - Tout droits réservés
-		</span>
-		<span>
-			<a href="#">
-				Mentions légales
-			</a>
-		</span>
-		<span>
-			<a href="#">
-				Confidentialités
-			</a>
-		</span>
-
-	</footer>
 
 {% endblock %}

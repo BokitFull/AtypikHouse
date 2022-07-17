@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Prestations;
+use App\Entity\Payments;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Prestations>
+ * @extends ServiceEntityRepository<Payments>
  *
- * @method Prestations|null find($id, $lockMode = null, $lockVersion = null)
- * @method Prestations|null findOneBy(array $criteria, array $orderBy = null)
- * @method Prestations[]    findAll()
- * @method Prestations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Payments|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Payments|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Payments[]    findAll()
+ * @method Payments[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PrestationsRepository extends ServiceEntityRepository
+class PaymentsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Prestations::class);
+        parent::__construct($registry, Payments::class);
     }
 
-    public function add(Prestations $entity, bool $flush = false): void
+    public function add(Payments $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PrestationsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Prestations $entity, bool $flush = false): void
+    public function remove(Payments $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PrestationsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Prestations[] Returns an array of Prestations objects
+//     * @return Payments[] Returns an array of Payments objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PrestationsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Prestations
+//    public function findOneBySomeField($value): ?Payments
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
