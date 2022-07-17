@@ -164,7 +164,7 @@
 		{% for comment in commentaires %}
 
 			<div class="commentaire">
-				<p>{{ comment.commentaire|slice(0, 100) }}</p>
+				<p>{{ comment.contenu|slice(0, 100) }}</p>
 				<span>
 					{{ comment.utilisateur.nom }}
 				</span>

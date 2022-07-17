@@ -6,7 +6,7 @@ use App\Entity\Habitats;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use App\Repository\CommentairesRepository;
-use App\Repository\NotesRepository;
+// use App\Repository\NotesRepository;
 use App\Repository\ReservationsRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
