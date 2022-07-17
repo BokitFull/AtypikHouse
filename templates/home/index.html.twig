@@ -47,8 +47,8 @@
 					<option selected>
 						Hebergement
 					</option>
-					{% for typeHebergement  in TypeHabitats %}
-						<option  value={{typeHebergement.id}}>{{typeHebergement.libelle}}</option>
+					{% for typeHebergement  in TypesHabitat %}
+						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
 					{% endfor %}
 				</select>
 
@@ -57,7 +57,7 @@
 						Combien de Personnes ?
 					</option>
 					{% for nombreDepersonne  in habitats %}
-						<option  value={{nombreDepersonne.nombrePersonnesMax}}>{{nombreDepersonne.nombrePersonnesMax}}</option>
+						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
 					{% endfor %}
 				</select>
 				
@@ -173,7 +173,7 @@
 
 			<div class="commentaire">
 			<div> 
-				<p>{{ comment.commentaire|slice(0, 100) }}</p>
+				<p>{{ comment.contenu|slice(0, 100) }}</p>
 				</div>
 				<div> 
 				<div>

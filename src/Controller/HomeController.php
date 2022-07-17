@@ -5,7 +5,7 @@ namespace App\Controller;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
-use App\Entity\TypeHabitats;
+use App\Entity\TypesHabitat;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +30,7 @@ class HomeController extends AbstractController
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
-        $repoType = $doctrine-> getRepository(TypeHabitats::class); 
+        $repoType = $doctrine-> getRepository(TypesHabitat::class); 
         //show only last three comments
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
         //
@@ -44,7 +44,7 @@ class HomeController extends AbstractController
             'commentaires' => $commentaires ,
             'habitats' => $departement ,
             'habitats' =>  $nombreDepersonne ,
-            'TypeHabitats' =>  $typeHebergement 
+            'TypesHabitat' =>  $typeHebergement 
         ]);
     }
 
