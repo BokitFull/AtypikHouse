@@ -4,9 +4,11 @@
 
     {{ parent() }}
 
-    <script type="text/javascript">
-    
+    {{ encore_entry_script_tags('checkout') }}
+    <script>
+        var clientKey = "{{ clientKey }}";
     </script>
+    <script src="https://js.stripe.com/v3/"></script>
 
 {% endblock %}
 
@@ -19,21 +21,15 @@
 
 {% block body %}
 
-    <form action="/payment" method="POST">
-        <button type="submit">Checkout</button>
+    <form id="payment-form">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
     </form>
-
-    {# {{ form_start(form, {attr: {id: form.vars.id}}) }}
-    <div id="card-preview" class="form-group">
-        <label for="card-element">
-            Credit or Debit Card
-        </label>
-        <div id="card-element" class="form-control"></div>
-        <div id="card-errors" class="help-block" role="alert"></div>
-    </div>
-    {{ form_widget(form._token) }}
-
-    <button type="submit" class="btn btn-primary btn-valid">Valider</button>
-    {{ form_end(form) }} #}
 
 {% endblock %}

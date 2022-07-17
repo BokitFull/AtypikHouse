@@ -25,6 +25,7 @@ Encore
     .addEntry('login', './assets/js/login.js')
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('calendar', './assets/js/calendar.js')
+    .addEntry('checkout', './assets/js/checkout.js')
     .addEntry('add_collection_widget', './assets/js/add-collection-widget.js')
     
     .addStyleEntry('app_s', './assets/styles/app.scss')
