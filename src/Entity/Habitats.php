@@ -6,6 +6,9 @@ use App\Repository\HabitatsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
 class Habitats
@@ -15,23 +18,94 @@ class Habitats
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 150,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 150)]
     private $libelle;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 10,
+     * )
+     * @Assert\Regex("/^\d{2}(?:[-\s]\d{4})?$/")
+     */
     #[ORM\Column(type: 'string', length: 10)]
     private $code_postal;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(  
+     *      min = 1,
+     *      max = 80,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 80)]
     private $ville;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 80,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
-    private $proprietaire;
+    /**
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     * )
+     */
+    #[ORM\Column(type: 'string', length: 255)]
+    private $description_title;
+
+    /**
+     * @Assert\Length(
+     *      min = 1
+     * )
+     */
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $description;
+    
+    /**
+     * @Assert\PositiveOrZero
+     */
+    #[ORM\Column(type: 'float')]
+    private $prix;
+    
+    /**
+     * @Assert\PositiveOrZero
+     */
+    #[ORM\Column(type: 'integer')]
+    private $nombre_personnes_max;
+    
+    #[ORM\Column(type: 'json')]
+    private $informations_supplementaires = [];
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private $images = [];
+
+    #[ORM\Column(type: 'boolean')]
+    private $statut;
 
     #[ORM\Column(type: 'boolean')]
     private $est_disponible;
@@ -39,56 +113,29 @@ class Habitats
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'habitats')]
+    private $proprietaire;
+
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
     private $Reservations;
-
-
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
-    private $Equipements;
 
     #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
     private $Activites;
 
-
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
-    private $activites;
-
-    #[ORM\Column(type: 'json', nullable: true)]
-    private $images = [];
-
     #[ORM\ManyToMany(targetEntity: Equipements::class, inversedBy: 'habitats')]
-    private $equipements;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $description_title;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
-
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: InformationsPratiques::class)]
-    private $informations_pratiques;
-
-    #[ORM\Column(type: 'json')]
-    private $informations_supplementaires = [];
-
-    #[ORM\Column(type: 'float')]
-    private $prix;
-
-
-    #[ORM\Column(type: 'integer')]
-    private $nombre_personnes_max;
+    private $Equipements;
 
     #[ORM\ManyToOne(targetEntity: TypeHabitats::class, inversedBy: 'habitats')]
     private $TypeHabitat;
 
-    #[ORM\Column(type: 'boolean')]
-    private $statut;
+    #[ORM\ManyToMany(targetEntity: InformationsPratiques::class, inversedBy: 'habitats')]
+    private $informations_pratiques;
 
     public function __construct()
     {
-        $this->reservations = new ArrayCollection();
-        $this->equipements = new ArrayCollection();
-        $this->activites = new ArrayCollection();
+        $this->Reservations = new ArrayCollection();
+        $this->Equipements = new ArrayCollection();
+        $this->Activites = new ArrayCollection();
         $this->informations_pratiques = new ArrayCollection();
     }
 
@@ -201,29 +248,6 @@ class Habitats
         return $this->Reservations;
     }
 
-    // public function addReservation(Reservations $reservation): self
-    // {
-    // // 
-    // //     if (!$this->Reservations->contains($reservation)) {
-    // //         $this->Reservations[] = $reservation;
-    // //         $reservation->setHabitat($this);
-    // //     }
-
-    //     // return $this;
-    // }
-
-    // public function removeReservation(Reservations $reservation): self
-    // {
-    //     // if ($this->Reservations->removeElement($reservation)) {
-    //     //     // set the owning side to null (unless already changed)
-    //     //     if ($reservation->getHabitat() === $this) {
-    //     //         $reservation->setHabitat(null);
-    //     //     }
-    //     // }
-
-    //     // return $this;
-    // }
-
     /**
      * @return Collection<int, Equipements>
      */
@@ -242,17 +266,17 @@ class Habitats
         return $this;
     }
 
-    // public function removeEquipement(Equipements $equipement): self
-    // {
-    //     // if ($this->Equipements->removeElement($equipement)) {
-    //     //     // set the owning side to null (unless already changed)
-    //     //     if ($equipement->getHabitats() === $this) {
-    //     //         $equipement->setHabitats(null);
-    //     //     }
-    //     // }
+    public function removeEquipement(Equipements $equipement): self
+    {
+        if ($this->Equipements->removeElement($equipement)) {
+            // set the owning side to null (unless already changed)
+            if ($equipement->getHabitats() === $this) {
+                $equipement->setHabitats(null);
+            }
+        }
 
-    //     // return $this;
-    // }
+        return $this;
+    }
 
     /**
      * @return Collection<int, Activites>
@@ -284,18 +308,6 @@ class Habitats
         return $this;
     }
 
-    public function getImages(): ?array
-    {
-        return $this->images;
-    }
-
-    public function setImages(?array $images): self
-    {
-        $this->images = $images;
-
-        return $this;
-    }
-
     public function getDescriptionTitle(): ?string
     {
         return $this->description_title;
@@ -316,36 +328,6 @@ class Habitats
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, InformationsPratiques>
-     */
-    public function getInformationsPratiques(): Collection
-    {
-        return $this->informations_pratiques;
-    }
-
-    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
-    {
-        if (!$this->informations_pratiques->contains($informationsPratique)) {
-            $this->informations_pratiques[] = $informationsPratique;
-            $informationsPratique->setHabitats($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
-    {
-        if ($this->informations_pratiques->removeElement($informationsPratique)) {
-            // set the owning side to null (unless already changed)
-            if ($informationsPratique->getHabitats() === $this) {
-                $informationsPratique->setHabitats(null);
-            }
-        }
 
         return $this;
     }
@@ -408,6 +390,42 @@ class Habitats
     public function setStatut(bool $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): self
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InformationsPratiques>
+     */
+    public function getInformationsPratiques(): Collection
+    {
+        return $this->informations_pratiques;
+    }
+
+    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        if (!$this->informations_pratiques->contains($informationsPratique)) {
+            $this->informations_pratiques[] = $informationsPratique;
+        }
+
+        return $this;
+    }
+
+    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        $this->informations_pratiques->removeElement($informationsPratique);
 
         return $this;
     }

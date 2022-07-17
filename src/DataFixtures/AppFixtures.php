@@ -49,8 +49,6 @@ class AppFixtures extends Fixture
         
         }
 
-     
-
         $habitats = array();
         for ($i = 0; $i < 10; $i++) {
             $habitat = new Habitats();
@@ -68,7 +66,7 @@ class AppFixtures extends Fixture
             $habitat->setCreatedAt(new DateTimeImmutable('now'));
             $habitat->setPrix(rand(10,300));
 
-            $imageEncode = array(array("url" => "/images/exemple.jpg", "title" => "image_test"));
+            $imageEncode = array(0 => "/images/exemple.jpg", 1 => "/images/exemple.jpg");
             $habitat->setImages($imageEncode);
             $habitat->setProprietaire($utilisateurs[rand(7,9)]);
 

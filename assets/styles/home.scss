@@ -1,0 +1,177 @@
+#main-container{
+    width: 100%;
+}
+
+.bg-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.btn-notdark {
+    background-color: #B87247;
+    color: white;
+    padding-right: 50px;
+    padding-left: 50px;
+
+}
+.filtre-buttons {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    position: absolute;
+top: 115%;
+}
+
+.messageHome {
+    position: absolute;
+    z-index: 1;
+    align-items: center;
+    top: 25%;
+    bottom: 0;
+    left: 28%;
+    height: 0;
+    color: white;
+}
+.container {
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+}
+
+.form-home {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+
+.custom-select {
+    margin-left: 5px;
+}
+
+.formCenter.page-Acceuil {
+    position: absolute;
+    top: 35%;
+    left: 27%;
+}
+
+.btn:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: #B87247;
+    border-color: #B87247;
+}
+
+// element.style {}
+.trait.trait.home {
+    width: 30%;
+}
+hr.traithome {
+    border: 3px solid #b69255;
+    border-radius: 5px;
+}
+.trait.trait.home {
+    position: relative;
+    top: 20%;
+    left: 35%;
+}
+.destinations-Carte img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 50px 0 #B87247;
+}
+
+.destinations-Carte.info-carte {
+    background: red;
+    width: 150px;
+    position: absolute;
+}
+
+.nos-destinations {
+    display: flex;
+    justify-content: center;
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-bottom: 35px;
+}
+
+
+.titlesHomes {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.titre-destination {
+    position: absolute;
+    margin-top: 255px;
+}
+
+.atypiquoi.paragraph,
+.quisommenous {
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.atypiquoi {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background: green;
+    color: white;
+}
+a.quisommeatypik {
+    background: #b87247;
+    color: white;
+    padding: 10px;
+}
+
+.comcontainer {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.commentaire {
+    width: 350px;
+    background: #B87247;
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+}
+.ideeContainer {
+    display: flex;
+    justify-content: space-around;
+
+}
+.ideeNewsletter {
+    width: 350px;
+}
+.ideesocialnetwork {
+    width: 350px;
+}
+
+.ideeContainer {
+    margin-bottom: 50px;
+}
+.homeFooter {
+    display: flex;
+
+    background: white;
+    justify-content: center;
+    position: relative;
+    bottom: 0;
+}
+.homeFooter span {
+    margin-right: 30px;
+}
+.ideeContainer {
+    background-color: green;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}

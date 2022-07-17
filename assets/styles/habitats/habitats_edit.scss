@@ -6,22 +6,24 @@
 }
 
 #form-input-div {
-    flex-wrap: wrap;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
-#form-input-div > div:not(.btn-div){
+.form-group {
     width: 40%;
     justify-content: space-between;
 }
 
-input:not([type='checkbox']) {
+input:not([type='checkbox']), textarea, select {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
     margin: 8px 0px;
     width: 100%;
+    height: auto;
+    overflow: auto;
 }
 
 input[type='checkbox'] {
@@ -29,8 +31,32 @@ input[type='checkbox'] {
     vertical-align: middle;
 }
 
-#form-btn-div, .btn-div{
+#form-btn-div {
     display: flex;
     justify-content: flex-start;
     gap: 20px;
+}
+
+// #div-images > div {
+//     width: 100%;
+//     height: auto;
+// }
+
+#btnShowImages, #btnAddNewImage {
+    width: 100%;
+    margin-bottom: .1rem;
+}
+
+#div-equipements ul, #div-informationsPratiques ul {
+    background-color: #eee;
+    overflow: auto;
+    max-height: 200px;
+}
+#div-equipements li > div, #div-informationsPratiques li > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.small {
+    font-size: small;
 }

@@ -143,6 +143,9 @@ body {
 .green-text {
     color: #2B7929 !important;
 }
+    .green-text:hover {
+        color: #b87247 !important;
+    }
 .orange-text {
     color: #b87247 !important;
 }
@@ -162,29 +165,46 @@ body {
     background-color: #e4e0d9 !important;
 }
 
-.button {
-    background-color: #2b7929;
-    color: white;
+button {
+    // background-color: #2b7929;
+    // color: white;
     border-radius: 10px;
     border-width: 0;
     padding: 4px 16px;
 }
-    .button:hover {
-        background-color: #998763;
-        color: black;
-    }
+//     button:hover {
+//         background-color: #998763;
+//         color: white;
+//     }
 
 .selected, a.selected {
     color: #998763!important;
 }
 
-/*-------------------
-    PAYMENT FORM
--------------------*/
-
-#payment_form {
-    background-color: #998763;
+button.btn-primary, input.btn-primary, a.btn-primary,
+button.btn-secondary, input.btn-secondary, a.btn-secondary {
+    background-color: #2b7929;
+    border-color: #2b7929;
+    color: white;
 }
+    button.btn-primary:hover, input.btn-primary:hover, a.btn-primary:hover,
+    button.btn-secondary:hover, input.btn-secondary:hover, a.btn-secondary:hover {
+        background-color: #b87247;
+        border-color: #b87247;
+        color: white;
+    }
+
+button.btn-outline-primary, input.btn-outline-primary, a.btn-outline-primary,
+button.btn-outline-secondary, input.btn-outline-secondary, a.btn-outline-secondary {
+    color: #2b7929;
+    border-color: #2b7929;
+}
+    button.btn-outline-primary:hover, input.btn-outline-primary:hover, a.btn-outline-primary:hover,
+    button.btn-outline-secondary:hover, input.btn-outline-secondary:hover, a.btn-outline-secondary:hover {
+        color: white;
+        background-color: #2b7929;
+        border-color: #2b7929;
+    }
 
 @media only screen and (max-width:1200px) {
     .container-80 {

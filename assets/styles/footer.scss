@@ -5,8 +5,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    position: absolute;
-    top: 100%;
+    position: relative;
+    bottom: 0;
 }
 
 #footer-div a{

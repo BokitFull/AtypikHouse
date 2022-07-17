@@ -33,7 +33,7 @@ class HomeController extends AbstractController
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
         $departement = $repoHabitat->findAll();
         $nombreDepersonne = $repoHabitat->findAll( array('nombrePersonnesMax' => 'DESC'));
-        $hebermenetType = $repoHabitat->findAll();
+        $hebergementType = $repoHabitat->findAll();
 
 
         return $this->render('home/index.html.twig', [
@@ -41,7 +41,7 @@ class HomeController extends AbstractController
             'commentaires' => $commentaires ,
             'habitats' => $departement ,
             'habitats' =>  $nombreDepersonne ,
-            'habitats' =>  $hebermenetType 
+            'habitats' =>  $hebergementType 
 
 
         ]);

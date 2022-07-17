@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InformationsPratiquesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InformationsPratiquesRepository::class)]
@@ -16,8 +18,13 @@ class InformationsPratiques
     #[ORM\Column(type: 'string', length: 255)]
     private $libelle;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'informations_pratiques')]
+    #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'informations_pratiques')]
     private $habitats;
+
+    public function __construct()
+    {
+        $this->habitats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -36,14 +43,29 @@ class InformationsPratiques
         return $this;
     }
 
-    public function getHabitats(): ?Habitats
+    /**
+     * @return Collection<int, Habitats>
+     */
+    public function getHabitats(): Collection
     {
         return $this->habitats;
     }
 
-    public function setHabitats(?Habitats $habitats): self
+    public function addHabitat(Habitats $habitat): self
     {
-        $this->habitats = $habitats;
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats[] = $habitat;
+            $habitat->addInformationsPratique($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitat(Habitats $habitat): self
+    {
+        if ($this->habitats->removeElement($habitat)) {
+            $habitat->removeInformationsPratique($this);
+        }
 
         return $this;
     }

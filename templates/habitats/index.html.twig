@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Habitats index
-{% endblock %}
+{% block title %}AtypikHouse!{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -26,8 +25,8 @@
 
 			<a href="{{ path('habitats_detail', {'id': habitat.id }) }}" class="col-lg-3 displayed-card">
 				<div>
-					{% if (habitat.images[0]["url"]|default) %}
-					<img src="{{ habitat.images[0]["url"] }}" alt="" width="100%" height="80%">
+					{% if (habitat.images[0]|default) %}
+					<img src="{{ habitat.images[0] }}" alt="" width="100%" height="80%">
 					{% else %}
 					<img src="/images/default.png" alt="" width="100%" height="80%">
 					{% endif %}
@@ -90,4 +89,4 @@
 </div>
 
 
-<!--<a href="{{ path('app_habitats_new') }}">Create new</a>-->{% endblock %}
+{% endblock %}

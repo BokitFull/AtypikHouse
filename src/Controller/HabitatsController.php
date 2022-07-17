@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Service\FileUploader;
 
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
@@ -21,6 +22,38 @@ class HabitatsController extends AbstractController
         $this->repository = $repository;
         $this->notesRepository = $notesRepository;
         $this->commsRepository = $commsRepository;
+    }
+
+    #[Route('/new', name: 'new_habitat', methods: ['GET', 'POST'])]
+    public function new(Request $request, HabitatsRepository $habitatsRepository, FileUploader $fileUploader): Response
+    {
+        $context = [];
+        
+        $habitat = new Habitats();
+        $form = $this->createForm(HabitatsType::class, $habitat);
+        $form->handleRequest($request);
+        $context['form'] = $form;
+        $context['habitat'] = $habitat;
+        
+        $images = $form->get('images')->getData();
+        var_dump($images);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $key => $value) {
+                var_dump($value);
+                $uploader->upload($value);
+                $habitat->addImage($value);
+            }
+
+            $habitat->setCreatedAt(new \DateTimeImmutable('now'));
+            $habitatsRepository->add($habitat, true);
+
+            return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('habitats/new.html.twig', $context);
     }
 
 
@@ -98,55 +131,45 @@ class HabitatsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_habitats_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, HabitatsRepository $habitatsRepository): Response
-    {
-        $habitat = new Habitats();
-        $form = $this->createForm(HabitatsType::class, $habitat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $habitatsRepository->add($habitat, true);
-
-            return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('habitats/new.html.twig', [
-            'habitat' => $habitat,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
+    public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository, FileUploader $uploader): Response
     {
         $context = [];
 
         $form = $this->createForm(HabitatsType::class, $habitat);
+        $form->handleRequest($request);
         $context['form'] = $form;
         $context['habitat'] = $habitat;
+        
+        // $images = $form->get('images')->getData();
+        // var_dump($images);
+        
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $key => $value) {
+                var_dump($value);
+                // $uploader->upload($value);
+                // $habitat->addImage($value);
+            }
+
             $habitatsRepository->add($habitat, true);
 
-            return $this->redirectToRoute('habitats_detail', ['id'=>  $habitat->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('habitats/edit.html.twig', $context);
     }
 
-    #[Route('/{id}', name: 'app_habitats_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete_habitat', methods: ['POST'])]
     public function delete(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $habitat->getId(), $request->request->get('_token'))) {
-            $habitatsRepository->remove($habitat, true);
+            // $habitatsRepository->remove($habitat, true);
         }
 
-        return $this->redirectToRoute('app_habitats_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
     }
-
-
     
-
-
-
 }
