@@ -24,9 +24,6 @@ class Equipements
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'Equipements')]
-
     #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'equipements')]
     private $habitats;
 
@@ -77,33 +74,36 @@ class Equipements
         return $this;
     }
 
-    // public function getHabitats(): ?Habitats
-    // {
-    //     return $this->habitats;
-    // }
-
-    public function setHabitats(?Habitats $habitats): self
+    /**
+     * @return Collection<int, Habitats>
+     */
+    public function getHabitats(): Collection
     {
-        $this->habitats = $habitats;
-
-        return $this;
+        return $this->habitats;
     }
+
+    // public function setHabitats(Habitats $habitats): self
+    // {
+    //     $this->habitats = $habitats;
+
+    //     return $this;
+    // }
 
     public function addHabitat(Habitats $habitat): self
     {
-        // if (!$this->habitats->contains($habitat)) {
-        //     $this->habitats[] = $habitat;
-        //     $habitat->addEquipement($this);
-        // }
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats[] = $habitat;
+            $habitat->addEquipement($this);
+        }
 
         return $this;
     }
 
     public function removeHabitat(Habitats $habitat): self
     {
-        // if ($this->habitats->removeElement($habitat)) {
-        //     $habitat->removeEquipement($this);
-        // }
+        if ($this->Habitats->removeElement($habitat)) {
+            $habitat->removeEquipement($this);
+        }
 
         return $this;
     }

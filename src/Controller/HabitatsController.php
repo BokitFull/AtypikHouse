@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Habitats;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
+use App\Repository\TypeHabitatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,19 +16,16 @@ use Knp\Component\Pager\PaginatorInterface;
 class HabitatsController extends AbstractController
 {
     #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
-    public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository, TypeHabitatsRepository $typeHabitatsRepository): Response
     {
-        if (isset($_GET["dep"]) && isset($_GET["price"])) {
+        // $test = urldecode("http://127.0.0.1:8000/habitats/?code_postal=51&type_habitat_id=24&nombre_personnes_max=4&daterange=07%2F07%2F2022+-+07%2F15%2F2022");
+        // var_dump($test);die;
+            $donnees = $habitatsRepository->findByHabitats($_GET);
 
-            $criteria = new \Doctrine\Common\Collections\Criteria();
-            $criteria2 = new \Doctrine\Common\Collections\Criteria();
-            $criteria->where(\Doctrine\Common\Collections\Criteria::expr()->eq('code_postal', $_GET["dep"]));
-            $criteria2->where(\Doctrine\Common\Collections\Criteria::expr()->lt('prix', $_GET["price"]));
+            $dep = $habitatsRepository->findByDep();
 
-            $donnees1 = $habitatsRepository->matching($criteria);
-            $donnees = $donnees1->matching($criteria2);
-            
-
+            $types = $typeHabitatsRepository->findByTypes();
+    
             $habitats = $paginator->paginate(
                 $donnees, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -36,22 +34,9 @@ class HabitatsController extends AbstractController
             
             return $this->render('habitats/index.html.twig', [
                 'habitats' => $habitats,
+                'dep' => $dep,
+                'types' => $types,
             ]);
-        } else {
-
-            // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
-            $donnees = $habitatsRepository->findAll();
-
-            $habitats = $paginator->paginate(
-                $donnees, // Requête contenant les données à paginer (ici nos articles)
-                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-                6 // Nombre de résultats par page
-            );
-
-            return $this->render('habitats/index.html.twig', [
-                'habitats' => $habitats,
-            ]);
-        }
     }
 
     #[Route('/new', name: 'app_habitats_new', methods: ['GET', 'POST'])]

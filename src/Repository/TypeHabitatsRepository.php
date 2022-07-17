@@ -39,6 +39,23 @@ class TypeHabitatsRepository extends ServiceEntityRepository
         }
     }
 
+       /**
+    * récupération des départements pour les afficher dans le filtre
+    *
+    *@ return Habitats[] Returns an array of Habitats objects
+    */
+   public function findByTypes(): array
+   {
+
+        $query = $this->createQueryBuilder('t')
+            ->select('t')
+            ->getQuery()
+            ->getResult()
+        ;
+        
+        return $query;
+   }
+
 //    /**
 //     * @return TypeHabitats[] Returns an array of TypeHabitats objects
 //     */

@@ -7,6 +7,7 @@ use App\Entity\Habitats;
 use App\Entity\Equipements;
 use App\Entity\Notes;
 use App\Entity\Reservations;
+use App\Entity\TypeHabitats;
 use App\Entity\Utilisateurs;
 use DateTime;
 use DateTimeImmutable;
@@ -38,67 +39,66 @@ class AppFixtures extends Fixture
             $utilisateur->setRoles($i < 7 ? ['ROLE_USER'] : ['ROLE_HOTE']);
             $utilisateur->setTelephone($faker->serviceNumber);
             $utilisateur->setAdresse(rand(1, 80) ." ". $faker->streetPrefix . $faker->asciify(str_repeat('*', rand(6, 10))));
-            $utilisateur->setCodePostal(strval(rand(1, 97)));
+            $utilisateur->setCodePostal(substr($faker->postcode,0,2));
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
             $utilisateur->setImage('');
             $utilisateur->setCreatedAt(new DateTimeImmutable('now'));
 
             array_push($utilisateurs, $utilisateur);
-            $manager->persist($utilisateur);
-        
-        }
-
-     
-
-        $habitats = array();
-        for ($i = 0; $i < 10; $i++) {
-            $habitat = new Habitats();
-            $habitat->setLibelle($faker->company);
-            $habitat->setAdresse($faker->streetAddress);
-            $habitat->setCodePostal($faker->postcode);
-            $habitat->setVille($faker->city);
-            $habitat->setPays($faker->country);
-            $habitat->setEstDisponible(1);
-            $habitat->setDescriptionTitle($faker->sentence(2));
-            $habitat->setType($faker->sentence(2));
-            $habitat->setNombrePersonnesMax(rand(1, 10  ));
-            $habitat->setDescription($faker->sentence(20));
-           // $habitat->addEquipement($equipements[rand(0, 10)]);
-            $habitat->setCreatedAt(new DateTimeImmutable('now'));
-            $habitat->setPrix(rand(10,300));
-
-            $imageEncode = array(array("url" => "/images/exemple.jpg", "title" => "image_test"));
-            $habitat->setImages($imageEncode);
-            $habitat->setProprietaire($utilisateurs[rand(7,9)]);
-
-            array_push($habitats, $habitat);
-            $manager->persist($habitat);
+            $manager->persist($utilisateur);          
         }
 
         $equipements = array();
         for ($i = 0; $i < 10; $i++) {
             $equipement = new Equipements();
             $equipement->setLibelle($faker->company);
-            $equipement->setHabitats($habitats[$i]);
             $equipement->setDescription($faker->sentence(20));
-            $equipement->setEtat($faker->sentence(1));
             $equipement->setCreatedAt(new DateTimeImmutable('now'));
 
             array_push($equipements, $equipement);
             $manager->persist($equipement);
         }
 
+        $type_habitats = array();
+        for ($i = 0; $i < 10; $i++) {
+            $type_habitat = new TypeHabitats();
+            $type_habitat->setLibelle($faker->randomElement(['Cabane', 'Tipi', 'Bulle', 'Tente', 'Roulotte', 'Yourte', 'DÃ´me', 'Tiny House', 'Chalet']));
+            array_push($type_habitats, $type_habitat);
+            $manager->persist($type_habitat);
+        }
+
+        $habitats = array();
+        for ($i = 0; $i < 10; $i++) {
+            $habitat = new Habitats();
+            $habitat->setLibelle($faker->company);
+            $habitat->setAdresse($faker->streetAddress);
+            $habitat->setCodePostal(substr($faker->postcode,0,2));
+            $habitat->setVille($faker->city);
+            $habitat->setPays($faker->country);
+            $habitat->setEstDisponible(1);
+            $habitat->setStatut(1);
+            $habitat->setDescriptionTitle($faker->sentence(2));
+            $habitat->setPrix(rand(10,300));
+            $habitat->setNombrePersonnesMax(rand(1,5));
+            $habitat->addEquipement($equipements[rand(0, count($equipements)-1)]);
+            $habitat->setTypeHabitat($type_habitats[rand(0, count($type_habitats)-1)]);
+            $habitat->setProprietaire($utilisateurs[rand(7, 9)]);
+            $habitat->setCreatedAt(new DateTimeImmutable('now'));
+            array_push($habitats, $habitat);
+            $manager->persist($habitat);
+        }
+
         $reservations = array();
         for ($i = 0; $i < 10; $i++) {
             $reservation = new Reservations();
+            $reservation->setStatut(1);
             $reservation->setMontant(rand(60, 200));
             $reservation->setCreatedAt(new DateTimeImmutable('now'));
             $reservation->setUtilisateur($utilisateurs[rand(0, count($utilisateurs)-1)]);
-
+            $reservation->setHabitat($habitats[rand(0, count($habitats)-1)]);
             $valid_reservation = false;
             while ($valid_reservation === false){
-                $reservation->setHabitat($habitats[rand(0, count($habitats)-1)]);
                 $reservation->setDateDebut($faker->dateTimeBetween('-3 week', '+3 week'));
                 $date_fin = $reservation->getDateDebut();
                 
@@ -153,13 +153,11 @@ class AppFixtures extends Fixture
             $note->setNoteEmplacement(rand(0,5));
             $note->setNoteQualitePrix(rand(0,5));
             $note->setNoteEquipements(rand(0,5));
-            $note->setUtilisateur($utilisateurs[$i]);
             $note->setReservation($reservations[$i]);
             array_push($notes, $note);
 
             $manager->persist($note);
         }
-
         $manager->flush();
     }
 }
