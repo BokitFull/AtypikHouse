@@ -13,10 +13,8 @@ use App\Repository\CommentairesRepository;
 
 class HabitatController extends AbstractController
 {
-    public function __construct(HabitatsRepository $repository, 
-    NotesRepository $notesRepository, CommentairesRepository $commsRepository) {
+    public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository) {
         $this->repository = $repository;
-        $this->notesRepository = $notesRepository;
         $this->commsRepository = $commsRepository;
     }
 
@@ -25,13 +23,11 @@ class HabitatController extends AbstractController
     public function show($id): Response
     {
         $habitat = $this->repository->find($id);
-        $notes = $this->notesRepository->findNotesMoyennesByHabitat($habitat);
         $commentaires = $this->commsRepository->findByHabitat($habitat);
 
         return $this->render('habitat/show.html.twig', [
             'controller_name' => 'HabitatController',
             'habitat' => $habitat,
-            'notes' => $notes,
             'commentaires' => $commentaires,
         ]);
     }

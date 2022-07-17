@@ -3,12 +3,12 @@
         </div>
         <div id="login_div_form">
             <h2 class="login-title">Bienvenue chez AtypikHouse</h2>
-            {{ form_start(login_form, { 'attr': {'class': 'authentication_form', 'id': 'login_form'} }) }}
+            {{ form_start(login_form, { 'attr': {'class': 'authentication_form', 'id': 'login_form'}, 'action': path('login')}) }}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 {{ form_widget(login_form.email, { 'attr': {'placeholder': 'Email'} }) }}
                 {{ form_widget(login_form.password, { 'attr': {'placeholder': 'Mot de passe'} }) }}
             {{ form_end(login_form, {render_rest: false}) }}
-            {{ form_start(register_form, { 'attr': {'class': 'authentication_form', 'id': 'register_form', 'action': 'path(app_register)'} }) }}
+            {{ form_start(register_form, { 'attr': {'class': 'authentication_form', 'id': 'register_form', 'action': path('register')} }) }}
                 {{ form_row(register_form._token) }}
                 {{ form_widget(register_form.nom, { 'attr': {'placeholder': 'Nom'} }) }}
                 {{ form_widget(register_form.prenom, { 'attr': {'placeholder': 'Prénom'} }) }}

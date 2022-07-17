@@ -39,20 +39,30 @@ class HabitatsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Habitats[] Returns an array of Habitats objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('h.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    *@ return Habitats[] Returns an array of Habitats objects
+    */
+   public function findByExampleField($value): array
+   {
+        $querry = $this->createQueryBuilder('h')
+            ->select('h.libelle')
+            ->addSelect('r.id, r.date_debut')
+            // ->from('Habitats', 'h', 'h.id')
+            // ->Where('h.id IN (:id)')
+            // ->groupBy('h.id')
+            ->join('h.reservations', 'r','WITH', 'r.habitat IN (:id)')
+            // ->indexBy('h', 'h.libelle')
+            // ->andWhere('p.category = :category')
+            // ->setParameter('category', $category)
+            ->setParameter('id', [1,3])
+            ->orderBy('h.id', 'ASC')
+        //    ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+        
+        return $querry;
+   }
 
 //    public function findOneBySomeField($value): ?Habitats
 //    {

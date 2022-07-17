@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Habitats;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
+use App\Repository\ReservationsRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
@@ -18,16 +21,9 @@ class HabitatsController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
     {
         if (isset($_GET["dep"]) && isset($_GET["price"])) {
-
-            $criteria = new \Doctrine\Common\Collections\Criteria();
-            $criteria2 = new \Doctrine\Common\Collections\Criteria();
-            $criteria->where(\Doctrine\Common\Collections\Criteria::expr()->eq('code_postal', $_GET["dep"]));
-            $criteria2->where(\Doctrine\Common\Collections\Criteria::expr()->lt('prix', $_GET["price"]));
-
-            $donnees1 = $habitatsRepository->matching($criteria);
-            $donnees = $donnees1->matching($criteria2);
             
-
+            $donnees = $habitatsRepository->findByExampleField(['price' => $_GET['price'], 'code_postal' => $_GET['dep']]);
+            
             $habitats = $paginator->paginate(
                 $donnees, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -74,21 +70,19 @@ class HabitatsController extends AbstractController
     }
 
     #[Route('/calendar', name: 'habitat_calendar', methods: ['GET'])]
-    public function calendar(): Response
+    public function calendar(ReservationsRepository $reservationsRepository): Response
     {   
         $context = [];
-        $habitats = $this->getUser()->getHabitats();
-        $reservations_date = [];
-        foreach($habitats as $habitat){
-            $dates = [];
-            foreach($habitat->getReservations() as $reservation){
-                    $dates[$reservation->getId()] = [
-                        'start'=> $reservation->getDateDebut()->format('Y-m-d'), 
-                        'end'=>  $reservation->getDateFin()->format('Y-m-d')
-                    ];
-                }
-            $reservations_date[$habitat->getId()] = $dates;
-        }
+        $habitats = $this->getUser()->getHabitats()->toArray();
+        $habitats = array_map(function($x) {return $x->getId();}, $habitats);
+        $current_date = new DateTime();
+        $current_date = $current_date->format('Y-m-d');
+        $reservations_date = $reservationsRepository->getReservationsByDate([
+            'year' => explode('-', $current_date)[0],
+            'month' => explode('-', $current_date)[1],
+            'id' => implode(",", $habitats)
+        ]);
+        
         $context['reservations_date'] = $reservations_date;
         return $this->render('habitats/calendar.html.twig', $context);
     }
