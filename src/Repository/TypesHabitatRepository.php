@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\TypeHabitat;
+use App\Entity\TypesHabitat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<TypeHabitat>
+ * @extends ServiceEntityRepository<TypesHabitat>
  *
- * @method TypeHabitat|null find($id, $lockMode = null, $lockVersion = null)
- * @method TypeHabitat|null findOneBy(array $criteria, array $orderBy = null)
- * @method TypeHabitat[]    findAll()
- * @method TypeHabitat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TypesHabitat|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TypesHabitat|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TypesHabitat[]    findAll()
+ * @method TypesHabitat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypeHabitatRepository extends ServiceEntityRepository
+class TypesHabitatRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TypeHabitat::class);
+        parent::__construct($registry, TypesHabitat::class);
     }
 
-    public function add(TypeHabitat $entity, bool $flush = false): void
+    public function add(TypesHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class TypeHabitatRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(TypeHabitat $entity, bool $flush = false): void
+    public function remove(TypesHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -39,8 +39,19 @@ class TypeHabitatRepository extends ServiceEntityRepository
         }
     }
 
+   /**
+    * @return TypesHabitat[] Returns an array of TypesHabitat objects
+    */
+   public function GetTypesName(): array
+   {
+       return $this->createQueryBuilder('t')
+           ->select('t.id, t.nom')
+           ->getQuery()
+           ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+       ;
+   }
 //    /**
-//     * @return TypeHabitat[] Returns an array of TypeHabitat objects
+//     * @return TypesHabitat[] Returns an array of TypesHabitat objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +65,7 @@ class TypeHabitatRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?TypeHabitat
+//    public function findOneBySomeField($value): ?TypesHabitat
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

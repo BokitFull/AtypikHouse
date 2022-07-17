@@ -30,7 +30,7 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToOne(targetEntity: TypesHabitat::class, inversedBy: 'caracteristiquesTypeHabitats')]
+    #[ORM\ManyToOne(targetEntity: TypesHabitat::class, inversedBy: 'caracteristiquesTypesHabitat')]
     #[ORM\JoinColumn(nullable: false)]
     private $type;
 

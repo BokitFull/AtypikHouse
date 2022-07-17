@@ -34,12 +34,12 @@ class TypesHabitat
     private $deleted_at;
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: CaracteristiquesTypeHabitat::class)]
-    private $caracteristiquesTypeHabitats;
+    private $caracteristiquesTypesHabitat;
 
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
-        $this->caracteristiquesTypeHabitats = new ArrayCollection();
+        $this->caracteristiquesTypesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,15 +140,15 @@ class TypesHabitat
     /**
      * @return Collection<int, CaracteristiquesTypeHabitat>
      */
-    public function getCaracteristiquesTypeHabitats(): Collection
+    public function getCaracteristiquesTypesHabitat(): Collection
     {
-        return $this->caracteristiquesTypeHabitats;
+        return $this->caracteristiquesTypesHabitat;
     }
 
     public function addCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
     {
-        if (!$this->caracteristiquesTypeHabitats->contains($caracteristiquesTypeHabitat)) {
-            $this->caracteristiquesTypeHabitats[] = $caracteristiquesTypeHabitat;
+        if (!$this->caracteristiquesTypesHabitat->contains($caracteristiquesTypeHabitat)) {
+            $this->caracteristiquesTypesHabitat[] = $caracteristiquesTypeHabitat;
             $caracteristiquesTypeHabitat->setType($this);
         }
 
@@ -157,7 +157,7 @@ class TypesHabitat
 
     public function removeCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
     {
-        if ($this->caracteristiquesTypeHabitats->removeElement($caracteristiquesTypeHabitat)) {
+        if ($this->caracteristiquesTypesHabitat->removeElement($caracteristiquesTypeHabitat)) {
             // set the owning side to null (unless already changed)
             if ($caracteristiquesTypeHabitat->getType() === $this) {
                 $caracteristiquesTypeHabitat->setType(null);

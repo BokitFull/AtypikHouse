@@ -25,6 +25,7 @@ Encore
     .addEntry('login', './assets/js/login.js')
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('calendar', './assets/js/calendar.js')
+    .addEntry('homeJs', './assets/js/index.js')
 
 .addStyleEntry('user_home', './assets/styles/user_home.scss')
     .addStyleEntry('user_edit', './assets/styles/user_edit.scss')
@@ -36,6 +37,7 @@ Encore
     .addStyleEntry('habitat_edit', './assets/styles/habitat_edit.scss')
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
     .addStyleEntry('all_habitats', './assets/styles/all_habitats.scss')
+    .addStyleEntry('home', './assets/styles/home.scss')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')

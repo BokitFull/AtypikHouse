@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\InformationsPratiques;
+use App\Entity\ImagesHabitat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<InformationsPratiques>
+ * @extends ServiceEntityRepository<ImagesHabitat>
  *
- * @method InformationsPratiques|null find($id, $lockMode = null, $lockVersion = null)
- * @method InformationsPratiques|null findOneBy(array $criteria, array $orderBy = null)
- * @method InformationsPratiques[]    findAll()
- * @method InformationsPratiques[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ImagesHabitat|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ImagesHabitat|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ImagesHabitat[]    findAll()
+ * @method ImagesHabitat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InformationsPratiquesRepository extends ServiceEntityRepository
+class ImagesHabitatRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, InformationsPratiques::class);
+        parent::__construct($registry, ImagesHabitat::class);
     }
 
-    public function add(InformationsPratiques $entity, bool $flush = false): void
+    public function add(ImagesHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class InformationsPratiquesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(InformationsPratiques $entity, bool $flush = false): void
+    public function remove(ImagesHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class InformationsPratiquesRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return InformationsPratiques[] Returns an array of InformationsPratiques objects
+//     * @return ImagesHabitat[] Returns an array of ImagesHabitat objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class InformationsPratiquesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?InformationsPratiques
+//    public function findOneBySomeField($value): ?ImagesHabitat
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')
