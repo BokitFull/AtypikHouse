@@ -2,19 +2,79 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\GetHabitatsController;
 use App\Repository\HabitatsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'read:collection'
+                ]
+            ],
+            'list_habitats' => [    
+                'pagination_enabled'=>false,
+                'method' => 'GET',
+                'path' => 'get/habitats',
+                'controller' => GetHabitatsController::class,
+                'filters' => [],
+                'openapi_context' => [
+                    'summary' => 'Récupère une liste',
+                    'parameters' => [
+                        [
+                            'in' => 'query',
+                            'name' => 'id',
+                            'schema' => [
+                                'type' => 'integer'
+                            ]
+    
+                        ]
+                    ]
+                ]
+            ]
+        ], 
+    itemOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'comment:item'
+                ]
+            ],
+        // 'list_habitats' => [    
+        //     'method' => 'GET',
+        //     'path' => 'get/habitats/{id_array}',
+        //     'controller' => GetHabitatsController::class,
+        //     'filters' => [],
+        //     'openapi_context' => [
+        //         'summary' => 'Récupère une liste',
+        //         'parameters' => [
+        //             [
+        //                 'in' => 'query',
+        //                 'name' => 'habitats',
+        //                 'schema' => [
+        //                     'type' => 'array'
+        //                 ]
+
+        //             ]
+        //         ]
+        //     ]
+        ]
+    // ],
+
+)]
 class Habitats
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups([ 'read:collection', 'comment:item', 'list_habitats'])]
     private $id;
-
+    
     #[ORM\Column(type: 'string', length: 150)]
     private $libelle;
 
@@ -40,15 +100,7 @@ class Habitats
     private $created_at;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
-    private $Reservations;
-
-
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Equipements::class)]
-    private $Equipements;
-
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
-    private $Activites;
-
+    private $reservations;
 
     #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: Activites::class)]
     private $activites;
@@ -73,7 +125,6 @@ class Habitats
 
     #[ORM\Column(type: 'float')]
     private $prix;
-
 
     #[ORM\Column(type: 'integer')]
     private $nombre_personnes_max;
@@ -198,7 +249,7 @@ class Habitats
      */
     public function getReservations(): Collection
     {
-        return $this->Reservations;
+        return $this->reservations;
     }
 
     // public function addReservation(Reservations $reservation): self
@@ -229,30 +280,30 @@ class Habitats
      */
     public function getEquipements(): Collection
     {
-        return $this->Equipements;
+        return $this->equipements;
     }
 
     public function addEquipement(Equipements $equipement): self
     {
-        if (!$this->Equipements->contains($equipement)) {
-            $this->Equipements[] = $equipement;
-            $equipement->setHabitats($this);
+        if (!$this->equipements->contains($equipement)) {
+            $this->equipements[] = $equipement;
+            $equipement->addHabitat($this);
+        }
+
+        return $this;
+    }   
+
+    public function removeEquipement(Equipements $equipement): self
+    {
+        if ($this->equipements->removeElement($equipement)) {
+            // set the owning side to null (unless already changed)
+            if ($equipement->getHabitats() === $this) {
+                $equipement->removeHabitat($this);
+            }
         }
 
         return $this;
     }
-
-    // public function removeEquipement(Equipements $equipement): self
-    // {
-    //     // if ($this->Equipements->removeElement($equipement)) {
-    //     //     // set the owning side to null (unless already changed)
-    //     //     if ($equipement->getHabitats() === $this) {
-    //     //         $equipement->setHabitats(null);
-    //     //     }
-    //     // }
-
-    //     // return $this;
-    // }
 
     /**
      * @return Collection<int, Activites>

@@ -39,20 +39,26 @@ class HabitatsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Habitats[] Returns an array of Habitats objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('h.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    *@ return Habitats[] Returns an array of Habitats objects
+    */
+   public function findByExampleField($data): array
+   {
+
+        $query = $this->createQueryBuilder('h')
+            ->select('')
+            ->Where('h.prix <= :price')
+            ->andWhere('h.code_postal = :code_postal')
+            ->setParameter('price', $data['price'])
+            ->setParameter('code_postal', $data['code_postal'])
+            ->orderBy('h.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+        
+        // $query->andWhere('h.code_postal = :code_postal');
+        return $query;
+   }
 
 //    public function findOneBySomeField($value): ?Habitats
 //    {
