@@ -21,15 +21,15 @@ Encore
  * 
  * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
  */
-    .addEntry('app', './assets/app.js')
+.addEntry('app', './assets/app.js')
     .addEntry('login', './assets/js/login.js')
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('calendar', './assets/js/calendar.js')
     .addEntry('checkout', './assets/js/checkout.js')
     .addEntry('homeJs', './assets/js/index.js')
     .addEntry('add_collection_widget', './assets/js/add-collection-widget.js')
-    
-    .addStyleEntry('app_s', './assets/styles/app.scss')
+
+.addStyleEntry('app_s', './assets/styles/app.scss')
     .addStyleEntry('navbar_s', './assets/styles/navbar.scss')
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
     .addStyleEntry('footer', './assets/styles/footer.scss')

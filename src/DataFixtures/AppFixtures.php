@@ -40,10 +40,10 @@ class AppFixtures extends Fixture
             $utilisateur->setRoles($i < 7 ? ['ROLE_USER'] : ['ROLE_HOTE']);
             $utilisateur->setTelephone($faker->serviceNumber);
             $utilisateur->setAdresse(rand(1, 80) ." ". $faker->streetPrefix . $faker->asciify(str_repeat('*', rand(6, 10))));
-            $utilisateur->setCodePostal(substr($faker->postcode,0,2));
+            $utilisateur->setCodePostal(strval(rand(1, 97)));
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
-            $utilisateur->setPhotoProfil('');
+            $utilisateur->setImage('');
             $utilisateur->setCreatedAt(new DateTimeImmutable('now'));
             $utilisateur->setUpdatedAt(new DateTimeImmutable('now'));
             $utilisateur->setDeletedAt(new DateTimeImmutable('now'));
@@ -145,35 +145,6 @@ class AppFixtures extends Fixture
 
             array_push($caracteristiquesHabitat, $caracteristiques);
             $manager->persist($caracteristiques);
-        }
-
-        $type_habitats = array();
-        for ($i = 0; $i < 10; $i++) {
-            $type_habitat = new TypesHabitat();
-            $type_habitat->setLibelle($faker->randomElement(['Cabane', 'Tipi', 'Bulle', 'Tente', 'Roulotte', 'Yourte', 'DÃ´me', 'Tiny House', 'Chalet']));
-            array_push($type_habitats, $type_habitat);
-            $manager->persist($type_habitat);
-        }
-
-        $habitats = array();
-        for ($i = 0; $i < 10; $i++) {
-            $habitat = new Habitats();
-            $habitat->setLibelle($faker->company);
-            $habitat->setAdresse($faker->streetAddress);
-            $habitat->setCodePostal(substr($faker->postcode,0,2));
-            $habitat->setVille($faker->city);
-            $habitat->setPays($faker->country);
-            $habitat->setEstDisponible(1);
-            $habitat->setStatut(1);
-            $habitat->setDescriptionTitle($faker->sentence(2));
-            $habitat->setPrix(rand(10,300));
-            $habitat->setNombrePersonnesMax(rand(1,5));
-            $habitat->addEquipement($equipements[rand(0, count($equipements)-1)]);
-            $habitat->setTypeHabitat($type_habitats[rand(0, count($type_habitats)-1)]);
-            $habitat->setProprietaire($utilisateurs[rand(7, 9)]);
-            $habitat->setCreatedAt(new DateTimeImmutable('now'));
-            array_push($habitats, $habitat);
-            $manager->persist($habitat);
         }
 
         $reservations = array();

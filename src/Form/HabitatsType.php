@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Habitats;
 use App\Entity\Equipements;
-use App\Entity\TypeHabitats;
+use App\Entity\TypesHabitat;
 use App\Entity\InformationsPratiques;
 
 use Symfony\Component\Form\AbstractType;
@@ -74,7 +74,7 @@ class HabitatsType extends AbstractType
                 'expanded' => true,
             ])
             ->add('TypeHabitat', EntityType::class, [
-                'class' => TypeHabitats::class,
+                'class' => TypesHabitat::class,
                 'choice_label' => 'libelle',
             ])
         ;
