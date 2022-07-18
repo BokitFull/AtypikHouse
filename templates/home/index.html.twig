@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-   {{ encore_entry_link_tags('home') }}
+	{{ encore_entry_link_tags('home') }}
 {% endblock %}
 
 
@@ -17,7 +17,7 @@
 	<div class="container">
 
 		<div class="bg-image" >
-		<img src="https://c4.wallpaperflare.com/wallpaper/644/970/427/lights-trees-yellow-cozy-wallpaper-preview.jpg" alt=" home banniere"/> </div>
+		<img src="{{ asset('images/home_pictures.jpg') }}" alt=" home banniere"/> </div>
 
 		<div class="messageHome">
 

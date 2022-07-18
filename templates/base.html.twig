@@ -26,9 +26,9 @@
     </head>
     <body>
         <header>
-            {% if not app.user or app.user.roles == ["ROLE_USER"] %}
+            {% if not app.user or is_granted('ROLE_USER') %}
                 {{ include('_header.html.twig') }}
-            {% elseif app.user.roles == ["ROLE_HOTE"] %}
+            {% elseif is_granted('ROLE_HOST') %}
                 {{ include('hotes/_nav.html.twig') }}
             {% endif %}
         </header>

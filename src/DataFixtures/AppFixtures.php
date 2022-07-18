@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
             $utilisateur->setCodePostal(strval(rand(1, 97)));
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
-            $utilisateur->setPhotoProfil('');
+            $utilisateur->setImage('');
             $utilisateur->setCreatedAt(new DateTimeImmutable('now'));
             $utilisateur->setUpdatedAt(new DateTimeImmutable('now'));
             $utilisateur->setDeletedAt(new DateTimeImmutable('now'));

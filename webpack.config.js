@@ -22,7 +22,6 @@ Encore
  * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
  */
     .addEntry('app', './assets/app.js')
-    .addEntry('login', './assets/js/login.js')
     .addEntry('navbar', './assets/js/navbar.js')
     .addEntry('calendar', './assets/js/calendar.js')
     .addEntry('checkout', './assets/js/checkout.js')
@@ -32,7 +31,7 @@ Encore
     .addStyleEntry('app_s', './assets/styles/app.scss')
     .addStyleEntry('navbar_s', './assets/styles/navbar.scss')
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
-    .addStyleEntry('all_habitats', './assets/styles/all_habitats.scss')
+    .addStyleEntry('all_habitats', './assets/styles/habitats/all_habitats.scss')
     .addStyleEntry('footer', './assets/styles/footer.scss')
     .addStyleEntry('home', './assets/styles/home.scss')
     .addStyleEntry('user_home', './assets/styles/users/user_home.scss')
@@ -43,7 +42,6 @@ Encore
     .addStyleEntry('habitat_show', './assets/styles/habitats/habitats_detail.scss')
     .addStyleEntry('habitat_edit', './assets/styles/habitats/habitats_edit.scss')
     .addStyleEntry('habitat_delete', './assets/styles/habitats/habitats_delete.scss')
-    .addStyleEntry('all_habitats', './assets/styles/habitats/all_habitats.scss')
     .addStyleEntry('payment_index', './assets/styles/payment.scss')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
