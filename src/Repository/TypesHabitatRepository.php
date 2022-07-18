@@ -7,7 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<TypeHabitats>
+ * @extends ServiceEntityRepository<TypesHabitat>
  *
  * @method TypesHabitat|null find($id, $lockMode = null, $lockVersion = null)
  * @method TypesHabitat|null findOneBy(array $criteria, array $orderBy = null)
@@ -40,7 +40,7 @@ class TypesHabitatRepository extends ServiceEntityRepository
     }
 
    /**
-    * @return TypeHabitats[] Returns an array of TypeHabitats objects
+    * @return TypesHabitat[] Returns an array of TypesHabitat objects
     */
    public function GetTypesName(): array
    {
@@ -51,7 +51,7 @@ class TypesHabitatRepository extends ServiceEntityRepository
        ;
    }
 //    /**
-//     * @return TypeHabitats[] Returns an array of TypeHabitats objects
+//     * @return TypesHabitat[] Returns an array of TypesHabitat objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -65,7 +65,7 @@ class TypesHabitatRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?TypeHabitats
+//    public function findOneBySomeField($value): ?TypesHabitat
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

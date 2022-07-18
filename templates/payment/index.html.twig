@@ -2,53 +2,34 @@
 
 {% block javascripts %}
 
-    <script type="text/javascript">
-    var form = document.getElementById('{{ form.vars.id }}');
-    var errors = document.getElementById('card-errors');
+    {{ parent() }}
 
-    var stripe = Stripe('{{ stripe_public_key }}');
-    var elements = stripe.elements();
-    var card = elements.create('card');
-
-    card.mount('#card-element');
-    card.addEventListener('change', function(event) {
-        if (event.error) {
-        errors.textContent = event.error.message;
-        form.classList.add('has-error');
-        } else {
-        errors.textContent = '';
-        form.classList.remove('has-error');
-        }
-    });
-
-    {# form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        stripe.createToken(card).then(function(result) {
-        if (result.error) {
-            errors.textContent = result.error.message;
-            form.classList.add('has-error');
-        } else {
-            document.getElementById('{{ form.children.token.vars.id }}').setAttribute('value', result.token.id);
-            form.submit();
-        }
-        });
-    }); #}
+    {{ encore_entry_script_tags('checkout') }}
+    <script>
+        var clientKey = "{{ clientKey }}";
     </script>
+    <script src="https://js.stripe.com/v3/"></script>
 
 {% endblock %}
 
-{% block content %}
+{% block stylesheets %}
 
-    {{ form_start(form, {attr: {id: form.vars.id}}) }}
-    <div class="form-group">
-    <label for="card-element">
-        Credit or Debit Card
-    </label>
-    <div id="card-element" class="form-control"></div>
-    <div id="card-errors" class="help-block" role="alert"></div>
-    </div>
-    {# {{ form_widget(form.token) }} #}
-    {{ form_end(form) }}
+{{ parent() }}
+{{ encore_entry_link_tags('payment_index') }}
+
+{% endblock %}
+
+{% block body %}
+
+    <form id="payment-form">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
+    </form>
 
 {% endblock %}

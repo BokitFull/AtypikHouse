@@ -1,36 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursController!{% endblock %}
+{% block title %}Vos habitats{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('habitat_edit') }}
+    {{ encore_entry_link_tags('hote_habitats') }}
+    {{ encore_entry_link_tags('habitat_delete') }}
 {% endblock %}
 
 {% block body %}
-    <table>
+
+    <div class="row col-12">
+        <a href="{{ path('new_habitat') }}" class="btn btn-primary">Nouvel habitat</a>
+    </div>
+
+    <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>N°</th>
                 <th>Nom</th>
                 <th>Statut</th>
-                <th>Réservé</th>
-                <th>Revenu/mois</th>
+                <th>Disponibilité</th>
+                <th>Prix par réservation (&euro;)</th>
                 <th></th>
+                {# <th></th> #}
             </tr>
         </thead>
         <tbody>
             {% for habitat in app.user.habitats%}
             <tr>
+                <td><img src="{{ habitat.images[0]|default }}" class="vignette"></img></td>
                 <td>{{ loop.index}}</td>
                 <td>{{ habitat.libelle }}</td>
-                <td>Icone</td>
-                <td>Icone</td>
-                <td>10000€</td>
-                {% for h in habitat.equipements %}
-                <td>{{ h.libelle }}</td>
-                {% endfor %}
-                <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td>{% if habitat.statut %} Actif {% else %} Inactif {% endif %}</td>
+                <td>{% if habitat.estDisponible %} Libre {% else %} Réservé {% endif %}</td>
+                <td>{{ habitat.prix }}</td>
+                <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}" class="green-text"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                {# <td>{{ include('habitats/_delete_form.html.twig') }}</td> #}
             </tr>
             {% endfor %}
         </tbody>

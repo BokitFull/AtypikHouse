@@ -1,202 +1,23 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+   {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('homeJs') }}
+{% endblock %}
 
 {% block title %}AtypikHouse!
 {% endblock %}
 
 {% block body %}
-	<style>
-		{
-			# .formCenter.page-Acceuil {
-
-				position: absolute;
-				z-index: 1;
-				align-items: center;
-				top: 35%;
-				bottom: 0;
-				right: 50%;
-				height: 0;
-			} #
-		}
-
-
-		.bg-image {
-			width: 100%;
-			height: 500px;
-			object-fit: cover;
-		}
-
-		.btn-notdark {
-			background-color: #B87247;
-			color: white;
-			padding-right: 50px;
-			padding-left: 50px;
-
-		}
-		.filtre-buttons {
-			align-items: center;
-			justify-content: center;
-			display: flex;
-			position: absolute;
-    top: 115%;
-		}
-
-		.messageHome {
-			position: absolute;
-			z-index: 1;
-			align-items: center;
-			top: 25%;
-			bottom: 0;
-			left: 28%;
-			height: 0;
-			color: white;
-		}
-		.container {
-			margin: 0;
-			padding: 0;
-			min-width: 100%;
-		}
-
-		.form-home {
-			display: flex;
-			/* justify-content: center; */
-			align-items: center;
-			justify-content: center;
-			margin-bottom: 20px;
-
-		}
-
-		.custom-select {
-			margin-left: 5px;
-		}
-
-		.formCenter.page-Acceuil {
-			position: absolute;
-			top: 35%;
-			left: 27%;
-		}
-
-		.btn:hover {
-			color: var(--bs-btn-hover-color);
-			background-color: #B87247;
-			border-color: #B87247;
-		}
-
-		element.style {}
-		.trait.trait.home {
-			width: 30%;
-		}
-		hr.traithome {
-			border: 3px solid #b69255;
-			border-radius: 5px;
-		}
-		.trait.trait.home {
-			position: relative;
-			top: 20%;
-			left: 35%;
-		}
-		.destinations-Carte img {
-			width: 100%;
-			height: 250px;
-			object-fit: cover;
-			border-radius: 20px;
-			box-shadow: 0 50px 0 #B87247;
-		}
-
-		.destinations-Carte.info-carte {
-			background: red;
-			width: 150px;
-			position: absolute;
-		}
-
-		.nos-destinations {
-			display: flex;
-			justify-content: center;
-			margin-right: 30px;
-			margin-left: 30px;
-			margin-bottom: 35px;
-		}
-
-
-		.titlesHomes {
-			display: flex;
-			justify-content: center;
-			margin-top: 30px;
-			margin-bottom: 30px;
-		}
-
-		.titre-destination {
-			position: absolute;
-			margin-top: 255px;
-		}
-
-		.atypiquoi.paragraph,
-		.quisommenous {
-			margin-left: 70px;
-			margin-right: 70px;
-		}
-		.atypiquoi {
-			padding-top: 10px;
-			padding-bottom: 15px;
-			background: green;
-			color: white;
-		}
-		a.quisommeatypik {
-			background: #b87247;
-			color: white;
-			padding: 10px;
-		}
-
-		.comcontainer {
-			display: flex;
-			justify-content: space-around;
-
-		}
-
-		.commentaire {
-			width: 350px;
-			background: #B87247;
-			border-radius: 20px;
-			padding: 10px;
-			color: white;
-			font-size: 20px;
-		}
-		.ideeContainer {
-			display: flex;
-			justify-content: space-around;
-
-		}
-		.ideeNewsletter {
-			width: 350px;
-		}
-		.ideesocialnetwork {
-			width: 350px;
-		}
-
-		.ideeContainer {
-			margin-bottom: 50px;
-		}
-		.homeFooter {
-			display: flex;
-
-			background: white;
-			justify-content: center;
-			position: relative;
-			bottom: 0;
-		}
-		.homeFooter span {
-			margin-right: 30px;
-		}
-		.ideeContainer {
-			background-color: green;
-			color: white;
-			padding-top: 20px;
-			padding-bottom: 50px;
-		}
-	</style>
-
 	<div class="container">
 
-		<div class="bg-image" style="background-image: url('https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg');"></div>
+		<div class="bg-image" >
+		<img src="https://c4.wallpaperflare.com/wallpaper/644/970/427/lights-trees-yellow-cozy-wallpaper-preview.jpg" alt=" home banniere"/> </div>
 
 		<div class="messageHome">
 
@@ -210,26 +31,26 @@
 
 			<form class="form-home" action="/habitats" method="GET">
 
-				<select name="dep" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+				<select name="code_postal" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
 						Destinations
 					</option>
 					{% for departement  in habitats %}
-						<option  value={{departement.codePostal}}>{{departement.codePostal|slice(0,2)}}</option>
+						<option  value={{departement.codePostal}}>({{departement.codePostal|slice(0,2)}})</option>
 					{% endfor %}
 				</select>
 
 
-				<select name="type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+				<select name="type_habitat_id" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
-						Hebergement
+						Hébergement
 					</option>
-					{# {% for hebermenetType  in habitats %}
-						<option  value={{hebermenetType.type}}>{{hebermenetType.type}}</option>
-					{% endfor %} #}
+					{% for typeHebergement  in TypesHabitat %}
+						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
+					{% endfor %}
 				</select>
 
-					<select name="nombre" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+					<select name="nombre_personnes_max" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
 					<option selected>
 						Combien de Personnes ?
 					</option>
@@ -237,9 +58,9 @@
 						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
 					{% endfor %}
 				</select>
+				
+                <input type="text" name="daterange" value="" />
 
-				<input class="custom-select" type="date" id="start" name="start">
-				<input class="custom-select" type="date" id="end">
 
 				<div class="filtre-buttons">
 					<input value="Rechercher" type="submit" class="btn btn-notdark">
@@ -349,13 +170,22 @@
 		{% for comment in commentaires %}
 
 			<div class="commentaire">
+			<div> 
 				<p>{{ comment.contenu|slice(0, 100) }}</p>
+				</div>
+				<div> 
+				<div>
 				<span>
 					{{ comment.utilisateur.nom }}
 				</span>
+					</div>
+					<div> 
 				<span>
-					{{ comment.createdAt|date('d-m-Y') }}
+					{{ comment.createdAt|date('m-Y') }}
 				</span>
+				</div>
+				</div>
+			
 			</div>
 		{% endfor %}
 	</div>
@@ -393,23 +223,5 @@
 
 
 	</div>
-
-	<footer class="homeFooter">
-
-		<span>
-			Copyright 2022 - Tout droits réservés
-		</span>
-		<span>
-			<a href="#">
-				Mentions légales
-			</a>
-		</span>
-		<span>
-			<a href="#">
-				Confidentialités
-			</a>
-		</span>
-
-	</footer>
 
 {% endblock %}

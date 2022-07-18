@@ -2,19 +2,89 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\GetHabitatsController;
 use App\Repository\HabitatsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'read:collection'
+                ]
+            ],
+            'list_habitats' => [    
+                'pagination_enabled'=>false,
+                'method' => 'GET',
+                'path' => 'get/habitats',
+                'controller' => GetHabitatsController::class,
+                'filters' => [],
+                'openapi_context' => [
+                    'summary' => 'Récupère une liste',
+                    'parameters' => [
+                        [
+                            'in' => 'query',
+                            'name' => 'id',
+                            'schema' => [
+                                'type' => 'integer'
+                            ]
+    
+                        ]
+                    ]
+                ]
+            ]
+        ], 
+    itemOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => 'comment:item'
+                ]
+            ],
+        // 'list_habitats' => [    
+        //     'method' => 'GET',
+        //     'path' => 'get/habitats/{id_array}',
+        //     'controller' => GetHabitatsController::class,
+        //     'filters' => [],
+        //     'openapi_context' => [
+        //         'summary' => 'Récupère une liste',
+        //         'parameters' => [
+        //             [
+        //                 'in' => 'query',
+        //                 'name' => 'habitats',
+        //                 'schema' => [
+        //                     'type' => 'array'
+        //                 ]
+
+        //             ]
+        //         ]
+        //     ]
+        ]
+    // ],
+
+)]
 class Habitats
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups([ 'read:collection', 'comment:item', 'list_habitats'])]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 150,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 150)]
     private $titre;
 
@@ -22,12 +92,34 @@ class Habitats
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 10,
+     * )
+     * @Assert\Regex("/^\d{2}(?:[-\s]\d{4})?$/")
+     */
     #[ORM\Column(type: 'string', length: 10)]
     private $code_postal;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(  
+     *      min = 1,
+     *      max = 80,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
@@ -406,6 +498,42 @@ class Habitats
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): self
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InformationsPratiques>
+     */
+    public function getInformationsPratiques(): Collection
+    {
+        return $this->informations_pratiques;
+    }
+
+    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        if (!$this->informations_pratiques->contains($informationsPratique)) {
+            $this->informations_pratiques[] = $informationsPratique;
+        }
+
+        return $this;
+    }
+
+    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
+    {
+        $this->informations_pratiques->removeElement($informationsPratique);
 
         return $this;
     }
