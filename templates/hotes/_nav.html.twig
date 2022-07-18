@@ -17,10 +17,10 @@
                 <a class="nav-link fs-5 green-text" href="{{ path('hote_accueil')}}">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fs-5 green-text" href="/">Habitats</a>
+                <a class="nav-link fs-5 green-text" href="{{ path('hote_habitats')}}">Habitats</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fs-5 green-text" href="/">Calendrier</a>
+                <a class="nav-link fs-5 green-text" href="{{ path('habitat_calendar')}}">Calendrier</a>
             </li>
         </ul>
     </div>
@@ -31,7 +31,7 @@
                 <span class="fa-solid fa-user-circle"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Profil</a></li>
+                <li><a class="dropdown-item" href="{{ path('hote_accueil')}}">Profil</a></li>
                 <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Mode utilisateur</a></li>
                 <li><a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a></li>
             </ul>

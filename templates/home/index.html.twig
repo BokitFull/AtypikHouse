@@ -224,9 +224,9 @@
 					<option selected>
 						Hebergement
 					</option>
-					{% for hebermenetType  in habitats %}
+					{# {% for hebermenetType  in habitats %}
 						<option  value={{hebermenetType.type}}>{{hebermenetType.type}}</option>
-					{% endfor %}
+					{% endfor %} #}
 				</select>
 
 					<select name="nombre" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
@@ -234,11 +234,11 @@
 						Combien de Personnes ?
 					</option>
 					{% for nombreDepersonne  in habitats %}
-						<option  value={{nombreDepersonne.nombrePersonnesMax}}>{{nombreDepersonne.nombrePersonnesMax}}</option>
+						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
 					{% endfor %}
 				</select>
 
-				<input class="custom-select" type="date" id="start">
+				<input class="custom-select" type="date" id="start" name="start">
 				<input class="custom-select" type="date" id="end">
 
 				<div class="filtre-buttons">
@@ -349,7 +349,7 @@
 		{% for comment in commentaires %}
 
 			<div class="commentaire">
-				<p>{{ comment.commentaire|slice(0, 100) }}</p>
+				<p>{{ comment.contenu|slice(0, 100) }}</p>
 				<span>
 					{{ comment.utilisateur.nom }}
 				</span>

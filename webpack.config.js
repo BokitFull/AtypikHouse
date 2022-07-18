@@ -36,6 +36,8 @@ Encore
     .addStyleEntry('habitat_edit', './assets/styles/habitat_edit.scss')
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
     .addStyleEntry('all_habitats', './assets/styles/all_habitats.scss')
+    .addStyleEntry('admin_users_index', './assets/styles/admin/users_index.scss')
+    .addStyleEntry('admin_users_detail', './assets/styles/admin/users_detail.scss')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')

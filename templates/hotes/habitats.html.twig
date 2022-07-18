@@ -27,6 +27,9 @@
                 <td>Icone</td>
                 <td>Icone</td>
                 <td>10000€</td>
+                {% for h in habitat.equipements %}
+                <td>{{ h.libelle }}</td>
+                {% endfor %}
                 <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}"><i class="fa-solid fa-pen-to-square"></i></a></td>
             </tr>
             {% endfor %}
