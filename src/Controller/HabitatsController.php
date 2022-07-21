@@ -19,49 +19,50 @@ use Symfony\Component\Validator\Constraints\Date;
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
+
+    
     public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository) {
         $this->repository = $repository;
         $this->commsRepository = $commsRepository;
     }
 
-    #[Route('/new', name: 'new_habitat', methods: ['GET', 'POST'])]
-    public function new(Request $request, HabitatsRepository $habitatsRepository, FileUploader $fileUploader): Response
+    // #[Route('/new', name: 'new_habitat', methods: ['GET', 'POST'])]
+    // public function new(Request $request, HabitatsRepository $habitatsRepository, FileUploader $fileUploader): Response
+    // {
+    //     $context = [];
+        
+    //     $habitat = new Habitats();
+    //     $form = $this->createForm(HabitatsType::class, $habitat);
+    //     $form->handleRequest($request);
+    //     $context['form'] = $form;
+    //     $context['habitat'] = $habitat;
+        
+    //     $images = $form->get('images')->getData();
+    //     var_dump($images);
+        
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $images = $form->get('images')->getData();
+
+    //         foreach ($images as $key => $value) {
+    //             var_dump($value);
+    //             $uploader->upload($value);
+    //             $habitat->addImage($value);
+    //         }
+
+    //         $habitat->setCreatedAt(new \DateTimeImmutable('now'));
+    //         $habitatsRepository->add($habitat, true);
+
+    //         return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
+    //     }
+
+    //     return $this->renderForm('habitats/new.html.twig', $context);
+    // }
+
+
+    #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
+    public function index(Request $request, PaginatorInterface $paginator,  HabitatsRepository $habitatsRepository): Response
     {
-        $context = [];
-        
-        $habitat = new Habitats();
-        $form = $this->createForm(HabitatsType::class, $habitat);
-        $form->handleRequest($request);
-        $context['form'] = $form;
-        $context['habitat'] = $habitat;
-        
-        $images = $form->get('images')->getData();
-        var_dump($images);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('images')->getData();
-
-            foreach ($images as $key => $value) {
-                var_dump($value);
-                $uploader->upload($value);
-                $habitat->addImage($value);
-            }
-
-            $habitat->setCreatedAt(new \DateTimeImmutable('now'));
-            $habitatsRepository->add($habitat, true);
-
-            return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('habitats/new.html.twig', $context);
-    }
-
-
-    #[Route('/', name: 'habitats_index', methods: ['GET'])]
-    public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
-    {   
-        dump($request->query->all());die;
-        $donnees = $habitatsRepository->findByHabitats($_GET);
+            $donnees = $habitatsRepository->findByHabitats($_GET);
 
             $dep = $habitatsRepository->findByDep();
 
