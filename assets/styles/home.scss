@@ -1,66 +1,54 @@
-#main-container{
-    width: 100%;
-}
-
-// .bg-image {
-//     width: 100%;
-//     height: 500px;
-// }
-
-.bg-image img  {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-}
+@import '~flatpickr';
 
 .btn-notdark {
     background-color: #B87247;
     color: white;
-    padding-right: 50px;
-    padding-left: 50px;
+    width: 180px;
 
-}
-.filtre-buttons {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    position: absolute;
-top: 115%;
 }
 
 .messageHome {
-    position: absolute;
-    z-index: 1;
-    align-items: center;
-    top: 25%;
-    bottom: 0;
-    left: 28%;
-    height: 0;
     color: white;
 }
-.container {
-    margin: 30px 0px 0px 0px;
-    padding: 0px 70px 0px 70px;
-    min-width: 100%;
+
+#home-pres{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    height: 550px;
+    background-image:  url('../../public/images/home_pictures.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .form-home {
     display: flex;
-    /* justify-content: center; */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-
+    gap: 40px;
 }
 
-.custom-select {
-    margin-left: 5px;
+#form-fields{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }
 
-.formCenter.page-Acceuil {
-    position: absolute;
-    top: 35%;
-    left: 27%;
+.form-input{
+    border: none;
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &::placeholder {
+        color: black;
+      }
 }
 
 .btn:hover {
@@ -69,121 +57,134 @@ top: 115%;
     border-color: #B87247;
 }
 
-.trait.trait.home {
-    width: 30%;
+.article{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
 }
-hr.traithome {
-    border: 3px solid #b69255;
-    border-radius: 5px;
-}
-.trait.trait.home {
-    position: relative;
-    top: 20%;
-    left: 35%;
-}
-.destinations-Carte img {
+
+.card-div {
+    display: flex;
+    justify-content: space-around;
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+}
+
+.card {
+    display: flex;
+    max-width: 320px;
+    min-width: 200px;
+    flex-direction: column;
     border-radius: 20px;
-    box-shadow: 0 50px 0 #B87247;
+    overflow: hidden;
+    background-color: rgba(43, 121, 41, 60%);
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
 }
 
-.destinations-Carte.info-carte {
-    background: red;
-    width: 150px;
-    position: absolute;
+.card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    img{
+        max-width:100%;
+        height: 240px;
+    }
 }
 
-.nos-destinations {
+.card, .card:hover, a.card:focus, .card:active {
+    text-decoration: none;
+    color: #616161;
+}
+
+.destination-title {
+    color: #616161;
+    margin-top: 5px;
+}
+
+#site-info {
     display: flex;
     justify-content: center;
-    margin-right: 30px;
-    margin-left: 30px;
-    margin-bottom: 35px;
-}
-
-
-.titlesHomes {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.titre-destination {
-    position: absolute;
-    margin-top: 255px;
-}
-
-.atypiquoi.paragraph,
-.quisommenous {
-    margin-left: 70px;
-    margin-right: 70px;
-}
-.atypiquoi {
-    padding-top: 10px;
-    padding-bottom: 15px;
-    background: green;
+    align-items: center;
+    flex-direction: column;
     color: white;
-    margin-left: 70px;
-    margin-right: 70px;
-    border-radius: 50px;
+    height: 600px;
+    background-image: url('../../public/images/home_pictures.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
-a.quisommeatypik {
+
+.info-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+}
+
+.about-us-btn {
+    display:block;
     background: #b87247;
+    text-decoration: none;
     color: white;
     padding: 10px;
+    border-radius: 10px;
 }
 
-.comcontainer {
-    display: flex;
-    justify-content: space-around;
-
-}
-
-.commentaire {
+.comment-card{
     width: 350px;
-    background: #B87247;
+    background: rgba(184, 114, 71, 15%);
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px 15px 0px 15px;
+}
+
+.inset-box{
+    box-shadow: inset 0 8px 8px -8px rgba(43, 43, 38, 0.7), 
+                inset 0 -8px 8px -8px rgba(43, 43, 38, 0.7);
+}
+
+#social-medial-article{
+    height: 350px;
+    background-image:  url('../../public/images/ex-social-media.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
     color: white;
-    font-size: 20px;
 }
-.ideeContainer {
+
+#social-media-icons{
     display: flex;
-    justify-content: space-around;
-
-}
-.ideeNewsletter {
-    width: 350px;
-}
-.ideesocialnetwork {
-    width: 350px;
-}
-
-.ideeContainer {
-    margin-bottom: 50px;
-}
-.homeFooter {
-    display: flex;
-
-    background: white;
     justify-content: center;
-    position: relative;
-    bottom: 0;
+    align-items: center;
+    gap: 20px;
 }
-.homeFooter span {
-    margin-right: 30px;
-}
-.ideeContainer {
+
+#social-media-section{
     display: flex;
-    justify-content: space-around;
-    background-color: green;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    aspect-ratio : 1 / 1;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(43, 121, 41, 0.9);
+}
+
+#newsletter-article{
     color: white;
-    padding-top: 20px;
-    padding-bottom: 50px;
-    margin-left: 70px;
-    margin-right: 70px;
-    border-radius: 50px;
+    background-color: rgba(43, 121, 41, 50%);
+}
+
+#newsletter-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    width: 100%;
 }

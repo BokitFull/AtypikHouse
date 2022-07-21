@@ -1,8 +1,13 @@
 
-jQuery(function() {
-    jQuery('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end) {
-    console.log("A new date selection was made:"+ start.format('MM-DD-YYYY')+'to'+end.format('MM-DD-YYYY'));
-  });
+import { French } from "flatpickr/dist/l10n/fr.js"
+const flatpickr = require("flatpickr");
+
+
+document.querySelector("#date-picker").flatpickr({
+  locale: French,
+  mode: 'range',
+  showMonths: 2,
+  static:true,
 });
+
+document.querySelector('.flatpickr-calendar').style.right = '-4px';

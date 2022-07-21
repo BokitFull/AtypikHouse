@@ -59,11 +59,13 @@ class HabitatsController extends AbstractController
 
     #[Route('/', name: 'habitats_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository): Response
-    {
-        if (isset($_GET["dep"]) && isset($_GET["price"])) {
-            
-            $donnees = $habitatsRepository->findByExampleField(['price' => $_GET['price'], 'code_postal' => $_GET['dep']]);
-            
+    {   
+        dump($request->query->all());die;
+        $donnees = $habitatsRepository->findByHabitats($_GET);
+
+            $dep = $habitatsRepository->findByDep();
+
+            $types = $habitatsRepository->findByTypes();
             $habitats = $paginator->paginate(
                 $donnees, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -72,22 +74,9 @@ class HabitatsController extends AbstractController
             
             return $this->render('habitats/index.html.twig', [
                 'habitats' => $habitats,
+                'dep' => $dep,
+                'types' => $types,
             ]);
-        } else {
-
-            // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
-            $donnees = $habitatsRepository->findAll();
-
-            $habitats = $paginator->paginate(
-                $donnees, // Requête contenant les données à paginer (ici nos articles)
-                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-                6 // Nombre de résultats par page
-            );
-
-            return $this->render('habitats/index.html.twig', [
-                'habitats' => $habitats,
-            ]);
-        }
     }
 
     #[Route('/calendar', name: 'habitat_calendar', methods: ['GET'])]
