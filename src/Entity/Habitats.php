@@ -14,62 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'normalization_context' => [
-                'groups' => 'read:collection'
-                ]
-            ],
-            'list_habitats' => [    
-                'pagination_enabled'=>false,
-                'method' => 'GET',
-                'path' => 'get/habitats',
-                'controller' => GetHabitatsController::class,
-                'filters' => [],
-                'openapi_context' => [
-                    'summary' => 'Récupère une liste',
-                    'parameters' => [
-                        [
-                            'in' => 'query',
-                            'name' => 'id',
-                            'schema' => [
-                                'type' => 'integer'
-                            ]
-    
-                        ]
-                    ]
-                ]
-            ]
-        ], 
-    itemOperations: [
-        'get' => [
-            'normalization_context' => [
-                'groups' => 'comment:item'
-                ]
-            ],
-        // 'list_habitats' => [    
-        //     'method' => 'GET',
-        //     'path' => 'get/habitats/{id_array}',
-        //     'controller' => GetHabitatsController::class,
-        //     'filters' => [],
-        //     'openapi_context' => [
-        //         'summary' => 'Récupère une liste',
-        //         'parameters' => [
-        //             [
-        //                 'in' => 'query',
-        //                 'name' => 'habitats',
-        //                 'schema' => [
-        //                     'type' => 'array'
-        //                 ]
 
-        //             ]
-        //         ]
-        //     ]
-        ]
-    // ],
-
-)]
 class Habitats
 {
     #[ORM\Id]
@@ -514,27 +459,5 @@ class Habitats
         return $this;
     }
 
-    /**
-     * @return Collection<int, InformationsPratiques>
-     */
-    public function getInformationsPratiques(): Collection
-    {
-        return $this->informations_pratiques;
-    }
 
-    public function addInformationsPratique(InformationsPratiques $informationsPratique): self
-    {
-        if (!$this->informations_pratiques->contains($informationsPratique)) {
-            $this->informations_pratiques[] = $informationsPratique;
-        }
-
-        return $this;
-    }
-
-    public function removeInformationsPratique(InformationsPratiques $informationsPratique): self
-    {
-        $this->informations_pratiques->removeElement($informationsPratique);
-
-        return $this;
-    }
 }

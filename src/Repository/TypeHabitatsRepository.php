@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method TypesHabitat[]    findAll()
  * @method TypesHabitat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypesHabitatRepository extends ServiceEntityRepository
+class TypeHabitatsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -39,7 +39,7 @@ class TypesHabitatRepository extends ServiceEntityRepository
         }
     }
 
-    /**
+       /**
     * récupération des départements pour les afficher dans le filtre
     *
     *@ return Habitats[] Returns an array of Habitats objects
