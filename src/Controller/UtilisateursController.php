@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateurs;
-use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use App\Repository\UtilisateursRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-#[Route('/utilisateurs')]
+#[Route('/profil')]
 class UtilisateursController extends AbstractController
 {   
     private $security;
@@ -41,15 +40,6 @@ class UtilisateursController extends AbstractController
     public function informations_personelles(): Response
     {  
         return $this->render('utilisateurs/informations_personnelles.html.twig');
-    }
-
-    public function userNav(): Response
-    {   
-        $utilisateur = new Utilisateurs();
-        $context['register_form'] = $this->createForm(RegistrationFormType::class, $utilisateur)->createView();
-        $context['login_form'] = $this->createForm(LoginFormType::class, $utilisateur)->createView();
-
-        return $this->render('_user_nav.html.twig', $context);
     }
 
     #[Route('/reservations', name: 'reservation_utilisateur', methods: ['GET', 'POST'])]
