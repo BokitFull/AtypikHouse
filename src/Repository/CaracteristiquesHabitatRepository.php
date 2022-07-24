@@ -21,15 +21,13 @@ class CaracteristiquesHabitatRepository extends ServiceEntityRepository
         parent::__construct($registry, CaracteristiquesHabitat::class);
     }
 
-    public function add(CaracteristiquesHabitat $entity, bool $flush = false): void
-    {
+    public function add(CaracteristiquesHabitat $entity, bool $flush = false): void{
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
         }
     }
-
     public function remove(CaracteristiquesHabitat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

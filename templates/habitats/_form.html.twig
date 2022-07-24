@@ -1,4 +1,144 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_start(form, { 'attr': {'id': 'form'}}) }}
+        <div class="form-errors">
+            {{ form_errors(form) }}
+        </div>
+
+        <div id="form-input-div" class="row col-12">
+            {{ form_row(form._token) }}
+            {# {{ form_row(form.statut, { 'attr': {'class': 'input-field', 'placeholder': 'Statut'} }) }} #}
+            <div class="form-group col-md-6">
+                {{ form_row(form.titre, { 'attr': {'class': 'input-field', 'placeholder': 'Titre'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.adresse, { 'attr': {'class': 'input-field', 'placeholder': 'Adresse'} }) }}
+            <input type="hidden" name="adresse">
+            <div id="result_adresse"></div>
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.code_postal, { 'attr': {'class': 'input-field ', 'placeholder': 'Code postal'} }) }}
+            </div>
+            {# <div class="form-group col-md-6">
+            {{ form_row(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
+            </div> #}
+            <div class="form-group col-md-6">
+            {{ form_row(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'Pays'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.type, { 'attr': {'class': 'select-field', 'placeholder': 'Type habitat'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.description, { 'attr': {'class': 'input-field', 'placeholder': 'Description'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.prix, { 'attr': {'class': 'input-field', 'placeholder': 'Prix'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.nb_personnes, { 'attr': {'class': 'input-field', 'placeholder': 'Nombre personnes max'} }) }}
+            </div>
+            <div id="div-equipements" class="form-group col-md-6">
+                <label for="habitats_equipements" class="required">Équipements</label>
+                <ul id="equipements-fields-list"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.prestations|length }}">
+                    {% for prestation in form.prestations %}
+                    <li>
+                        {{ form_row(prestation, { 'attr': {'class': 'input-field'} }) }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {# <div id="div-informationsPratiques" class="form-group col-md-6">
+                <label for="habitats_informationPratiques" class="required">Informations pratiques</label>
+                <ul id="habitats_informationPratiques-fields-list"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.informations_pratiques|length }}">
+                    {% for info in form.informations_pratiques %}
+                    <li>
+                        {{ form_row(info, { 'attr': {'class': 'input-field'} }) }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div> #}
+            {# <div class="form-group col-md-6">
+                {{ form_row(form.images.vars.prototype) }}
+
+                <div>
+                    <button id="btnShowImages" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
+                </div>
+                <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content site-background-color">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center">Toutes les images</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Open"></button>
+                            </div>
+                            <div class="modal-body row">
+                                {% for image in habitat.images %}
+                                <div class="col-12 mb-2">
+                                    {% if not image|default %}
+                                    <img src="{{ image[0] }}" alt="image-habitat" class="img-fluid">
+                                    {% endif %}
+                                </div>  
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>  
+                    </div>
+                </div> #}
+
+                {# <ul id="image-fields-list"
+                    data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.images|length }}">
+                    {% for image in form.images %}
+                    <li>
+                        {{ form_row(image, { 'attr': {'class': 'input-field', 'placeholder': 'Nombre personnes max'} }) }}
+                    </li>
+                    {% endfor %}
+                </ul> 
+
+                <button id="btnAddNewImage" type="button"
+                    class="add-image btn btn-primary"
+                    data-list-selector="#image-fields-list">Ajouter une nouvelle image
+                </button> #}
+            {# </div> #}
+            <div class="form-group col-md-6">
+            {{ form_row(form.est_valide, { 'attr': {'class': 'input-field', 'placeholder': 'Est disponible'} }) }}
+            </div>
+            {# <div id="div-images">
+                <div>
+                    <button id="btnShowImages" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
+                </div>
+                <div>
+                    <input id="newFile" class="btn btn-outline-primary d-block" type="file" title="" accept=".jpg,.jpeg,.png" onchange="uploadImage();"></input>
+                    <input type="file" id="files" multiple="multiple">
+                    <p><small>Fichiers autorisés: jpg, jpeg, png (taille max: 5Mo)</small></p>
+                </div>
+
+                <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content site-background-color">
+                            <div class="modal-header">
+                                <h5 class="modal-title w-100 text-center">Toutes les images</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body row">
+                                {% for image in form.images %}
+                                <div class="col-12 mb-2">
+                                    <img src="{{ image }}" alt="image-habitat" class="img-fluid">
+                                </div>  
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>  
+                    </div>
+                </div> 
+            </div> #}
+        </div>
+        <div id="form-btn-div">
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a href="{{ path('hote_habitats') }}" class="btn btn-outline-secondary">Retour</a>
+        </div>
+    {{ form_end(form, {render_rest: false}) }}

@@ -38,7 +38,70 @@ class HabitatsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+   /**
+    *@ return Habitats[] Returns an array of Habitats objects
+    */
+    public function findByHabitats($data): array
+    {
+        $query = $this->createQueryBuilder('h')
+                      ->select('h')
+                      ->orderBy('h.id', 'ASC')
+             ;
+             
+        foreach($data as $key => $value){
+            $query ->setParameter($key, $value);
+            if($key == 'prix'){
+                $query ->andWhere('h.'.$key.' <= :'.$key);
+            }
+            elseif($key == 'nb_personnes'){
+                $query ->andWhere('h.'.$key.' >= :'.$key);
+            }
+            elseif($key == 'types'){
+                $query ->leftJoin('h.type', 't') 
+                       ->andWhere('t.id = :'.$key);
+            }
+            elseif($key == 'destinations'){
+                $destinations = explode(";", $value);
+                $query ->leftJoin('h.ville', 'v')
+                       ->setParameter($key, $destinations[0]);
+                if($destinations[1] == 'regions'){
+                    $query->leftJoin('v.departements', 'd')
+                          ->leftJoin('d.region', 'r')
+                          ->andWhere('r.nom = :'.$key);
+                }elseif($destinations[1] == 'departements'){
+                    $query->leftJoin('v.departements', 'd')
+                          ->andWhere('d.nom = :'.$key);
+                }elseif($destinations[1] == 'villes'){
+                    $query->andWhere('v.nom = :'.$key);
+                }
+            }
+            else{
+                $query ->andWhere('h.'.$key.' = :'.$key);
+            }
+        }
+             
+        $nb = $query->getQuery()
+                    ->getResult();
 
+        return $nb;
+    }
+ 
+    /**
+     * récupération des départements pour les afficher dans le filtre
+     *
+     *@ return Habitats[] Returns an array of Habitats objects
+     */
+    public function findByDep(): array
+    {
+ 
+         $query = $this->createQueryBuilder('h')
+             ->select('DISTINCT h.code_postal')
+             ->getQuery()
+             ->getResult()
+         ;
+         
+         return $query;
+    }
 //    /**
 //     * @return Habitats[] Returns an array of Habitats objects
 //     */

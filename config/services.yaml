@@ -5,14 +5,17 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
-    stripe_public_key: pk_test_xxxxxxxxxxxxxxxxxxxxxxxx
-    stripe_secret_key: sk_test_xxxxxxxxxxxxxxxxxxxxxxxx
+    password: 'test'
+    images_directory: '%kernel.project_dir%/public/images'
+    stripe_public_key: pk_test_51LJG4GLpq4M4X10NpEssXhrxV6ugbBOm8pXDVzcxhz9Dlzc17un8No755ghMk7R0kTgyBsQAIq8fwX9PPBFNQMIQ00PrZeLY7O
+    stripe_secret_key: sk_test_51LJG4GLpq4M4X10NCi2E7Mcc70SmSKMCWMdpTPxPHnT1iinbaxAlxvZBjUJL7zB1gHXsOeBA6qaH6nPImkC5a5mM00QM10AuTU
+    domain: 'http://localhost:8000'
     payment:
         currency: EUR
         decimal: true
-        premium_amount: 1
 
 services:
+    
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -30,3 +33,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%images_directory%/uploads'

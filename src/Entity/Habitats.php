@@ -8,6 +8,9 @@ use App\Repository\HabitatsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
@@ -74,7 +77,14 @@ class Habitats
     #[ORM\Column(type: 'integer')]
     #[Groups([ 'read:collection', 'comment:item', 'list_habitats'])]
     private $id;
-    
+
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 150,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 150)]
     private $titre;
 
@@ -82,12 +92,34 @@ class Habitats
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 10,
+     * )
+     * @Assert\Regex("/^\d{2}(?:[-\s]\d{4})?$/")
+     */
     #[ORM\Column(type: 'string', length: 10)]
     private $code_postal;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(  
+     *      min = 1,
+     *      max = 80,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 80)]
     private $pays;
 
@@ -105,13 +137,15 @@ class Habitats
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $fin_disponibilite;
-
+    
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
-
+    
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
@@ -136,7 +170,7 @@ class Habitats
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: ImagesHabitat::class)]
     private $imagesHabitats;
 
-    #[ORM\Column(type: 'string', length: 80)]
+    #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'habitats')]
     private $ville;
 
     public function __construct()
@@ -458,14 +492,26 @@ class Habitats
         return $this;
     }
 
-    public function getVille(): ?string
+    public function getVille(): ?Ville
     {
         return $this->ville;
     }
 
-    public function setVille(string $ville): self
+    public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): self
+    {
+        $this->images = $images;
 
         return $this;
     }
