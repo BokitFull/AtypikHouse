@@ -60,7 +60,7 @@ class HabitatsController extends AbstractController
     // }
 
 
-    #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
+    #[Route('/', name: 'habitats_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository, TypeHabitatsRepository $typeHabitatsRepository): Response
     {
         // $test = urldecode("http://127.0.0.1:8000/habitats/?code_postal=51&type_habitat_id=24&nombre_personnes_max=4&daterange=07%2F07%2F2022+-+07%2F15%2F2022");

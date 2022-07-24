@@ -60,6 +60,10 @@ class HabitatsRepository extends ServiceEntityRepository
                     $query->setParameter($key, $item);
                     $query->andWhere('h.prix <= :' . $key);
                 }
+                else if ($key == 'nb_personnes' && $item != "") {
+                    $query->setParameter($key, $item);
+                    $query->andWhere('h.nb_personnes <= :' . $key);
+                }
                 else if ($key == 'type_habitat_id' && $item != "") {
                     $query->setParameter($key, $item);
                     $query->andWhere('t.id = :' . $key);
