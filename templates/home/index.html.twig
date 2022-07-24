@@ -21,45 +21,40 @@
 		</h2>
 		<form class="form-home" action="/habitats" method="GET">
 			<div id="form-fields">
+				<div id="cp-div">
+					<input type="text" id="destinations-name" class="form-input" placeholder="Destinations">
+					<input type="hidden" name="destinations">
+					<div id="result-cp"></div>
+				</div>
 
-				<select name="code_postal" class="form-input">
-					<option selected>
-						Destinations
-					</option>
-					{% for departement  in habitats %}
-						<option  value={{departement.codePostal}}>({{departement.codePostal|slice(0,2)}})</option>
-					{% endfor %}
-				</select>
-
-				<select name="type_habitat_id" class="form-input">
-					<option selected>
+				<select name="type_habitat_id" class="form-input" placeholder="Hébergement">
+					<option selected disabled>
 						Hébergement
 					</option>
-					{% for typeHebergement  in TypesHabitat %}
+					{% for typeHebergement in TypesHabitat %}
 						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
 					{% endfor %}
 				</select>
 
-				<select name="nombre_personnes_max" class="form-input">
-					<option selected>
+				<select name="nb_personnes" class="form-input">
+					<option selected disabled>
 						Combien de personnes
 					</option>
-					{% for nombreDepersonne  in habitats %}
-						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
+					{% for i in 0..10 %}
+						<option  value={{ i }}</option>
 					{% endfor %}
 				</select>
 
-				<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Select a Date" data-flatpickr>
+				<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
 
 			</div>
-			<div id="test"></div>
 			<div>
 				<input value="Rechercher" type="submit" class="btn btn-notdark">
 			</div>
 		</form>
 	</article>
 
-	<article class="article inset-box">
+	<article id="top-destinations-article" class="article inset-box">
 		<h3>Nos top destinations</h3>
 
 		<div class="card-div">
@@ -102,19 +97,10 @@
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.
 			</p>
-
-			<span>
-				Pour mieux nous connaître
-			</span>
-			<span>
-				<a class="about-us-btn" href="#">
-					C'est par ici <i class="fa-solid fa-tree"></i>
-				</a>
-			</span>
 		</div>
 	</article>
 
-	<article class="article inset-box">
+	<article id="comments-article" class="article inset-box">
 		<h3>Ils ont aimé</h3>
 		<div class="card-div">
 			{% for comment in commentaires %}
@@ -126,12 +112,11 @@
 		</div>
 	</article>
 
-	<article id="social-medial-article" class="article">
-		<img src="{{ asset('images/ex-social-media.png') }}" class="sr-only" alt=" home banniere"/>
+	<article id="social-medial-article">
 		<section id="social-media-section">
-		<h3>En manque d'idées</h3>
+			<h3>En manque d'idées</h3>
 			<p>
-				Pour plus d'idées de voyage n'hésitez pas à venir nous visitez sur les réseaux sociaux
+				Pour plus d'idées de voyage n'hésitez pas à venir nous visitez sur les réseaux sociaux !
 			</p>
 			<div id="social-media-icons">
 				<i class="fa-brands fa-instagram fa-xl"></i>
@@ -139,6 +124,9 @@
 				<i class="fa-brands fa-facebook fa-xl"></i>		
 			</div>
 		</section>
+		<div id="social-media-img-div">
+			<img src="{{ asset('images/ex-social-media.png') }}" class="sr-only" alt="home banniere"/>
+		</div>
 	</article>
 
 	<article id="newsletter-article" class="article">

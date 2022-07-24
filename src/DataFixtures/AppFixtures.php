@@ -5,8 +5,12 @@ namespace App\DataFixtures;
 use App\Entity\CaracteristiquesHabitat;
 use App\Entity\CaracteristiquesTypeHabitat;
 use App\Entity\Commentaires;
+use App\Entity\Ville;
+use App\Entity\Departements;
 use App\Entity\Habitats;
+use App\Entity\Pays;
 use App\Entity\Prestations;
+use App\Entity\Region;
 use App\Entity\Reservations;
 use App\Entity\TypesHabitat;
 use App\Entity\TypesPrestation;
@@ -79,6 +83,117 @@ class AppFixtures extends Fixture
             $manager->persist($prestation);
         }
 
+        $pays_list = [ 
+            'france' => [
+                'alsace' => [
+                    'bas-rhin' => [
+                        'strasbourg' => []
+                        ],
+                    ],
+                    'picardie' => [
+                        'aisne' => [
+                                'laon' => []
+                            ]
+                    ],
+                    'bourgogne' => [
+                        'yonne' => [
+                                'auxerre' => []
+                        ],
+                    ],
+                    'guadeloupe' => [
+                        'guadeloupe' => [
+                                'basse-terre' => []
+                            ]
+                    ]
+                ]
+            ];
+
+        // $pays_list = [ 
+        //     'pays' => [
+        //         'france' => [
+        //             'regions' => [
+        //                 'alsace' => [
+        //                     'departements' => [
+        //                         'bas-rhin' => [
+        //                             'communes' => [
+        //                                 'strasbourg'
+        //                             ],
+        //                         ]
+        //                     ]
+        //                 ],
+        //                 'picardie' => [
+        //                     'departements' => [
+        //                         'aisne' => [
+        //                             'communes' => [
+        //                                 'laon'
+        //                             ]
+        //                         ]
+        //                     ],
+        //                 ],
+        //                 'bourgogne' => [
+        //                     'departements' => [
+        //                         'yonne' => [
+        //                             'communes' => [
+        //                                 'auxerre'
+        //                             ]
+        //                         ]
+        //                     ],
+        //                 ],
+        //                 'guadeloupe' => [
+        //                     'departements' => [
+        //                         'guadeloupe' => [
+        //                             'communes' => [
+        //                                 'basse-terre'
+        //                             ]
+        //                         ]
+        //                     ]
+        //                 ]
+        //             ]
+        //         ]
+        //     ]
+        // ];
+
+        $pays_s = array();
+        $regions = array();
+        $departements = array();
+        $villes = array();
+        foreach($pays_list as $pays_nom => $pays_value) {
+            $pays = new Pays();
+            $pays->setNom($pays_nom);
+
+            array_push($pays_s, $pays);
+            $manager->persist($pays);
+
+            foreach($pays_value as $regions_nom => $region_value) {
+                $region = new Region();
+                $region->setNom($regions_nom);
+                $region->setPays($pays);
+    
+                array_push($regions, $region);
+                $manager->persist($region);
+                
+                foreach($region_value as $departement_nom => $departement_value) {
+                    $departement = new Departements();
+                    $departement->setNom($departement_nom);
+                    $departement->setRegion($region);
+        
+                    array_push($departements, $departement);
+                    $manager->persist($departement);
+
+                    foreach($departement_value as $ville_nom => $ville_value) {
+                        $ville = new Ville();
+                        $ville->setNom($ville_nom);
+                        $ville->setDepartements($departement);
+            
+                        array_push($villes, $ville);
+                        $manager->persist($ville);
+                    }
+                }
+            }
+        }
+
+        
+
         $type_habitats = array();
         $habitat_name = ['Cabane', 'Tipi', 'Bulle', 'Tente', 'Roulotte', 'Yourte', 'Dôme', 'Tiny House', 'Chalet', 'Chalet'];
         for ($i = 0; $i < 10; $i++) {
@@ -99,8 +214,8 @@ class AppFixtures extends Fixture
             $habitat->setTitre($faker->company);
             $habitat->setAdresse($faker->streetAddress);
             $habitat->setCodePostal(rand(01, 10));
+            $habitat->setVille($villes[rand(0, count($villes)-1)]);
             $habitat->setDescription($faker->sentence(20));
-            $habitat->setVille($faker->city);
             $habitat->setPays('France');
             $habitat->setEstValide(rand(0, 1));
             $habitat->setEstActif(rand(0, 1));
