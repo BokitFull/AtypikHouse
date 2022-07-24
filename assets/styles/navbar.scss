@@ -132,6 +132,18 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
     display: none;
 }
 
+.green-text {
+    color: #2B7929;
+}
+    .green-text:hover {
+        color: #b87247;
+    }
+
+    a.btn:hover {
+        color: white;
+        background-color: #b87247;
+    }
+
 @media only screen and (max-width:1200px){    
     .nav-col{
         display: grid;
