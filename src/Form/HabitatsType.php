@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Habitats;
-use App\Entity\Equipements;
-use App\Entity\TypeHabitats;
-use App\Entity\InformationsPratiques;
-
+use App\Entity\Prestations;
+use App\Entity\TypesHabitat;
+use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,59 +22,52 @@ class HabitatsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
+            ->add('titre')
             ->add('adresse')
             ->add('code_postal')
-            ->add('ville')
             ->add('pays')
-            ->add('est_disponible')
-            ->add('description_title', TextType::class, [
-                'label' => 'Titre description'
+            ->add('est_valide')
+            ->add('description', TextType::class, [
+                'label' => 'Description'
             ])
             ->add('description')
             // ->add('informations_supplementaires')
             ->add('prix')
-            ->add('nombre_personnes_max')
-            ->add('images', CollectionType::class, [
-                'allow_add' => true,
-                'allow_delete' => true,
-                'entry_type' => FileType::class,
-                'entry_options' => [
-                    'required' => false,
-                    'empty_data' => 'No file',
-                    'multiple' => true,
-                    'attr' => ['class' => 'btn-outline-primary'],
-                    'constraints' => [
-                        new File([
-                            'maxSize' => '5000k',
-                            'mimeTypes' => [
-                                'jpeg',
-                                'jpg',
-                                'png'
-                            ],
-                            'mimeTypesMessage' => 'Please upload a valid image',
-                        ])
-                    ],
-                    'label' => 'Images',
-                    'help' => 'Fichiers autorisés: jpg, jpeg, png (taille max: 5Mo)',
-                    'help_attr' => ['class' => 'small']
-                ]
-            ])
-            ->add('Equipements', EntityType::class, [
-                'class' => Equipements::class,
-                'choice_label' => 'libelle',
+            ->add('nb_personnes')
+            // ->add('images', CollectionType::class, [
+            //     'allow_add' => true,
+            //     'allow_delete' => true,
+            //     'entry_type' => FileType::class,
+            //     'entry_options' => [
+            //         'required' => false,
+            //         'empty_data' => 'No file',
+            //         'multiple' => true,
+            //         'attr' => ['class' => 'btn-outline-primary'],
+            //         'constraints' => [
+            //             new File([
+            //                 'maxSize' => '5000k',
+            //                 'mimeTypes' => [
+            //                     'jpeg',
+            //                     'jpg',
+            //                     'png'
+            //                 ],
+            //                 'mimeTypesMessage' => 'Please upload a valid image',
+            //             ])
+            //         ],
+            //         'label' => 'Images',
+            //         'help' => 'Fichiers autorisés: jpg, jpeg, png (taille max: 5Mo)',
+            //         'help_attr' => ['class' => 'small']
+            //     ]
+            // ])
+            ->add('prestations', EntityType::class, [
+                'class' => Prestations::class,
+                'choice_label' => 'nom',
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('informations_pratiques', EntityType::class, [
-                'class' => InformationsPratiques::class,
-                'choice_label' => 'libelle',
-                'multiple' => true,
-                'expanded' => true,
-            ])
-            ->add('TypeHabitat', EntityType::class, [
-                'class' => TypeHabitats::class,
-                'choice_label' => 'libelle',
+            ->add('type', EntityType::class, [
+                'class' => TypesHabitat::class,
+                'choice_label' => 'nom',
             ])
         ;
     }

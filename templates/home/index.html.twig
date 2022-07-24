@@ -13,215 +13,131 @@
 {% block title %}AtypikHouse!
 {% endblock %}
 
-{% block body %}
-	<div class="container">
+{% block main %}
+	<article id="home-pres">
+		<img src="{{ asset('images/home_pictures.jpg') }}" class="sr-only" alt=" home banniere"/>
+		<h2 class="messageHome">
+			A la découverte de nouvelles expériences
+		</h2>
+		<form class="form-home" action="/habitats" method="GET">
+			<div id="form-fields">
+				<div id="cp-div">
+					<input type="text" id="destinations-name" class="form-input" placeholder="Destinations">
+					<input type="hidden" name="destinations">
+					<div id="result-cp"></div>
+				</div>
 
-		<div class="bg-image" >
-		<img src="{{ asset('images/home_pictures.jpg') }}" alt=" home banniere"/> </div>
-
-		<div class="messageHome">
-
-			<h2>
-				A la découverte de nouvelles expériences
-			</h2>
-		</div>
-
-
-		<div class="formCenter page-Acceuil">
-
-			<form class="form-home" action="/habitats" method="GET">
-
-				<select name="code_postal" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-					<option selected>
-						Destinations
-					</option>
-					{% for departement  in habitats %}
-						<option  value={{departement.codePostal}}>({{departement.codePostal|slice(0,2)}})</option>
-					{% endfor %}
-				</select>
-
-
-				<select name="type_habitat_id" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-					<option selected>
+				<select name="type_habitat_id" class="form-input" placeholder="Hébergement">
+					<option selected disabled>
 						Hébergement
 					</option>
-					{% for typeHebergement  in TypesHabitat %}
+					{% for typeHebergement in TypesHabitat %}
 						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
 					{% endfor %}
 				</select>
 
-					<select name="nombre_personnes_max" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-					<option selected>
-						Combien de Personnes ?
+				<select name="nb_personnes" class="form-input">
+					<option selected disabled>
+						Combien de personnes
 					</option>
-					{% for nombreDepersonne  in habitats %}
-						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
+					{% for i in 0..10 %}
+						<option  value={{ i }}</option>
 					{% endfor %}
 				</select>
-				
-                <input type="text" name="daterange" value="" />
 
+				<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
 
-				<div class="filtre-buttons">
-					<input value="Rechercher" type="submit" class="btn btn-notdark">
-					
+			</div>
+			<div>
+				<input value="Rechercher" type="submit" class="btn btn-notdark">
+			</div>
+		</form>
+	</article>
+
+	<article id="top-destinations-article" class="article inset-box">
+		<h3>Nos top destinations</h3>
+
+		<div class="card-div">
+			<a href="#" class="card">
+				<div class="card-content">
+					<!-- destination carte -->
+					<img src="{{ asset('images/maison-carte.jpg') }}" alt="province destinations-image"/>
+					<h4 class="destination-title">
+						Province
+					</h4>
 				</div>
-			</form>
-
-
+			</a>
+			<a href="#" class="card">
+				<div class="card-content">
+					<!-- destination carte -->
+					<img src="{{ asset('images/maison-carte.jpg') }}" alt="province destinations-image"/>
+					<h4 class="destination-title">
+						Province
+					</h4>
+				</div>
+			</a>
+			<a href="#" class="card">
+				<div class="card-content">
+					<!-- destination carte -->
+					<img src="{{ asset('images/maison-carte.jpg') }}" alt="province destinations-image"/>
+					<h4 class="destination-title">
+						Province
+					</h4>
+				</div>
+			</a>
 		</div>
-	</div>
+	</article>
 
-	<div class="trait trait home">
-
-		<hr class="traithome">
-
-	</div>
-
-	<h3 class="titlesHomes">
-		Nos top destinations
-	</h3>
-
-	<div class="nos-destinations">
-
-
-		<div
-			class="nos-destinations destinations-Carte">
-			<!-- destination carte -->
-			<img src="https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg" alt="destinations-image"/>
-			<h4 class="titre-destination">
-				Province
-			</h4>
-		</div>
-		<!-- destination carte -->
-
-		<div
-			class="nos-destinations destinations-Carte">
-			<!-- destination carte -->
-			<img src="https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg" alt="destinations-image"/>
-
-			<h4 class="titre-destination">
-				Province
-			</h4>
-		</div>
-		<!-- destination carte -->
-
-
-		<div
-			class="nos-destinations destinations-Carte">
-			<!-- destination carte -->
-			<img src="https://www.cosycamp.com/wp-content/uploads/2020/01/week-end-insolite-en-auvergne.jpg" alt="destinations-image"/>
-
-			<h4 class="titre-destination">
-				Province
-			</h4>
-
-
-		</div>
-		<!-- destination carte -->
-
-
-	</div>
-
-	<div class="trait trait home">
-
-		<hr class="traithome">
-
-	</div>
-
-
-	<h3 class="titlesHomes">
-		AtypikHouse
-	</h3>
-
-	<div class="atypiquoi">
-		<div class="atypiquoi paragraph">
+	<article id="site-info" class="article">
+		<img src="{{ asset('images/home_pictures.jpg') }}" class="sr-only" alt="home banniere"/>
+		<h3>
+			AtypikHouse
+		</h3>
+		<div class="info-div">
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.
 			</p>
 		</div>
+	</article>
 
-		<div class="atypiquoi quisommenous">
-			<span>
-				Pour mieux nous connaître
-			</span>
-			<span>
-				<a class="quisommeatypik" href="#">
-					Atypiquoi?
-				</a>
-			</span>
-
+	<article id="comments-article" class="article inset-box">
+		<h3>Ils ont aimé</h3>
+		<div class="card-div">
+			{% for comment in commentaires %}
+				<div class="comment-card"> 
+					<p>{{ comment.contenu|slice(0, 100) }}</p>
+					<p>{{ comment.utilisateur.nom }}</p>
+				</div>
+			{% endfor %}
 		</div>
+	</article>
 
-	</div>
-
-	<div class="trait trait home">
-
-		<hr class="traithome">
-
-	</div>
-
-	<h3 class="titlesHomes">
-		Ils ont aimé
-	</h3>
-
-
-	<div class="comcontainer">
-		{% for comment in commentaires %}
-
-			<div class="commentaire">
-			<div> 
-				<p>{{ comment.contenu|slice(0, 100) }}</p>
-				</div>
-				<div> 
-				<div>
-				<span>
-					{{ comment.utilisateur.nom }}
-				</span>
-					</div>
-					<div> 
-				<span>
-					{{ comment.createdAt|date('m-Y') }}
-				</span>
-				</div>
-				</div>
-			
+	<article id="social-medial-article">
+		<section id="social-media-section">
+			<h3>En manque d'idées</h3>
+			<p>
+				Pour plus d'idées de voyage n'hésitez pas à venir nous visitez sur les réseaux sociaux !
+			</p>
+			<div id="social-media-icons">
+				<i class="fa-brands fa-instagram fa-xl"></i>
+				<i class="fa-brands fa-twitter fa-xl"></i>
+				<i class="fa-brands fa-facebook fa-xl"></i>		
 			</div>
-		{% endfor %}
-	</div>
-
-
-	<div class="trait trait home">
-
-		<hr class="traithome">
-
-	</div>
-
-	<h3 class="titlesHomes">
-		Envie d'idées
-	</h3>
-
-	<div class="ideeContainer">
-
-		<div class="ideeNewsletter">
-			<p>
-				Pour plus d'idées de voyage n'hésitez pas à vous abonnez à notre newsletter</p>
-			<span>
-				<a class="quisommeatypik" href="#">
-					S'abonner
-				</a>
-			</span>
+		</section>
+		<div id="social-media-img-div">
+			<img src="{{ asset('images/ex-social-media.png') }}" class="sr-only" alt="home banniere"/>
 		</div>
+	</article>
 
-		<div class="ideesocialnetwork">
+	<article id="newsletter-article" class="article">
+		<h3>Envie de découverte</h3>
+		<section id="newsletter-section">
 			<p>
-				Pour plus d'idées de voyage n'hésitez pas à venir nous visitez sur les réseaux sociaux</p>
-			<span>
-				Pierre
-			</span>
-		</div>
-
-
-	</div>
-
+				Pour plus d'idées de voyage n'hésitez pas à vous abonnez à notre newsletter
+			</p>
+			<button type="button">
+				S'abonner
+			</button>
+		</section>
+	</article>
 {% endblock %}
