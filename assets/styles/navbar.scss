@@ -44,6 +44,18 @@ header {
     height: auto;
     width: 12em;
 }
+nav.nav-logo a.nav-link, nav.nav-logo a.btn {
+    color: #2B7929;
+}
+nav.nav-logo a:hover.nav-link {
+    color: #b87247;
+    background-color: white;
+}
+
+nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
+    color: white;
+    background-color: #2B7929;
+}
 
 #menu-toggle, #menu-btn{
     display: none;

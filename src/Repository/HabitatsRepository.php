@@ -44,42 +44,47 @@ class HabitatsRepository extends ServiceEntityRepository
     */
    public function findByHabitats($data): array
    {
-
-
        $query = $this->createQueryBuilder('h')
        ->select('h')
-       ->leftJoin('h.TypeHabitat', 't')
-            ->Where('1=1')
-            // ->andWhere('h.code_postal = :code_postal')
-            // ->setParameter('price', $data['price'])
-            // ->setParameter('code_postal', $data['code_postal'])
+       ->addSelect('r')
+       ->leftJoin('h.type', 't')
+       ->leftJoin('h.reservations', 'r')
+            ->where('1 = 1')
             ->orderBy('h.id', 'ASC')
             ;
-            
-            
-            
+
             foreach($data as $key => $item){
-                $query  ->setParameter($key, $item);
-                if($key == 'prix'){
-                    $query ->andWhere('h.'.$key.' <= :'.$key);
+
+                
+                if ($key == 'prix' && $item != "") {
+                    $query->setParameter($key, $item);
+                    $query->andWhere('h.prix <= :' . $key);
                 }
-                elseif ($key == 'nombre_personnes_max') {
-                    $query ->andWhere('h.'.$key.' >= :'.$key);
+                else if ($key == 'type_habitat_id' && $item != "") {
+                    $query->setParameter($key, $item);
+                    $query->andWhere('t.id = :' . $key);
                 }
-                elseif ($key == 'type_habitat_id') {
-                    $query ->andWhere('t.id = :'.$key);
+                else if ($key == 'daterange' && $item != "") { 
+                    $dateDebut = (new \DateTime(trim(explode('-', $item)[0], ' ')))->format('Y-m-d');
+                    $dateFin = (new \DateTime(trim(explode('-', $item)[1], ' ')))->format('Y-m-d');
+
+                    $query->setParameter("dtDebut", $dateDebut);
+                    $query->setParameter("dtFin", $dateFin);
+
+                    $query->andWhere('h.debut_disponibilite <= :dtFin');
+                    $query->andWhere('h.fin_disponibilite >= :dtDebut');
+                    $query->andWhere('r.date_debut <= :dtFin');
+                    $query->andWhere('r.date_fin >= :dtDebut');
                 }
-                else{
-                    $query ->andWhere('h.'.$key.' = :'.$key);
+                else if ($item != ""){
+                    $query->setParameter($key, $item);
+                    $query->andWhere('h.'.$key.' = :' . $key);
                 }
             }
             
             $nb = $query->getQuery()
             ->getResult();
-            // var_dump($query->getQuery());die;
             
-
-        // $query->andWhere('h.code_postal = :code_postal');
         return $nb;
    }
 

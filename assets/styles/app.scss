@@ -132,23 +132,23 @@ table {
 }
 
 body {
-    background-color: #e4e0d9 !important;
+    background-color: #e4e0d9;
 }
 
 .green-text {
-    color: #2B7929 !important;
+    color: #2B7929;
 }
     .green-text:hover {
-        color: #b87247 !important;
+        color: #b87247;
     }
 .orange-text {
-    color: #b87247 !important;
+    color: #b87247;
 }
 .brown-text {
-    color: #998763 !important;
+    color: #998763;
 }
 .border-success {
-    border-color: #2b7929!important;
+    border-color: #2b7929;
 }
 
 #main-container {
@@ -156,24 +156,18 @@ body {
     margin: 0 auto;
 }
 
-.site-background-color{
-    background-color: #e4e0d9 !important;
-}
+// .site-background-color {
+//     background-color: #e4e0d9;
+// }
 
 button {
-    // background-color: #2b7929;
-    // color: white;
     border-radius: 10px;
     border-width: 0;
     padding: 4px 16px;
 }
-//     button:hover {
-//         background-color: #998763;
-//         color: white;
-//     }
 
 .selected, a.selected {
-    color: #998763!important;
+    color: #998763;
 }
 
 button.btn-primary, input.btn-primary, a.btn-primary,

@@ -32,7 +32,7 @@
 			<form class="form-home" action="/habitats" method="GET">
 
 				<select name="code_postal" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-					<option selected>
+					<option value="" selected>
 						Destinations
 					</option>
 					{% for departement  in habitats %}
@@ -42,7 +42,7 @@
 
 
 				<select name="type_habitat_id" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-					<option selected>
+					<option value="" selected>
 						Hébergement
 					</option>
 					{% for typeHebergement  in TypesHabitat %}
@@ -50,16 +50,20 @@
 					{% endfor %}
 				</select>
 
-					<select name="nombre_personnes_max" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-					<option selected>
+				<select name="nb_personnes" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+					<option value="" selected>
 						Combien de Personnes ?
 					</option>
-					{% for nombreDepersonne  in habitats %}
-						<option  value={{nombreDepersonne.nbPersonnes}}>{{nombreDepersonne.nbPersonnes}}</option>
+					{% for i in 1..10 %}
+						<option  value={{i}}>{{i}}</option>
 					{% endfor %}
 				</select>
 				
-                <input type="text" name="daterange" value="" />
+                <input type="input" name="daterange" value="" />
+
+				<label class="white-text">Prix</label>
+				<input type="range" name="prix" value="20" min="10" max="300" oninput="this.nextElementSibling.value = this.value" />
+				<output class="white-text">20</output><span class="white-text">&euro;</span>
 
 
 				<div class="filtre-buttons">

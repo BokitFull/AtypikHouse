@@ -70,6 +70,8 @@ class HabitatsController extends AbstractController
             $dep = $habitatsRepository->findByDep();
 
             $types = $typeHabitatsRepository->findByTypes();
+
+            $params = $_GET;
             $habitats = $paginator->paginate(
                 $donnees, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -80,6 +82,7 @@ class HabitatsController extends AbstractController
                 'habitats' => $habitats,
                 'dep' => $dep,
                 'types' => $types,
+                'params' => $params,
             ]);
     }
 
