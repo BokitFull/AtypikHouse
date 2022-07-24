@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reservations;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,30 @@ class ReservationsRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+    * @return Reservations[] Returns an array of Habitats objects
+    */
+    public function getReservationsByDate($data): array
+    {   
+        $month = new DateTime($data['year'] . '-' . $data['month']);
+        $first_day = $month->modify('first day of this month')->format('Y-m-d');
+        $last_day = $month->modify('last day of this month')->format('Y-m-d');
+        $reservations = $this->createQueryBuilder('r')
+            ->select('h.id AS habitat_id, r.id, r.date_debut, r.date_fin')
+            ->Where('h.id IN (:id)')
+            ->andWhere('r.date_debut <= :month_end')
+            ->andWhere('r.date_fin >= :month_start')
+            ->leftjoin('r.habitat', 'h')
+            ->setParameter('id', explode(",",$data['id']))
+            ->setParameter('month_start', $first_day)
+            ->setParameter('month_end', $last_day)
+            ->getQuery()
+            ->getResult()
+        ;
+        
+        return $reservations;
     }
 
 //    /**

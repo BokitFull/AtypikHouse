@@ -26,5 +26,38 @@
             </li>
         </ul>
     </div>
-    {{ render(controller('App\\Controller\\UtilisateursController::userNav')) }}
+
+    <div class="nav-col-login">
+        <a href="/" class="nav-link green-text d-md-block">Devenir hôte</a>
+        {% if app.user %}
+            <div class="dropdown">
+                <button type="button" class="nav-link green-text bg-transparent" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="fa-solid fa-user-circle"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Profil</a></li>
+                    <li><a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a></li>
+                </ul>
+            </div>
+        {% elseif app.request.get('_route') != 'login' %}
+            <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <span class="fa-solid fa-user-circle"></span>
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content site-background-color">
+                        <div class="modal-header">
+                            <h5 class="modal-title w-100 text-center">Connexion ou Inscription</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ render(controller('App\\Controller\\SecurityController::authentication_form')) }}
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </nav>

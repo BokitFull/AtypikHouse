@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
@@ -82,13 +82,15 @@ class Habitats
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $fin_disponibilite;
-
+    
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
-
+    
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
@@ -113,7 +115,7 @@ class Habitats
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: ImagesHabitat::class)]
     private $imagesHabitats;
 
-    #[ORM\Column(type: 'string', length: 80)]
+    #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'habitats')]
     private $ville;
 
     public function __construct()
@@ -435,12 +437,12 @@ class Habitats
         return $this;
     }
 
-    public function getVille(): ?string
+    public function getVille(): ?Ville
     {
         return $this->ville;
     }
 
-    public function setVille(string $ville): self
+    public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
 
@@ -458,6 +460,4 @@ class Habitats
 
         return $this;
     }
-
-
 }
