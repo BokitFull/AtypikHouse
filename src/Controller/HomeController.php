@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonner;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
 use App\Entity\TypesHabitat;
+use App\Form\AbonnerType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class HomeController extends AbstractController
 {
@@ -26,7 +31,7 @@ class HomeController extends AbstractController
 
 
     #[Route('/', name: 'app_home')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine , Request $request , EntityManagerInterface $manager): Response
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
@@ -35,22 +40,30 @@ class HomeController extends AbstractController
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
         //
         $departement = $repoHabitat->findAll();
-        $nombreDepersonne = $repoHabitat->findAll( array('nombrePersonnesMax' => 'DESC'));
         $typeHebergement = $repoType->findAll();
 
+        $abonner = new Abonner() ; 
+    
+        $form = $this->createForm(AbonnerType::class, $abonner);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid())  
+        { 
+            $manager->persist($abonner);
+            $manager->flush();
+            $abonner->setCreatedAt(new \DateTimeImmutable());
+
+        }
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'commentaires' => $commentaires ,
             'habitats' => $departement ,
-            'habitats' =>  $nombreDepersonne ,
-            'TypesHabitat' =>  $typeHebergement 
+            'TypesHabitat' =>  $typeHebergement ,
+            'formAbonner' => $form->createView()
         ]);
     }
-
-
-
-
 
 }
 

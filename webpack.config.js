@@ -38,6 +38,7 @@ Encore
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
     .addStyleEntry('all_habitats', './assets/styles/all_habitats.scss')
     .addStyleEntry('home', './assets/styles/home.scss')
+    .addStyleEntry('politiques', './assets/styles/politiques.scss')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')

@@ -206,14 +206,16 @@
 	<div class="ideeContainer">
 
 		<div class="ideeNewsletter">
-			<p>
-				Pour plus d'idées de voyage n'hésitez pas à vous abonnez à notre newsletter</p>
-			<span>
-				<a class="quisommeatypik" href="#">
-					S'abonner
-				</a>
-			</span>
-		</div>
+
+        {{ form_start(formAbonner , { 'attr' : { 'action': path('app_home')  } }) }}
+
+		{{form_row(formAbonner.email_abonner, {'attr' : {'placeholder' :"Votre Email * " }}) }}
+
+		{{form_row(formAbonner.Nom_abonner, {'attr' : {'placeholder' :"Votre Nom (Facultatif) " }}) }}  
+		
+		<button type="submit" class="btn btn-success" > S'abonner  </button>
+
+		{{form_end(formAbonner)}}
 
 		<div class="ideesocialnetwork">
 			<p>
