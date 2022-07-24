@@ -3,9 +3,8 @@
 {% block title %}AtypikHouse!{% endblock %}
 
 {% block javascripts %}
-
-{{ parent() }}
-
+    {{ parent() }}
+    {{ encore_entry_script_tags('habitat_edit_js') }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -13,7 +12,7 @@
     {{ encore_entry_link_tags('habitat_edit') }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Détail de l'habitat</h1>
 
     {{ include('habitats/_form.html.twig') }}
@@ -27,7 +26,7 @@
             {{ form_row(form.code_postal, { 'attr': {'class': 'input-field ', 'placeholder': 'Code postal'} }) }}
             {{ form_row(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
             {{ form_row(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'Pays'} }) }}
-            {# {{ form_row(form.informations_supplementaires, { 'attr': {'class': 'input-field', 'placeholder': 'Informations supplémentaires'} }) }}
+            {{ form_row(form.informations_supplementaires, { 'attr': {'class': 'input-field', 'placeholder': 'Informations supplémentaires'} }) }}
             {{ form_row(form.TypeHabitat, { 'attr': {'class': 'select-field', 'placeholder': 'Type habitat'} }) }}
             {{ form_row(form.description_title, { 'attr': {'class': 'input-field', 'placeholder': 'Titre description'} }) }}
             {{ form_row(form.description, { 'attr': {'class': 'input-field', 'placeholder': 'Description'} }) }}
@@ -58,16 +57,16 @@
                 </ul>
             </div>
             <div id="div-images">
-                {# <label for="habitats_images" class="required">Images</label>
+                <label for="habitats_images" class="required">Images</label>
                 <div>
                     <button id="btnShowImages" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
                 </div>
                 <div>
-                    {# <label for="habitats_new_image">Télécharger une nouvelle image</label>
+                    <label for="habitats_new_image">Télécharger une nouvelle image</label>
                     <input id="newFile" class="btn btn-outline-primary d-block" type="file" title="" accept=".jpg,.jpeg,.png"></input>
                     <p><small>Fichiers autorisés: jpg, jpeg, png (max size: 5000ko)</small></p>
                     <button id="btnValidUpload" class="btn btn-primary" type="button" onclick="uploadImage();">Télécharger l'image</button>
-                    {# <button id="btnValidUpload" class="btn btn-primary" type="submit">Télécharger l'image</button>
+                    <button id="btnValidUpload" class="btn btn-primary" type="submit">Télécharger l'image</button>
                 </div>
 
                 <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
@@ -81,8 +80,8 @@
                                 {% for image in form.images %}
                                 <div class="col-12 mb-2">
                                     <img src="{{ image }}" alt="image-habitat" class="img-fluid"> 
-                                    {# {{ form_row(image, { 'attr': {'class': 'file-field img-fluid', 'alt': 'image-habitat'} }) }}
-                                    {# <img src="{{ image["url"] }}" class="img-fluid" title="{{image["title"]}}" alt="image-habitat">
+                                    {{ form_row(image, { 'attr': {'class': 'file-field img-fluid', 'alt': 'image-habitat'} }) }}
+                                    <img src="{{ image["url"] }}" class="img-fluid" title="{{image["title"]}}" alt="image-habitat">
                                 </div>  
                                 {% endfor %}
                             </div>
@@ -92,7 +91,7 @@
                     </div>
                 </div> 
             </div>
-            {# <div class="btn-div">
+            <div class="btn-div">
                 <div>
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir les images</button>
                 </div>
@@ -120,8 +119,8 @@
                         </div>  
                     </div>
                 </div> 
-            </div> #}
-            {# {{ form_row(form.images, { 'attr': {'class': 'file-input', 'placeholder': 'Image', 'src': '{{ image["url"] }}'} }) }}
+            </div>
+            {{ form_row(form.images, { 'attr': {'class': 'file-input', 'placeholder': 'Image', 'src': '{{ image["url"] }}'} }) }}
 
         </div>
         <div id="form-btn-div">

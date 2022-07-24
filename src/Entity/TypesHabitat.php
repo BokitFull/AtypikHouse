@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\TypesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: TypesHabitatRepository::class)]
+#[Gedmo\Loggable]
 class TypesHabitat
 {
     #[ORM\Id]
@@ -15,6 +18,7 @@ class TypesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Gedmo\Versioned]
     #[ORM\Column(type: 'string', length: 50)]
     private $nom;
 

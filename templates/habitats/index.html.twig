@@ -15,7 +15,7 @@
 	{{ encore_entry_link_tags('all_habitats') }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
 	<div class="row div_titre_filtre">
 		<h1 class="titre_liste_habitats">Hébergement répondant à un critère</h1>
 		<a href="#" class="btn_filtre_liste_habitats" data-bs-toggle="modal" data-bs-target="#filtre_list_modal">Filtrer</a>
@@ -44,7 +44,7 @@
 					{% endif %}
 					<div class="div_titre_et_lieu">
 						<p class="liste_habitat_titre">{{ habitat.titre }}</p>
-						<p class="liste_habitat_lieu">{{ habitat.ville }}
+						<p class="liste_habitat_lieu">{{ habitat.ville.nom }}
 							({{habitat.codePostal|slice(0,2) }})</p>
 					</div>
 					<p class="liste_habitat_prix">{{ habitat.prix }}€/nuit</p>

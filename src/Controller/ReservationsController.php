@@ -15,6 +15,13 @@ class ReservationsController extends AbstractController
         return $this->render('utilisateurs/reservations.html.twig', []);
     }
 
+    #[Route('/reservations/new', name: 'new_reservations', methods: ['GET', 'POST'])]
+    public function new(): Response
+    {   
+        
+        return $this->render('utilisateurs/reservations.html.twig', []);
+    }
+
     #[Route('/reservations/{id}', name: 'reservations_detail', methods: ['GET'])]
     public function detail(Reservations $reservation): Response
     {   $context['reservation'] = $reservation;

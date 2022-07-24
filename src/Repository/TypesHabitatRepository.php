@@ -42,7 +42,7 @@ class TypesHabitatRepository extends ServiceEntityRepository
     /**
     * récupération des départements pour les afficher dans le filtre
     *
-    *@ return Habitats[] Returns an array of Habitats objects
+    * @return TypesHabitat[] Returns an array of TypesHabitat objects
     */
    public function findByTypes(): array
    {

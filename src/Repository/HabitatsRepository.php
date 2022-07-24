@@ -68,6 +68,21 @@ class HabitatsRepository extends ServiceEntityRepository
                     $query->setParameter($key, $item);
                     $query->andWhere('t.id = :' . $key);
                 }
+                else if($key == 'destinations'){
+                    $destinations = explode(";", $value);
+                    $query ->leftJoin('h.ville', 'v')
+                           ->setParameter($key, $destinations[0]);
+                    if($destinations[1] == 'regions'){
+                        $query->leftJoin('v.departements', 'd')
+                              ->leftJoin('d.region', 'r')
+                              ->andWhere('r.nom = :'.$key);
+                    }elseif($destinations[1] == 'departements'){
+                        $query->leftJoin('v.departements', 'd')
+                              ->andWhere('d.nom = :'.$key);
+                    }elseif($destinations[1] == 'villes'){
+                        $query->andWhere('v.nom = :'.$key);
+                    }
+                }
                 else if ($key == 'daterange' && $item != "") { 
                     $dateDebut = (new \DateTime(trim(explode('-', $item)[0], ' ')))->format('Y-m-d');
                     $dateFin = (new \DateTime(trim(explode('-', $item)[1], ' ')))->format('Y-m-d');

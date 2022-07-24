@@ -1,15 +1,10 @@
 header {
-    width: 100%;
-    top: 0;      
+    top: 0;
 }
 
 .nav-col{
-    width: 100%;
     align-items: center;
-    margin: 0 auto;
     flex-wrap: wrap;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
     display: grid;
     grid-template:
         'logo       menu        login'      auto /

@@ -28,7 +28,8 @@ Encore
     .addEntry('checkout', './assets/js/checkout.js')
     .addEntry('homeJs', './assets/js/index.js')
     .addEntry('add_collection_widget', './assets/js/add-collection-widget.js')
-
+    .addEntry('habitat_edit_js', './assets/js/habitats/habitat_edit.js')
+    
     .addStyleEntry('app_s', './assets/styles/app.scss')
     .addStyleEntry('navbar_s', './assets/styles/navbar.scss')
     .addStyleEntry('calendar_s', './assets/styles/calendar.scss')
@@ -44,6 +45,7 @@ Encore
     .addStyleEntry('habitat_edit', './assets/styles/habitats/habitats_edit.scss')
     .addStyleEntry('habitat_delete', './assets/styles/habitats/habitats_delete.scss')
     .addStyleEntry('payment_index', './assets/styles/payment.scss')
+    .addStyleEntry('new_reservations', './assets/styles/reservations/new_reservation.scss')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')
