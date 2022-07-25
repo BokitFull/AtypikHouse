@@ -1,4 +1,3 @@
-
 import { French } from "flatpickr/dist/l10n/fr.js"
 const flatpickr = require("flatpickr");
 
