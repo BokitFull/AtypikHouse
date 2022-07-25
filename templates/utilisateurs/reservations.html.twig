@@ -7,7 +7,7 @@
     {{ encore_entry_link_tags('user_reservations') }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Mes réservations</h1>
     <div id="reservation-container">
         {% for reservation in app.user.reservations %}
