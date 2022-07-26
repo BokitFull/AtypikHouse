@@ -3,7 +3,7 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     role_hierarchy:
         ROLE_USER:        [ROLE_USER]
-        ROLE_HOST:        [ROLE_USER, ROLE_HOST]
+        ROLE_HOTE:        [ROLE_USER, ROLE_HOTE]
         ROLE_ADMIN:       [ROLE_USER, ROLE_ADMIN]
 
     providers:
