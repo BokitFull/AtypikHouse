@@ -25,14 +25,16 @@
         </ul>
     </div>
     <div class="nav-col-login">
-        {# <a href="{{ path('hote_presentation') }}" class="btn green-text d-none d-md-block">Devenir hôte</a> #}
         <div class="dropdown">
             <button type="button" class="btn"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="fa-solid fa-user-circle"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Profil</a></li>
-                {# <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Mode utilisateur</a></li> #}
+                {% if not is_granted('ROLE_HOTE') %}
+                    <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Profil</a></li>
+                {% elseif is_granted('ROLE_HOTE') %}
+                    <li><a class="dropdown-item" href="{{ path('accueil_hote')}}">Profil</a></li>
+                {% endif %}
                 <li><a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a></li>
             </ul>
         </div>

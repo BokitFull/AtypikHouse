@@ -48,9 +48,7 @@ class AppFixtures extends Fixture
             $utilisateur->setVille($faker->departmentName);
             $utilisateur->setPays('France');
             $utilisateur->setImage('');
-            $utilisateur->setCreatedAt(new DateTimeImmutable('now'));
-            $utilisateur->setUpdatedAt(new DateTimeImmutable('now'));
-            $utilisateur->setDeletedAt(new DateTimeImmutable('now'));
+            // $utilisateur->setDeletedAt(new DateTimeImmutable('now'));
 
             array_push($utilisateurs, $utilisateur);
             $manager->persist($utilisateur);          
@@ -61,8 +59,6 @@ class AppFixtures extends Fixture
             $typePrestation = new TypesPrestation();
             $typePrestation->setNom($faker->name);
             $typePrestation->setDescription($faker->sentence(20));
-            $typePrestation->setCreatedAt(new DateTimeImmutable('now'));
-            $typePrestation->setUpdatedAt(new DateTimeImmutable('now'));
             $typePrestation->setDeletedAt(new DateTimeImmutable('now'));
             array_push($typePrestations, $typePrestation);
             $manager->persist($typePrestation);
@@ -76,8 +72,6 @@ class AppFixtures extends Fixture
             $prestation->setIcone($faker->name);
             $prestation->setType($faker->randomElement($typePrestations));
             $prestation->setDescription($faker->sentence(20));
-            $prestation->setCreatedAt(new DateTimeImmutable('now'));
-            $prestation->setUpdatedAt(new DateTimeImmutable('now'));
             $prestation->setDeletedAt(new DateTimeImmutable('now'));
             array_push($prestations, $prestation);
             $manager->persist($prestation);
@@ -200,8 +194,6 @@ class AppFixtures extends Fixture
             $type_habitat = new TypesHabitat();
             $type_habitat->setNom($habitat_name[$i]);
             $type_habitat->setDescription($faker->sentence(20));
-            $type_habitat->setCreatedAt(new DateTimeImmutable('now'));
-            $type_habitat->setUpdatedAt(new DateTimeImmutable('now'));
             $type_habitat->setDeletedAt(new DateTimeImmutable('now'));
 
             array_push($type_habitats, $type_habitat);
@@ -226,8 +218,6 @@ class AppFixtures extends Fixture
             $habitat->addPrestation($prestations[rand(0, count($prestations)-1)]);
             $habitat->setType($type_habitats[rand(0, count($type_habitats)-1)]);
             $habitat->setUtilisateur($utilisateurs[rand(7, 9)]);
-            $habitat->setCreatedAt(new DateTimeImmutable('now'));
-            $habitat->setUpdatedAt(new DateTimeImmutable('now'));
             $habitat->setDeletedAt(new DateTimeImmutable('now'));
             array_push($habitats, $habitat);
             $manager->persist($habitat);
@@ -240,8 +230,6 @@ class AppFixtures extends Fixture
             $caracteristiques->setNom($faker->randomElement($caracteristiques_name));
             $caracteristiques->setDescription($faker->sentence(20));
             $caracteristiques->setType($faker->randomElement($type_habitats));
-            $caracteristiques->setCreatedAt(new DateTimeImmutable('now'));
-            $caracteristiques->setUpdatedAt(new DateTimeImmutable('now'));
             $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
 
             array_push($caracteristiquesTypeHabitat, $caracteristiques);
@@ -254,8 +242,6 @@ class AppFixtures extends Fixture
             $caracteristiques->setHabitat($faker->randomElement($habitats));
             $caracteristiques->setCaracteritiqueType($faker->randomElement($caracteristiquesTypeHabitat));
             $caracteristiques->setValeur($faker->sentence(1));
-            $caracteristiques->setCreatedAt(new DateTimeImmutable('now'));
-            $caracteristiques->setUpdatedAt(new DateTimeImmutable('now'));
             $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
 
             array_push($caracteristiquesHabitat, $caracteristiques);
@@ -268,8 +254,6 @@ class AppFixtures extends Fixture
             $reservation->setStatut(1);
             $reservation->setMontant(rand(60, 200));
             $reservation->setNbPersonnes(rand(1, 3));
-            $reservation->setCreatedAt(new DateTimeImmutable('now'));
-            $reservation->setUpdatedAt(new DateTimeImmutable('now'));
             $reservation->setDeletedAt(new DateTimeImmutable('now'));
             $reservation->setUtilisateur($utilisateurs[rand(0, count($utilisateurs)-1)]);
             $reservation->setHabitat($habitats[rand(0, count($habitats)-1)]);
@@ -320,8 +304,6 @@ class AppFixtures extends Fixture
             $commentaire->setNoteEquipements(rand(0,5));
             $commentaire->setUtilisateur($utilisateurs[$i]);
             $commentaire->setReservation($reservations[$i]);
-            $commentaire->setCreatedAt(new DateTimeImmutable('now'));
-            $commentaire->setUpdatedAt(new DateTimeImmutable('now'));
             $commentaire->setDeletedAt(new DateTimeImmutable('now'));
             
             array_push($commentaires, $commentaire);

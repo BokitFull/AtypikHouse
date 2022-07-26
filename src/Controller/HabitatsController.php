@@ -86,7 +86,6 @@ class HabitatsController extends AbstractController
             //     $habitat->addImage($value);
             // }
 
-            $habitat->setCreatedAt(new \DateTimeImmutable('now'));
             $habitatsRepository->add($habitat, true);
             
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);

@@ -215,3 +215,12 @@ button.btn-outline-secondary, input.btn-outline-secondary, a.btn-outline-seconda
 }
 
 @import "~bootstrap/scss/bootstrap";
+
+.flash-success{
+    background-color: rgba(43, 121, 41, 0.8);
+    text-align: center;
+    position: relative;
+    margin-bottom: -43px;
+    font-size: 18px;
+    color: white;
+}

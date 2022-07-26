@@ -27,7 +27,6 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_USER']);
-            $user->setCreatedAt(new DateTimeImmutable('now'));
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
