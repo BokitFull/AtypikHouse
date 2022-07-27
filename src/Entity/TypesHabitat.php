@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\TypesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,10 +22,12 @@ class TypesHabitat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Habitats::class)]

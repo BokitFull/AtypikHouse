@@ -24,26 +24,12 @@ class HotesController extends AbstractController
     {
        $this->security = $security;
     }
-
-    #[Route('/', name: 'hote_presentation', methods: ['GET', 'POST'])]
-    public function hotePresentation(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
-    {   
-        return $this->render('hotes/presentation.html.twig', []);
-    }
     
-    // #[Route('/home', name: 'hote_accueil', methods: ['GET', 'POST'])]
-    // public function hoteAccueil(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
-    // {   
-    //     $context = [];
-
-    //     if($request->isMethod('POST')){
-    //         if($this->getUser()){
-    //             $this->getUser()->setRoles(['ROLE_HOTE']);
-    //         }
-    //     }
-
-    //     return $this->render('hotes/accueil.html.twig', $context);
-    // }
+    #[Route('/', name: 'accueil_hote', methods: ['GET', 'POST'])]
+    public function index(): Response
+    {   
+        return $this->render('hotes/index.html.twig', []);
+    }
 
     #[Route('/habitats', name: 'hote_habitats', methods: ['GET', 'POST'])]
     public function habitats(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+	{{ encore_entry_link_tags('new_reservation') }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}AtypikHouse!{% endblock %}
+
+{% block main %}
+    <article id="paiement-article">
+        <h1> Finalisation de la réservation </h1>
+    </article>
+    <article id="recap-article">
+        <section id="habitat-title">
+            <p>{{ habitat.title }}</p>
+            <p>{{ habitat.type.nom }}</p>
+        </section>
+        <section id="reservation-date">
+            <div> 
+                <p>{{ reservation.dateDebut }} {{ reservation.dateFin }}</p>
+            </div>
+            <div>
+                <p>{{ reservation.personnes }}</p>
+            </div>
+            <div>
+                <p>{{ reservation.montant }}</p>
+            </div>
+        </section>
+    </article>
+{% endblock %}

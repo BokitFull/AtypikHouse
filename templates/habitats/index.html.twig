@@ -2,12 +2,17 @@
 
 {% block title %}AtypikHouse!{% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+    {{ encore_entry_script_tags('habitatJs') }}
+{% endblock %}
+
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('all_habitats') }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
 	<div class="row div_titre_filtre">
 		<h1 class="titre_liste_habitats">Hébergement répondant à un critère</h1>
 		<a href="#" class="btn_filtre_liste_habitats" data-bs-toggle="modal" data-bs-target="#filtre_list_modal">Filtrer</a>
@@ -37,7 +42,7 @@
 					{% endif %}
 					<div class="div_titre_et_lieu">
 						<p class="liste_habitat_titre">{{ habitat.titre }}</p>
-						<p class="liste_habitat_lieu">{{ habitat.ville }}
+						<p class="liste_habitat_lieu">{{ habitat.ville.nom }}
 							({{habitat.codePostal|slice(0,2) }})</p>
 					</div>
 					<p class="liste_habitat_prix">{{ habitat.prix }}€/nuit</p>
@@ -69,33 +74,33 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<div>
-							<label for="customRange1" class="form-label">Prix maximum :
+						<div class="flex">
+							<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
+						</div>
+						<div class="flex">
+							<label for="priceRange" class="form-label">Prix maximum :
 							</label>
-							<input id="price" name="prix" type="range" value="24" min="10" max="300" oninput="this.nextElementSibling.value = this.value">
-							<output>24</output>
+							<input id="price" name="prix" class="form-range" type="range" value="{{ params["prix"]|default }}" min="10" max="300" oninput="this.nextElementSibling.value = this.value">
+							<output>{{ params["prix"]|default('150') }}</output>&euro;
+						</div>
+						<div class="flex">
+							<label for="personnesRange" class="form-label">Nombre de personnes :
+							</label>
+							<input id="nbPersonnes" name="nb_personnes" class="form-range" type="range" value="{{ params["nb_personnes"]|default }}" min="1" max="5" oninput="this.nextElementSibling.value = this.value">
+							<output>{{ params["nb_personnes"]|default('3') }}</output>
+						</div>
+						<div id="destinations_div" class="flex">
+							<label for="cpSelect" class="form-label">Destinations :</label>
+							<input type="text" id="destinations-name" class="form-input">
+							<input type="hidden" name="destinations">
+							<div id="result_destinations"></div>
 						</div>
 						<div>
-							<label for="customRange2" class="form-label">Nombre de personnes :
-							</label>
-							<input id="nbPersonnes" name="nombre_personnes_max" type="range" value="2" min="1" max="5" oninput="this.nextElementSibling.value = this.value">
-							<output>2</output>
-						</div>
-						<div>
-							<label for="customRange1" class="form-label">Département :
-							</label>
-							<select id="ddlViewBy" name="code_postal">
-								{% for odep in dep %}
-									<option value={{odep.code_postal}}>{{odep.code_postal}}</option>
-								{% endfor %}
-							</select>
-						</div>
-						<div>
-							<label for="customRange1" class="form-label">Type d'habitat :
-							</label>
-							<select id="ddlViewBy" name="type_habitat_id">
+							<label for="typeHabitatSelect" class="form-label">Type d'habitat :</label>
+							<select id="ddlViewBy" name="type" class="form-select">
+							<option value="">Tous</option>
 								{% for type in types %}
-									<option value={{type.id}}>{{type.libelle}}</option>
+									<option value={{type.id}} {% if params["type_habitat_id"]|default is not empty() and params["type_habitat_id"] == type.id %} selected {% endif %}>{{type.nom}}</option>
 								{% endfor %}
 							</select>
 						</div>

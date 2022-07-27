@@ -6,6 +6,7 @@ use App\Repository\CaracteristiquesTypeHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CaracteristiquesTypeHabitatRepository::class)]
 class CaracteristiquesTypeHabitat
@@ -21,9 +22,11 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
 

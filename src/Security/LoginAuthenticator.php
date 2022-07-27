@@ -19,7 +19,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = [];
+    public const LOGIN_ROUTE = 'login';
 
     private UrlGeneratorInterface $urlGenerator;
 
@@ -42,6 +42,17 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    public function authenticateManually($email, $password): Passport
+    {
+        return new Passport(
+            new UserBadge($email),
+            new PasswordCredentials($password),
+            // [
+            //     new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+            // ]
+        );
+    }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -53,10 +64,6 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
     protected function getLoginUrl(Request $request): string
     {   
-        $route = $request->attributes->get('_route');
-        if(!in_array($route, self::LOGIN_ROUTE)){
-            $route = 'home';
-        }
-        return $this->urlGenerator->generate('home');
+        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }

@@ -3,9 +3,8 @@
 {% block title %}AtypikHouse!{% endblock %}
 
 {% block javascripts %}
-
-{{ parent() }}
-
+    {{ parent() }}
+    {{ encore_entry_script_tags('habitat_edit_js') }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -13,7 +12,7 @@
     {{ encore_entry_link_tags('habitat_edit') }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Nouvel habitat</h1>
 
     {{ include('habitats/_form.html.twig') }}
