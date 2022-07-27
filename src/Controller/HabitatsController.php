@@ -63,41 +63,8 @@ class HabitatsController extends AbstractController
         return;
     }
 
-    // #[Route('/new', name: 'new_habitat', methods: ['GET', 'POST'])]
-    // public function new(Request $request, HabitatsRepository $habitatsRepository, FileUploader $fileUploader): Response
-    // {
-    //     $context = [];
-        
-    //     $habitat = new Habitats();
-    //     $form = $this->createForm(HabitatsType::class, $habitat);
-    //     $form->handleRequest($request);
-    //     $context['form'] = $form;
-    //     $context['habitat'] = $habitat;
-        
-    //     $images = $form->get('images')->getData();
-    //     var_dump($images);
-        
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $images = $form->get('images')->getData();
-
-    //         foreach ($images as $key => $value) {
-    //             var_dump($value);
-    //             $uploader->upload($value);
-    //             $habitat->addImage($value);
-    //         }
-
-    //         $habitat->setCreatedAt(new \DateTimeImmutable('now'));
-    //         $habitatsRepository->add($habitat, true);
-
-    //         return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->renderForm('habitats/new.html.twig', $context);
-    // }
-
-
-    #[Route('/', name: 'app_habitats_index', methods: ['GET'])]
-    public function index(Request $request, PaginatorInterface $paginator, HabitatsRepository $habitatsRepository, TypeHabitatsRepository $typeHabitatsRepository): Response
+    #[Route('/new', name: 'new_habitat', methods: ['GET', 'POST'])]
+    public function new(Request $request, HabitatsRepository $habitatsRepository, FileUploader $fileUploader): Response
     {
         $context = [];
         
@@ -107,26 +74,26 @@ class HabitatsController extends AbstractController
         $context['form'] = $form;
         $context['habitat'] = $habitat;
         
-        // $images = $form->get('images')->getData();
-        // var_dump($images);
+        $images = $form->get('images')->getData();
+        var_dump($images);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->createLocation($request);
-            // $images = $form->get('images')->getData();
+            $images = $form->get('images')->getData();
 
-            // foreach ($images as $key => $value) {
-            //     var_dump($value);
-            //     $uploader->upload($value);
-            //     $habitat->addImage($value);
-            // }
+            foreach ($images as $key => $value) {
+                var_dump($value);
+                $uploader->upload($value);
+                $habitat->addImage($value);
+            }
 
             $habitatsRepository->add($habitat, true);
-            
+
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('habitats/new.html.twig', $context);
     }
+
 
 
     #[Route('/', name: 'habitats_index', methods: ['GET'])]
