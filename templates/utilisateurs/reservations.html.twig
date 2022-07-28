@@ -14,7 +14,7 @@
             <div class="reservation">
                 <div class="reservation-info">
                     <div class="reservation-title">
-                        {{ reservation.habitat.libelle }}
+                        {{ reservation.habitat.titre }}
                     </div>
                     <div class="reservation-date">
                         <p>{{ reservation.dateDebut|date('D d M Y') }}</p>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="reservation-address">
                         <p>{{ reservation.habitat.adresse }}</p>
-                        <p>{{ reservation.habitat.ville }}</p>
+                        <p>{{ reservation.habitat.ville.nom }}</p>
                         <p>{{ reservation.habitat.pays }}</p>
                     </div>
                     <div class="reservation-detail">

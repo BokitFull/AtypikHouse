@@ -8,12 +8,18 @@
 #form-input-div {
     flex-wrap: wrap;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    background-color: #2B7929e6;
+    margin: 0 450px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 40px;
+    z-index: 2;
 }
 
 #form-input-div div{
     width: 40%;
-    justify-content: space-between;
+    margin-right: 40px;
 }
 
 input {
@@ -26,6 +32,55 @@ input {
 
 #form-btn-div{
     display: flex;
-    justify-content: flex-start;
+    justify-content: right;
     gap: 20px;
+    width: 100% !important;
+    button{
+        background-color: #b87247;
+        border-color: #b87247;
+        &:hover{
+            background-color: #d78b5c;
+            border-color: #d78b5c;
+        }
+    }
+    a{
+        border-color: white;
+        color: white;
+        &:hover{
+            background-color: #1d5f1c;
+        }
+    }
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#form-container{
+    margin: 50px;
+}
+
+footer{
+    position: absolute;
+}
+
+.fond_orange_radius{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #b87247e6;
+    height: 50%;
+    z-index: 1;
+    border-bottom-left-radius: 50% 260px;
+    border-bottom-right-radius: 50% 260px;
+    margin-top: 63px;
+}
+
+label{
+    color: white;
+}
+
+input{
+    border-radius: 11px;
 }
