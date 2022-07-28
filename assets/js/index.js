@@ -1,24 +1,23 @@
 var daterange;
-var rangeDateDefault = new Date();
 var rangeDateStart;
 var rangeDateEnd;
 
 if(daterange) {
-  var start = daterange.split('-')[0].trim();
-  var end = daterange.split('-')[1].trim();
+  var start = daterange.split('au')[0].trim();
+  var end = daterange.split('au')[1].trim();
 
   rangeDateStart = new Date(start);
   rangeDateEnd = new Date(end);
 }
-else {
-  rangeDateStart = new Date(rangeDateDefault.setDate("1"));
-  rangeDateEnd = new Date(rangeDateDefault.setMonth(rangeDateDefault.getMonth() + 1));
-}
+// else {
+//   rangeDateStart = new Date(rangeDateDefault.setDate("1"));
+//   rangeDateEnd = new Date(rangeDateDefault.setMonth(rangeDateDefault.getMonth() + 1));
+// }
 
-console.log(daterange, rangeDateStart, rangeDateEnd);
+// console.log(daterange, rangeDateStart, rangeDateEnd);
 
 function changeDate(start, end) {
-  $('input[name="daterange"]').val(start.format("DD/MM/YYYY") + " - " + end.format("DD/MM/YYYY"));
+  $('input[name="date-picker"]').val(start.format("YYYY-MM-DD") + "au" + end.format("YYYY-MM-DD"));
 }
 
 import { French } from "flatpickr/dist/l10n/fr.js"
@@ -28,7 +27,9 @@ document.querySelector("#date-picker").flatpickr({
   locale: French,
   mode: 'range',
   showMonths: 2,
-  static:true
+  static:true,
+  startDate: "today",
+  minDate: "today"
 });
 document.querySelector('.flatpickr-calendar').style.right = '-4px';
 

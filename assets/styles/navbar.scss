@@ -110,6 +110,7 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
 .submit-btn {
     margin-bottom: 8px;
     width: fit-content;
+    color: white;
 }
 
 #login_btn_div{
@@ -134,9 +135,20 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
         color: #b87247;
     }
 
-    a.btn:hover {
+    input.btn, button.btn, a.btn {
+        background-color: #2b7929;
+        border-color: #2b7929;
+        color: white;
+    }
+    input.btn:hover, button.btn:hover, a.btn:hover {
         color: white;
         background-color: #b87247;
+        border-color: #b87247;
+    }
+    input.btn::after, button.btn::after, a.btn::after {
+        color: white;
+        background-color: #b87247;
+        border-color: #b87247;
     }
 
 @media only screen and (max-width:1200px){    

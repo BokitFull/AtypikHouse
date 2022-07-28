@@ -1,3 +1,7 @@
+#main-container {
+    margin: 0 2%;
+}
+
 .titre_liste_habitats {
     width: fit-content;
 }
@@ -107,10 +111,14 @@
     color: #616161;
 }
 
-// .selected, a.selected {
-//     color: #998763!important;
+.selected, a.selected {
+    color: #998763!important;
+}
+
+// #date-picker {
+//     width: 100%;
 // }
 
-// .modal-body div > input {
-//     color: #2B7929;
-// }
+.flatpickr-calendar {
+    width: 100%;
+}

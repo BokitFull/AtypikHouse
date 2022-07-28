@@ -83,17 +83,17 @@ class HabitatsRepository extends ServiceEntityRepository
                         $query->andWhere('v.nom = :'.$key);
                     }
                 }
-                else if ($key == 'daterange' && $item != "") { 
-                    $dateDebut = (new \DateTime(trim(explode('-', $item)[0], ' ')))->format('Y-m-d');
-                    $dateFin = (new \DateTime(trim(explode('-', $item)[1], ' ')))->format('Y-m-d');
+                else if ($key == 'form-date' && $item != "") { 
+                    $dateDebut = (new \DateTime(trim(explode('au', $item)[0], ' ')))->format('Y-m-d');
+                    $dateFin = (new \DateTime(trim(explode('au', $item)[1], ' ')))->format('Y-m-d');
 
                     $query->setParameter("dtDebut", $dateDebut);
                     $query->setParameter("dtFin", $dateFin);
 
                     $query->andWhere('h.debut_disponibilite <= :dtFin');
                     $query->andWhere('h.fin_disponibilite >= :dtDebut');
-                    $query->andWhere('r.date_debut <= :dtFin');
-                    $query->andWhere('r.date_fin >= :dtDebut');
+                    $query->andWhere('r.date_debut > :dtFin');
+                    $query->andWhere('r.date_fin < :dtDebut');
                 }
                 else if ($item != ""){
                     $query->setParameter($key, $item);

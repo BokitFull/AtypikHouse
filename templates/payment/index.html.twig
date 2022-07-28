@@ -1,4 +1,10 @@
+
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('new_reservation') }}
+{% endblock %}
 
 {% block javascripts %}
 
@@ -7,29 +13,97 @@
     {{ encore_entry_script_tags('checkout') }}
     <script>
         var clientKey = "{{ clientKey }}";
+        const clientSecret = "{{ clientSecret }}";
+        var url = "{{ url }}";
     </script>
+    
     <script src="https://js.stripe.com/v3/"></script>
 
 {% endblock %}
 
-{% block stylesheets %}
+{% block title %}AtypikHouse!{% endblock %}
 
-{{ parent() }}
-{{ encore_entry_link_tags('payment_index') }}
+{% block main %}
+    <article id="paiement-article">
+        <h1> Finalisation de la réservation </h1>
+    </article>
 
-{% endblock %}
+    <div id="paiement-content" class="d-flex justify-content-evenly align-items-center">
+    
+        <article id="recap-article">
+            <section id="section-habitat">
+                <div class="card">
+                    <img class="card-img-top" src="{{ habitat.imagesHabitats[0]|default("../images/default.png") }}" alt="Image habitat">
+                    <h5 class="card-title">{{ habitat.titre }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ habitat.type.nom }}</h6>
+                    <div id="card-body">
+                        Pour {{ habitat.nbPersonnes }} personne(s)
+                    </div>
+                </div>
+            </section>
+            <section id="reservation-date">
+            <div class="d-flex justify-content-evenly align-items-center">
+                <div class="date-debut"> 
+                    <span>Du</span>
+                    <p>{{ reservation.dateDebut|date('d/m/Y') }}</p>
+                </div>
+                <i class="fa fa-arrow-right green-text"></i>
+                <div class="date-fin"> 
+                    <span>au</span>
+                    <p>{{ reservation.dateFin|date('d/m/Y') }}</p>
+                </div>
+            </div>
+            </section>
+            <section id="reservation-montant">
+            <h4>Totaux</h4>
+            <div class="row col-12">
+                <div class="row col-12">
+                    <div class="col-6 reservation-total-titre">
+                        <p>Montant par nuit</p>
+                    </div>
+                    <span class="col-1"><i class="fa fa-arrow-right"></i></span>
+                    <div class="col-4 reservation-total-valeur">
+                        <p>{{ habitat.prix|number_format(2, ',', ' ') }}&euro;</p>
+                    </div>
+                </div> 
+                <div class="row col-12">
+                    <div class="col-6 reservation-total-titre">
+                        <p>Nombre de personnes</p>
+                    </div>
+                    <span class="col-1"><i class="fa fa-arrow-right"></i></span>
+                    <div class="col-4 reservation-total-valeur">
+                        <p>{{ reservation.nbPersonnes }} personne(s)</p>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <div class="col-6 reservation-total-titre">
+                        <p>Nombre de nuits</p>
+                    </div>
+                    <span class="col-1"><i class="fa fa-arrow-right"></i></span>
+                    <div class="col-4 reservation-total-valeur">
+                        <p>{{ duree }} nuit(s)</p>
+                    </div>
+                </div>
+                <div id="total" class="row col-12">
+                    <h6 class="col-7">Total à payer:</h6>
+                    <p class="col-5"><b>{{ reservation.montant|number_format(2, ',', ' ') }}&euro;</b></p>
+                </div>
+            </div>
+            </section>
+        </article>
 
-{% block body %}
+        <section class="section-paiement">
+            <form id="payment-form">
+                <div id="payment-element">
+                    <!--Stripe.js injects the Payment Element-->
+                </div>
+                <button id="submit">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text" class="btn btn-secondary">Payer</span>
+                </button>
+                <div id="payment-message" class="hidden"></div>
+                </form>
+        </section>
 
-    <form id="payment-form">
-      <div id="payment-element">
-        <!--Stripe.js injects the Payment Element-->
-      </div>
-      <button id="submit">
-        <div class="spinner hidden" id="spinner"></div>
-        <span id="button-text">Pay now</span>
-      </button>
-      <div id="payment-message" class="hidden"></div>
-    </form>
-
+    </div>
 {% endblock %}

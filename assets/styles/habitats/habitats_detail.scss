@@ -1,3 +1,7 @@
+#main-container {
+    margin: 2%;
+}
+
 .img-fluid {
     cursor: pointer;
 }
@@ -27,4 +31,16 @@
 
 .card {
     background-color: #e4e0d9;
+}
+
+#divPrix {
+    border-width: 2px;
+    border-color: #2b7929;
+}
+
+#divPrix > label {
+    color: #998763;
+}
+#divPrix > span {
+    color: #2b7929;
 }
