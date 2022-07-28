@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\ReservationsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
+#[Gedmo\Loggable]
 #[ORM\Entity(repositoryClass: ReservationsRepository::class)]
 class Reservations
 {
@@ -15,34 +16,43 @@ class Reservations
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Gedmo\Versioned]
     #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
 
+    #[Gedmo\Versioned]
     #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'reservations')]
     private $habitat;
 
+    #[Gedmo\Versioned]
     #[ORM\Column(type: 'date_immutable')]
     private $date_debut;
 
+    #[Gedmo\Versioned]
     #[ORM\Column(type: 'date_immutable')]
     private $date_fin;
 
+    #[Gedmo\Versioned]
     #[ORM\Column(type: 'string', length: 50)]
     private $statut;
 
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(type: 'datetime_immutable' , nullable: true)]
     private $updated_at;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
+    #[Gedmo\Versioned]
     #[ORM\Column(type: 'integer')]
     private $nb_personnes;
 
+    #[Gedmo\Versioned]
     #[ORM\Column(type: 'float')]
     private $montant;
 

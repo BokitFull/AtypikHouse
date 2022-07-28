@@ -31,14 +31,20 @@
 					<option selected disabled>
 						Hébergement
 					</option>
+					<option>
+						Tous
+					</option>
 					{% for typeHebergement in TypesHabitat %}
 						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
 					{% endfor %}
 				</select>
 
-				<select name="nb_personnes" class="form-input">
+				<select name="nb_personnes" class="form-input" placeholder="Nombres de personnes">
 					<option selected disabled>
-						Combien de personnes
+						Nombres de personnes
+					</option>
+					<option>
+						N'importes
 					</option>
 					{% for i in 1..10 %}
 						<option  value={{ i }}>{{ i }}</option>

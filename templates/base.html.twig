@@ -2,10 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-{# <<<<<<< HEAD #}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}AtypikHouse!{% endblock %}</title>
-        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
         <!-- CSS only -->
         {% block stylesheets %}
             {{ encore_entry_link_tags('app_s') }}
@@ -14,20 +12,28 @@
         {% endblock %}
 
         {% block javascripts %}
-            {# <script src="https://js.stripe.com/v3/"></script>   #}
             {{ encore_entry_script_tags('app') }}
-            {{ encore_entry_script_tags('navbar') }}
+            {% if not app.user %}
+                {{ encore_entry_script_tags('navbar') }}
+            {% endif %}
         {% endblock %}
     </head>
     <body>
         <header>
             {% if not app.user or is_granted('ROLE_USER') %}
                 {{ include('_header.html.twig') }}
-            {% elseif is_granted('ROLE_HOST') %}
+            {% elseif is_granted('ROLE_HOTE') %}
                 {{ include('hotes/_nav.html.twig') }}
             {% endif %}
         </header>
         <main id="main-container">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="flash-message flash-{{ label }}">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
             {% block main %}{% endblock %}
         </main>
         <footer>

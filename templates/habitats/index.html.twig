@@ -2,6 +2,11 @@
 
 {% block title %}AtypikHouse!{% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+    {{ encore_entry_script_tags('habitatJs') }}
+{% endblock %}
+
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('all_habitats') }}
@@ -72,9 +77,9 @@
 					</div>
 					<div class="modal-body">
 
-						{# <div>
-							<input id="date-picker" name="form-date" class="form-control" type="text" placeholder="Choisir une date" data-flatpickr>
-						</div> #}
+						<div class="flex">
+							<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
+						</div>
 						
 						<div>
 							<label for="priceRange" class="form-label">Prix maximum :</label>

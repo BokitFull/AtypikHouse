@@ -39,7 +39,7 @@ class UtilisateursCrudController extends AbstractCrudController
                 ChoiceField::new('roles', 'Roles')
                     ->setChoices([
                         'ROLE_USER' => 'ROLE_USER',
-                        'ROLE_HOST' => 'ROLE_HOST',
+                        'ROLE_HOTE' => 'ROLE_HOTE',
                         'ROLE_ADMIN' => 'ROLE_ADMIN',
                         'ROLE_SUSPENDED' => 'ROLE_SUSPENDED'])
                     ->allowMultipleChoices()

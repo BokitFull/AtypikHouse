@@ -42,6 +42,17 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    public function authenticateManually($email, $password): Passport
+    {
+        return new Passport(
+            new UserBadge($email),
+            new PasswordCredentials($password),
+            // [
+            //     new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+            // ]
+        );
+    }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {

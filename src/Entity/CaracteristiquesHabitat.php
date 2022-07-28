@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CaracteristiquesHabitatRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CaracteristiquesHabitatRepository::class)]
 class CaracteristiquesHabitat
@@ -24,12 +25,14 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
 
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
-
+    
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 

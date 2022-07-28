@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImagesHabitatRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ImagesHabitatRepository::class)]
 class ImagesHabitat
@@ -23,9 +24,11 @@ class ImagesHabitat
     #[ORM\Column(type: 'integer')]
     private $position;
 
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
-
+    
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updated_at;
 

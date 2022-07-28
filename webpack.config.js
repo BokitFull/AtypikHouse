@@ -28,6 +28,7 @@ Encore
     .addEntry('checkout', './assets/js/checkout.js')
     .addEntry('index', './assets/js/index.js')
     .addEntry('add_collection_widget', './assets/js/add-collection-widget.js')
+    .addEntry('habitatJs', './assets/js/habitats/habitatJs.js')
     .addEntry('habitat_edit_js', './assets/js/habitats/habitat_edit.js')
     .addEntry('habitat_show', './assets/js/habitats/habitat_show.js')
     
