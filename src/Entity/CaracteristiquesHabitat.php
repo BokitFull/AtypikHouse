@@ -16,17 +16,9 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    // #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'caracteristiquesHabitats')]
-    // #[ORM\JoinColumn(nullable: false)]
-    // private $habitat;
-
-    #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'caracteristiquesHabitats')]
+    #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private $habitats;
-
-    // #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
-    // #[ORM\JoinColumn(nullable: false)]
-    // private $caracteristique_type;
+    private $caracteristique_type;
 
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
@@ -42,6 +34,9 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
+    #[ORM\ManyToOne(inversedBy: 'CaracteristiquesHabitat')]
+    private ?Habitats $habitat = null;
+
 
     public function __construct()
     {
@@ -53,29 +48,17 @@ class CaracteristiquesHabitat
         return $this->id;
     }
 
-    public function getHabitat(): ?Habitats
+    public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
     {
-        return $this->habitat;
+        return $this->caracteristique_type;
     }
 
-    public function setHabitat(?Habitats $habitat): self
+    public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteristique_type): self
     {
-        $this->habitat = $habitat;
+        $this->caracteristique_type = $caracteristique_type;
 
         return $this;
     }
-
-    // public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
-    // {
-    //     return $this->caracteritique_type;
-    // }
-
-    // public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteritique_type): self
-    // {
-    //     $this->caracteritique_type = $caracteritique_type;
-
-    //     return $this;
-    // }
 
     public function getValeur(): ?string
     {
@@ -125,29 +108,14 @@ class CaracteristiquesHabitat
         return $this;
     }
 
-    /**
-     * @return Collection<int, Habitats>
-     */
-    public function getHabitats(): Collection
+    public function getHabitat(): ?Habitats
     {
-        return $this->habitats;
+        return $this->habitat;
     }
 
-    public function addHabitat(Habitats $habitat): self
+    public function setHabitat(?Habitats $habitat): self
     {
-        if (!$this->habitats->contains($habitat)) {
-            $this->habitats[] = $habitat;
-            // $habitat->addCaracteristiquesHabitat($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHabitat(Habitats $habitat): self
-    {
-        if ($this->habitats->removeElement($habitat)) {
-            // $habitat->removeCaracteristiquesHabitat($this);
-        }
+        $this->habitat = $habitat;
 
         return $this;
     }

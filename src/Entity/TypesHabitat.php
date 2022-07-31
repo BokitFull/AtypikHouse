@@ -36,13 +36,12 @@ class TypesHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToMany(targetEntity: CaracteristiquesTypeHabitat::class, inversedBy: 'typesHabitats')]
-    private $caracteristiquesTypesHabitat;
+    #[ORM\ManyToMany(targetEntity: CaracteristiquesTypeHabitat::class, mappedBy: 'typesHabitat')]
+    private Collection $caracteristiquesTypeHabitat;
 
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
-        $this->caracteristiquesTypesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,16 +142,16 @@ class TypesHabitat
     /**
      * @return Collection<int, CaracteristiquesTypeHabitat>
      */
-    public function getCaracteristiquesTypesHabitat(): Collection
+    public function getCaracteristiquesTypeHabitat(): Collection
     {
-        return $this->caracteristiquesTypesHabitat;
+        return $this->caracteristiquesTypeHabitat;
     }
 
     public function addCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
     {
-        if (!$this->caracteristiquesTypesHabitat->contains($caracteristiquesTypeHabitat)) {
-            $this->caracteristiquesTypesHabitat[] = $caracteristiquesTypeHabitat;
-            $caracteristiquesTypeHabitat->setType($this);
+        if (!$this->caracteristiquesTypeHabitat->contains($caracteristiquesTypeHabitat)) {
+            $this->caracteristiquesTypeHabitat->add($caracteristiquesTypeHabitat);
+            $caracteristiquesTypeHabitat->addTypesHabitat($this);
         }
 
         return $this;
@@ -160,28 +159,9 @@ class TypesHabitat
 
     public function removeCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
     {
-        if ($this->caracteristiquesTypesHabitat->removeElement($caracteristiquesTypeHabitat)) {
-            // set the owning side to null (unless already changed)
-            if ($caracteristiquesTypeHabitat->getType() === $this) {
-                $caracteristiquesTypeHabitat->setType(null);
-            }
+        if ($this->caracteristiquesTypeHabitat->removeElement($caracteristiquesTypeHabitat)) {
+            $caracteristiquesTypeHabitat->removeTypesHabitat($this);
         }
-
-        return $this;
-    }
-
-    public function addCaracteristiquesTypesHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypesHabitat): self
-    {
-        if (!$this->caracteristiquesTypesHabitat->contains($caracteristiquesTypesHabitat)) {
-            $this->caracteristiquesTypesHabitat[] = $caracteristiquesTypesHabitat;
-        }
-
-        return $this;
-    }
-
-    public function removeCaracteristiquesTypesHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypesHabitat): self
-    {
-        $this->caracteristiquesTypesHabitat->removeElement($caracteristiquesTypesHabitat);
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Test\Controller;
 
 use App\Entity\Utilisateurs;
 use App\Repository\UtilisateursRepository;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -44,21 +45,20 @@ class UtilisateursControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'utilisateur[email]' => 'Testing',
-            'utilisateur[roles]' => 'Testing',
+            'utilisateur[email]' => 'test@test.Com',
+            'utilisateur[roles]' => ['ROLE_USER'],
             'utilisateur[password]' => 'Testing',
             'utilisateur[nom]' => 'Testing',
             'utilisateur[prenom]' => 'Testing',
-            'utilisateur[civilite]' => 'Testing',
-            'utilisateur[telephone]' => 'Testing',
-            'utilisateur[adresse]' => 'Testing',
-            'utilisateur[code_postal]' => 'Testing',
-            'utilisateur[ville]' => 'Testing',
-            'utilisateur[pays]' => 'Testing',
-            'utilisateur[created_at]' => 'Testing',
-            'utilisateur[updated_at]' => 'Testing',
-            'utilisateur[deleted_at]' => 'Testing',
-            'utilisateur[photo_profil]' => 'Testing',
+            'utilisateur[civilite]' => 'F',
+            'utilisateur[telephone]' => '01-02-03-04-05',
+            'utilisateur[adresse]' => '32 boulevard grandois',
+            'utilisateur[code_postal]' => '75',
+            'utilisateur[ville]' => 'Paris',
+            'utilisateur[pays]' => 'France',
+            // 'utilisateur[created_at]' => 'Testing',
+            // 'utilisateur[updated_at]' => new DateTimeImmutable('now'),
+            // 'utilisateur[deleted_at]' => null,
             'utilisateur[image]' => 'Testing',
         ]);
 
@@ -72,20 +72,19 @@ class UtilisateursControllerTest extends WebTestCase
         $this->markTestIncomplete();
         $fixture = new Utilisateurs();
         $fixture->setEmail('My Title');
-        $fixture->setRoles('My Title');
+        $fixture->setRoles(['ROLE_USER']);
         $fixture->setPassword('My Title');
         $fixture->setNom('My Title');
         $fixture->setPrenom('My Title');
         $fixture->setCivilite('My Title');
         $fixture->setTelephone('My Title');
         $fixture->setAdresse('My Title');
-        $fixture->setCode_postal('My Title');
-        $fixture->setVille('My Title');
-        $fixture->setPays('My Title');
-        $fixture->setCreated_at('My Title');
-        $fixture->setUpdated_at('My Title');
-        $fixture->setDeleted_at('My Title');
-        $fixture->setPhoto_profil('My Title');
+        $fixture->setCodePostal('75');
+        $fixture->setVille('Paris');
+        $fixture->setPays('France');
+        // $fixture->setCreatedAt('My Title');
+        // $fixture->setUpdatedAt(new DateTimeImmutable('now'));
+        $fixture->setDeletedAt(null);
         $fixture->setImage('My Title');
 
         $this->repository->add($fixture, true);
@@ -103,20 +102,19 @@ class UtilisateursControllerTest extends WebTestCase
         $this->markTestIncomplete();
         $fixture = new Utilisateurs();
         $fixture->setEmail('My Title');
-        $fixture->setRoles('My Title');
+        $fixture->setRoles(['ROLE_USER']);
         $fixture->setPassword('My Title');
         $fixture->setNom('My Title');
         $fixture->setPrenom('My Title');
-        $fixture->setCivilite('My Title');
-        $fixture->setTelephone('My Title');
+        $fixture->setCivilite('F');
+        $fixture->setTelephone('01-02-03-04-05');
         $fixture->setAdresse('My Title');
-        $fixture->setCode_postal('My Title');
-        $fixture->setVille('My Title');
-        $fixture->setPays('My Title');
-        $fixture->setCreated_at('My Title');
-        $fixture->setUpdated_at('My Title');
-        $fixture->setDeleted_at('My Title');
-        $fixture->setPhoto_profil('My Title');
+        $fixture->setCodePostal('75');
+        $fixture->setVille('Paris');
+        $fixture->setPays('France');
+        // $fixture->setCreatedAt(new DateTimeImmutable('now'));
+        // $fixture->setUpdatedAt(new DateTimeImmutable('now'));
+        $fixture->setDeletedAt(null);
         $fixture->setImage('My Title');
 
         $this->repository->add($fixture, true);
@@ -124,21 +122,20 @@ class UtilisateursControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
-            'utilisateur[email]' => 'Something New',
-            'utilisateur[roles]' => 'Something New',
+            'utilisateur[email]' => 'test@test.Com',
+            'utilisateur[roles]' => ['ROLE_USER'],
             'utilisateur[password]' => 'Something New',
             'utilisateur[nom]' => 'Something New',
             'utilisateur[prenom]' => 'Something New',
-            'utilisateur[civilite]' => 'Something New',
-            'utilisateur[telephone]' => 'Something New',
+            'utilisateur[civilite]' => 'F',
+            'utilisateur[telephone]' => '01-02-03-04-05',
             'utilisateur[adresse]' => 'Something New',
-            'utilisateur[code_postal]' => 'Something New',
-            'utilisateur[ville]' => 'Something New',
-            'utilisateur[pays]' => 'Something New',
-            'utilisateur[created_at]' => 'Something New',
-            'utilisateur[updated_at]' => 'Something New',
-            'utilisateur[deleted_at]' => 'Something New',
-            'utilisateur[photo_profil]' => 'Something New',
+            'utilisateur[code_postal]' => '75',
+            'utilisateur[ville]' => 'Paris',
+            'utilisateur[pays]' => 'France',
+            'utilisateur[created_at]' => '2022-08-16',
+            // 'utilisateur[updated_at]' => 'Something New',
+            // 'utilisateur[deleted_at]' => 'Something New',
             'utilisateur[image]' => 'Something New',
         ]);
 
@@ -154,13 +151,12 @@ class UtilisateursControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getCivilite());
         self::assertSame('Something New', $fixture[0]->getTelephone());
         self::assertSame('Something New', $fixture[0]->getAdresse());
-        self::assertSame('Something New', $fixture[0]->getCode_postal());
+        self::assertSame('Something New', $fixture[0]->getCodePostal());
         self::assertSame('Something New', $fixture[0]->getVille());
         self::assertSame('Something New', $fixture[0]->getPays());
-        self::assertSame('Something New', $fixture[0]->getCreated_at());
-        self::assertSame('Something New', $fixture[0]->getUpdated_at());
-        self::assertSame('Something New', $fixture[0]->getDeleted_at());
-        self::assertSame('Something New', $fixture[0]->getPhoto_profil());
+        self::assertSame('Something New', $fixture[0]->getCreatedAt());
+        self::assertSame('Something New', $fixture[0]->getUpdatedAt());
+        self::assertSame('Something New', $fixture[0]->getDeletedAt());
         self::assertSame('Something New', $fixture[0]->getImage());
     }
 
@@ -172,20 +168,19 @@ class UtilisateursControllerTest extends WebTestCase
 
         $fixture = new Utilisateurs();
         $fixture->setEmail('My Title');
-        $fixture->setRoles('My Title');
+        $fixture->setRoles(['ROLE_USER']);
         $fixture->setPassword('My Title');
         $fixture->setNom('My Title');
         $fixture->setPrenom('My Title');
-        $fixture->setCivilite('My Title');
-        $fixture->setTelephone('My Title');
+        $fixture->setCivilite('F');
+        $fixture->setTelephone('01-02-03-04-05');
         $fixture->setAdresse('My Title');
-        $fixture->setCode_postal('My Title');
-        $fixture->setVille('My Title');
-        $fixture->setPays('My Title');
-        $fixture->setCreated_at('My Title');
-        $fixture->setUpdated_at('My Title');
-        $fixture->setDeleted_at('My Title');
-        $fixture->setPhoto_profil('My Title');
+        $fixture->setCodePostal('75');
+        $fixture->setVille('Paris');
+        $fixture->setPays('France');
+        // $fixture->setCreatedAt(new DateTimeImmutable('now'));
+        // $fixture->setUpdatedAt(new DateTimeImmutable('now'));
+        $fixture->setDeletedAt(null);
         $fixture->setImage('My Title');
 
         $this->repository->add($fixture, true);

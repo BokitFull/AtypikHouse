@@ -146,7 +146,7 @@ class HabitatsController extends AbstractController
     public function calendar(ReservationsRepository $reservationsRepository): Response
     {   
         $context = [];
-        $habitats = $this->getUser()->getHabitats()->toArray();
+        $habitats = $this->security->getUser()->getHabitats()->toArray();
         $habitats = array_map(function($x) {return $x->getId();}, $habitats);
         $current_date = new DateTime();
         $current_date = $current_date->format('Y-m-d');
