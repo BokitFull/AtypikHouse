@@ -1,79 +1,107 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réservations{% endblock %}
+{% block title %}Réservations
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('user_reservations') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('user_reservations') }}
 {% endblock %}
 
 {% block main %}
-    <h1>Mes réservations</h1>
-    <div id="reservation-container">
-        {% for reservation in app.user.reservations %}
-            <div class="reservation">
-                <div class="reservation-info">
-                    <div class="reservation-title">
-                        {{ reservation.habitat.titre }}
-                    </div>
-                    <div class="reservation-date">
-                        <p>{{ reservation.dateDebut|date('D d M Y') }}</p>
-                        <p>{{ reservation.dateFin|date('D d M Y') }}</p>    
-                    </div>
-                    <div class="reservation-address">
-                        <p>{{ reservation.habitat.adresse }}</p>
-                        <p>{{ reservation.habitat.ville.nom }}</p>
-                        <p>{{ reservation.habitat.pays }}</p>
-                    </div>
-                    <div class="reservation-detail">
-                        <a href="{{ path('reservations_detail', {'id': reservation.id })}}" class="btn">Détail de la réservation</a>
-                        <button type="button" class="btn"> Télécharger la facture</button>
-                    </div>
-                </div>
-                <div class="reservation-picture">
-                    <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}"> 
-                    {# {{ reservation.habitat.iamge.0}} #}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+	<h1>Mes réservations</h1>
 
-    {# <table id="reservation-table">
-        <thead>
-            <tr id="reservation-table-header">
-                <th class="th-1">Statut</th>
-                <th class="th-2">Date et lieu</th>
-                <th class="th-3">Hôte</th>
-                <th class="th-4">Détails</th>
-            </tr>
-        </thead>
-        <tbody id="reservation-tbody">
-            {% for reservation in app.user.reservations %}
-                <tr class="table-row">
-                    <td class="td-col-1">Accepté Amodifier</td>
-                    <td class="td-col-2">
-                        <div>
-                            <span>{{ reservation.dateDebut|date('Y-m-d') }} {{ reservation.dateFin|date('Y-m-d') }}</span>
-                            <a href"#">{{ reservation.habitat.libelle }}</a>
-                            <p>{{reservation.habitat.proprietaire.prenom}} {{reservation.habitat.proprietaire.nom}}</p>
-                            <p>{{reservation.habitat.proprietaire.telephone}}</p>
-                            <p>{{reservation.habitat.proprietaire.email}}</p>
-                        </div>
-                    </td>
-                    <td class="td-col-3">
-                        <div>
-                            <p>{{reservation.habitat.proprietaire.telephone}}</p>
-                            <p>{{reservation.habitat.proprietaire.email}}</p>
-                        </div>
-                    </td>
-                    <td class="td-col-4">
-                        <div>
-                            <p>{{ reservation.montant }}</p>
-                            <a href"#">Annuler la réservations</a>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table> #}
+	<div class="div_reservations">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID réservation</th>
+					<th scope="col">Date de début</th>
+					<th scope="col">Date de fin</th>
+					<th scope="col">Adresse</th>
+					<th scope="col">Ville</th>
+					<th scope="col">Détails</th>
+					<th scope="col">Facture</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for reservation in app.user.reservations %}
+					<tr>
+						<th scope="row">{{reservation.id}}</th>
+						<td>{{ reservation.dateDebut|date('D d M Y') }}</td>
+						<td>{{ reservation.dateFin|date('D d M Y') }}</td>
+						<td>{{ reservation.habitat.adresse }}</td>
+						<td>{{ reservation.habitat.ville.nom }}</td>
+						<td><a href="{{ path('reservations_detail', {'id': reservation.id })}}" class="btn">Détail de la réservation</a></td>
+						<td><button type="button" class="btn">Télécharger la facture</button></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	{# <div id="reservation-container">
+		{% for reservation in app.user.reservations %}
+			<div class="reservation">
+				<div class="reservation-info">
+					<div class="reservation-title">
+						{{ reservation.habitat.titre }}
+					</div>
+					<div class="reservation-date">
+						<p>{{ reservation.dateDebut|date('D d M Y') }}</p>
+						<p>{{ reservation.dateFin|date('D d M Y') }}</p>
+					</div>
+					<div class="reservation-address">
+						<p>{{ reservation.habitat.adresse }}</p>
+						<p>{{ reservation.habitat.ville.nom }}</p>
+						<p>{{ reservation.habitat.pays }}</p>
+					</div>
+					<div class="reservation-detail">
+						<a href="{{ path('reservations_detail', {'id': reservation.id })}}" class="btn">Détail de la réservation</a>
+						<button type="button" class="btn">
+							Télécharger la facture</button>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div> #}
+
+	{# <table id="reservation-table">
+		        <thead>
+		            <tr id="reservation-table-header">
+		                <th class="th-1">Statut</th>
+		                <th class="th-2">Date et lieu</th>
+		                <th class="th-3">Hôte</th>
+		                <th class="th-4">Détails</th>
+		            </tr>
+		        </thead>
+		        <tbody id="reservation-tbody">
+		            {% for reservation in app.user.reservations %}
+		                <tr class="table-row">
+		                    <td class="td-col-1">Accepté Amodifier</td>
+		                    <td class="td-col-2">
+		                        <div>
+		                            <span>{{ reservation.dateDebut|date('Y-m-d') }} {{ reservation.dateFin|date('Y-m-d') }}</span>
+		                            <a href"#">{{ reservation.habitat.libelle }}</a>
+		                            <p>{{reservation.habitat.proprietaire.prenom}} {{reservation.habitat.proprietaire.nom}}</p>
+		                            <p>{{reservation.habitat.proprietaire.telephone}}</p>
+		                            <p>{{reservation.habitat.proprietaire.email}}</p>
+		                        </div>
+		                    </td>
+		                    <td class="td-col-3">
+		                        <div>
+		                            <p>{{reservation.habitat.proprietaire.telephone}}</p>
+		                            <p>{{reservation.habitat.proprietaire.email}}</p>
+		                        </div>
+		                    </td>
+		                    <td class="td-col-4">
+		                        <div>
+		                            <p>{{ reservation.montant }}</p>
+		                            <a href"#">Annuler la réservations</a>
+		                        </div>
+		                    </td>
+		                </tr>
+		            {% endfor %}
+		        </tbody>
+		    </table> #}
 {% endblock %}
