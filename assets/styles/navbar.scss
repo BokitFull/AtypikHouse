@@ -115,6 +115,14 @@ header {
     display: none;
 }
 
+#devenir_hote_form{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+}
+
 @media only screen and (max-width:1200px){    
     .nav-col{
         display: grid;
@@ -137,10 +145,6 @@ header {
              20%         55%         23%
         ;
     }
-    
-    .nav-logo {
-        width: 10em;
-    }
 
     #login_div{
         grid-template:
@@ -158,10 +162,6 @@ header {
             'menu       logo       login'      auto /
             1fr         1fr         1fr
         ;
-    }
-
-    .nav-logo {
-        width: 12em;
     }
     
     #nav-col-menu ul {
