@@ -24,7 +24,7 @@
     flex-direction: column;
     text-align: center;
     z-index: 2;
-    h1{
+    h1, h2, h3{
         margin-bottom: 0px;
         color: white;
     }
@@ -49,7 +49,6 @@ a.displayed-card:focus,
     text-decoration: none;
     color: #616161;
 }
-
 
 .user_img_div{
     text-align: center;

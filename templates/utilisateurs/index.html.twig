@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil
-{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -12,7 +11,7 @@
 	<div id="profil-title">
 		<h1>Mon profil</h1>
 		<div class="user_img_div">
-			<img src="{{ asset('images/profile-picture.jpg') }}" height="150px" width="150px" class="user_img">
+			<img src="/images/uploads/users/{{utilisateur.id}}.jpg" height="150px" width="150px" class="user_img">
 			<h2>
 				{{ utilisateur.nom }}
 				{{ utilisateur.prenom }}
@@ -27,10 +26,6 @@
 		<a href="{{ path('reservations') }}" class="data-card col-md-3">
 			<h5>Mes réservations</h5>
 			<p>Vérifier et modifier mes réservations.</p>
-		</a>
-		<a href="#" class="data-card col-md-3">
-			<h5>Moyens de paiement</h5>
-			<p>With supporting text below as a natural lead-in to additional content.</p>
 		</a>
 	</div>
 

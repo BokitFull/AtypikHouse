@@ -23,3 +23,19 @@ table {
     height: auto;
     border-radius: 50%;
 }
+
+a.green-text {
+    color: #2b7929;
+}
+a.green-text:hover {
+    color: #b87247;
+}
+
+a.btn {
+    background-color: #2b7929;
+    border-color: #2b7929;
+}
+a.btn:hover {
+    background-color: #b87247;
+    border-color: #b87247;
+}

@@ -28,8 +28,11 @@
             {# <div class="form-group col-md-6">
             {{ form_row(form.ville, { 'attr': {'class': 'select-field', 'placeholder': 'Ville'} }) }}
             </div> #}
-            <div class="form-group col-md-6">
+            {# <div class="form-group col-md-6">
             {{ form_row(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'Pays'} }) }}
+            </div> #}
+            <div class="form-group col-md-6">
+            {{ form_row(form.prix, { 'attr': {'class': 'input-field', 'placeholder': 'Prix'} }) }}
             </div>
             <div class="form-group col-md-6">
             {{ form_row(form.type, { 'attr': {'class': 'select-field', 'placeholder': 'Type habitat'} }) }}
@@ -37,9 +40,7 @@
             <div class="form-group col-md-6">
             {{ form_row(form.description, { 'attr': {'class': 'input-field', 'placeholder': 'Description'} }) }}
             </div>
-            <div class="form-group col-md-6">
-            {{ form_row(form.prix, { 'attr': {'class': 'input-field', 'placeholder': 'Prix'} }) }}
-            </div>
+            <div class="form-group col-md-6"></div>
             <div class="form-group col-md-6 list-field">
                 <label for="habitats_prestations" class="required">Prestations</label>
                 <ul id="prestations-fields-list"
@@ -63,6 +64,22 @@
                     </li>
                     {% endfor %}
                 </ul>
+            </div>
+            <div class="form-group col-md-6 list-field">
+                <label for="habitats_images" class="required">Images</label>
+                <ul id="images-fields-list"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.imagesHabitats|length }}">
+                    {% for image in form.imagesHabitats %}
+                    <li>
+                    {# <img src="/images/uploads/habitats/{{ image }}" class="image-form"> #}
+                        {{ form_row(image, { 'attr': {'class': 'input-field'} }) }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.addImages) }}
             </div>
             <div class="form-group col-md-6">
             {{ form_row(form.est_actif, { 'attr': {'class': 'input-field', 'placeholder': 'Est actif'} }) }}
