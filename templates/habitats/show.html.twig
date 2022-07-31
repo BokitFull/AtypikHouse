@@ -28,9 +28,9 @@
     <div class="col-12">
         <div class="row">
             <div class="col-3 d-none d-lg-block image-side">
-                {% if (habitat.imagesHabitats[0]|default) %}
+                {% if (habitat.imagesHabitats[1]|default) %}
                     <div class="d-flex justify-content-center mb-2">
-                        <img src="{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
+                        <img src="{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center mb-2">
@@ -38,9 +38,9 @@
                     </div> 
                 {% endif %}
 
-                {% if (habitat.imagesHabitats[1]|default) %}
+                {% if (habitat.imagesHabitats[2]|default) %}
                     <div class="d-flex justify-content-center mt-2">
-                        <img src="{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
+                        <img src="{{ habitat.imagesHabitats[2].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center mt-2">
@@ -51,9 +51,9 @@
 
             <div class="col-lg-6 col-sm-12 image-central">
 
-                {% if (habitat.imagesHabitats[3]|default) %}
+                {% if (habitat.imagesHabitats[0]|default) %}
                     <div class="d-flex justify-content-center">
-                        <img src="{{ habitat.imagesHabitats[3].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
+                        <img src="{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center">
