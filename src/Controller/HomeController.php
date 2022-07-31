@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonner;
+use App\Controller\AbonnerType;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
 use App\Entity\TypesHabitat;
+use App\Form\AbonnerType as FormAbonnerType;
 use App\Security\LoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +27,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine , Request $request , EntityManagerInterface $manager): Response
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
@@ -33,16 +36,27 @@ class HomeController extends AbstractController
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
         //
         $departement = $repoHabitat->findAll();
-        $nombreDepersonne = $repoHabitat->findAll( array('nombrePersonnesMax' => 'DESC'));
         $typeHebergement = $repoType->findAll();
 
+        $abonner = new Abonner() ; 
+    
+        $form = $this->createForm(FormAbonnerType::class, $abonner);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid())  
+        { 
+            $manager->persist($abonner);
+            $manager->flush();
+            
+        }
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'commentaires' => $commentaires ,
             'habitats' => $departement ,
-            'habitats' =>  $nombreDepersonne ,
-            'TypesHabitat' =>  $typeHebergement 
+            'TypesHabitat' =>  $typeHebergement ,
+            'formAbonner' => $form->createView()
         ]);
     }
 
