@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateurs;
-use App\Form\RegistrationFormType;
+use App\Form\EditUserType;
 use App\Repository\UtilisateursRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,26 +21,26 @@ class UtilisateursController extends AbstractController
        $this->security = $security;
     }
 
-    #[Route('/', name: 'index', methods: ['GET', 'POST'])]
-    public function index(Request $request, UtilisateursRepository $utilisateursRepository): Response
-    {
-        return $this->render('utilisateurs/index.html.twig', [
-            'utilisateurs' => $utilisateursRepository->findAll(),
-        ]);
-    }
+    // #[Route('/', name: 'index', methods: ['GET', 'POST'])]
+    // public function index(Request $request, UtilisateursRepository $utilisateursRepository): Response
+    // {
+    //     return $this->render('utilisateurs/index.html.twig', [
+    //         'utilisateurs' => $utilisateursRepository->findAll(),
+    //     ]);
+    // }
 
-    #[Route('/accueil', name: 'accueil_utilisateur', methods: ['GET'])]
+    #[Route('/', name: 'accueil_utilisateur', methods: ['GET'])]
     public function home(): Response
     {   
         $context['utilisateur'] = $this->getUser();
         return $this->render('utilisateurs/index.html.twig', $context);
     }
 
-    #[Route('/informations_personnelles', name: 'informations_personnelles', methods: ['GET'])]
-    public function informations_personelles(): Response
-    {  
-        return $this->render('utilisateurs/informations_personnelles.html.twig');
-    }
+    // #[Route('/informations_personnelles', name: 'informations_personnelles', methods: ['GET'])]
+    // public function informations_personelles(): Response
+    // {  
+    //     return $this->render('utilisateurs/informations_personnelles.html.twig');
+    // }
 
     #[Route('/reservations', name: 'reservation_utilisateur', methods: ['GET', 'POST'])]
     public function reservations(Request $request, UtilisateursRepository $utilisateursRepository): Response
@@ -53,11 +53,13 @@ class UtilisateursController extends AbstractController
     #[Route('/{id}/edit', name: 'informations_personnelles', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateurs $utilisateur, UtilisateursRepository $utilisateursRepository): Response
     {
-        $form = $this->createForm(RegistrationFormType::class, $utilisateur);
+        $form = $this->createForm(EditUserType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $utilisateursRepository->add($utilisateur, true);
+
             return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
         }
 

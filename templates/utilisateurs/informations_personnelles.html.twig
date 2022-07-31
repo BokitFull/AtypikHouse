@@ -22,72 +22,8 @@
 			{{ form_row(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
 			{{ form_row(form.adresse, { 'attr': {'class': 'input-field', 'placeholder': 'Adresse'} }) }}
 			{{ form_row(form.code_postal, { 'attr': {'class': 'input-field ', 'placeholder': 'code_postal'} }) }}
-			{{ form_row(form.civilite, { 'attr': {'class': 'input-field', 'placeholder': 'Civilité'} }) }}
-			<div class="row">{# <div class="row"> #}
-				{# <div class="row col-1">
-								                                    <label for="registration_form_nom" class="col-form-label">Nom</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.nom, { 'attr': {'class': 'input-field', 'placeholder': 'Nom'} }) }}
-								                                </div> #}
-				{# <div class="row col-1">
-								                                    <label for="registration_form_prenom" class="col-form-label">Prénom</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.prenom, { 'attr': {'class': 'input-field', 'placeholder': 'Prénom'} }) }}
-								                                </div> #}
-				{# </div>
-								                            <div class="row">
-								                                <div class="row col-1">
-								                                    <label for="registration_form_email" class="col-form-label">Email</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.email, { 'attr': {'class': 'input-field', 'placeholder': 'Email'} }) }}
-								                                </div>
-								                                <div class="row col-1">
-								                                    <label for="registration_form_telephone" class="col-form-label">Téléphone</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.telephone, { 'attr': {'class': 'input-field', 'placeholder': 'Téléphone'} }) }}
-								                                </div>
-								                            </div> #}
-				{# <div class="row">
-								                                <div class="row col-1">
-								                                    <label for="registration_form_pays" class="col-form-label">Pays</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.pays, { 'attr': {'class': 'input-field', 'placeholder': 'pays'} }) }}
-								                                </div>
-								                                <div class="row col-1">
-								                                    <label for="registration_form_ville" class="col-form-label">Ville</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.ville, { 'attr': {'class': 'input-field', 'placeholder': 'Ville'} }) }}
-								                                </div>
-								                            </div> #}
-				{# <div class="row">
-								                                <div class="row col-1">
-								                                    <label for="registration_form_adresse" class="col-form-label">Adresse</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.adresse, { 'attr': {'class': 'input-field', 'placeholder': 'Adresse'} }) }}
-								                                </div>
-								                                <div class="row col-1">
-								                                    <label for="registration_form_code_postal" class="col-form-label">Code postal</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.code_postal, { 'attr': {'class': 'input-field', 'placeholder': 'code_postal'} }) }}
-								                                </div>
-								                            </div> #}
-				{# <div class="row">
-								                                <div class="row col-1">
-								                                    <label for="registration_form_civilite" class="col-form-label">Civilité</label>
-								                                </div>
-								                                <div class="row col-3">
-								                                    {{ form_widget(form.civilite, { 'attr': {'class': 'input-field', 'placeholder': 'Civilité'} }) }}
-								                                </div>
-								                            </div> #}
-			</div>
+			{{ form_row(form.image, { 'attr': {'class': 'file-field ', 'placeholder': 'Image'} }) }}
+			{# {{ form_row(form.civilite, { 'attr': {'class': 'select-field', 'placeholder': 'Civilité'} }) }} #}
 			<div id="form-btn-div">
 				<button type="submit" class="btn btn-success">Enregistrer</button>
 				<a href="{{ path('accueil_utilisateur') }}" class="btn btn-outline-secondary">Retour</a>

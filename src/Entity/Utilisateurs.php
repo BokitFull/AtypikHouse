@@ -74,9 +74,6 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     private $commentaires;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $photo_profil;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
     public function __construct()
