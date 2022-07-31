@@ -48,7 +48,6 @@ Encore
     .addStyleEntry('habitat_show_s', './assets/styles/habitats/habitats_detail.scss')
     .addStyleEntry('habitat_edit', './assets/styles/habitats/habitats_edit.scss')
     .addStyleEntry('habitat_delete', './assets/styles/habitats/habitats_delete.scss')
-    .addStyleEntry('new_reservations', './assets/styles/reservations/new_reservation.scss')
     .addStyleEntry('hote_navbar', './assets/styles/hotes/navbar.scss')
     .addStyleEntry('new_reservation', './assets/styles/reservations/new_reservation.scss')
     .addStyleEntry('confirm_reservation', './assets/styles/reservations/confirm_reservation.scss')

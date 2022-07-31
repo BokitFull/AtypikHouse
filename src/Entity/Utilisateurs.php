@@ -74,9 +74,6 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     private $commentaires;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $photo_profil;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
     public function __construct()
@@ -354,18 +351,6 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function getCommentaires(): Collection
     {
         return $this->commentaires;
-    }
-
-    public function getPhotoProfil(): ?string
-    {
-        return $this->photo_profil;
-    }
-
-    public function setPhotoProfil(?string $photo_profil): self
-    {
-        $this->photo_profil = $photo_profil;
-
-        return $this;
     }
 
     public function getImage(): ?string

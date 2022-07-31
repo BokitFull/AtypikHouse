@@ -254,3 +254,19 @@ button.buttonAbonner {
 form.formulaireAbonnement {
     display: flex;
 }
+
+.container-politique{
+    height: 400px;
+    border: 2px solid grey;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+}
+
+#modal_message{
+    font-weight: bold;
+    text-align: center;
+}
+
+.font_italic{
+    font-style: italic;
+}

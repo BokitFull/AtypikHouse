@@ -43,7 +43,7 @@ input {
             border-color: #d78b5c;
         }
     }
-    a{
+    a {
         border-color: white;
         color: white;
         &:hover{
@@ -52,17 +52,13 @@ input {
     }
 }
 
-h1{
+h1 {
     text-align: center;
     margin-bottom: 50px;
 }
 
 #form-container{
     margin: 50px;
-}
-
-footer{
-    position: absolute;
 }
 
 .fond_orange_radius{

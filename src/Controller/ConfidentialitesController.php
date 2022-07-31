@@ -15,4 +15,9 @@ class ConfidentialitesController extends AbstractController
             'controller_name' => 'ConfidentialitesController',
         ]);
     }
+
+    public function content(): Response
+    {
+        return $this->render('confidentialites/_content.html.twig', []);
+    }
 }

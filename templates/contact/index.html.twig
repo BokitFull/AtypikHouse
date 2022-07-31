@@ -71,12 +71,12 @@
 
 					<div class="coordonnesNom">
                     <p class="formLabel" for="" >  Nom*  </p>
-						{{form_widget(formContact.nom , { 'attr' : { 'placeholder': 'Votre Nom'  } })}}
+						{{form_widget(formContact.nom , { 'attr' : { 'placeholder': 'Votre Nom' , 'class': 'form-control' } })}}
 					</div>
 
 					<div class="coordonnesPrenom">
                     <p  class="formLabel" for="" >  Prenom* </p>
-						{{form_widget(formContact.prenom , { 'attr' : { 'placeholder': 'Votre Prénom'  } })}}
+						{{form_widget(formContact.prenom , { 'attr' : { 'placeholder': 'Votre Prénom' , 'class': 'form-control'  } })}}
 					</div>
 
 
@@ -87,12 +87,12 @@
 
 					<div class="coordonnesPhone">
                     <p class="formLabel" for="" >  Téléphone  </p>
-					{{form_widget(formContact.telephone , { 'attr' : { 'placeholder': 'Votre Téléphone'  } })}}
+					{{form_widget(formContact.telephone , { 'attr' : { 'placeholder': 'Votre Téléphone' , 'class': 'form-control'  } })}}
 					</div>
 
 					<div class="coordonnesEmail">
                     <p class="formLabel" for="" >  Email*  </p>
-					{{form_widget(formContact.Email , { 'attr' : { 'placeholder': 'Votre Email'  } })}}
+					{{form_widget(formContact.Email , { 'attr' : { 'placeholder': 'Votre Email' , 'class': 'form-control'  } })}}
 					</div>
 
 
@@ -103,7 +103,7 @@
                 <h5> <b> Raison de la demande * </b> </h5> 
 
                 <div class="messageField"> 
-                {{form_widget(formContact.message , { 'attr' : { 'placeholder': ''  } })}}
+                {{form_widget(formContact.message , { 'attr' : { 'placeholder': '' , 'class': 'form-control' } })}}
                 </div>
 
                 <div class="ButtonEnboyer">

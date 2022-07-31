@@ -24,7 +24,6 @@ class EditUserType extends AbstractType
             ->add('code_postal')
             ->add('ville')
             ->add('pays')
-            ->add('photo_profil')
             ->add('image', FileType::class, [
                 'label' => 'Image',
 

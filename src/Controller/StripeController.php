@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Form\PaymentFormType;
 use App\Entity\Reservations;
 use App\Entity\Habitats;
 use App\Repository\ReservationsRepository;
@@ -27,8 +25,6 @@ class StripeController extends AbstractController
         $dateDebut = new \DateTime(trim(explode('au', $dates)[0]));
         $dateFin = new \DateTime(trim(explode('au', $dates)[1]));
         $duree = $dateDebut->diff($dateFin);
-
-        $allReservations = $habitat->getReservations();
 
         if($request->get('reservation') == null) {
 
@@ -75,22 +71,6 @@ class StripeController extends AbstractController
             
     }
 
-    // #[Route('/createPayment', name: 'create_payment', methods: ['POST'])]
-    // public function createPayment(Request $request) : JsonResponse {
-
-    //     var_dump($request->getPathInfo());
-
-    //     // $response = new Response();
-    //     // $response->headers->set('Content-Type', 'application/json');
-    //     // $response->setContent(array('clientSecret' => $this->getParameter('stripe_secret_key')));
-    //     // var_dump($response);
-    //     // $response->send();
-
-    //     return new JsonResponse([
-    //         'clientSecret' => $this->getParameter('stripe_secret_key')
-    //     ]);
-    // }
-        
     #[Route('/confirmPayment/{id}', name: 'confirm_payment', methods: ['GET'])]
     public function paymentConfirm($id, Request $request) : Response {
 

@@ -25,7 +25,7 @@ header {
 .nav-col-login {
     grid-area: login;
     display: flex;
-    justify-content: end;
+    justify-content: space-evenly;
 }
 
 #nav-col-menu ul {
@@ -86,7 +86,7 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.authentication_form{
+nav .authentication_form{
     width: 70%;
     height: 240px;
     display: flex;
@@ -95,11 +95,11 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
     align-items: center;
 }
 
-#register_form{
+nav #register_form{
     display: none;   
 }
 
-.authentication_form input {
+nav .authentication_form input {
     background-color: #eee;
 	border: none;
 	padding: 12px 15px;
@@ -107,52 +107,58 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
 	width: 100%;
 }
 
-.submit-btn {
+nav .submit-btn {
     margin-bottom: 8px;
     width: fit-content;
     color: white;
 }
 
-#login_btn_div{
+nav #login_btn_div{
     display: flex;
     justify-content: center;
+    align-items: center;
     gap:10px;
 }
 
-#login_btn_div button{
+#forgot_password_btn{
+    text-decoration: none;
+    color: black;
+}
+
+nav #login_btn_div button{
     background:none;
     border:none;
 }
 
-#login_form_btn{
+nav #login_form_btn{
     display: none;
 }
 
-#devenir_hote_form{
+nav#devenir_hote_form{
     display: flex;
     justify-content: center;
     align-items: start;
     flex-direction: column;
     gap: 20px;
 }
-.green-text {
+nav .green-text {
     color: #2B7929;
 }
-.green-text:hover {
+nav .green-text:hover {
     color: #b87247;
 }
 
-input.btn, button.btn, a.btn {
+nav input.btn, nav button.btn, nav a.btn {
     background-color: #2b7929;
     border-color: #2b7929;
     color: white;
 }
-input.btn:hover, button.btn:hover, a.btn:hover {
+nav input.btn:hover, nav button.btn:hover, nav a.btn:hover {
     color: white;
     background-color: #b87247;
     border-color: #b87247;
 }
-input.btn::after, button.btn::after, a.btn::after {
+nav input.btn::after, nav button.btn::after, nav a.btn::after {
     color: white;
     background-color: #b87247;
     border-color: #b87247;
