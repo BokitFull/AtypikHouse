@@ -66,17 +66,16 @@
                 </ul>
             </div>
             <div class="form-group col-md-6 list-field">
-                <label for="habitats_images" class="required">Images</label>
+                {# <label for="habitats_images" class="required">Images</label>
                 <ul id="images-fields-list"
                     data-widget-tags="{{ '<li></li>'|e }}"
                     data-widget-counter="{{ form.imagesHabitats|length }}">
                     {% for image in form.imagesHabitats %}
                     <li>
-                    {# <img src="/images/uploads/habitats/{{ image }}" class="image-form"> #}
                         {{ form_row(image, { 'attr': {'class': 'input-field'} }) }}
                     </li>
                     {% endfor %}
-                </ul>
+                </ul> #}
             </div>
             <div class="form-group col-md-6">
             {{ form_row(form.addImages) }}

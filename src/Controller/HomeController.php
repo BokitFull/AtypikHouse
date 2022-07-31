@@ -26,24 +26,26 @@ class HomeController extends AbstractController
     $this->security = $security;
     }
 
+    //Page d'accueil
     #[Route('/', name: 'app_home')]
     public function index(ManagerRegistry $doctrine , Request $request , EntityManagerInterface $manager): Response
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
         $repoType = $doctrine-> getRepository(TypesHabitat::class); 
-        //show only last three comments
+
+        //Trouve les 3 derniers commentaires d'un habitat
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
-        //
+
         $departement = $repoHabitat->findAll();
         $typeHebergement = $repoType->findAll();
 
-        $abonner = new Abonner() ; 
+        $abonner = new Abonner() ;
     
         $form = $this->createForm(FormAbonnerType::class, $abonner);
         $form->handleRequest($request);
 
-
+        //Enregistrement du formulaire d'abonnement à la newsletter
         if ($form->isSubmitted() && $form->isValid())  
         { 
             $manager->persist($abonner);
@@ -60,6 +62,7 @@ class HomeController extends AbstractController
         ]);
     }
 
+    //Page de changement de rôle entre utilisateur et hôte
     #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
     public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
     {   
