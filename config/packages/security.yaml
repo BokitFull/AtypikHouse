@@ -4,6 +4,8 @@ security:
     role_hierarchy:
         ROLE_USER:        [ROLE_USER]
         ROLE_HOTE:        [ROLE_USER, ROLE_HOTE]
+        ROLE_HOTE_APPR:   [ROLE_USER, ROLE_HOTE, ROLE_HOTE_APPR]
+        ROLE_SUSPENDED:   [ROLE_USER, ROLE_SUSPENDED]
         ROLE_ADMIN:       [ROLE_USER, ROLE_ADMIN]
 
     providers:

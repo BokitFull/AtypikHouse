@@ -128,28 +128,35 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
     display: none;
 }
 
+#devenir_hote_form{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+}
 .green-text {
     color: #2B7929;
 }
-    .green-text:hover {
-        color: #b87247;
-    }
+.green-text:hover {
+    color: #b87247;
+}
 
-    input.btn, button.btn, a.btn {
-        background-color: #2b7929;
-        border-color: #2b7929;
-        color: white;
-    }
-    input.btn:hover, button.btn:hover, a.btn:hover {
-        color: white;
-        background-color: #b87247;
-        border-color: #b87247;
-    }
-    input.btn::after, button.btn::after, a.btn::after {
-        color: white;
-        background-color: #b87247;
-        border-color: #b87247;
-    }
+input.btn, button.btn, a.btn {
+    background-color: #2b7929;
+    border-color: #2b7929;
+    color: white;
+}
+input.btn:hover, button.btn:hover, a.btn:hover {
+    color: white;
+    background-color: #b87247;
+    border-color: #b87247;
+}
+input.btn::after, button.btn::after, a.btn::after {
+    color: white;
+    background-color: #b87247;
+    border-color: #b87247;
+}
 
 @media only screen and (max-width:1200px){    
     .nav-col{
@@ -173,10 +180,6 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
              20%         55%         23%
         ;
     }
-    
-    .nav-logo {
-        width: 10em;
-    }
 
     #login_div{
         grid-template:
@@ -194,10 +197,6 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
             'menu       logo       login'      auto /
             1fr         1fr         1fr
         ;
-    }
-
-    .nav-logo {
-        width: 12em;
     }
     
     #nav-col-menu ul {
