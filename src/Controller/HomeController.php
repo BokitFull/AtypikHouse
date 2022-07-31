@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Abonner;
+use App\Controller\AbonnerType;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
 use App\Entity\TypesHabitat;
+use App\Form\AbonnerType as FormAbonnerType;
 use App\Security\LoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,7 +40,7 @@ class HomeController extends AbstractController
 
         $abonner = new Abonner() ; 
     
-        $form = $this->createForm(AbonnerType::class, $abonner);
+        $form = $this->createForm(FormAbonnerType::class, $abonner);
         $form->handleRequest($request);
 
 
