@@ -4,354 +4,417 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{{ encore_entry_link_tags('habitat_show') }}
+	{{ encore_entry_link_tags('habitat_show_s') }}
+    {{ encore_entry_link_tags('index_s') }}
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {{ encore_entry_script_tags('index') }}
+    {{ encore_entry_script_tags('habitat_show') }}
+
 {% endblock %}
 
 
 {% block main %}
 
-    <div class="row">
+<div class="row">
 
-        <div class="col-12">
-            <h2>{{habitat.titre}}</h2>
-        </div>
+    <div class="col-12">
+        <h2>{{habitat.titre}}</h2>
+    </div>
 
-        <div class="col-12">
-            <div class="row">
-                <div class="col-3 d-none d-lg-block image-side">
-                    {% if (habitat.imagesHabitats[0]|default) %}
-                        <div class="d-flex justify-content-center mb-2">
-                            <img src="{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
-                        </div> 
-                    {% else %}
-                        <div class="d-flex justify-content-center mb-2">
-                            <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-1">
-                        </div> 
-                    {% endif %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-3 d-none d-lg-block image-side">
+                {% if (habitat.imagesHabitats[0]|default) %}
+                    <div class="d-flex justify-content-center mb-2">
+                        <img src="{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
+                    </div> 
+                {% else %}
+                    <div class="d-flex justify-content-center mb-2">
+                        <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-1">
+                    </div> 
+                {% endif %}
 
-                    {% if (habitat.imagesHabitats[1]|default) %}
-                        <div class="d-flex justify-content-center mt-2">
-                            <img src="{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
-                        </div> 
-                    {% else %}
-                        <div class="d-flex justify-content-center mt-2">
-                            <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-2">
-                        </div> 
-                    {% endif %}
-                </div>
+                {% if (habitat.imagesHabitats[1]|default) %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <img src="{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
+                    </div> 
+                {% else %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-2">
+                    </div> 
+                {% endif %}
+            </div>
 
-                <div class="col-lg-6 col-sm-12 image-central">
+            <div class="col-lg-6 col-sm-12 image-central">
 
-                    {% if (habitat.imagesHabitats[3]|default) %}
-                        <div class="d-flex justify-content-center">
-                            <img src="{{ habitat.imagesHabitats[3].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
-                        </div> 
-                    {% else %}
-                        <div class="d-flex justify-content-center">
-                            <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-3">
-                        </div> 
-                    {% endif %}
-
-                </div>
-
-                <div class="col-3 d-none d-lg-block image-side">
-
-                    {% if (habitat.imagesHabitats[4]|default) %}
-                        <div class="d-flex justify-content-center mb-2">
-                            <img src="{{ habitat.imagesHabitats[4].chemin }}" class="img-fluid" title="" alt="image-habitat-4">
-                        </div> 
-                    {% else %}
-                        <div class="d-flex justify-content-center mb-2">
-                            <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-4">
-                        </div> 
-                    {% endif %}
-
-                    {% if (habitat.imagesHabitats[5]|default) %}
-                        <div class="d-flex justify-content-center mt-2">
-                            <img src="{{ habitat.iimagesHabitatsmages[5].chemin }}" class="img-fluid" title="" alt="image-habitat-5">
-                        </div> 
-                    {% else %}
-                        <div class="d-flex justify-content-center mt-2">
-                            <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-5">
-                        </div> 
-                    {% endif %}
-                </div>
-
-                {% if (habitat.imagesHabitats is not empty and habitat.imagesHabitats|length > 5) %}
-                    <div class="row col-12 mt-2">
-                        <div class="col-3 col-lg-5"></div>
-                        <div class="col-6 col-lg-2 text-center">
-                            <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir plus</button>
-
-                            <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                    <div class="modal-content site-background-color">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title w-100 text-center">Toutes les images</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body row">
-                                            {% for image in habitat.imagesHabitats %}
-                                                <div class="col-6 mb-2">
-                                                    <img src="{{ image }}" class="img-fluid" title="" alt="image-habitat">
-                                                </div>  
-                                            {% endfor %}
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div> 
-                        </div>
-                        <div class="col-3 col-lg-5"></div>
-                    </div>                  
+                {% if (habitat.imagesHabitats[3]|default) %}
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ habitat.imagesHabitats[3].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
+                    </div> 
+                {% else %}
+                    <div class="d-flex justify-content-center">
+                        <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-3">
+                    </div> 
                 {% endif %}
 
             </div>
 
-        </div>
+            <div class="col-3 d-none d-lg-block image-side">
 
-        {# Bloc de séparateur #}
-        <div class="col-3"></div>
-        <div class="col-6"><hr class="separator" size="7"></div>
-        <div class="col-3"></div>
+                {% if (habitat.imagesHabitats[4]|default) %}
+                    <div class="d-flex justify-content-center mb-2">
+                        <img src="{{ habitat.imagesHabitats[4].chemin }}" class="img-fluid" title="" alt="image-habitat-4">
+                    </div> 
+                {% else %}
+                    <div class="d-flex justify-content-center mb-2">
+                        <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-4">
+                    </div> 
+                {% endif %}
 
-        <div class="col-12">
-            <h4>L'hébergement : <span>{{ habitat.nbPersonnes }} personnes</span></h4>
-
-            <p>{{habitat.description}}</p>
-        </div>
-
-        {# Bloc de séparateur #}
-        <div class="col-3"></div>
-        <div class="col-6"><hr class="separator" size="7"></div>
-        <div class="col-3"></div>
-        
-        <div class="col-12">
-
-            <div class="row col-12 mb-2 mb-lg-0">
-
-                <h4>Prestations</h4>
-                <div class="row w-100">
-                    {% if (habitat.prestations is empty) %}
-                        <div class="col-12">
-                            <span>Aucun équipement ou service</span>
-                        </div>
-                    {% else %}
-                        {% for prestation in habitat.prestations|slice(0, 4) %}
-                            <div class="col-6">
-                                <span>{{ prestation.nom }}</span>
-                            </div>
-                        {% endfor %}
-
-                        {% if (habitat.prestations.count > 4) %}
-                            <div class="col-12 mt-3">
-                                <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
-
-                                <div class="modal fade" id="modalPrestations" tabindex="-1" aria-labelledby="modalPrestationsLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-md modal-dialog-scrollable">
-                                        <div class="modal-content site-background-color">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title w-100 text-center">Tous les équipements</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <ul>
-                                                    {% for prestation in habitat.prestations %}
-                                                        <li>
-                                                            <div>
-                                                                <span>{{ prestation.libelle }}</span>
-                                                            </div>
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                            <div class="modal-footer">
-                                            </div>
-                                        </div>  
-                                    </div>
-                                </div>  
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                </div>
+                {% if (habitat.imagesHabitats[5]|default) %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <img src="{{ habitat.iimagesHabitatsmages[5].chemin }}" class="img-fluid" title="" alt="image-habitat-5">
+                    </div> 
+                {% else %}
+                    <div class="d-flex justify-content-center mt-2">
+                        <img src="/images/default.png" class="img-fluid" title="default" alt="image-habitat-5">
+                    </div> 
+                {% endif %}
             </div>
 
-        </div>
+            {% if (habitat.imagesHabitats is not empty and habitat.imagesHabitats|length > 5) %}
+                <div class="row col-12 mt-2">
+                    <div class="col-3 col-lg-5"></div>
+                    <div class="col-6 col-lg-2 text-center">
+                        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir plus</button>
 
-        {# Bloc de séparateur #}
-        <div class="col-3"></div>   
-        <div class="col-6"><hr class="separator" size="7"></div>
-        <div class="col-3"></div>
-
-        <div class="row col-12">
-            <h4>Notes et avis</h4>
-            <div class="row col-lg-6 col-sm-12 align-items-end">
-                <p class="d-flex col-12 justify-content-center">
-                    <span class="border border-2 border-success rounded-circle p-3 fs-1">{{notes[0]["note_generale"]|number_format(1, '.', ' ')}}</span>
-                </p>
-                <div class="d-flex col-12 align-items-center">
-                    <span class="col-3">Propreté</span>
-                    <div class="col-sm-7 d-sm-block">
-                        <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_proprete"] * 100 / 5 }}%;"></span>
-                    </div>
-                    <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_proprete"]|number_format(1, '.', ' ')}}</span>
-                </div>
-                <div class="d-flex col-12 align-items-center">
-                    <span class="col-3">Accueil</span>
-                    <div class="col-sm-7 d-sm-block">
-                        <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_accueil"] * 100 / 5 }}%;"></span>
-                    </div>
-                    <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_accueil"]|number_format(1, '.', ' ')}}</span>
-                </div>
-                <div class="d-flex col-12 align-items-center">
-                    <span class="col-3">Emplacement</span>
-                    <div class="col-sm-7 d-sm-block">
-                        <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_emplacement"] * 100 / 5 }}%;"></span>
-                    </div>
-                    <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_emplacement"]|number_format(1, '.', ' ')}}</span>
-                </div>
-                <div class="d-flex col-12 align-items-center">
-                    <span class="col-3">Qualité/Prix</span>
-                    <div class="col-sm-7 d-sm-block">
-                        <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_qualite_prix"] * 100 / 5 }}%;"></span>
-                    </div> 
-                    <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_qualite_prix"]|number_format(1, '.', ' ')}}</span>
-                </div>
-                <div class="d-flex col-12 align-items-center">
-                    <span class="col-3">Équipements</span>
-                    <div class="col-sm-7 d-sm-block">
-                        <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_equipements"] * 100 / 5 }}%;"></span>
-                    </div>
-                    <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_equipements"]|number_format(1, '.', ' ')}}</span>
-                </div>
-            </div> 
-
-            <div class="row col-lg-6 col-sm-12 align-items-end mt-4 mt-lg-auto">
-
-                {% if (commentaires is not empty) %}
-
-                    {% for commentaire in commentaires|slice(0, 3) %}
-                        
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-
-                                {% if commentaire.utilisateur.image is empty %}
-                                <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
-                                {% else %}
-                                <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
-                                {% endif %}
-                                <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
-                                </h5>
-                                
-
-                                <span class="card-subtitle small green-text">
-                                    {{commentaire.createdAt|date('M-Y')}}
-                                </span>
-                                
-                                
-                                <p class="card-text">{{commentaire.contenu|slice(0, 57)}}
-                                {% if commentaire.contenu|length > 57 %}
-                                    ...
-                                {% endif %}
-
-                                <div class="ms-3">
-                                    {% if commentaire.reponse is not empty %}
-                                        <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
-                                        <p>{{ commentaire.reponse }}</p><br>
-                                    {% endif %}
-                                </div>
-                                    
-                                </span>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                    {% if commentaires|length > 3 %}
-
-                    <div class="col-12 float-end mt-3">
-                        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalCommentaires">Plus d'avis</button>
-
-                        <div class="modal fade" id="modalCommentaires" tabindex="-1" aria-labelledby="modalCommentaireysLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                 <div class="modal-content site-background-color">
                                     <div class="modal-header">
-                                        <h5 class="modal-title w-100 text-center">Les commentaires</h5>
+                                        <h5 class="modal-title w-100 text-center">Toutes les images</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            {% for commentaire in commentaires %}
-                                                {% if commentaire.commentaireParent is empty %}
-                                                <div class="card col-12">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">
-
-                                                        {% if commentaire.utilisateur.image is empty %}
-                                                        <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
-                                                        {% else %}
-                                                        <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
-                                                        {% endif %}
-                                                        <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
-                                                        </h5>
-
-                                                        <span class="card-subtitle small green-text">{{commentaire.createdAt|date('M-Y')}}</span>
-
-                                                        <p class="card-text">{{commentaire.commentaire}}
-                                                        
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                {% endif %}
-
-                                                {% if commentaire.commentaires is not empty %}
-                                                    {% for reponse in commentaire.commentaires %}
-                                                    
-                                                    {% if reponse.commentaireParent.commentaireParent is empty %}
-                                                    <div class="card col-12">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">
-
-                                                            {% if reponse.utilisateur.image is empty %}
-                                                            <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
-                                                            {% else %}
-                                                            <img src="{{reponse.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
-                                                            {% endif %}
-                                                            <span>{{reponse.utilisateur.nom}}&nbsp;{{reponse.utilisateur.prenom}}</span>
-                                                            </h5>
-
-                                                            <span class="card-subtitle small green-text">
-                                                            <i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>
-                                                            <i class="small">Réponse à {{ commentaire.utilisateur.nom }} {{ commentaire.utilisateur.prenom }}</i><br>
-
-                                                            {{reponse.createdAt|date('M-Y')}}
-
-                                                            </span>
-
-                                                            <p class="card-text">{{reponse.commentaire}}
-                                                            
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
+                                    <div class="modal-body row">
+                                        {% for image in habitat.imagesHabitats %}
+                                            <div class="col-6 mb-2">
+                                                <img src="{{ image }}" class="img-fluid" title="" alt="image-habitat">
+                                            </div>  
+                                        {% endfor %}
                                     </div>
                                     <div class="modal-footer">
                                     </div>
                                 </div>  
                             </div>
-                        </div>     
+                        </div> 
                     </div>
+                    <div class="col-3 col-lg-5"></div>
+                </div>                  
+            {% endif %}
 
+        </div>
+
+    </div>
+
+    <div class="col-3"></div>
+    <div class="row col-6">
+        
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div id="divPrix" class="row col-12 align-items-center justify-content-center">
+
+                <label for="labelPrix" class="col-5 fs-2">Prix par nuit :</label>
+                <span class="fs-2 col-6">{{ habitat.prix }} &euro;</span>
+
+                {% if app.user is not null %}
+                <form id="form-reservation" action="{{ path('payment', { 'id': habitat.id }) }}" onsubmit="">
+                    <div class="d-flex flex-column justify-content-between mb-2">
+                        <div>
+                            <label for="labelNbPersonnes" class="label-form">Nombres de personnes :</label>
+                            <output id="result-personnes">1</output>
+                            <input id="nb_personnes" name="nb_personnes" class="form-range" type="range" min="1" max="{{ habitat.nbPersonnes }}" value="1" oninput="document.querySelector('#result-personnes').value = this.value">
+                        </div>
+                        <div>
+                            <input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Réserver</a>
+                </form>
+                {% else %}
+                    <span class="col-6">Connectez vous pour réserver !</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+
+    {# Bloc de séparateur #}
+    <div class="col-3"></div>
+    <div class="col-6"><hr class="separator" size="7"></div>
+    <div class="col-3"></div>
+
+    <div class="col-12">
+        <h4>L'hébergement - <span>Pour {{ habitat.nbPersonnes }} personne(s)</span></h4>
+
+        <p>{{habitat.description}}</p>
+    </div>
+
+    {# Bloc de séparateur #}
+    <div class="col-3"></div>
+    <div class="col-6"><hr class="separator" size="7"></div>
+    <div class="col-3"></div>
+    
+    <div class="col-12">
+
+        <div class="row col-12 mb-2 mb-lg-0">
+
+            <h4>Prestations</h4>
+            <div class="row w-100">
+                {% if (habitat.prestations is empty) %}
+                    <div class="col-12">
+                        <span>Aucun équipement ou service</span>
+                    </div>
+                {% else %}
+                    {% for prestation in habitat.prestations|slice(0, 4) %}
+                        <div class="col-6">
+                            <span>{{ prestation.nom }}</span>
+                        </div>
+                    {% endfor %}
+
+                    {% if (habitat.prestations.count > 4) %}
+                        <div class="col-12 mt-3">
+                            <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
+
+                            <div class="modal fade" id="modalPrestations" tabindex="-1" aria-labelledby="modalPrestationsLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-md modal-dialog-scrollable">
+                                    <div class="modal-content site-background-color">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title w-100 text-center">Tous les équipements</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                {% for prestation in habitat.prestations %}
+                                                    <li>
+                                                        <div>
+                                                            <span>{{ prestation.nom }}</span>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>  
+                        </div>
                     {% endif %}
                 {% endif %}
             </div>
         </div>
-         
+
     </div>
+
+    {# Bloc de séparateur #}
+    <div class="col-3"></div>   
+    <div class="col-6"><hr class="separator" size="7"></div>
+    <div class="col-3"></div>
+
+    <div class="row col-12">
+        {% if notes[0]["note_generale"] is not null %}
+
+        <h4>Notes et avis</h4>
+
+        <div class="row col-lg-6 col-sm-12 align-items-end">
+            <p class="d-flex col-12 justify-content-center">
+                <span class="border border-2 border-success rounded-circle p-3 fs-1">{{notes[0]["note_generale"]|number_format(1, '.', ' ')}}</span>
+            </p>
+            <div class="d-flex col-12 align-items-center">
+                <span class="col-3">Propreté</span>
+                <div class="col-sm-7 d-sm-block">
+                    <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_proprete"] * 100 / 5 }}%;"></span>
+                </div>
+                <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_proprete"]|number_format(1, '.', ' ')}}</span>
+            </div>
+            <div class="d-flex col-12 align-items-center">
+                <span class="col-3">Accueil</span>
+                <div class="col-sm-7 d-sm-block">
+                    <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_accueil"] * 100 / 5 }}%;"></span>
+                </div>
+                <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_accueil"]|number_format(1, '.', ' ')}}</span>
+            </div>
+            <div class="d-flex col-12 align-items-center">
+                <span class="col-3">Emplacement</span>
+                <div class="col-sm-7 d-sm-block">
+                    <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_emplacement"] * 100 / 5 }}%;"></span>
+                </div>
+                <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_emplacement"]|number_format(1, '.', ' ')}}</span>
+            </div>
+            <div class="d-flex col-12 align-items-center">
+                <span class="col-3">Qualité/Prix</span>
+                <div class="col-sm-7 d-sm-block">
+                    <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_qualite_prix"] * 100 / 5 }}%;"></span>
+                </div> 
+                <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_qualite_prix"]|number_format(1, '.', ' ')}}</span>
+            </div>
+            <div class="d-flex col-12 align-items-center">
+                <span class="col-3">Équipements</span>
+                <div class="col-sm-7 d-sm-block">
+                    <span><hr class="horizontal-lign green-text" size="5" style="width: {{ notes[0]["note_equipements"] * 100 / 5 }}%;"></span>
+                </div>
+                <span class="col-9 col-sm-2 text-center fs-4">{{notes[0]["note_equipements"]|number_format(1, '.', ' ')}}</span>
+            </div>
+
+        </div> 
+        {% else %}
+
+        <div class="col-lg-6 col-sm-12 align-items-start">
+            <h4>Aucune note</h4>
+        </div>
+
+        {% endif %}
+
+            {% if (commentaires is not empty) %}
+            <div class="row col-lg-6 col-sm-12 align-items-end mt-4 mt-lg-auto">
+
+                {% for commentaire in commentaires|slice(0, 3) %}
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+
+                            {% if commentaire.utilisateur.image is empty %}
+                            <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
+                            {% else %}
+                            <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
+                            {% endif %}
+                            <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
+                            </h5>
+                            
+
+                            <span class="card-subtitle small green-text">
+                                {{commentaire.createdAt|date('M-Y')}}
+                            </span>
+                            
+                            
+                            <p class="card-text">{{commentaire.contenu|slice(0, 57)}}
+                            {% if commentaire.contenu|length > 57 %}
+                                ...
+                            {% endif %}
+
+                            <div class="ms-3">
+                                {% if commentaire.reponse is not empty %}
+                                    <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
+                                    <p>{{ commentaire.reponse|slice(0, 57) }}
+                                    {% if commentaire.reponse|length > 57 %}
+                                        ...
+                                    {% endif %} 
+                                    </p><br>
+                                {% endif %}
+                            </div>
+                                
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if commentaires|length > 3 %}
+
+                <div class="col-12 float-end mt-3">
+                    <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalCommentaires">Plus d'avis</button>
+
+                    <div class="modal fade" id="modalCommentaires" tabindex="-1" aria-labelledby="modalCommentaireysLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                            <div class="modal-content site-background-color">
+                                <div class="modal-header">
+                                    <h5 class="modal-title w-100 text-center">Les commentaires</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        {% for commentaire in commentaires %}
+                                            {% if commentaire.commentaireParent is empty %}
+                                            <div class="card col-12">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+
+                                                    {% if commentaire.utilisateur.image is empty %}
+                                                    <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
+                                                    {% else %}
+                                                    <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
+                                                    {% endif %}
+                                                    <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
+                                                    </h5>
+
+                                                    <span class="card-subtitle small green-text">{{commentaire.createdAt|date('M-Y')}}</span>
+
+                                                    <p class="card-text">{{commentaire.commentaire}}
+                                                    
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if commentaire.commentaires is not empty %}
+                                                {% for reponse in commentaire.commentaires %}
+                                                
+                                                {% if reponse.commentaireParent.commentaireParent is empty %}
+                                                <div class="card col-12">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+
+                                                        {% if reponse.utilisateur.image is empty %}
+                                                        <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
+                                                        {% else %}
+                                                        <img src="{{reponse.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
+                                                        {% endif %}
+                                                        <span>{{reponse.utilisateur.nom}}&nbsp;{{reponse.utilisateur.prenom}}</span>
+                                                        </h5>
+
+                                                        <span class="card-subtitle small green-text">
+                                                        <i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>
+                                                        <i class="small">Réponse à {{ commentaire.utilisateur.nom }} {{ commentaire.utilisateur.prenom }}</i><br>
+
+                                                        {{reponse.createdAt|date('M-Y')}}
+
+                                                        </span>
+
+                                                        <p class="card-text">{{reponse.commentaire}}
+                                                        
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>  
+                        </div>
+                    </div>     
+                </div>
+
+                {% endif %}
+
+            </div>
+            {% else %}
+                
+            <div class="col-lg-6 col-sm-12 align-items-start">
+                <h4>Aucun commentaire</h4>
+            </div>
+
+            {% endif %}
+    </div>
+        
+</div>
 
 {% endblock %}

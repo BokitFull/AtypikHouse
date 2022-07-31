@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-	{{ encore_entry_link_tags('home') }}
+	{{ encore_entry_link_tags('home_s') }}
+	{{ encore_entry_link_tags('index_s') }}
 {% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('homeJs') }}
+    {{ encore_entry_script_tags('index') }}
 {% endblock %}
 
-{% block title %}AtypikHouse!
-{% endblock %}
+{% block title %}AtypikHouse!{% endblock %}
 
 {% block main %}
 	<article id="home-pres">
@@ -46,13 +46,18 @@
 					<option>
 						N'importes
 					</option>
-					{% for i in 0..10 %}
+					{% for i in 1..10 %}
 						<option  value={{ i }}>{{ i }}</option>
 					{% endfor %}
 				</select>
 
 				<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
-
+				<div id="personnes-div">
+					<label for="labelPrix" class="label-form white-text">Prix :</label>
+					<output id="result-prix" class="white-text">150</output>
+					<input id="prix" name="prix" class="form-range" type="range" min="10" max="300" value="150" oninput="document.querySelector('#result-prix').value = this.value">
+				</div>
+				
 			</div>
 			<div>
 				<input value="Rechercher" type="submit" class="btn btn-notdark">
