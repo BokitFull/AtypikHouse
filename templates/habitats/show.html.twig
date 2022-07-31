@@ -311,7 +311,11 @@
                             <div class="ms-3">
                                 {% if commentaire.reponse is not empty %}
                                     <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
-                                    <p>{{ commentaire.reponse }}</p><br>
+                                    <p>{{ commentaire.reponse|slice(0, 57) }}
+                                    {% if commentaire.reponse|length > 57 %}
+                                        ...
+                                    {% endif %} 
+                                    </p><br>
                                 {% endif %}
                             </div>
                                 
