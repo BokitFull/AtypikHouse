@@ -20,11 +20,7 @@
     </head>
     <body>
         <header>
-            {% if not app.user or is_granted('ROLE_USER') %}
-                {{ include('_header.html.twig') }}
-            {% elseif is_granted('ROLE_HOTE') %}
-                {{ include('hotes/_nav.html.twig') }}
-            {% endif %}
+            {{ include('_header.html.twig') }}
         </header>
         <main id="main-container">
             {% for label, messages in app.flashes(['success', 'warning']) %}

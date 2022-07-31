@@ -41,6 +41,7 @@ class TypesHabitatRepository extends ServiceEntityRepository
 
     /**
     * récupération des départements pour les afficher dans le filtre
+    * test
     *
     * @return TypesHabitat[] Returns an array of TypesHabitat objects
     */

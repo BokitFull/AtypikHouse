@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateurs;
-use App\Entity\Habitats;
-use App\Form\RegistrationFormType;
-use App\Form\LoginFormType;
-use App\Form\HabitatsType;
+use App\Form\BecomeHostType;
 use App\Repository\UtilisateursRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,8 +31,21 @@ class HotesController extends AbstractController
     #[Route('/habitats', name: 'hote_habitats', methods: ['GET', 'POST'])]
     public function habitats(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
     {   
-        $context = [];
 
-        return $this->render('hotes/habitats.html.twig', $context);
+        return $this->render('hotes/habitats.html.twig', []);
+    }
+
+    public function devenir_hote_form(): Response
+    {   
+        $form = $this->createForm(BecomeHostType::class)->createView();
+
+        return $this->render('hotes/_become_host.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    public function navbar(): Response
+    {   
+        return $this->render('hotes/_nav.html.twig', []);
     }
 }

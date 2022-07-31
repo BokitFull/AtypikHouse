@@ -10,7 +10,8 @@ use App\Entity\Utilisateurs;
 use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
-use DateTimeImmutable;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -64,6 +65,22 @@ class SecurityController extends AbstractController
 
         ]);
     }
+
+    // #[Route(path: '/changement-mot-de-passe', name: 'reset_password')]
+    // public function reset_password(MailerInterface $mailer)
+    // {   
+    //     $email = (new TemplatedEmail())
+    //         ->from('hello@example.com')
+    //         ->to('you@example.com')
+
+    //         ->subject('Réinitilisation de mot de passe')
+    //         ->htmlTemplate('emails/signup.html.twig')
+    //         ->context([
+    //             'expiration_date' => new \DateTime('+7 days'),
+    //             'reset_password_link' => 'foo',]);
+
+    //     $mailer->send($email);
+    // }
     
 
     public function authentication_form(AuthenticationUtils $authenticationUtils): Response
