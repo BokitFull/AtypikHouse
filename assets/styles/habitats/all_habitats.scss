@@ -1,3 +1,5 @@
+@import '~flatpickr';
+
 .titre_liste_habitats {
     width: fit-content;
 }
@@ -70,6 +72,54 @@
     place-content: space-between;
 }
 
+.flatpickr-calendar {
+    right: -210px;
+}
+
+.flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#result_destinations{
+    background-color: #FFF;
+    color: #535353;
+    margin-top: 6px;
+    position: absolute;
+    z-index: 2000;
+    box-shadow: -1px 2px 10px 0px rgb(0 0 0 / 27%);
+    display: none;
+    width: fit-content;
+    min-width: 200px;
+    bottom: -70px;
+}
+
+#result_destinations ul {
+    padding-left: 10px;
+}
+
+#result_destinations li {
+    color: #535353;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+    border-bottom: 1px solid #CCC;
+}
+
+#result_destinations li:hover {
+    background-color: #B87247;
+}
+
+.form-input {
+    border: solid 1px black;
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .pagination {
     justify-content: center;
     span {
@@ -110,3 +160,4 @@
 .selected, a.selected {
     color: #998763!important;
 }
+

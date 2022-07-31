@@ -2,6 +2,11 @@
 
 {% block title %}AtypikHouse!{% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+    {{ encore_entry_script_tags('habitatJs') }}
+{% endblock %}
+
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('all_habitats') }}
@@ -62,19 +67,33 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<div>
-							<label for="customRange1" class="form-label">Prix maximum :
+						<div class="flex">
+							<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
+						</div>
+						<div class="flex">
+							<label for="priceRange" class="form-label">Prix maximum :
 							</label>
-							<input id="price" name="price" type="range" value="24" min="10" max="300" oninput="this.nextElementSibling.value = this.value">
-							<output>24</output>
+							<input id="price" name="prix" class="form-range" type="range" value="{{ params["prix"]|default }}" min="10" max="300" oninput="this.nextElementSibling.value = this.value">
+							<output>{{ params["prix"]|default('150') }}</output>&euro;
+						</div>
+						<div class="flex">
+							<label for="personnesRange" class="form-label">Nombre de personnes :
+							</label>
+							<input id="nbPersonnes" name="nb_personnes" class="form-range" type="range" value="{{ params["nb_personnes"]|default }}" min="1" max="5" oninput="this.nextElementSibling.value = this.value">
+							<output>{{ params["nb_personnes"]|default('3') }}</output>
+						</div>
+						<div id="destinations_div" class="flex">
+							<label for="cpSelect" class="form-label">Destinations :</label>
+							<input type="text" id="destinations-name" class="form-input">
+							<input type="hidden" name="destinations">
+							<div id="result_destinations"></div>
 						</div>
 						<div>
-							<label for="customRange1" class="form-label">Département :
-							</label>
-							<select id="ddlViewBy" name="dep">
-								<option selected="selected">Sélectionner une valeur</option>
-								{% for odep in dep %}
-									<option value={{odep}}>{{odep|slice(0,2)}}</option>
+							<label for="typeHabitatSelect" class="form-label">Type d'habitat :</label>
+							<select id="ddlViewBy" name="type" class="form-select">
+							<option value="">Tous</option>
+								{% for type in types %}
+									<option value={{type.id}} {% if params["type_habitat_id"]|default is not empty() and params["type_habitat_id"] == type.id %} selected {% endif %}>{{type.nom}}</option>
 								{% endfor %}
 							</select>
 						</div>

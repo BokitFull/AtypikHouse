@@ -18,3 +18,12 @@ import $ from 'jquery';
 //fontawesome
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
+
+setTimeout(function() {
+    let flashMessages = document.querySelectorAll('.flash-message');
+    if (flashMessages) {
+        for(let e of flashMessages){
+            e.classList.add('d-none');
+        }
+    }
+}, 5000);
