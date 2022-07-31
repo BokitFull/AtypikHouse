@@ -22,10 +22,6 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
-    #[ORM\ManyToMany(targetEntity: TypesHabitat::class, mappedBy: 'caracteristiquesTypesHabitat')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $types;
-
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
@@ -37,10 +33,13 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
+    #[ORM\ManyToMany(targetEntity: TypesHabitat::class, inversedBy: 'caracteristiquesTypeHabitat')]
+    private Collection $typesHabitat;
+
 
     public function __construct()
     {
-        $this->typesHabitats = new ArrayCollection();
+        $this->typesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,14 +107,14 @@ class CaracteristiquesTypeHabitat
         return $this;
     }
 
-    public function getType(): ?TypesHabitat
+    public function getTypes(): ?TypesHabitat
     {
-        return $this->type;
+        return $this->types;
     }
 
-    public function setType(?TypesHabitat $type): self
+    public function setTypes(?TypesHabitat $types): self
     {
-        $this->type = $type;
+        $this->types = $types;
 
         return $this;
     }
@@ -123,16 +122,15 @@ class CaracteristiquesTypeHabitat
     /**
      * @return Collection<int, TypesHabitat>
      */
-    public function getTypesHabitats(): Collection
+    public function getTypesHabitat(): Collection
     {
-        return $this->typesHabitats;
+        return $this->typesHabitat;
     }
 
     public function addTypesHabitat(TypesHabitat $typesHabitat): self
     {
-        if (!$this->typesHabitats->contains($typesHabitat)) {
-            $this->typesHabitats[] = $typesHabitat;
-            $typesHabitat->addCaracteristiquesTypesHabitat($this);
+        if (!$this->typesHabitat->contains($typesHabitat)) {
+            $this->typesHabitat->add($typesHabitat);
         }
 
         return $this;
@@ -140,9 +138,7 @@ class CaracteristiquesTypeHabitat
 
     public function removeTypesHabitat(TypesHabitat $typesHabitat): self
     {
-        if ($this->typesHabitats->removeElement($typesHabitat)) {
-            $typesHabitat->removeCaracteristiquesTypesHabitat($this);
-        }
+        $this->typesHabitat->removeElement($typesHabitat);
 
         return $this;
     }

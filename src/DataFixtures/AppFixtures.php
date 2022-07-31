@@ -102,51 +102,6 @@ class AppFixtures extends Fixture
                 ]
             ];
 
-        // $pays_list = [ 
-        //     'pays' => [
-        //         'france' => [
-        //             'regions' => [
-        //                 'alsace' => [
-        //                     'departements' => [
-        //                         'bas-rhin' => [
-        //                             'communes' => [
-        //                                 'strasbourg'
-        //                             ],
-        //                         ]
-        //                     ]
-        //                 ],
-        //                 'picardie' => [
-        //                     'departements' => [
-        //                         'aisne' => [
-        //                             'communes' => [
-        //                                 'laon'
-        //                             ]
-        //                         ]
-        //                     ],
-        //                 ],
-        //                 'bourgogne' => [
-        //                     'departements' => [
-        //                         'yonne' => [
-        //                             'communes' => [
-        //                                 'auxerre'
-        //                             ]
-        //                         ]
-        //                     ],
-        //                 ],
-        //                 'guadeloupe' => [
-        //                     'departements' => [
-        //                         'guadeloupe' => [
-        //                             'communes' => [
-        //                                 'basse-terre'
-        //                             ]
-        //                         ]
-        //                     ]
-        //                 ]
-        //             ]
-        //         ]
-        //     ]
-        // ];
-
         $pays_s = array();
         $regions = array();
         $departements = array();
@@ -229,7 +184,7 @@ class AppFixtures extends Fixture
             $caracteristiques = new CaracteristiquesTypeHabitat();
             $caracteristiques->setNom($faker->randomElement($caracteristiques_name));
             $caracteristiques->setDescription($faker->sentence(20));
-            $caracteristiques->setType($faker->randomElement($type_habitats));
+            $caracteristiques->addTypesHabitat($faker->randomElement($type_habitats));
             $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
 
             array_push($caracteristiquesTypeHabitat, $caracteristiques);

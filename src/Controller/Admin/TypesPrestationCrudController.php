@@ -11,15 +11,4 @@ class TypesPrestationCrudController extends AbstractCrudController
     {
         return TypesPrestation::class;
     }
-
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
 }

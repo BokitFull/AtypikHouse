@@ -19,14 +19,4 @@ class TypesHabitatCrudController extends AbstractCrudController
         $typesHabitat = new TypesHabitat();
         return $typesHabitat;
     }
-    
-    // public function configureFields(string $pageName): iterable
-    // {
-    //     return ['id', 'nom', 'description', 'created_at', 'updated_at', 'deleted_at'
-    //         // IdField::new('id'),
-    //         // TextField::new('title'),
-    //         // TextEditorField::new('description'),
-    //     ];
-    // }
-    
 }
