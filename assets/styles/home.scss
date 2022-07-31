@@ -1,5 +1,27 @@
 @import '~flatpickr';
 
+
+
+img.sr-only {
+    position: absolute;
+        
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border-width: 0;
+    
+    }
+    
+
+button.buttonAbonner {
+    background: #9a602b;
+    color: white;
+}
+
 .btn-notdark {
     background-color: #B87247;
     color: white;
@@ -143,22 +165,20 @@
     flex-direction: column;
     color: white;
     height: 600px;
-    background-image: url('../../public/images/home_pictures.jpg');
+    background-image: url('../../public/images/info2.png');
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    font-size: 20px;
 }
-
 .info-div {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
     width: 80%;
 }
-
 #comments-article{
     height: 350px;;
 }
@@ -231,3 +251,7 @@
     width: 100%;
 }
 
+
+form.formulaireAbonnement {
+    display: flex;
+}
