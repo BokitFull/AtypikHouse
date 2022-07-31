@@ -29,7 +29,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/hote, roles: ROLE_HOTE }
-        - { path: ^/profil, roles: ROLE_USER }
+        - { path: ^/utilisateurs, roles: ROLE_USER }
 
 when@test:
     security:

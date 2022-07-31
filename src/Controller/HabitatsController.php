@@ -11,7 +11,6 @@ use App\Entity\ImagesHabitat;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use App\Repository\ImagesHabitatRepository;
-use App\Repository\TypeHabitatsRepository;
 use App\Repository\CommentairesRepository;
 use App\Repository\VilleRepository;
 use App\Repository\DepartementsRepository;
@@ -26,7 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Service\FileUploader;
-use Symfony\Component\Validator\Constraints\Date;
 
 use Symfony\Component\Security\Core\Security;
 
@@ -149,7 +147,7 @@ class HabitatsController extends AbstractController
     public function calendar(ReservationsRepository $reservationsRepository): Response
     {   
         $context = [];
-        $habitats = $this->getUser()->getHabitats()->toArray();
+        $habitats = $this->security->getUser()->getHabitats()->toArray();
         $habitats = array_map(function($x) {return $x->getId();}, $habitats);
         $current_date = new DateTime();
         $current_date = $current_date->format('Y-m-d');
