@@ -2,7 +2,7 @@ framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
         envelope:
-            sender: 'support-atypikhouse@example.com'
+            sender: 'contact.atypik-house@f2i-dev20-wd-al-ma-fa.fr'
         headers:
-            From: 'support-atypikhouse@example.com'
+            From: 'contact.atypik-house@f2i-dev20-wd-al-ma-fa.fr'
        

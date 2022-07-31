@@ -353,18 +353,6 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->commentaires;
     }
 
-    public function getPhotoProfil(): ?string
-    {
-        return $this->photo_profil;
-    }
-
-    public function setPhotoProfil(?string $photo_profil): self
-    {
-        $this->photo_profil = $photo_profil;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;

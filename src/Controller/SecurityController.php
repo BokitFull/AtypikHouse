@@ -10,8 +10,6 @@ use App\Entity\Utilisateurs;
 use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
