@@ -7,8 +7,10 @@ use App\Entity\Departements;
 use App\Entity\Habitats;
 use App\Entity\Region;
 use App\Entity\Pays;
+use App\Entity\ImagesHabitat;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
+use App\Repository\ImagesHabitatRepository;
 use App\Repository\TypeHabitatsRepository;
 use App\Repository\CommentairesRepository;
 use App\Repository\VilleRepository;
@@ -33,7 +35,7 @@ class HabitatsController extends AbstractController
 {
     private $security;
 
-    public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository, 
+    public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository, ImagesHabitatRepository $imagesRepository,
     PaysRepository $paysRepository, RegionRepository $regionRepository, DepartementsRepository $departementsRepository, VilleRepository $villeRepository,
     Security $security) {
         $this->repository = $repository;
@@ -43,6 +45,7 @@ class HabitatsController extends AbstractController
         $this->paysRepository = $paysRepository;
         $this->villeRepository = $villeRepository;
         $this->security = $security;
+        $this->imagesRepository = $imagesRepository;
     }
 
     public function createLocation(Request $request){
@@ -96,17 +99,17 @@ class HabitatsController extends AbstractController
         $context['form'] = $form;
         $context['habitat'] = $habitat;
         
-        $images = $form->get('images')->getData();
-        var_dump($images);
+        // $images = $form->get('images')->getData();
+        // var_dump($images);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('images')->getData();
+            // $images = $form->get('images')->getData();
 
-            foreach ($images as $key => $value) {
-                var_dump($value);
-                $uploader->upload($value);
-                $habitat->addImage($value);
-            }
+            // foreach ($images as $key => $value) {
+            //     var_dump($value);
+            //     $uploader->upload($value);
+            //     $habitat->addImage($value);
+            // }
 
             $utilisateur = $this->getUser();
 
@@ -183,21 +186,47 @@ class HabitatsController extends AbstractController
         $form->handleRequest($request);
         $context['form'] = $form;
         $context['habitat'] = $habitat;
-        
-        // $images = $form->get('images')->getData();
-        // var_dump($images);
-        
+
+        echo "<pre>";
+        var_dump($_FILES);
+        echo "</pre>";
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->createLocation($request);
 
-            $images = $form->get('imagesHabitats')->getData();
+            if($_FILES["habitats"]) {
 
-            foreach ($images as $key => $value) {
-                var_dump($value);
-                // $uploader->upload($value);
-                // $habitat->addImage($value);
+                $file = $_FILES["habitats"];
+                $name = $habitat->getId() . "_" . $file["name"]["addImages"];
+                move_uploaded_file($file["tmp_name"]["addImages"],"../public/images/uploads/habitats/". $name);
+                
+                $count = 0;
+                for($count = 0; $count < count($habitat->getImagesHabitats()) ; $count++) ;
+                
+                $image = new ImagesHabitat();
+                $image->setChemin($name);
+                $image->setHabitat($habitat);
+                $image->setPosition($count + 1);
+                $this->imagesRepository->add($image, true);
+                
+                $habitat->addImagesHabitat($image);
             }
 
+            // $count = 0;
+            // foreach($images as $image) {
+
+            //     $chemin = uniqid() . $_FILES["habitats"]["name"]["imagesHabitats"][$count];
+            //     move_uploaded_file($image,"../public/images/uploads/habitats/" . $chemin);          
+                
+            //     $image = new ImagesHabitat();
+            //     $image->setChemin($chemin);
+            //     $image->setHabitat($habitat);
+            //     $image->setPosition($count);
+            //     $habitat->addImagesHabitat($image);
+
+            //     $count++;
+            // }
+            
             $habitatsRepository->add($habitat, true);
 
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);

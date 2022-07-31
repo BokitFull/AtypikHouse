@@ -35,7 +35,7 @@
 			<a href="{{ path('habitats_detail', {'id': habitat.id }) }}" class="col-lg-3 displayed-card">
 				<div>
 					{% if (habitat.imagesHabitats[0]|default) %}
-					<img src="{{ habitat.imagesHabitats[0].chemin }}" alt="" width="100%" height="80%">
+					<img src="/images/uploads/habitats/{{ habitat.imagesHabitats[0].chemin }}" alt="" width="100%" height="80%">
 					{% else %}
 					<img src="/images/default.png" alt="" width="100%" height="80%">
 					{% endif %}

@@ -72,10 +72,14 @@
                     data-widget-counter="{{ form.imagesHabitats|length }}">
                     {% for image in form.imagesHabitats %}
                     <li>
-                        {{ form_row(image, { 'attr': {'class': 'file-field'} }) }}
+                    {# <img src="/images/uploads/habitats/{{ image }}" class="image-form"> #}
+                        {{ form_row(image, { 'attr': {'class': 'input-field'} }) }}
                     </li>
                     {% endfor %}
                 </ul>
+            </div>
+            <div class="form-group col-md-6">
+            {{ form_row(form.addImages) }}
             </div>
             <div class="form-group col-md-6">
             {{ form_row(form.est_actif, { 'attr': {'class': 'input-field', 'placeholder': 'Est actif'} }) }}

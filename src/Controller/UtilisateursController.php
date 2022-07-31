@@ -49,10 +49,12 @@ class UtilisateursController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $image = $_FILES["edit_user"];
             $utilisateursRepository->add($utilisateur, true);
-            move_uploaded_file($image['tmp_name']['image'],"../public/images/uploads/".$utilisateur->getID().'.jpg');
-            //return true;
+
+            move_uploaded_file($image['tmp_name']['image'],"../public/images/uploads/users/".$utilisateur->getID().'.jpg');
+
             return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
         }
 

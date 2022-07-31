@@ -46,10 +46,37 @@ class HabitatsType extends AbstractType
                 'class' => ImagesHabitat::class,
                 'choice_label' => 'chemin',
                 'multiple' => true,
+                'expanded' => true,
             ])
+
+            ->add('addImages', FileType::class, [
+                'label' => 'Ajouter une image',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // 'multiple' => true,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpg',
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image',
+                    ])
+                ],
+            ])
+
             // ->add('images', CollectionType::class, [
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
             //     'entry_type' => FileType::class,
             //     'entry_options' => [
             //         'required' => false,
@@ -60,9 +87,9 @@ class HabitatsType extends AbstractType
             //             new File([
             //                 'maxSize' => '5000k',
             //                 'mimeTypes' => [
-            //                     'jpeg',
-            //                     'jpg',
-            //                     'png'
+            //                     'image/jpeg',
+            //                     'image/jpg',
+            //                     'image/png'
             //                 ],
             //                 'mimeTypesMessage' => 'Please upload a valid image',
             //             ])
