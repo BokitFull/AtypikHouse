@@ -1,3 +1,7 @@
+#main-container {
+    margin: 3%;
+}
+
 #form{
     display: flex;
     justify-content: space-evenly;
@@ -47,12 +51,12 @@ input[type='checkbox'] {
     margin-bottom: .1rem;
 }
 
-#div-equipements ul, #div-informationsPratiques ul {
+.list-field ul {
     background-color: #eee;
     overflow: auto;
     max-height: 200px;
 }
-#div-equipements li > div, #div-informationsPratiques li > div {
+.list-field li > div {
     display: flex;
     justify-content: space-between;
 }
@@ -88,3 +92,17 @@ input[type='checkbox'] {
 #result_adresse li:hover {
     background-color: #B87247;
 }
+
+#habitats_debut_disponibilite, #habitats_fin_disponibilite {
+    display: flex;
+    justify-content: space-between;
+}
+
+#habitats_debut_disponibilite select, #habitats_fin_disponibilite select {
+    max-width: 40%;
+}
+
+// .form-errors {
+//     border: 1px solid #a01313;
+//     color: red;
+// }

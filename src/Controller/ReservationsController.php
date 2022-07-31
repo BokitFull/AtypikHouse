@@ -25,6 +25,9 @@ class ReservationsController extends AbstractController
     #[Route('/reservations/{id}', name: 'reservations_detail', methods: ['GET'])]
     public function detail(Reservations $reservation): Response
     {   $context['reservation'] = $reservation;
+        $duree = $reservation->getDateDebut()->diff($reservation->getDateFin());
+
+        $context['duree'] = $duree->format('%a');
         return $this->render('utilisateurs/reservations_detail.html.twig', $context);
     }
 }

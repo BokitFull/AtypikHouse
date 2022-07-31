@@ -14,7 +14,7 @@
             <div class="reservation">
                 <div class="reservation-info">
                     <div class="reservation-title">
-                        {{ reservation.habitat.libelle }}
+                        {{ reservation.habitat.titre }}
                     </div>
                     <div class="reservation-date">
                         <p>{{ reservation.dateDebut|date('D d M Y') }}</p>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="reservation-picture">
-                    <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}"> 
+                    <img src="{{ reservation.habitat.imagesHabitat[0]|default('../images/default.png') }}"> 
                     {# {{ reservation.habitat.iamge.0}} #}
                 </div>
             </div>

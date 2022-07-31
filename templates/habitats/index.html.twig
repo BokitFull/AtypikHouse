@@ -2,14 +2,18 @@
 
 {% block title %}AtypikHouse!{% endblock %}
 
-{% block javascripts %}
-	{{ parent() }}
-    {{ encore_entry_script_tags('habitatJs') }}
-{% endblock %}
-
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('all_habitats') }}
+	{{ encore_entry_link_tags('index_s') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+    {{ encore_entry_script_tags('index') }}
+	<script>
+        daterange = "{{ params["daterange"]|default }}";
+    </script>
 {% endblock %}
 
 {% block main %}
@@ -37,7 +41,7 @@
 					{% endif %}
 					<div class="div_titre_et_lieu">
 						<p class="liste_habitat_titre">{{ habitat.titre }}</p>
-						<p class="liste_habitat_lieu">{{ habitat.ville.nom }}
+						<p class="liste_habitat_lieu">{{ habitat.ville.nom|default }}
 							({{habitat.codePostal|slice(0,2) }})</p>
 					</div>
 					<p class="liste_habitat_prix">{{ habitat.prix }}€/nuit</p>
@@ -59,7 +63,7 @@
 	</div>
 
 	<div class="modal fade" id="filtre_list_modal" tabindex="-1" aria-labelledby="filtre_list_modal_label" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<form action="/habitats" method="GET">
 					<div class="modal-header">
@@ -67,35 +71,36 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
+
 						<div class="flex">
 							<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
 						</div>
-						<div class="flex">
-							<label for="priceRange" class="form-label">Prix maximum :
-							</label>
-							<input id="price" name="prix" class="form-range" type="range" value="{{ params["prix"]|default }}" min="10" max="300" oninput="this.nextElementSibling.value = this.value">
-							<output>{{ params["prix"]|default('150') }}</output>&euro;
+						
+						<div>
+							<label for="priceRange" class="form-label">Prix maximum :</label>
+							<output id="result-prix">{{ params["prix"]|default('150') }}</output>&euro;
+							<input id="price" name="prix" class="form-range" type="range" value="{{ params["prix"]|default('150') }}" min="0" max="300" oninput="document.querySelector('#result-prix').value = this.value">
 						</div>
-						<div class="flex">
-							<label for="personnesRange" class="form-label">Nombre de personnes :
-							</label>
-							<input id="nbPersonnes" name="nb_personnes" class="form-range" type="range" value="{{ params["nb_personnes"]|default }}" min="1" max="5" oninput="this.nextElementSibling.value = this.value">
-							<output>{{ params["nb_personnes"]|default('3') }}</output>
-						</div>
-						<div id="destinations_div" class="flex">
-							<label for="cpSelect" class="form-label">Destinations :</label>
-							<input type="text" id="destinations-name" class="form-input">
-							<input type="hidden" name="destinations">
-							<div id="result_destinations"></div>
+						<div>
+							<label for="personnesRange" class="form-label">Nombre de personnes :</label>
+							<output id="result-personnes">{{ params["nb_personnes"]|default('3') }}</output>
+							<input id="nbPersonnes" name="nb_personnes" class="form-range" type="range" value="{{ params["nb_personnes"]|default('3') }}" min="1" max="5" oninput="document.querySelector('#result-personnes').value = this.value">
 						</div>
 						<div>
 							<label for="typeHabitatSelect" class="form-label">Type d'habitat :</label>
-							<select id="ddlViewBy" name="type" class="form-select">
+							<select id="ddlViewBy" name="type_habitat_id" class="form-select">
 							<option value="">Tous</option>
 								{% for type in types %}
 									<option value={{type.id}} {% if params["type_habitat_id"]|default is not empty() and params["type_habitat_id"] == type.id %} selected {% endif %}>{{type.nom}}</option>
 								{% endfor %}
 							</select>
+						</div>
+						
+						<div id="cp-div">
+							<label for="destinations" class="form-label">Destinations :</label>
+							<input type="text" id="destinations-name" class="form-control" placeholder="Toutes destinations">
+							<input type="hidden" name="destinations">
+							<div id="result-cp"></div>
 						</div>
 					</div>
 					<div class="modal-footer">

@@ -14,62 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
-#[ApiResource(
-    collectionOperations: [
-        'get' => [
-            'normalization_context' => [
-                'groups' => 'read:collection'
-                ]
-            ],
-            'list_habitats' => [    
-                'pagination_enabled'=>false,
-                'method' => 'GET',
-                'path' => 'get/habitats',
-                'controller' => GetHabitatsController::class,
-                'filters' => [],
-                'openapi_context' => [
-                    'summary' => 'Récupère une liste',
-                    'parameters' => [
-                        [
-                            'in' => 'query',
-                            'name' => 'id',
-                            'schema' => [
-                                'type' => 'integer'
-                            ]
-    
-                        ]
-                    ]
-                ]
-            ]
-        ], 
-    itemOperations: [
-        'get' => [
-            'normalization_context' => [
-                'groups' => 'comment:item'
-                ]
-            ],
-        // 'list_habitats' => [    
-        //     'method' => 'GET',
-        //     'path' => 'get/habitats/{id_array}',
-        //     'controller' => GetHabitatsController::class,
-        //     'filters' => [],
-        //     'openapi_context' => [
-        //         'summary' => 'Récupère une liste',
-        //         'parameters' => [
-        //             [
-        //                 'in' => 'query',
-        //                 'name' => 'habitats',
-        //                 'schema' => [
-        //                     'type' => 'array'
-        //                 ]
 
-        //             ]
-        //         ]
-        //     ]
-        ]
-    // ],
-
-)]
 class Habitats
 {
     #[ORM\Id]
@@ -106,11 +51,11 @@ class Habitats
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 1,
-     *      max = 10,
+     *      max = 2,
      * )
      * @Assert\Regex("/^\d{2}(?:[-\s]\d{4})?$/")
      */
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 2)]
     private $code_postal;
 
     /**
@@ -155,8 +100,11 @@ class Habitats
     #[ORM\ManyToOne(targetEntity: TypesHabitat::class, inversedBy: 'habitats')]
     private $type;
 
-    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
-    private $caracteristiquesHabitats;
+    // #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
+    // private $caracteristiques;
+
+    #[ORM\ManyToMany(targetEntity: CaracteristiquesHabitat::class, inversedBy: 'habitats')]
+    private $caracteristiques;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
     private $reservations;
@@ -175,7 +123,7 @@ class Habitats
 
     public function __construct()
     {
-        $this->caracteristiquesHabitats = new ArrayCollection();
+        $this->caracteristiques = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
@@ -369,27 +317,27 @@ class Habitats
     /**
      * @return Collection<int, CaracteristiquesHabitat>
      */
-    public function getCaracteristiquesHabitats(): Collection
+    public function getCaracteristiques(): Collection
     {
-        return $this->caracteristiquesHabitats;
+        return $this->caracteristiques;
     }
 
-    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    public function addCaracteristiques(CaracteristiquesHabitat $caracteristiques): self
     {
-        if (!$this->caracteristiquesHabitats->contains($caracteristiquesHabitat)) {
-            $this->caracteristiquesHabitats[] = $caracteristiquesHabitat;
-            $caracteristiquesHabitat->setHabitat($this);
+        if (!$this->caracteristiques->contains($caracteristiques)) {
+            $this->caracteristiques[] = $caracteristiques;
+            $caracteristiques->setHabitat($this);
         }
 
         return $this;
     }
 
-    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    public function removeCaracteristiques(CaracteristiquesHabitat $caracteristiques): self
     {
-        if ($this->caracteristiquesHabitats->removeElement($caracteristiquesHabitat)) {
+        if ($this->caracteristiques->removeElement($caracteristiques)) {
             // set the owning side to null (unless already changed)
-            if ($caracteristiquesHabitat->getHabitat() === $this) {
-                $caracteristiquesHabitat->setHabitat(null);
+            if ($caracteristiques->getHabitat() === $this) {
+                $caracteristiques->setHabitat(null);
             }
         }
 

@@ -1,4 +1,6 @@
-@import '~flatpickr';
+#main-container {
+    margin: 0 2%;
+}
 
 .titre_liste_habitats {
     width: fit-content;
@@ -161,3 +163,10 @@
     color: #998763!important;
 }
 
+// #date-picker {
+//     width: 100%;
+// }
+
+.flatpickr-calendar {
+    width: 100%;
+}

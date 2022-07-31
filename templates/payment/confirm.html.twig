@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Présentation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('confirm_reservation') }}
+{% endblock %}
+
+{% block main %}
+<div class="d-flex justify-content-arround">
+    <h1>Votre réservation a été effectuée avec succès !</h1>
+</div>
+    <div class="col-12">
+        <a id="button-return" href="{{ path('habitats_index') }}" class="btn btn-primary">Revenir à la liste des habitats</a>
+    </div>
+{% endblock %}
