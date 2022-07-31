@@ -22,6 +22,10 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
+    #[ORM\ManyToMany(targetEntity: TypesHabitat::class, mappedBy: 'caracteristiquesTypesHabitat')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $types;
+
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
@@ -33,9 +37,11 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToOne(targetEntity: TypesHabitat::class, inversedBy: 'caracteristiquesTypesHabitat')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $type;
+
+    public function __construct()
+    {
+        $this->typesHabitats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -110,6 +116,33 @@ class CaracteristiquesTypeHabitat
     public function setType(?TypesHabitat $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TypesHabitat>
+     */
+    public function getTypesHabitats(): Collection
+    {
+        return $this->typesHabitats;
+    }
+
+    public function addTypesHabitat(TypesHabitat $typesHabitat): self
+    {
+        if (!$this->typesHabitats->contains($typesHabitat)) {
+            $this->typesHabitats[] = $typesHabitat;
+            $typesHabitat->addCaracteristiquesTypesHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTypesHabitat(TypesHabitat $typesHabitat): self
+    {
+        if ($this->typesHabitats->removeElement($typesHabitat)) {
+            $typesHabitat->removeCaracteristiquesTypesHabitat($this);
+        }
 
         return $this;
     }

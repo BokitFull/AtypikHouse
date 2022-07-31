@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Abonner;
-use App\Controller\AbonnerType;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
 use App\Entity\TypesHabitat;
+use App\Form\BecomeHostType;
 use App\Form\AbonnerType as FormAbonnerType;
 use App\Security\LoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,26 +60,20 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/changer_role', name: 'changer_role', methods: ['GET'])]
+    #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
     public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
     {   
-        if($this->getUser()){
+        $form = $this->createForm(BecomeHostType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             $user = $this->security->getUser();
-            $userRoles = [
-                'hote' => [
-                    'role' => ['ROLE_HOTE'],
-                    'message' => 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
-                    ], 
-                'user' => [
-                    'role' => ['ROLE_USER'],
-                    'message' => 'Vous êtes redevenu un utilisateur, vous pouvez maintenant effectuer des réservations']
-                ];
-            $user->setRoles($userRoles[$request->query->get('type')]['role']);
+            $user->setRoles(['ROLE_HOTE']);
             $entityManager->persist($user);
             $entityManager->flush();
             
             $this->addFlash(
-                'success', $userRoles[$request->query->get('type')]['message']
+                'success', 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
             );
             
             return $userAuthenticator->authenticateUser(
@@ -87,8 +81,11 @@ class HomeController extends AbstractController
                 $authenticator,
                 $request
             );
+            
+            return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->redirectToRoute('home');
+
+        return $this->redirectToRoute('home' ,['host_form' => $form]);
     }
 }
 

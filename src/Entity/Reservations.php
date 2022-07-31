@@ -45,7 +45,7 @@ class Reservations
     #[ORM\Column(type: 'datetime_immutable' , nullable: true)]
     private $updated_at;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
     #[Gedmo\Versioned]

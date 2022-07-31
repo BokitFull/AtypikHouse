@@ -57,6 +57,27 @@
     align-items: center;
 }
 
+.div_reservations{
+    width: 100%;
+    table{
+        width: 90%;
+        margin: 50px auto;
+        text-align: center;
+        a{
+            color: #2B7929;
+            &:hover{
+                color: #b87247;
+            }
+        }
+        button{
+            color: #2B7929;
+            &:hover{
+                color: #b87247;
+            }
+        }
+    }
+}
+
 // .reservation-facture{
 //     grid-area: facture;
 //     border-top: 2px solid #998763;

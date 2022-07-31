@@ -1,7 +1,3 @@
-@import '~flatpickr';
-
-
-
 img.sr-only {
     position: absolute;
         
@@ -251,6 +247,9 @@ button.buttonAbonner {
     width: 100%;
 }
 
+.white-text {
+    color: white;
+}
 
 form.formulaireAbonnement {
     display: flex;

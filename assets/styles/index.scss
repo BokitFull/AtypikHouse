@@ -1,0 +1,15 @@
+@import '~flatpickr';
+
+@mixin track() { 
+    color: #2b7929;
+}
+
+input.form-range {
+  &::-webkit-slider-runnable-track { @include track }
+  &::-moz-range-track { @include track }
+  &::-ms-track { @include track }
+}
+
+.flatpickr-disabled {
+  color: gray;
+}

@@ -17,13 +17,17 @@
         <hr>
         <div id="reservation-recap">
             <div id="reservation-detail">
-                <p>1 personnes - 1 nuit - 120€</p>
+                <p>
+                    {{ reservation.habitat.nbPersonnes }} personne(s) -
+                    {{ duree }} nuit(s) -
+                    {{ reservation.habitat.prix }} &euro;
+                </p>
                 <p>{{ reservation.dateDebut|date('D d M Y') }}</p>
                 <p>{{ reservation.dateFin|date('D d M Y') }}</p>    
             </div>
             <div id="reservation-habitat">
                 Image de l'habitat
-                <p> {{ reservation.habitat.libelle }}
+                <p> {{ reservation.habitat.titre }}
             </div>
         </div>
         <hr>

@@ -39,6 +39,18 @@ header {
     height: auto;
     width: 12em;
 }
+nav.nav-logo a.nav-link, nav.nav-logo a.btn {
+    color: #2B7929;
+}
+nav.nav-logo a:hover.nav-link {
+    color: #b87247;
+    background-color: white;
+}
+
+nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
+    color: white;
+    background-color: #2B7929;
+}
 
 #menu-toggle, #menu-btn{
     display: none;
@@ -98,6 +110,7 @@ header {
 .submit-btn {
     margin-bottom: 8px;
     width: fit-content;
+    color: white;
 }
 
 #login_btn_div{
@@ -113,6 +126,36 @@ header {
 
 #login_form_btn{
     display: none;
+}
+
+#devenir_hote_form{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+}
+.green-text {
+    color: #2B7929;
+}
+.green-text:hover {
+    color: #b87247;
+}
+
+input.btn, button.btn, a.btn {
+    background-color: #2b7929;
+    border-color: #2b7929;
+    color: white;
+}
+input.btn:hover, button.btn:hover, a.btn:hover {
+    color: white;
+    background-color: #b87247;
+    border-color: #b87247;
+}
+input.btn::after, button.btn::after, a.btn::after {
+    color: white;
+    background-color: #b87247;
+    border-color: #b87247;
 }
 
 @media only screen and (max-width:1200px){    
@@ -137,10 +180,6 @@ header {
              20%         55%         23%
         ;
     }
-    
-    .nav-logo {
-        width: 10em;
-    }
 
     #login_div{
         grid-template:
@@ -158,10 +197,6 @@ header {
             'menu       logo       login'      auto /
             1fr         1fr         1fr
         ;
-    }
-
-    .nav-logo {
-        width: 12em;
     }
     
     #nav-col-menu ul {
