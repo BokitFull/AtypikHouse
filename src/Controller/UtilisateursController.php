@@ -21,6 +21,7 @@ class UtilisateursController extends AbstractController
        $this->security = $security;
     }
 
+    //Page de profil utilisateur
     #[Route('/', name: 'accueil_utilisateur', methods: ['GET'])]
     public function home(): Response
     {   
@@ -34,6 +35,7 @@ class UtilisateursController extends AbstractController
     //     return $this->render('utilisateurs/informations_personnelles.html.twig');
     // }
 
+    //Page des réservations d'un utilisateur
     #[Route('/reservations', name: 'reservation_utilisateur', methods: ['GET', 'POST'])]
     public function reservations(Request $request, UtilisateursRepository $utilisateursRepository): Response
     {   
@@ -42,6 +44,7 @@ class UtilisateursController extends AbstractController
         return $this->render('utilisateurs/reservations.html.twig', $context);
     }
 
+    //Page d'édition des informations d'un utilisateur
     #[Route('/{id}/edit', name: 'informations_personnelles', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateurs $utilisateur, UtilisateursRepository $utilisateursRepository): Response
     {
@@ -50,6 +53,7 @@ class UtilisateursController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
+            //Gestion de l'image de profil utilisateur
             $image = $_FILES["edit_user"];
             $utilisateursRepository->add($utilisateur, true);
 
@@ -64,6 +68,7 @@ class UtilisateursController extends AbstractController
         ]);
     }
 
+    //Suppression d'un utilisateur
     #[Route('/{id}', name: 'app_utilisateurs_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateurs $utilisateur, UtilisateursRepository $utilisateursRepository): Response
     {

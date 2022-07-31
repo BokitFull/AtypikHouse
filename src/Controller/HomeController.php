@@ -26,24 +26,26 @@ class HomeController extends AbstractController
     $this->security = $security;
     }
 
+    //Page d'accueil
     #[Route('/', name: 'app_home')]
     public function index(ManagerRegistry $doctrine , Request $request , EntityManagerInterface $manager): Response
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
         $repoType = $doctrine-> getRepository(TypesHabitat::class); 
-        //show only last three comments
+
+        //Trouve les 3 derniers commentaires d'un habitat
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
-        //
+
         $departement = $repoHabitat->findAll();
         $typeHebergement = $repoType->findAll();
 
-        $abonner = new Abonner() ; 
+        $abonner = new Abonner() ;
     
         $form = $this->createForm(FormAbonnerType::class, $abonner);
         $form->handleRequest($request);
 
-
+        //Enregistrement du formulaire d'abonnement à la newsletter
         if ($form->isSubmitted() && $form->isValid())  
         { 
             $manager->persist($abonner);
@@ -60,32 +62,32 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
-    public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
-    {   
-        $form = $this->createForm(BecomeHostType::class);
-        $form->handleRequest($request);
+    // #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
+    // public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
+    // {   
+    //     $form = $this->createForm(BecomeHostType::class);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
-            $user = $this->security->getUser();
-            $user->setRoles(['ROLE_HOTE']);
-            $entityManager->persist($user);
-            $entityManager->flush();
+    //     if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
+    //         $user = $this->security->getUser();
+    //         $user->setRoles(['ROLE_HOTE']);
+    //         $entityManager->persist($user);
+    //         $entityManager->flush();
             
-            $this->addFlash(
-                'success', 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
-            );
+    //         $this->addFlash(
+    //             'success', 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
+    //         );
             
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+    //         return $userAuthenticator->authenticateUser(
+    //             $user,
+    //             $authenticator,
+    //             $request
+    //         );
             
-            return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
-        }
+    //         return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        return $this->redirectToRoute('home' ,['host_form' => $form]);
-    }
+    //     return $this->redirectToRoute('home' ,['host_form' => $form]);
+    // }
 }
 

@@ -9,19 +9,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationsController extends AbstractController
 {   
-    #[Route('/reservations', name: 'reservations', methods: ['GET', 'POST'])]
-    public function index(): Response
-    {   
-        return $this->render('utilisateurs/reservations.html.twig', []);
-    }
+    
+    // #[Route('/reservations', name: 'reservations', methods: ['GET', 'POST'])]
+    // public function index(): Response
+    // {   
+    //     return $this->render('utilisateurs/reservations.html.twig', []);
+    // }
 
-    #[Route('/reservations/new', name: 'new_reservations', methods: ['GET', 'POST'])]
-    public function new(): Response
-    {   
+    // #[Route('/reservations/new', name: 'new_reservations', methods: ['GET', 'POST'])]
+    // public function new(): Response
+    // {   
         
-        return $this->render('utilisateurs/reservations.html.twig', []);
-    }
+    //     return $this->render('utilisateurs/reservations.html.twig', []);
+    // }
 
+    //Détail d'un réservation 
     #[Route('/reservations/{id}', name: 'reservations_detail', methods: ['GET'])]
     public function detail(Reservations $reservation): Response
     {   $context['reservation'] = $reservation;

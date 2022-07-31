@@ -48,6 +48,7 @@ class HabitatsController extends AbstractController
         $this->imagesRepository = $imagesRepository;
     }
 
+    //Création des pays/régions/départements/villes à ajouter en base
     public function createLocation(Request $request){
         $pays = new Pays();
         $region = new Region();
@@ -88,112 +89,23 @@ class HabitatsController extends AbstractController
         return;
     }
 
+    //Nouvel habitat
     #[Route('/new', name: 'new_habitat', methods: ['GET', 'POST'])]
     public function new(Request $request, HabitatsRepository $habitatsRepository, FileUploader $fileUploader): Response
     {
         $context = [];
         
+        //Création du formulaire + handle de la requête
         $habitat = new Habitats();
         $form = $this->createForm(HabitatsType::class, $habitat);
         $form->handleRequest($request);
+
         $context['form'] = $form;
         $context['habitat'] = $habitat;
         
-        // $images = $form->get('images')->getData();
-        // var_dump($images);
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            // $images = $form->get('images')->getData();
-
-            // foreach ($images as $key => $value) {
-            //     var_dump($value);
-            //     $uploader->upload($value);
-            //     $habitat->addImage($value);
-            // }
-
-            $utilisateur = $this->getUser();
-
-            $habitat->setEstValide(false);
-            $habitat->setUtilisateur($utilisateur);
-            $habitatsRepository->add($habitat, true);
-
-            return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('habitats/new.html.twig', $context);
-    }
-
-
-
-    #[Route('/', name: 'habitats_index', methods: ['GET'])]
-    public function index(Request $request, PaginatorInterface $paginator, TypesHabitatRepository $typesHabitatsRepository,  HabitatsRepository $habitatsRepository): Response
-    {       
-            $donnees = $habitatsRepository->findByHabitats(array_filter($_GET));
-            $dep = $habitatsRepository->findByDep();
-
-            $types = $typesHabitatsRepository->findByTypes();
-            $habitats = $paginator->paginate(
-                $donnees, // Requête contenant les données à paginer (ici nos articles)
-                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-                6 // Nombre de résultats par page
-            );
             
-            return $this->render('habitats/index.html.twig', [
-                'habitats' => $habitats,
-                'dep' => $dep,
-                'types' => $types,
-            ]);
-    }
-
-    #[Route('/calendar', name: 'habitat_calendar', methods: ['GET'])]
-    public function calendar(ReservationsRepository $reservationsRepository): Response
-    {   
-        $context = [];
-        $habitats = $this->getUser()->getHabitats()->toArray();
-        $habitats = array_map(function($x) {return $x->getId();}, $habitats);
-        $current_date = new DateTime();
-        $current_date = $current_date->format('Y-m-d');
-        $reservations_date = $reservationsRepository->getReservationsByDate([
-            'year' => explode('-', $current_date)[0],
-            'month' => explode('-', $current_date)[1],
-            'id' => implode(",", $habitats)
-        ]);
-        
-        $context['reservations_date'] = $reservations_date;
-        return $this->render('habitats/calendar.html.twig', $context);
-    }
-    
-    #[Route('/{id}', name: 'habitats_detail', methods: ['GET'])]
-    public function show(Habitats $habitat): Response
-    {
-        $commentaires = $this->commsRepository->findByHabitat($habitat);
-        $notes = $this->commsRepository->findNotesMoyennesByHabitat($habitat);
-
-        return $this->render('habitats/show.html.twig', [
-            'controller_name' => 'HabitatsController',
-            'habitat' => $habitat,
-            'commentaires' => $commentaires,
-            'notes' => $notes,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository, FileUploader $uploader): Response
-    {
-        $context = [];
-
-        $form = $this->createForm(HabitatsType::class, $habitat);
-        $form->handleRequest($request);
-        $context['form'] = $form;
-        $context['habitat'] = $habitat;
-
-        echo "<pre>";
-        var_dump($_FILES);
-        echo "</pre>";
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->createLocation($request);
-
+            //Ajout des images à l'habitat
             if($_FILES["habitats"]) {
 
                 $file = $_FILES["habitats"];
@@ -212,21 +124,110 @@ class HabitatsController extends AbstractController
                 $habitat->addImagesHabitat($image);
             }
 
-            // $count = 0;
-            // foreach($images as $image) {
+            $utilisateur = $this->getUser();
 
-            //     $chemin = uniqid() . $_FILES["habitats"]["name"]["imagesHabitats"][$count];
-            //     move_uploaded_file($image,"../public/images/uploads/habitats/" . $chemin);          
-                
-            //     $image = new ImagesHabitat();
-            //     $image->setChemin($chemin);
-            //     $image->setHabitat($habitat);
-            //     $image->setPosition($count);
-            //     $habitat->addImagesHabitat($image);
+            //Définition des valeurs par défaut pour l'habitat
+            $habitat->setEstValide(false);
+            $habitat->setUtilisateur($utilisateur);
+            $habitatsRepository->add($habitat, true);
 
-            //     $count++;
-            // }
+            return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('habitats/new.html.twig', $context);
+    }
+
+    //Liste des habitats
+    #[Route('/', name: 'habitats_index', methods: ['GET'])]
+    public function index(Request $request, PaginatorInterface $paginator, TypesHabitatRepository $typesHabitatsRepository,  HabitatsRepository $habitatsRepository): Response
+    {       
+            $donnees = $habitatsRepository->findByHabitats(array_filter($_GET));
+            $dep = $habitatsRepository->findByDep();
+            $types = $typesHabitatsRepository->findByTypes();
+
+            //Pagination
+            $habitats = $paginator->paginate(
+                $donnees, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                6 // Nombre de résultats par page
+            );
             
+            return $this->render('habitats/index.html.twig', [
+                'habitats' => $habitats,
+                'dep' => $dep,
+                'types' => $types,
+            ]);
+    }
+
+    //Calendrier de disponibilité des habitats
+    #[Route('/calendar', name: 'habitat_calendar', methods: ['GET'])]
+    public function calendar(ReservationsRepository $reservationsRepository): Response
+    {   
+        $context = [];
+        $habitats = $this->getUser()->getHabitats()->toArray();
+        $habitats = array_map(function($x) {return $x->getId();}, $habitats);
+        $current_date = new DateTime();
+        $current_date = $current_date->format('Y-m-d');
+        $reservations_date = $reservationsRepository->getReservationsByDate([
+            'year' => explode('-', $current_date)[0],
+            'month' => explode('-', $current_date)[1],
+            'id' => implode(",", $habitats)
+        ]);
+        
+        $context['reservations_date'] = $reservations_date;
+        return $this->render('habitats/calendar.html.twig', $context);
+    }
+    
+    //Détails des habitats
+    #[Route('/{id}', name: 'habitats_detail', methods: ['GET'])]
+    public function show(Habitats $habitat): Response
+    {
+        $commentaires = $this->commsRepository->findByHabitat($habitat);
+        $notes = $this->commsRepository->findNotesMoyennesByHabitat($habitat);
+
+        return $this->render('habitats/show.html.twig', [
+            'controller_name' => 'HabitatsController',
+            'habitat' => $habitat,
+            'commentaires' => $commentaires,
+            'notes' => $notes,
+        ]);
+    }
+
+    //Modification d'un habitat
+    #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository, FileUploader $uploader): Response
+    {
+        $context = [];
+
+        //Création du formulaire + handle de la requête
+        $form = $this->createForm(HabitatsType::class, $habitat);
+        $form->handleRequest($request);
+
+        $context['form'] = $form;
+        $context['habitat'] = $habitat;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->createLocation($request);
+
+            //Ajout des nouvelles images
+            if($_FILES["habitats"]) {
+
+                $file = $_FILES["habitats"];
+                $name = $habitat->getId() . "_" . $file["name"]["addImages"];
+                move_uploaded_file($file["tmp_name"]["addImages"],"../public/images/uploads/habitats/". $name);
+                
+                $count = 0;
+                for($count = 0; $count < count($habitat->getImagesHabitats()) ; $count++) ;
+                
+                $image = new ImagesHabitat();
+                $image->setChemin($name);
+                $image->setHabitat($habitat);
+                $image->setPosition($count + 1);
+                $this->imagesRepository->add($image, true);
+                
+                $habitat->addImagesHabitat($image);
+            }
+
             $habitatsRepository->add($habitat, true);
 
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
@@ -235,6 +236,7 @@ class HabitatsController extends AbstractController
         return $this->renderForm('habitats/edit.html.twig', $context);
     }
 
+    //Delete d'un habitat
     #[Route('/{id}', name: 'delete_habitat', methods: ['POST'])]
     public function delete(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository): Response
     {

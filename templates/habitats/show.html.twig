@@ -134,11 +134,6 @@
                 <form id="form-reservation" action="{{ path('payment', { 'id': habitat.id }) }}" onsubmit="">
                     <div class="d-flex flex-column justify-content-between mb-2">
                         <div>
-                            <label for="labelNbPersonnes" class="label-form">Nombres de personnes :</label>
-                            <output id="result-personnes">1</output>
-                            <input id="nb_personnes" name="nb_personnes" class="form-range" type="range" min="1" max="{{ habitat.nbPersonnes }}" value="1" oninput="document.querySelector('#result-personnes').value = this.value">
-                        </div>
-                        <div>
                             <input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
                         </div>
                     </div>
