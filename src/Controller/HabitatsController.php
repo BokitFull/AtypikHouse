@@ -190,13 +190,13 @@ class HabitatsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->createLocation($request);
 
-            // $images = $form->get('images')->getData();
+            $images = $form->get('imagesHabitats')->getData();
 
-            // foreach ($images as $key => $value) {
-            //     var_dump($value);
+            foreach ($images as $key => $value) {
+                var_dump($value);
                 // $uploader->upload($value);
                 // $habitat->addImage($value);
-            // }
+            }
 
             $habitatsRepository->add($habitat, true);
 

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Habitats;
 use App\Entity\Prestations;
 use App\Entity\CaracteristiquesHabitat;
+use App\Entity\ImagesHabitat;
 use App\Entity\TypesHabitat;
 use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
@@ -28,7 +29,7 @@ class HabitatsType extends AbstractType
             ->add('code_postal', TextType::class, [
                 'label' => 'Code postal (2 chiffres)'
             ])
-            ->add('pays')
+            // ->add('pays')
             ->add('est_actif')
             ->add('description')
             ->add('prix')
@@ -41,6 +42,11 @@ class HabitatsType extends AbstractType
                 'widget' => 'choice',
                 'input'  => 'datetime_immutable'
                 ])
+            ->add('imagesHabitats', EntityType::class, [
+                'class' => ImagesHabitat::class,
+                'choice_label' => 'chemin',
+                'multiple' => true,
+            ])
             // ->add('images', CollectionType::class, [
             //     'allow_add' => true,
             //     'allow_delete' => true,
