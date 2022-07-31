@@ -100,12 +100,6 @@ class Habitats
     #[ORM\ManyToOne(targetEntity: TypesHabitat::class, inversedBy: 'habitats')]
     private $type;
 
-    // #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
-    // private $caracteristiques;
-
-    #[ORM\ManyToMany(targetEntity: CaracteristiquesHabitat::class, inversedBy: 'habitats')]
-    private $caracteristiques;
-
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservations::class)]
     private $reservations;
 
@@ -121,12 +115,16 @@ class Habitats
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'habitats')]
     private $ville;
 
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
+    private Collection $CaracteristiquesHabitat;
+
     public function __construct()
     {
         $this->caracteristiques = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
+        $this->CaracteristiquesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,28 +320,6 @@ class Habitats
         return $this->caracteristiques;
     }
 
-    public function addCaracteristiques(CaracteristiquesHabitat $caracteristiques): self
-    {
-        if (!$this->caracteristiques->contains($caracteristiques)) {
-            $this->caracteristiques[] = $caracteristiques;
-            $caracteristiques->setHabitat($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCaracteristiques(CaracteristiquesHabitat $caracteristiques): self
-    {
-        if ($this->caracteristiques->removeElement($caracteristiques)) {
-            // set the owning side to null (unless already changed)
-            if ($caracteristiques->getHabitat() === $this) {
-                $caracteristiques->setHabitat(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Reservations>
      */
@@ -460,6 +436,36 @@ class Habitats
     public function setImages(?array $images): self
     {
         $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CaracteristiquesHabitat>
+     */
+    public function getCaracteristiquesHabitat(): Collection
+    {
+        return $this->CaracteristiquesHabitat;
+    }
+
+    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    {
+        if (!$this->CaracteristiquesHabitat->contains($caracteristiquesHabitat)) {
+            $this->CaracteristiquesHabitat->add($caracteristiquesHabitat);
+            $caracteristiquesHabitat->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    {
+        if ($this->CaracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
+            // set the owning side to null (unless already changed)
+            if ($caracteristiquesHabitat->getHabitat() === $this) {
+                $caracteristiquesHabitat->setHabitat(null);
+            }
+        }
 
         return $this;
     }
