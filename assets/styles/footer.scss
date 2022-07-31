@@ -19,11 +19,6 @@ footer {
    color: #616161;
 }
 
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
 .footer-distributed{
   background: transparent;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
@@ -31,7 +26,7 @@ footer {
   width: 100%;
   text-align: left;
   font: bold 16px sans-serif;
-  padding: 55px 50px 50px 70px;
+  padding: 55px 50px 0px 70px;
 }
 
 .footer-distributed .footer-left,
