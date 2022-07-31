@@ -47,11 +47,8 @@ Encore
     .addStyleEntry('habitat_delete', './assets/styles/habitats/habitats_delete.scss')
     .addStyleEntry('payment_index', './assets/styles/payment.scss')
     .addStyleEntry('new_reservations', './assets/styles/reservations/new_reservation.scss')
-<<<<<<< HEAD
     .addStyleEntry('hote_navbar', './assets/styles/hotes/navbar.scss')
-=======
     .addStyleEntry('contact', './assets/styles/contact.scss')
->>>>>>> 971c02f168440c79ad318d17a540f502a84c4913
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')
