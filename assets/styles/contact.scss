@@ -1,26 +1,33 @@
+.coordonees {
+    padding: 50px;
+}
+
 .messageAdded {
-    
-    margin-bottom:10px;
+
+    margin-bottom: 10px;
     color: green;
 }
+
 button.buttonContact {
     background: #2B7929;
     color: white;
 }
-    .ButtonEnboyer {
-	display: flex;
+
+.ButtonEnboyer {
+    display: flex;
     width: 80%;
     margin-top: 15px;
     margin-bottom: 30px;
     justify-content: flex-end;
 }
+
 textarea#contact_message {
     width: 80%;
     height: 150px;
     background: transparent;
 }
 
-        p.formLabel {
+p.formLabel {
     margin: 0;
 }
 
@@ -29,46 +36,48 @@ textarea#contact_message {
     display: block;
     margin-top: 50px;
     position: relative;
-    left: 10%;
+    left: 6%;
 }
-        .coordonnesPhoneEmail {
+
+.coordonnesPhoneEmail {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
 }
-			.formContact {
-				width: 50%;
-			}
-			.coordonnesNomPrenom {
-				display: flex;
-				justify-content: space-around;
-			}
-			.coordoneesTitle {
-				margin-bottom: 20px;
-				margin-top: 20px;
-			}
-		.contactez-nousTitle {
+
+.formContact {
+    width: 100%;
+    padding: 55px;
+}
+
+.coordonnesNomPrenom {
+    display: flex;
+    justify-content: space-around;
+}
+
+.coordoneesTitle {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.contactez-nousTitle {
     margin-top: 90px;
     display: flex;
     justify-content: center;
 }
 
-			.SectionForm {
-				display: flex;
-				justify-content: space-around;
-				margin: 80px 90px 150px;
-				border: 1px solid green;
-			}
+.SectionForm {
+    display: flex;
+    justify-content: space-around;
+    margin: 80px 90px 150px;
+    border: 1px solid green;
+}
 
 
-            .SectionForm {
-                display: flex;
-                justify-content: space-around;
-                margin: 80px 90px 150px;
-                border: 5px solid #478747;
-            }
-            .formContact {
-                margin-top: 20px;
-                width: 50%;
-            }
-            
+.SectionForm {
+    display: flex;
+    justify-content: space-around;
+    margin: 80px 90px 150px;
+    border: 5px solid #478747;
+}
+
