@@ -10,11 +10,15 @@
     display: flex;
     justify-content: center;
     background-color: #2B7929e6;
-    margin: 0 450px;
+    margin: 0 5%;
     padding-top: 50px;
     padding-bottom: 50px;
     border-radius: 40px;
     z-index: 2;
+
+    h1 {
+        width: 100%;
+    }
 }
 
 #form-input-div div{
