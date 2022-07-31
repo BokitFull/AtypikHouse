@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AbonnerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: AbonnerRepository::class)]
 class Abonner
@@ -18,7 +19,8 @@ class Abonner
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $NomAbonner;
-
+    
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $CreatedAt;
 

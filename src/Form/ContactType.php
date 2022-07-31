@@ -2,25 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Abonner;
+use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class AbonnerType extends AbstractType
+
+class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email_abonner')
-
+            ->add('nom')
+            ->add('prenom')
+            ->add('Email')
+            ->add('telephone')
+            ->add('message' , TextareaType::class )
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Abonner::class,
+            'data_class' => Contact::class,
         ]);
     }
 }
