@@ -33,13 +33,12 @@
 
         <div class="centercenter" >
           
-        <p class="footer-links"> <a href="#" class="link-1"> Accueil</a></p>
+        <p class="footer-links"> <a href="/" class="link-1"> Accueil</a></p>
           
-         <p class="footer-links"> <a href="#">Destinations</a> </p>
         
-          <p class="footer-links"> <a href="#">Hébergements</a> </p>
+          <p class="footer-links"> <a href="{{ path('habitats_index') }}" >Hébergements</a> </p>
         
-          <p class="footer-links"> <a href="#">Contact</a></p> 
+          <p class="footer-links"> <a href="{{ path('app_contact') }}" >Contact</a></p> 
           
         </p>
         </div>
@@ -51,11 +50,11 @@
 
       <div class ="centercenter">
 
-      <a href="#" class="link-1">Mention Legales</a>
+      <a href="{{ path('app_mentionlegale') }}" class="link-1">Mention Legales</a>
 
       <div> 
     <div class ="centercenter" >
-      <a href="#">Politique de confidentialité</a>
+      <a href="{{ path('app_confidentialites') }}" >Politique de confidentialité</a>
       </div>
 
 

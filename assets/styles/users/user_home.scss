@@ -50,9 +50,6 @@ a.displayed-card:focus,
     color: #616161;
 }
 
-footer {
-    position: absolute;
-}
 
 .user_img_div{
     text-align: center;
@@ -66,16 +63,18 @@ footer {
 }
 
 
-.fond_vert_radius{
+.fond_vert_radius {
     position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: #2B7929e6;
+
+    width: 80%;
+    background-color: rgba(43, 121, 41, 0.9019607843);
     height: 50%;
     z-index: 1;
     border-bottom-left-radius: 50% 260px;
     border-bottom-right-radius: 50% 260px;
-    margin-top: 63px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
 }
 
 
