@@ -6,9 +6,8 @@ use App\Entity\Utilisateurs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class EditUserType extends AbstractType
 {
@@ -16,31 +15,38 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('email')
-            // ->add('roles')
             // ->add('password')
             ->add('nom')
             ->add('prenom')
-            // ->add('civilite')
+            ->add('civilite')
             ->add('telephone')
             ->add('adresse')
             ->add('code_postal')
             ->add('ville')
             ->add('pays')
             ->add('image', FileType::class, [
+                'label' => 'Image',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
                 'required' => false,
-                'empty_data' => 'No file',
-                'attr' => ['class' => 'btn-outline-primary'],
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '5000k',
+                        'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'jpeg',
-                            'jpg',
-                            'png'
+                            'image/jpg',
+                            'image/jpeg',
+                            'image/png',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image',
                     ])
-                ]
+                ],
             ])
         ;
     }
