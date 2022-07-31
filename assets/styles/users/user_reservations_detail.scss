@@ -17,12 +17,8 @@
 }
 
 #reservation-title *{
-    width: 50%;
+    width: 100%;
     text-align: center;
-}
-
-#reservation-status{
-    border-right: 2px solid #998763;
 }
 
 hr {
@@ -148,3 +144,35 @@ hr {
 #reservation-star input{
     display: none;
 }
+
+#separation {
+    border-bottom: black 1px solid;
+    margin: 50px 0;
+}
+
+.commentaire_form{
+    display: flex;
+    gap: 100px;
+}
+
+.commentaire_contenu{
+    display: flex;
+    flex-direction: column;
+    textarea{
+        width: 500px;
+    }
+}
+
+.commentaire_notes label{
+    width: 150px;
+    margin-right: 20px;
+}
+
+.commentaire_btn{
+    display: flex;
+    align-items: center;
+    button{
+        height: fit-content;
+    }
+}
+

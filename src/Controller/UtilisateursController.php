@@ -47,7 +47,7 @@ class UtilisateursController extends AbstractController
     {
         $form = $this->createForm(EditUserType::class, $utilisateur);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             
             $image = $_FILES["edit_user"];
