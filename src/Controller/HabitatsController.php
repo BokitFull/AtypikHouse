@@ -96,30 +96,30 @@ class HabitatsController extends AbstractController
         $context['form'] = $form;
         $context['habitat'] = $habitat;
         
-        // $images = $form->get('images')->getData();
-        // var_dump($images);
+        $images = $form->get('images')->getData();
+        var_dump($images);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->createLocation($request);
-            // $images = $form->get('images')->getData();
+            $images = $form->get('images')->getData();
 
-            // foreach ($images as $key => $value) {
-            //     var_dump($value);
-            //     $uploader->upload($value);
-            //     $habitat->addImage($value);
-            // }
+            foreach ($images as $key => $value) {
+                var_dump($value);
+                $uploader->upload($value);
+                $habitat->addImage($value);
+            }
 
             $utilisateur = $this->getUser();
 
             $habitat->setEstValide(false);
             $habitat->setUtilisateur($utilisateur);
             $habitatsRepository->add($habitat, true);
-            
+
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('habitats/new.html.twig', $context);
     }
+
 
 
     #[Route('/', name: 'habitats_index', methods: ['GET'])]
