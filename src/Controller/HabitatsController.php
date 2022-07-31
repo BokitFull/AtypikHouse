@@ -6,6 +6,7 @@ use App\Entity\Ville;
 use App\Entity\Departements;
 use App\Entity\Habitats;
 use App\Entity\Region;
+use App\Entity\Pays;
 use App\Form\HabitatsType;
 use App\Repository\HabitatsRepository;
 use App\Repository\TypeHabitatsRepository;
@@ -25,41 +26,62 @@ use Knp\Component\Pager\PaginatorInterface;
 use App\Service\FileUploader;
 use Symfony\Component\Validator\Constraints\Date;
 
+use Symfony\Component\Security\Core\Security;
+
 #[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
+    private $security;
 
-    
-    public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository, PaysRepository $paysRepository, RegionRepository $regionRepository, DepartementsRepository $departementsRepository, VilleRepository $villeRepository) {
+    public function __construct(HabitatsRepository $repository, CommentairesRepository $commsRepository, 
+    PaysRepository $paysRepository, RegionRepository $regionRepository, DepartementsRepository $departementsRepository, VilleRepository $villeRepository,
+    Security $security) {
         $this->repository = $repository;
         $this->commsRepository = $commsRepository;
         $this->regionRepository = $regionRepository;
         $this->departementsRepository = $departementsRepository;
         $this->paysRepository = $paysRepository;
         $this->villeRepository = $villeRepository;
+        $this->security = $security;
     }
 
     public function createLocation(Request $request){
+        $pays = new Pays();
         $region = new Region();
         $departements = new Departements();
         $ville = new Ville();
+
+        if(!$this->paysRepository->findBy(['nom' => 'France'])) {
+            $pays->setNom("France");
+            $this->paysRepository->add($pays);
+        }
+
         $adresse = explode(';', $request->request->get('adresse'));
 
-        if(!$this->regionRepository->findBy(['nom' => $adresse[3]])){
-            $region->setNom($adresse[3]);
-            $region->setPays($this->paysRepository->findBy(['name' => 'France']));
-            $this->regionRepository->add($region);
+        if(str_contains($request->request->get('adresse'), ";")) {
+            if(!$this->regionRepository->findBy(['nom' => $adresse[3]])){
+                $region->setNom($adresse[3]);
+                $region->setPays($this->paysRepository->findBy(['nom' => 'France'])[0]);
+                $this->regionRepository->add($region);
+            }
         }
-        if(!$this->departementsRepository->findBy(['nom' => $adresse[2]])){
-            $departements->setNom($adresse[2]);
-            $departements->setRegion($region);
-            $this->departementsRepository->add($departements);
+
+        if(str_contains($request->request->get('adresse'), ";")) {
+            if(!$this->departementsRepository->findBy(['nom' => $adresse[2]])){
+                $departements->setNom($adresse[2]);
+                $departements->setRegion($region);
+                $this->departementsRepository->add($departements);
+            }
         }
-        if(!$this->villeRepository->findBy(['nom' => $adresse[0]])){
-            $ville->setNom($adresse[0]);
-            $ville->setDepartements($departements);
-            $this->villeRepository->add($ville);
+
+        if(str_contains($request->request->get('adresse'), ";"))  {
+            if(!$this->villeRepository->findBy(['nom' => $adresse[0]])){
+                $ville->setNom($adresse[0]);
+                $ville->setDepartements($departements);
+                $this->villeRepository->add($ville);
+            }
         }
+
         return;
     }
 
@@ -87,6 +109,10 @@ class HabitatsController extends AbstractController
             //     $habitat->addImage($value);
             // }
 
+            $utilisateur = $this->getUser();
+
+            $habitat->setEstValide(false);
+            $habitat->setUtilisateur($utilisateur);
             $habitatsRepository->add($habitat, true);
             
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
@@ -163,6 +189,7 @@ class HabitatsController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $this->createLocation($request);
+
             // $images = $form->get('images')->getData();
 
             // foreach ($images as $key => $value) {

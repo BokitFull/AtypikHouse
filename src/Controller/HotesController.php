@@ -28,7 +28,8 @@ class HotesController extends AbstractController
     #[Route('/', name: 'accueil_hote', methods: ['GET', 'POST'])]
     public function index(): Response
     {   
-        return $this->render('hotes/index.html.twig', []);
+        $context['utilisateur'] = $this->getUser();
+        return $this->render('hotes/index.html.twig', $context);
     }
 
     #[Route('/habitats', name: 'hote_habitats', methods: ['GET', 'POST'])]

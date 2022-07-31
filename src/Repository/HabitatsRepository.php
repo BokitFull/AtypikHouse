@@ -48,6 +48,9 @@ class HabitatsRepository extends ServiceEntityRepository
                       ->select('h')
                       ->addSelect('r')
                       ->leftJoin('h.reservations', 'r')
+                      ->where('1 = 1')
+                      ->andWhere('h.est_actif = 1')
+                      ->andWhere('h.est_valide = 1')
                       ->orderBy('h.id', 'ASC')
                   ;
              
@@ -55,16 +58,16 @@ class HabitatsRepository extends ServiceEntityRepository
             if(!in_array($key, ['form-date']) ){
                 $query ->setParameter($key, $value);
             }
-            if($key == 'prix'){
+            if($key == 'prix' && $value != ""){
                 $query ->andWhere('h.'.$key.' <= :'.$key);
             }
-            elseif($key == 'nb_personnes'){
-                $query ->andWhere('h.'.$key.' >= :'.$key);
+            elseif($key == 'nb_personnes' && $value != ""){
+                $query ->andWhere('h.'.$key.' <= :'.$key);
             }
-            elseif($key == 'type'){
+            elseif($key == 'type' && $value != ""){
                 $query ->andWhere('t.id = :'.$key);
             }
-            elseif($key == 'destinations'){
+            elseif($key == 'destinations' && $value != ""){
                 $destinations = explode(";", $value);
                 $query ->leftJoin('h.ville', 'v')
                        ->setParameter($key, $destinations[0]);
@@ -78,7 +81,7 @@ class HabitatsRepository extends ServiceEntityRepository
                 }elseif($destinations[1] == 'villes'){
                     $query->andWhere('v.nom = :'.$key);
                 }
-            }else if ($key == 'form-date') { 
+            }else if ($key == 'form-date' && $value != "") { 
                 $dateDebut = (new \DateTime(trim(explode('au', $value)[0], ' ')))->format('Y-m-d');
                 $dateFin = (new \DateTime(trim(explode('au', $value)[1], ' ')))->format('Y-m-d');
                 $query->setParameter("dtDebut", $dateDebut);
