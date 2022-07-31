@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationsController extends AbstractController
 {   
-    
-    // #[Route('/reservations', name: 'reservations', methods: ['GET', 'POST'])]
-    // public function index(): Response
-    // {   
-    //     return $this->render('utilisateurs/reservations.html.twig', []);
-    // }
+    //Page des réservations d'un utilisateur
+    #[Route('/reservations', name: 'reservations', methods: ['GET', 'POST'])]
+    public function index(): Response
+    {   
+        return $this->render('utilisateurs/reservations.html.twig', []);
+    }
 
     // #[Route('/reservations/new', name: 'new_reservations', methods: ['GET', 'POST'])]
     // public function new(): Response

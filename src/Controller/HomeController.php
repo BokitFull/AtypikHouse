@@ -62,32 +62,33 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
-    // public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
-    // {   
-    //     $form = $this->createForm(BecomeHostType::class);
-    //     $form->handleRequest($request);
+    //Page de changement de rôle entre utilisateur et hôte
+    #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
+    public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
+    {   
+        $form = $this->createForm(BecomeHostType::class);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
-    //         $user = $this->security->getUser();
-    //         $user->setRoles(['ROLE_HOTE']);
-    //         $entityManager->persist($user);
-    //         $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
+            $user = $this->security->getUser();
+            $user->setRoles(['ROLE_HOTE']);
+            $entityManager->persist($user);
+            $entityManager->flush();
             
-    //         $this->addFlash(
-    //             'success', 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
-    //         );
+            $this->addFlash(
+                'success', 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
+            );
             
-    //         return $userAuthenticator->authenticateUser(
-    //             $user,
-    //             $authenticator,
-    //             $request
-    //         );
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
             
-    //         return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
-    //     }
+            return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
+        }
 
-    //     return $this->redirectToRoute('home' ,['host_form' => $form]);
-    // }
+        return $this->redirectToRoute('home' ,['host_form' => $form]);
+    }
 }
 

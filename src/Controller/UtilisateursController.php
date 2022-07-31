@@ -35,14 +35,13 @@ class UtilisateursController extends AbstractController
     //     return $this->render('utilisateurs/informations_personnelles.html.twig');
     // }
 
-    //Page des réservations d'un utilisateur
-    #[Route('/reservations', name: 'reservation_utilisateur', methods: ['GET', 'POST'])]
-    public function reservations(Request $request, UtilisateursRepository $utilisateursRepository): Response
-    {   
-        $context['utilisateur'] = $this->getUser();
+    // #[Route('/reservations', name: 'reservation_utilisateur', methods: ['GET', 'POST'])]
+    // public function reservations(Request $request, UtilisateursRepository $utilisateursRepository): Response
+    // {   
+    //     $context['utilisateur'] = $this->getUser();
 
-        return $this->render('utilisateurs/reservations.html.twig', $context);
-    }
+    //     return $this->render('utilisateurs/reservations.html.twig', $context);
+    // }
 
     //Page d'édition des informations d'un utilisateur
     #[Route('/{id}/edit', name: 'informations_personnelles', methods: ['GET', 'POST'])]
