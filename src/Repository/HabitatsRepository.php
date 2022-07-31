@@ -38,6 +38,7 @@ class HabitatsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
    /**
     *@ return Habitats[] Returns an array of Habitats objects
     */
@@ -47,6 +48,9 @@ class HabitatsRepository extends ServiceEntityRepository
                       ->select('h')
                       ->addSelect('r')
                       ->leftJoin('h.reservations', 'r')
+                      ->where('1 = 1')
+                      ->andWhere('h.est_actif = 1')
+                      ->andWhere('h.est_valide = 1')
                       ->orderBy('h.id', 'ASC')
                   ;
              
@@ -54,16 +58,16 @@ class HabitatsRepository extends ServiceEntityRepository
             if(!in_array($key, ['form-date']) ){
                 $query ->setParameter($key, $value);
             }
-            if($key == 'prix'){
+            if($key == 'prix' && $value != ""){
                 $query ->andWhere('h.'.$key.' <= :'.$key);
             }
-            elseif($key == 'nb_personnes'){
-                $query ->andWhere('h.'.$key.' >= :'.$key);
+            elseif($key == 'nb_personnes' && $value != ""){
+                $query ->andWhere('h.'.$key.' <= :'.$key);
             }
-            elseif($key == 'type'){
+            elseif($key == 'type' && $value != ""){
                 $query ->andWhere('t.id = :'.$key);
             }
-            elseif($key == 'destinations'){
+            elseif($key == 'destinations' && $value != ""){
                 $destinations = explode(";", $value);
                 $query ->leftJoin('h.ville', 'v')
                        ->setParameter($key, $destinations[0]);
@@ -77,7 +81,7 @@ class HabitatsRepository extends ServiceEntityRepository
                 }elseif($destinations[1] == 'villes'){
                     $query->andWhere('v.nom = :'.$key);
                 }
-            }else if ($key == 'form-date') { 
+            }else if ($key == 'form-date' && $value != "") { 
                 $dateDebut = (new \DateTime(trim(explode('au', $value)[0], ' ')))->format('Y-m-d');
                 $dateFin = (new \DateTime(trim(explode('au', $value)[1], ' ')))->format('Y-m-d');
                 $query->setParameter("dtDebut", $dateDebut);
@@ -98,38 +102,24 @@ class HabitatsRepository extends ServiceEntityRepository
                     ->getResult();
 
         return $nb;
-    }
- 
-    /**
-     * récupération des départements pour les afficher dans le filtre
-     *
-     *@ return Habitats[] Returns an array of Habitats objects
-     */
-    public function findByDep(): array
-    {
- 
-         $query = $this->createQueryBuilder('h')
-             ->select('DISTINCT h.code_postal')
-             ->getQuery()
-             ->getResult()
-         ;
-         
-         return $query;
-    }
-//    /**
-//     * @return Habitats[] Returns an array of Habitats objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('h.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   }
+
+   /**
+    * récupération des départements pour les afficher dans le filtre
+    *
+    *@ return Habitats[] Returns an array of Habitats objects
+    */
+   public function findByDep(): array
+   {
+
+        $query = $this->createQueryBuilder('h')
+            ->select('DISTINCT h.code_postal')
+            ->getQuery()
+            ->getResult()
+        ;
+        
+        return $query;
+   }
 
 //    public function findOneBySomeField($value): ?Habitats
 //    {

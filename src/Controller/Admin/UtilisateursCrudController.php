@@ -40,6 +40,7 @@ class UtilisateursCrudController extends AbstractCrudController
                     ->setChoices([
                         'ROLE_USER' => 'ROLE_USER',
                         'ROLE_HOTE' => 'ROLE_HOTE',
+                        'ROLE_HOTE_APPR' => 'ROLE_HOTE_APPR',
                         'ROLE_ADMIN' => 'ROLE_ADMIN',
                         'ROLE_SUSPENDED' => 'ROLE_SUSPENDED'])
                     ->allowMultipleChoices()

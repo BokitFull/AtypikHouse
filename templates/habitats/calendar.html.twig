@@ -34,7 +34,7 @@
             <tbody>
                 {% for habitat in app.user.habitats %}
                     <tr id="habitat-{{habitat.id}}">
-                        <td>{{ habitat.libelle }}</td>
+                        <td>{{ habitat.titre }}</td>
                         {% for i in 1..31 %}
                             <td></td>
                         {% endfor %}

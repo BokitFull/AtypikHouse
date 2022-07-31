@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CaracteristiquesHabitatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -14,13 +16,17 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'caracteristiquesHabitats')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $habitat;
+    // #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'caracteristiquesHabitats')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private $habitat;
 
-    #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
+    #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'caracteristiquesHabitats')]
     #[ORM\JoinColumn(nullable: false)]
-    private $caracteritique_type;
+    private $habitats;
+
+    // #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private $caracteristique_type;
 
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
@@ -35,6 +41,12 @@ class CaracteristiquesHabitat
     
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
+
+
+    public function __construct()
+    {
+        $this->habitats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,17 +65,17 @@ class CaracteristiquesHabitat
         return $this;
     }
 
-    public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
-    {
-        return $this->caracteritique_type;
-    }
+    // public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
+    // {
+    //     return $this->caracteritique_type;
+    // }
 
-    public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteritique_type): self
-    {
-        $this->caracteritique_type = $caracteritique_type;
+    // public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteritique_type): self
+    // {
+    //     $this->caracteritique_type = $caracteritique_type;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getValeur(): ?string
     {
@@ -109,6 +121,33 @@ class CaracteristiquesHabitat
     public function setDeletedAt(?\DateTimeImmutable $deleted_at): self
     {
         $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Habitats>
+     */
+    public function getHabitats(): Collection
+    {
+        return $this->habitats;
+    }
+
+    public function addHabitat(Habitats $habitat): self
+    {
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats[] = $habitat;
+            // $habitat->addCaracteristiquesHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitat(Habitats $habitat): self
+    {
+        if ($this->habitats->removeElement($habitat)) {
+            // $habitat->removeCaracteristiquesHabitat($this);
+        }
 
         return $this;
     }

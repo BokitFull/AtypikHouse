@@ -6,6 +6,8 @@ document.querySelector("#date-picker").flatpickr({
   mode: 'range',
   showMonths: 2,
   static:true,
+  startDate: "today",
+  minDate: "today"
 });
 document.querySelector('.flatpickr-calendar').style.right = '-4px';
 

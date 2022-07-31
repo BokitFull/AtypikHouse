@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	{{ encore_entry_link_tags('contact') }}
+{% endblock %}
+
+{% block title %}Contactez-nous
+{% endblock %}
+
+{% block body %}
+
+	{% block main %}
+	
+        
+		<div class="contactez-nousTitle">
+			<h1>
+				Contactez Nous
+			</h1>
+		</div>
+ {{ form_start(formContact , { 'attr' : { 'class': 'formulaireAbonnement'  } }) }}
+		<section class="SectionForm">
+
+			<div class="coordonees">
+				<div class="coordoneesTitle">
+					<b>COORDONNEES</b>
+				</div>
+				<div class="dbox w-100 d-flex align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center">
+						<span class="fa fa-phone"></span>
+					</div>
+					<div class="text pl-3">
+						<p>
+							<span>Téléphone :</span>
+							<a href="tel://1234567920">+33 1 23 45 67 89</a>
+						</p>
+					</div>
+				</div>
+
+
+				<div class="dbox w-100 d-flex align-items-center">
+					<div class="icon d-flex align-items-center justify-content-center">
+						<span class="fa fa-paper-plane"></span>
+					</div>
+					<div class="text pl-3">
+						<p>
+							<span>Email:</span>
+							<a href="mailto:info@yoursite.com">info@yoursite.com</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="dbox w-100 d-flex align-items-start">
+					<div class="icon d-flex align-items-center justify-content-center">
+						<span class="fa fa-map-marker"></span>
+					</div>
+					<div class="text pl-3">
+						<p>
+							<span>Address:</span>
+							10 avenue du générale Bourgogne, France</p>
+					</div>
+				</div>
+
+
+			</div>
+
+
+			<div class="formContact">
+
+				<div class="coordonnesNomPrenom">
+
+					<div class="coordonnesNom">
+                    <p class="formLabel" for="" >  Nom*  </p>
+						{{form_widget(formContact.nom , { 'attr' : { 'placeholder': 'Votre Nom'  } })}}
+					</div>
+
+					<div class="coordonnesPrenom">
+                    <p  class="formLabel" for="" >  Prenom* </p>
+						{{form_widget(formContact.prenom , { 'attr' : { 'placeholder': 'Votre Prénom'  } })}}
+					</div>
+
+
+				</div>
+
+
+                <div class="coordonnesPhoneEmail">
+
+					<div class="coordonnesPhone">
+                    <p class="formLabel" for="" >  Téléphone  </p>
+					{{form_widget(formContact.telephone , { 'attr' : { 'placeholder': 'Votre Téléphone'  } })}}
+					</div>
+
+					<div class="coordonnesEmail">
+                    <p class="formLabel" for="" >  Email*  </p>
+					{{form_widget(formContact.Email , { 'attr' : { 'placeholder': 'Votre Email'  } })}}
+					</div>
+
+
+				</div>
+
+                <div class ="messageContact" >
+
+                <h5> <b> Raison de la demande * </b> </h5> 
+
+                <div class="messageField"> 
+                {{form_widget(formContact.message , { 'attr' : { 'placeholder': ''  } })}}
+                </div>
+
+                <div class="ButtonEnboyer">
+                <button type="submit" class="buttonContact" > Envoyer  </button>
+                </div>
+
+                {# {% if formContact.vars.submitted %}
+
+
+  
+               <div class="messageAdded"> 
+                <label class="validationMessage" for="" > Votre message a été bien transmis* </label>
+                </div>
+
+               {% endif %}
+ #}
+
+    
+
+                </div>
+
+			</div>
+
+
+		</section>
+
+       
+        {{form_end(formContact)}}
+
+	{% endblock %}
+
+{% endblock %}
+

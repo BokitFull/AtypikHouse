@@ -6,70 +6,102 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-// use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Form\PaymentFormType;
+use App\Entity\Reservations;
+use App\Entity\Habitats;
 use App\Repository\ReservationsRepository;
+use Symfony\Component\Security\Core\Security;
 
 class StripeController extends AbstractController
 {
-    public function __construct(ReservationsRepository $repository) {
+    public function __construct(ReservationsRepository $repository, Security $security) {
         $this->repository = $repository;
+        $this->security = $security;
     }
 
-    #[Route('/payment', name: 'payment_action', methods: ['GET', 'POST'])]
-    public function paymentAction(Request $request) : Response {
-        
-        function getReservationAmount(?array $items): int {
-            // Replace this constant with a calculation of the order's amount
-            // Calculate the order total on the server to prevent
-            // people from directly manipulating the amount on the client
-            return 2000;
+    #[Route('/payment/{id}', name: 'payment', methods: ['GET'])]
+    public function paymentAction(Habitats $habitat, Request $request) : Response {
+
+        $dates = $request->get("form-date");
+        $dateDebut = new \DateTime(trim(explode('au', $dates)[0]));
+        $dateFin = new \DateTime(trim(explode('au', $dates)[1]));
+        $duree = $dateDebut->diff($dateFin);
+
+        $allReservations = $habitat->getReservations();
+
+        if($request->get('reservation') == null) {
+
+            $reservation = new Reservations();
+
+            $reservation->setNbPersonnes($request->get('nb_personnes'));
+
+            $reservation->setDateDebut(new \DateTimeImmutable($dateDebut->format('Y-m-d')));
+            $reservation->setDateFin(new \DateTimeImmutable($dateFin->format('Y-m-d')));
+
+            $reservation->setMontant(round($habitat->getPrix() * ($duree->format('%a')), 2));
+            $reservation->setStatut("1");
+            $reservation->setUtilisateur($this->security->getUser());
+            $reservation->setHabitat($habitat);
+            $reservation->setCreatedAt(new \DateTimeImmutable("now"));
+            
+            $this->repository->add($reservation, true); 
+            
+            \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+            $apiKey = $this->getParameter('stripe_public_key');
+            
+            $payment = $this->getParameter('payment');
+            
+            $amount = $reservation->getMontant() * 100;
+            $currency = $payment['currency'];
+            
+            $paymentIntent = \Stripe\PaymentIntent::create([
+                'amount' => $amount,
+                'currency' => $currency,
+                'automatic_payment_methods' => [
+                    'enabled' => true,
+                ],
+            ]);
         }
-
-        \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
-        $apiKey = $this->getParameter('stripe_public_key');
-
-        $jsonStr = $request->get('args');
-        $jsonObj = json_decode($jsonStr);
-
-        $payment = $this->getParameter('payment');
-
-        $amount = getReservationAmount($jsonObj);
-        $currency = $payment['currency'];
-
-        $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $amount,
-            'currency' => $currency,
-            'automatic_payment_methods' => [
-                'enabled' => true,
-            ],
-        ]);
-
+            
         return $this->render('payment/index.html.twig', [
-            'clientSecret' => $this->getParameter('stripe_secret_key'),
-            'clientKey' => $apiKey
+            'clientKey' => $apiKey,
+            'clientSecret' => $paymentIntent->client_secret,
+            'habitat' => $habitat,
+            'reservation' => $reservation,
+            'duree' => $duree->format('%a'),
+            'url' => $this->getParameter('domain') . "/confirmPayment/" . $reservation->getId()
         ]);
-
+            
     }
 
-    #[Route('/confirmPayment', name: 'confirm_payment', methods: ['GET'])]
-    public function paymentConfirm(Request $request) : Response {
+    // #[Route('/createPayment', name: 'create_payment', methods: ['POST'])]
+    // public function createPayment(Request $request) : JsonResponse {
 
+    //     var_dump($request->getPathInfo());
+
+    //     // $response = new Response();
+    //     // $response->headers->set('Content-Type', 'application/json');
+    //     // $response->setContent(array('clientSecret' => $this->getParameter('stripe_secret_key')));
+    //     // var_dump($response);
+    //     // $response->send();
+
+    //     return new JsonResponse([
+    //         'clientSecret' => $this->getParameter('stripe_secret_key')
+    //     ]);
+    // }
+        
+    #[Route('/confirmPayment/{id}', name: 'confirm_payment', methods: ['GET'])]
+    public function paymentConfirm($id, Request $request) : Response {
+
+        //Enregistrement du statut de la réservation en base
+        $reservation = $this->repository->find($id);
+
+        $reservation->setStatut("2");
+
+        $this->repository->add($reservation, true);
+
+        return $this->render('payment/confirm.html.twig', [
+        ]);
     }
-    // #[Route('/payment/OK', name: 'success_payment', methods: ['GET'])]
-    // public function checkoutSuccess(Request $request) : Response {
-
-    //     return $this->render('payment/success.html.twig', [
-    //         'result' => $request,
-    //     ]);
-    // }
-
-    // #[Route('/payment/CANCEL', name: 'cancel_payment', methods: ['GET'])]
-    // public function checkoutCancel(Request $request) : Response {
-
-    //     return $this->render('payment/cancel.html.twig', [
-    //         'result' => $request,
-    //     ]);
-    // }
 }

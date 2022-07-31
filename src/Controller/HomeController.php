@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonner;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Commentaires;
 use App\Entity\Habitats;
 use App\Entity\TypesHabitat;
+use App\Form\BecomeHostType;
+use App\Form\AbonnerType as FormAbonnerType;
 use App\Security\LoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +27,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'app_home')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine , Request $request , EntityManagerInterface $manager): Response
     {
         $repo = $doctrine-> getRepository(Commentaires::class); 
         $repoHabitat = $doctrine-> getRepository(Habitats::class); 
@@ -33,39 +36,44 @@ class HomeController extends AbstractController
         $commentaires = $repo->findBy(array(),array('id'=>'DESC'),3,0);
         //
         $departement = $repoHabitat->findAll();
-        $nombreDepersonne = $repoHabitat->findAll( array('nombrePersonnesMax' => 'DESC'));
         $typeHebergement = $repoType->findAll();
 
+        $abonner = new Abonner() ; 
+    
+        $form = $this->createForm(FormAbonnerType::class, $abonner);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid())  
+        { 
+            $manager->persist($abonner);
+            $manager->flush();
+            
+        }
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'commentaires' => $commentaires ,
             'habitats' => $departement ,
-            'habitats' =>  $nombreDepersonne ,
-            'TypesHabitat' =>  $typeHebergement 
+            'TypesHabitat' =>  $typeHebergement ,
+            'formAbonner' => $form->createView()
         ]);
     }
 
-    #[Route('/changer_role', name: 'changer_role', methods: ['GET'])]
+    #[Route('/devenir_hote', name: 'devenir_hote', methods: ['POST'])]
     public function hoteAccueil(Request $request, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator): Response
     {   
-        if($this->getUser()){
+        $form = $this->createForm(BecomeHostType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             $user = $this->security->getUser();
-            $userRoles = [
-                'hote' => [
-                    'role' => ['ROLE_HOTE'],
-                    'message' => 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
-                    ], 
-                'user' => [
-                    'role' => ['ROLE_USER'],
-                    'message' => 'Vous êtes redevenu un utilisateur, vous pouvez maintenant effectuer des réservations']
-                ];
-            $user->setRoles($userRoles[$request->query->get('type')]['role']);
+            $user->setRoles(['ROLE_HOTE']);
             $entityManager->persist($user);
             $entityManager->flush();
             
             $this->addFlash(
-                'success', $userRoles[$request->query->get('type')]['message']
+                'success', 'Vous êtes devenu un hôte, vous pouvez maintenant ajouter des habitats en allant sur votre profil'
             );
             
             return $userAuthenticator->authenticateUser(
@@ -73,8 +81,11 @@ class HomeController extends AbstractController
                 $authenticator,
                 $request
             );
+            
+            return $this->redirectToRoute('accueil_utilisateur', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->redirectToRoute('home');
+
+        return $this->redirectToRoute('home' ,['host_form' => $form]);
     }
 }
 

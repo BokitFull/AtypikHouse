@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-	{{ encore_entry_link_tags('home') }}
+	{{ encore_entry_link_tags('home_s') }}
+	{{ encore_entry_link_tags('index_s') }}
 {% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('homeJs') }}
+    {{ encore_entry_script_tags('index') }}
 {% endblock %}
 
-{% block title %}AtypikHouse!
-{% endblock %}
+{% block title %}AtypikHouse!{% endblock %}
 
 {% block main %}
 	<article id="home-pres">
-		<img src="{{ asset('images/home_pictures.jpg') }}" class="sr-only" alt=" home banniere"/>
+		<img src="" class="sr-only" alt=" home banniere"/>
 		<h2 class="messageHome">
 			A la découverte de nouvelles expériences
 		</h2>
@@ -46,13 +46,18 @@
 					<option>
 						N'importes
 					</option>
-					{% for i in 0..10 %}
+					{% for i in 1..10 %}
 						<option  value={{ i }}>{{ i }}</option>
 					{% endfor %}
 				</select>
 
 				<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
-
+				<div id="personnes-div">
+					<label for="labelPrix" class="label-form white-text">Prix :</label>
+					<output id="result-prix" class="white-text">150</output>
+					<input id="prix" name="prix" class="form-range" type="range" min="10" max="300" value="150" oninput="document.querySelector('#result-prix').value = this.value">
+				</div>
+				
 			</div>
 			<div>
 				<input value="Rechercher" type="submit" class="btn btn-notdark">
@@ -67,27 +72,27 @@
 			<a href="#" class="card">
 				<div class="card-content">
 					<!-- destination carte -->
-					<img src="{{ asset('images/maison-carte.jpg') }}" alt="province destinations-image"/>
+					<img src="{{ asset('images/cabane.jpg') }}" alt="province destinations-image"/>
 					<h4 class="destination-title">
-						Province
+						Villa Boréale – Charlevoix
 					</h4>
 				</div>
 			</a>
 			<a href="#" class="card">
 				<div class="card-content">
 					<!-- destination carte -->
-					<img src="{{ asset('images/maison-carte.jpg') }}" alt="province destinations-image"/>
+					<img src="{{ asset('images/perchee.jpg') }}" alt="province destinations-image"/>
 					<h4 class="destination-title">
-						Province
+						Cabane perchée Sauternes
 					</h4>
 				</div>
 			</a>
 			<a href="#" class="card">
 				<div class="card-content">
 					<!-- destination carte -->
-					<img src="{{ asset('images/maison-carte.jpg') }}" alt="province destinations-image"/>
+					<img src="{{ asset('images/tonneau.jpg') }}" alt="province destinations-image"/>
 					<h4 class="destination-title">
-						Province
+						Cabane tonneau Barrique
 					</h4>
 				</div>
 			</a>
@@ -95,13 +100,19 @@
 	</article>
 
 	<article id="site-info" class="article">
-		<img src="{{ asset('images/home_pictures.jpg') }}" class="sr-only" alt="home banniere"/>
+		<img src="" class="sr-only" alt="image cabane bois"/>
 		<h3>
 			AtypikHouse
 		</h3>
 		<div class="info-div">
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.
+				AtypikHouse sélectionne pour vous des hébergements insolites partout en France ! Découvrez des endroits atypiques au cœur de nos belles régions françaises : dans des cadres enchanteurs, AtypikHouse vous garantit un séjour unique hors des sentiers battus ! Lov’Nid, igloos, tipis, tanières de Hobbit, et bien plus encore ! Défiez le vertige dans une cabane à 12 mètres de hauteur, laissez-vous flotter sur une cabane au milieu d’un lac, observez les étoiles depuis votre lit dans une bulle ou expérimentez la vie de bohème dans une roulotte… <p>
+				<p> 
+Grâce à nous, vous vivrez une véritable expérience hors du commun, loin des standards des hôtels classiques... Feuilles, animaux de la forêt et petits insectes seront sans doute de la partie !
+
+</p>
+<p>
+Réservez instantanément votre coup de cœur directement en ligne depuis smartphone, tablette ou ordinateur. A moins de 2 heures de chez vous ou à l’autre bout de la France, vous êtes sûrs de trouver l’hébergement de vos rêves grâce à notre moteur de recherche intuitif et son système de géolocalisation.
 			</p>
 		</div>
 	</article>
@@ -131,7 +142,7 @@
 			</div>
 		</section>
 		<div id="social-media-img-div">
-			<img src="{{ asset('images/ex-social-media.png') }}" class="sr-only" alt="home banniere"/>
+			<img src="" class="sr-only" alt="image reseaux sociaux"/>
 		</div>
 	</article>
 
@@ -141,9 +152,16 @@
 			<p>
 				Pour plus d'idées de voyage n'hésitez pas à vous abonnez à notre newsletter
 			</p>
-			<button type="button">
-				S'abonner
-			</button>
+			{{ form_start(formAbonner , { 'attr' : { 'class': 'formulaireAbonnement'  } }) }}
+
+<div class="form-group"> 
+<label for="" > </label>
+				{{form_widget(formAbonner.email_abonner , { 'attr' : { 'placeholder': 'Votre Email'  } })}}
+</div>
+		
+		<button type="submit" class="buttonAbonner" > S'abonner  </button>
+
+		{{form_end(formAbonner)}}
 		</section>
 	</article>
 {% endblock %}

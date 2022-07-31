@@ -1,8 +1,9 @@
 // This is your test publishable API key.
 const stripe = Stripe(clientKey);
 
-// The items the customer wants to buy
-const items = [{ id: "reservation" }];
+// // The items the customer wants to buy
+// const items = [{ id: "reservation" }];
+// console.log(items);
 
 let elements;
 
@@ -15,11 +16,13 @@ document
 
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-  const { clientSecret } = await fetch("/payment", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items }),
-  }).then((r) => r.json());
+
+  // const { clientSecret } = await fetch("/createPayment", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   accept: [ "application/json" ],
+  //   body: JSON.stringify({ items }),
+  // }).then((r) => console.log(r), (r) => r.json());
 
   elements = stripe.elements({ clientSecret });
 
@@ -35,7 +38,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "http://localhost:8000/confirmPayment",
+      return_url: url,
     },
   });
 
@@ -56,8 +59,8 @@ async function handleSubmit(e) {
 // Fetches the payment intent status after payment submission
 async function checkStatus() {
   const clientSecret = new URLSearchParams(window.location.search).get(
-    "payment_intent_client_secret"
-  );
+      "payment_intent_client_secret"
+    );
 
   if (!clientSecret) {
     return;

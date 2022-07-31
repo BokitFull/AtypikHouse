@@ -1,0 +1,25 @@
+<div class="modal fade" id="become_host_modal" tabindex="-1" aria-labelledby="becomeHostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content site-background-color">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center">Devenir hôte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p> Avant de devnir hôte , Merci de lire et accepter les mentions légales décrites ci-dessous</p>
+                {# {{ render(controller('App\\Controller\\SecurityController::authentication_form')) }}     #}
+                    {{ form_start(form, { 'attr': {'id': 'devenir_hote_form'}, 'action': path('devenir_hote')}) }}
+                    {{ form_row(form._token) }}
+                    {{ form_errors(form.cguCheckbox) }}
+                    <div>
+                        {{ form_widget(form.cguCheckbox) }}
+                        {{ form_label(form.cguCheckbox) }}
+                    </div>
+                    <button id="cgu_submit" type="submit" class="btn btn-success">Continuer</button>
+                {{ form_end(form, {render_rest: false}) }}
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>  
+    </div>
+</div>
