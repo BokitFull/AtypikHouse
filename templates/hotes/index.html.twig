@@ -2,11 +2,6 @@
 
 {% block title %}Présentation{% endblock %}
 
-{% block content %}
-<div class="d-flex justify-content-arround">
-    <h1>Hello ! ✅</h1>
-    <div class="col">
-        <a href="{{ path('hote_accueil') }}" class="btn btn-outline-secondary">Devenir hôte</a>
-    </div>
-</div>
+{% block main %}
+    {{ render(controller('App\\Controller\\HotesController::navbar')) }}
 {% endblock %}
