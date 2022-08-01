@@ -10,7 +10,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
-    {{ encore_entry_script_tags('index') }}
+    {{ encore_entry_script_tags('habitatJs') }}
 	<script>
         daterange = "{{ params["daterange"]|default }}";
     </script>
