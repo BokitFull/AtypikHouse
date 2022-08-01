@@ -55,7 +55,7 @@ class HabitatsController extends AbstractController
 
         if(!$this->paysRepository->findBy(['nom' => 'France'])) {
             $pays->setNom("France");
-            $this->paysRepository->add($pays);
+            $this->paysRepository->add($pays, true);
         }
 
         $adresse = explode(';', $request->request->get('adresse'));
@@ -100,9 +100,17 @@ class HabitatsController extends AbstractController
 
         $context['form'] = $form;
         $context['habitat'] = $habitat;
-        
+        // dump($form->getErrors()); die;
         if ($form->isSubmitted() && $form->isValid()) {
             
+            $utilisateur = $this->getUser();
+
+            //Définition des valeurs par défaut pour l'habitat
+            
+            $habitat->setEstValide(false);
+            $habitat->setUtilisateur($utilisateur);
+            $habitatsRepository->add($habitat, true);
+
             //Ajout des images à l'habitat
             if($_FILES["habitats"]) {
 
@@ -117,17 +125,12 @@ class HabitatsController extends AbstractController
                 $image->setChemin($name);
                 $image->setHabitat($habitat);
                 $image->setPosition($count + 1);
+                $image->setHabitat($habitat);
+                
                 $this->imagesRepository->add($image, true);
                 
-                $habitat->addImagesHabitat($image);
+                // $habitat->addImagesHabitat($image);
             }
-
-            $utilisateur = $this->getUser();
-
-            //Définition des valeurs par défaut pour l'habitat
-            $habitat->setEstValide(false);
-            $habitat->setUtilisateur($utilisateur);
-            $habitatsRepository->add($habitat, true);
 
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
         }

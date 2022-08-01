@@ -58,16 +58,6 @@ class Habitats
     #[ORM\Column(type: 'string', length: 2)]
     private $code_postal;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(  
-     *      min = 1,
-     *      max = 80,
-     * )
-     */
-    #[ORM\Column(type: 'string', length: 80)]
-    private $pays;
-
     #[ORM\Column(type: 'text')]
     private $description;
 
