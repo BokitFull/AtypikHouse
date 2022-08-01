@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {   
+    //Inscription d'un utilisateur
     #[Route('/register', name: 'register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -48,6 +49,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    //Login de l'utilisateur
     #[Route(path: '/login', name: 'login')]
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {   
@@ -64,6 +66,24 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    // #[Route(path: '/changement-mot-de-passe', name: 'reset_password')]
+    // public function reset_password(MailerInterface $mailer)
+    // {   
+    //     $email = (new TemplatedEmail())
+    //         ->from('hello@example.com')
+    //         ->to('you@example.com')
+
+    //         ->subject('Réinitilisation de mot de passe')
+    //         ->htmlTemplate('emails/signup.html.twig')
+    //         ->context([
+    //             'expiration_date' => new \DateTime('+7 days'),
+    //             'reset_password_link' => 'foo',]);
+
+    //     $mailer->send($email);
+    // }
+    
+
+    //Formulaire d'authentification pour le login/inscription
     public function authentication_form(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -1,85 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails de la réservation{% endblock %}
+{% block title %}Détails de la réservation
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('user_reservations_detail') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('user_reservations_detail') }}
 {% endblock %}
 
 {% block main %}
-    <h1>Détail de la réservation</h1>
-    <section id="reservation-container">
-        <div id="reservation-title">
-            <h4 id="reservation-status">Statut</h4>
-            <a class="btn">Télécharger la facture</a>
-        </div>
-        <hr>
-        <div id="reservation-recap">
-            <div id="reservation-detail">
-                <p>
-                    {{ reservation.habitat.nbPersonnes }} personne(s) -
-                    {{ duree }} nuit(s) -
-                    {{ reservation.habitat.prix }} &euro;
-                </p>
-                <p>{{ reservation.dateDebut|date('D d M Y') }}</p>
-                <p>{{ reservation.dateFin|date('D d M Y') }}</p>    
-            </div>
-            <div id="reservation-habitat">
-                Image de l'habitat
-                <p> {{ reservation.habitat.titre }}
-            </div>
-        </div>
-        <hr>
-        <div id="reservation-review">
-            <textarea id="reservation-comment" maxlength="100"></textarea>
-            <div id="reservation-star">
-                <div id="category-title">
-                    <p>Propreté</p>
-                    <p>Accueil</p>
-                    <p>Emplacement</p>
-                    <p>Qualité / Prix</p>
-                    <p>Équipements</p>
-                </div>
-                <div class="category-star">
-                    <div>
-                        <input type="radio" id="proprete-star-1" name="proprete-star" value="1"><label for="proprete-star-1"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="proprete-star-2" name="proprete-star" value="2"><label for="proprete-star-2"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="proprete-star-3" name="proprete-star" value="3"><label for="proprete-star-3"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="proprete-star-4" name="proprete-star" value="4"><label for="proprete-star-4"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="proprete-star-5" name="proprete-star" value="5"><label for="proprete-star-5"><i class="fa-solid fa-star"></i></label>
-                    </div>
-                    <div>
-                        <input type="radio" id="accueil-star-1" name="accueil-star" value="1"><label for="accueil-star-1"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="accueil-star-2" name="accueil-star" value="2"><label for="accueil-star-2"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="accueil-star-3" name="accueil-star" value="3"><label for="accueil-star-3"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="accueil-star-4" name="accueil-star" value="4"><label for="accueil-star-4"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="accueil-star-5" name="accueil-star" value="5"><label for="accueil-star-5"><i class="fa-solid fa-star"></i></label>
-                    </div>
-                    <div>
-                        <input type="radio" id="emplacement-star-1" name="emplacement-star" value="1"><label for="emplacement-star-1"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="emplacement-star-2" name="emplacement-star" value="2"><label for="emplacement-star-2"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="emplacement-star-3" name="emplacement-star" value="3"><label for="emplacement-star-3"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="emplacement-star-4" name="emplacement-star" value="4"><label for="emplacement-star-4"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="emplacement-star-5" name="emplacement-star" value="5"><label for="emplacement-star-5"><i class="fa-solid fa-star"></i></label>
-                    </div>
-                    <div>
-                        <input type="radio" id="qualite-prix-star-1" name="qualite-prix-star" value="1"><label for="qualite-prix-star-1"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="qualite-prix-star-2" name="qualite-prix-star" value="2"><label for="qualite-prix-star-2"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="qualite-prix-star-3" name="qualite-prix-star" value="3"><label for="qualite-prix-star-3"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="qualite-prix-star-4" name="qualite-prix-star" value="4"><label for="qualite-prix-star-4"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="qualite-prix-star-5" name="qualite-prix-star" value="5"><label for="qualite-prix-star-5"><i class="fa-solid fa-star"></i></label>
-                    </div>
-                    <div>
-                        <input type="radio" id="equipement-star-1" name="equipement-star" value="1"><label for="equipement-star-1"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="equipement-star-2" name="equipement-star" value="2"><label for="equipement-star-2"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="equipement-star-3" name="equipement-star" value="3"><label for="equipement-star-3"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="equipement-star-4" name="equipement-star" value="4"><label for="equipement-star-4"><i class="fa-solid fa-star"></i></label>
-                        <input type="radio" id="equipement-star-5" name="equipement-star" value="5"><label for="equipement-star-5"><i class="fa-solid fa-star"></i></label>
-                    </div>
-                </div>
-            </div>
-            <button class="btn btn-outline-success">Enregistrer</button>
-        <div>
-    </section>
-{% endblock %}
+	<h1>Détail de la réservation</h1>
+	<section id="reservation-container">
+		<div id="reservation-title">
+			<h4 id="reservation-status">Statut</h4>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID réservation</th>
+					<th scope="col">Nombre de personnes</th>
+					<th scope="col">Nombre de nuits</th>
+					<th scope="col">Prix total</th>
+					<th scope="col">Date de début</th>
+					<th scope="col">Date de fin</th>
+					<th scope="col">Adresse</th>
+					<th scope="col">Ville</th>
+					<th scope="col">Facture</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">{{reservation.id}}</th>
+					<td>{{ reservation.habitat.nbPersonnes }}
+						personne(s)</td>
+					<td>{{ duree }}
+						nuit(s)</td>
+					<td>{{ reservation.habitat.prix }}
+						€</td>
+					<td>{{ reservation.dateDebut|date('D d M Y') }}</td>
+					<td>{{ reservation.dateFin|date('D d M Y') }}</td>
+					<td>{{ reservation.habitat.adresse }}</td>
+					<td>{{ reservation.habitat.ville.nom }}</td>
+					<td>
+						<button type="button" class="btn">Télécharger la facture</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="separation"></div>
+		<div id="reservation-review-title">
+			<h4 id="reservation-status">Laisser un commentaire</h4>
+		</div>
+		<div id="reservation-review">
+
+
+			{{ form_start(form, { 'attr': {'id': 'commentaires_form', 'class': 'input-field personnal-form', 'placeholder': 'Nom'}}) }}
+			{{ form_row(form._token) }}
+			<h1 class="user_edit_title">Mes informations personnelles</h1>
+			<div id="form-input-div" class="commentaire_form">
+				<div class="commentaire_contenu">
+					{{ form_label(form.contenu) }}
+					{{ form_errors(form.contenu) }}
+					{{ form_widget(form.contenu) }}
+				</div>
+				<div class="commentaire_notes">
+					{{ form_row(form.note_proprete)}}
+					{{ form_row(form.note_accueil)}}
+					{{ form_row(form.note_qualite_prix)}}
+					{{ form_row(form.note_emplacement)}}
+					{{ form_row(form.note_equipements)}}
+				</div>
+				{# {{ form_row(form.contenu, { 'attr': {'class': 'input-field commentaire_contenu', 'placeholder': 'Nom'} }) }} #}
+				<div id="form-btn-div" class="commentaire_btn">
+					<button type="submit" class="btn btn-success">Enregistrer</button>
+				</div>
+			</div>
+			{{ form_end(form, {render_rest: false}) }}
+			<div></section>
+		{% endblock %}

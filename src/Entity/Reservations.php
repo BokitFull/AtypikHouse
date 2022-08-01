@@ -49,10 +49,6 @@ class Reservations
     private $deleted_at;
 
     #[Gedmo\Versioned]
-    #[ORM\Column(type: 'integer')]
-    private $nb_personnes;
-
-    #[Gedmo\Versioned]
     #[ORM\Column(type: 'float')]
     private $montant;
 
@@ -161,18 +157,6 @@ class Reservations
     public function setDeletedAt(\DateTimeImmutable $deleted_at): self
     {
         $this->deleted_at = $deleted_at;
-
-        return $this;
-    }
-
-    public function getNbPersonnes(): ?int
-    {
-        return $this->nb_personnes;
-    }
-
-    public function setNbPersonnes(int $nb_personnes): self
-    {
-        $this->nb_personnes = $nb_personnes;
 
         return $this;
     }
