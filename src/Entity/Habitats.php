@@ -110,7 +110,6 @@ class Habitats
 
     public function __construct()
     {
-        $this->caracteristiques = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
@@ -302,13 +301,6 @@ class Habitats
         return $this;
     }
 
-    /**
-     * @return Collection<int, CaracteristiquesHabitat>
-     */
-    public function getCaracteristiques(): Collection
-    {
-        return $this->caracteristiques;
-    }
 
     /**
      * @return Collection<int, Reservations>
