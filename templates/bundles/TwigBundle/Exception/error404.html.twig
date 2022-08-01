@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}AtypikHouse!{% endblock %}
+
+{% block main %}
+    <h1>Oups, cette page ne semble pas exister</h1>
+    <article>
+        <p>Pour revenir à la page d'accueil c'est par ici</p>
+        <a href="{{ path('app_home') }}" class="btn btn-outline-success">Accueil<a/>
+    </article>
+{% endblock %}
