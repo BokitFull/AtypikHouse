@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AtypikHouse!{% endblock %}
+{% block title %}Reservation {{habitat.type.nom}} {{habitat.titre}}{% endblock %}
+{% block description %}{{habitat.description}}{% endblock %}
+
 
 {% block stylesheets %}
 	{{ parent() }}
