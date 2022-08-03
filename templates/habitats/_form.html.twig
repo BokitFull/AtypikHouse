@@ -57,8 +57,8 @@
                 <label for="habitats_caracteristiques" class="required">Caractéristiques</label>
                 <ul id="caracteristiques-fields-list"
                     data-widget-tags="{{ '<li></li>'|e }}"
-                    data-widget-counter="{{ form.caracteristiques|length }}">
-                    {% for caracteristique in form.caracteristiques %}
+                    data-widget-counter="{{ form.caracteristiquesHabitat|length }}">
+                    {% for caracteristique in form.caracteristiquesHabitat %}
                     <li>
                         {{ form_row(caracteristique, { 'attr': {'class': 'input-field'} }) }}
                     </li>
