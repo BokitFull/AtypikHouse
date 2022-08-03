@@ -29,7 +29,7 @@ class ReservationsController extends AbstractController
     #[Route('/reservations/{id}', name: 'reservations_detail', methods: ['GET', 'POST'])]
     public function detail(Request $request, Reservations $reservation, Commentaires $commentaires, CommentairesRepository $commentairesRepository): Response
     {   
-        $commentazqzqdzqdzqdzqdzqdzqdires = new Commentaires($commentaires->getId());
+
         $context['reservation'] = $reservation;
         $duree = $reservation->getDateDebut()->diff($reservation->getDateFin());
         $context['duree'] = $duree->format('%a');
