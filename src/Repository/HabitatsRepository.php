@@ -48,6 +48,7 @@ class HabitatsRepository extends ServiceEntityRepository
                       ->select('h')
                       ->addSelect('r')
                       ->leftJoin('h.reservations', 'r')
+                      ->leftJoin('h.type', 't')
                       ->where('1 = 1')
                       ->andWhere('h.est_actif = 1')
                       ->andWhere('h.est_valide = 1')

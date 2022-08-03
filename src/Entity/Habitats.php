@@ -58,16 +58,6 @@ class Habitats
     #[ORM\Column(type: 'string', length: 2)]
     private $code_postal;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(  
-     *      min = 1,
-     *      max = 80,
-     * )
-     */
-    #[ORM\Column(type: 'string', length: 80)]
-    private $pays;
-
     #[ORM\Column(type: 'text')]
     private $description;
 
@@ -120,11 +110,9 @@ class Habitats
 
     public function __construct()
     {
-        $this->caracteristiques = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
-        $this->CaracteristiquesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -313,14 +301,6 @@ class Habitats
     }
 
     /**
-     * @return Collection<int, CaracteristiquesHabitat>
-     */
-    public function getCaracteristiques(): Collection
-    {
-        return $this->caracteristiques;
-    }
-
-    /**
      * @return Collection<int, Reservations>
      */
     public function getReservations(): Collection
@@ -443,27 +423,27 @@ class Habitats
     /**
      * @return Collection<int, CaracteristiquesHabitat>
      */
-    public function getCaracteristiquesHabitat(): Collection
+    public function getCaracteristiques(): Collection
     {
-        return $this->CaracteristiquesHabitat;
+        return $this->caracteristiques;
     }
 
-    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiques): self
     {
-        if (!$this->CaracteristiquesHabitat->contains($caracteristiquesHabitat)) {
-            $this->CaracteristiquesHabitat->add($caracteristiquesHabitat);
-            $caracteristiquesHabitat->setHabitat($this);
+        if (!$this->caracteristiques->contains($caracteristiques)) {
+            $this->caracteristiques->add($caracteristiques);
+            $caracteristiques->setHabitat($this);
         }
 
         return $this;
     }
 
-    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
+    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiques): self
     {
-        if ($this->CaracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
+        if ($this->caracteristiques->removeElement($caracteristiquesHabitat)) {
             // set the owning side to null (unless already changed)
-            if ($caracteristiquesHabitat->getHabitat() === $this) {
-                $caracteristiquesHabitat->setHabitat(null);
+            if ($caracteristiques->getHabitat() === $this) {
+                $caracteristiques->setHabitat(null);
             }
         }
 

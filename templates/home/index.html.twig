@@ -14,48 +14,57 @@
 {% block title %}AtypikHouse!{% endblock %}
 
 {% block main %}
+	<span>Ce site est un projet étudiant. Aucune réservation ne sera prise en charge.</span>
 	<article id="home-pres">
-		<img src="" class="sr-only" alt=" home banniere"/>
-		<h2 class="messageHome">
+		<img src="" class="sr-only" alt="Bannière accueil"/>
+		<h1 class="messageHome">
 			A la découverte de nouvelles expériences
-		</h2>
+		</h1>
 		<form class="form-home" action="/habitats" method="GET">
 			<div id="form-fields">
-				<div id="cp-div">
-					<input type="text" id="destinations-name" class="form-input" placeholder="Destinations">
-					<input type="hidden" name="destinations">
-					<div id="result-cp"></div>
+				<div class="form-control">
+					<label for="destinations-name">Destinations</label>
+					<div id="cp-div">
+						<input type="text" id="destinations-name" class="form-input" placeholder="Toutes">
+						<input type="hidden" name="destinations">
+						<div id="result-cp"></div>
+					</div>
 				</div>
 
-				<select name="type_habitat_id" class="form-input" placeholder="Hébergement">
-					<option selected disabled>
-						Hébergement
-					</option>
-					<option>
-						Tous
-					</option>
-					{% for typeHebergement in TypesHabitat %}
-						<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
-					{% endfor %}
-				</select>
+				<div class="form-control">
+					<label for="hebergements-name">Hébergements</label>
+					<select id="hebergements-name" name="type" class="form-input">
+						<option selected>
+							Tous
+						</option>
+						{% for typeHebergement in TypesHabitat %}
+							<option  value={{typeHebergement.id}}>{{typeHebergement.nom}}</option>
+						{% endfor %}
+					</select>
+				</div>
 
-				<select name="nb_personnes" class="form-input" placeholder="Nombres de personnes">
-					<option selected disabled>
-						Nombres de personnes
-					</option>
-					<option>
-						N'importes
-					</option>
-					{% for i in 1..10 %}
-						<option  value={{ i }}>{{ i }}</option>
-					{% endfor %}
-				</select>
+				<div class="form-control">
+					<label for="nombrePersonnes-name">Nombre de personnes</label>
+					<select id="nombrePersonnes-name" name="nb_personnes" class="form-input">
+						<option selected>
+							N'importes
+						</option>
+						{% for i in 1..10 %}
+							<option  value={{ i }}>{{ i }}</option>
+						{% endfor %}
+					</select>
+				</div>
 
-				<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
-				<div id="personnes-div">
-					<label for="labelPrix" class="label-form white-text">Prix :</label>
-					<output id="result-prix" class="white-text">150</output>
-					<input id="prix" name="prix" class="form-range" type="range" min="10" max="300" value="150" oninput="document.querySelector('#result-prix').value = this.value">
+				<div class="form-control">
+					<label for="date-picker">Choisir une date</label>
+					<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Toutes" data-flatpickr>
+				</div>
+
+
+				<div class="form-control">
+					<label for="prix-name">Prix :</label>
+					<output id="result-prix">150</output>&euro;
+					<input id="prix-name" name="prix" class="form-range" type="range" min="10" max="300" value="150" oninput="document.querySelector('#result-prix').value = this.value">
 				</div>
 				
 			</div>
@@ -66,34 +75,34 @@
 	</article>
 
 	<article id="top-destinations-article" class="article inset-box">
-		<h3>Nos top destinations</h3>
+		<h2>Nos top destinations</h2>
 
 		<div class="card-div">
 			<a href="#" class="card">
 				<div class="card-content">
 					<!-- destination carte -->
-					<img src="{{ asset('images/cabane.jpg') }}" alt="province destinations-image"/>
-					<h4 class="destination-title">
+					<img src="{{ asset('images/cabane.jpg') }}" alt="Image destination Villa Boréale – Charlevoix"/>
+					<p class="destination-title">
 						Villa Boréale – Charlevoix
-					</h4>
+					</p>
 				</div>
 			</a>
 			<a href="#" class="card">
 				<div class="card-content">
 					<!-- destination carte -->
-					<img src="{{ asset('images/perchee.jpg') }}" alt="province destinations-image"/>
-					<h4 class="destination-title">
+					<img src="{{ asset('images/perchee.jpg') }}" alt="Image destination Cabane perchée Sauternes"/>
+					<p class="destination-title">
 						Cabane perchée Sauternes
-					</h4>
+					</hp>
 				</div>
 			</a>
 			<a href="#" class="card">
 				<div class="card-content">
 					<!-- destination carte -->
-					<img src="{{ asset('images/tonneau.jpg') }}" alt="province destinations-image"/>
-					<h4 class="destination-title">
+					<img src="{{ asset('images/tonneau.jpg') }}" alt="Image destination Cabane tonneau Barrique"/>
+					<p class="destination-title">
 						Cabane tonneau Barrique
-					</h4>
+					</p>
 				</div>
 			</a>
 		</div>
@@ -154,10 +163,9 @@ Réservez instantanément votre coup de cœur directement en ligne depuis smartp
 			</p>
 			{{ form_start(formAbonner , { 'attr' : { 'class': 'formulaireAbonnement'  } }) }}
 
-<div class="form-group"> 
-<label for="" > </label>
-				{{form_widget(formAbonner.email_abonner , { 'attr' : { 'placeholder': 'Votre Email'  } })}}
-</div>
+			<div class="form-group">
+				{{form_row(formAbonner.email_abonner)}}
+			</div>
 		
 		<button type="submit" class="buttonAbonner" > S'abonner  </button>
 
