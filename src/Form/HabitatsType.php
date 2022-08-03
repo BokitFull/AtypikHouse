@@ -105,7 +105,7 @@ class HabitatsType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('caracteristiques', EntityType::class, [
+            ->add('caracteristiquesHabitat', EntityType::class, [
                 'class' => CaracteristiquesHabitat::class,
                 'choice_label' => 'valeur',
                 'multiple' => true,

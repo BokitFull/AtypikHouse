@@ -30,7 +30,7 @@
             <div class="col-3 d-none d-lg-block image-side">
                 {% if (habitat.imagesHabitats[1]|default) %}
                     <div class="d-flex justify-content-center mb-2">
-                        <img src="{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
+                        <img src="/images/uploads/habitats/{{ habitat.imagesHabitats[1].chemin }}" class="img-fluid" title="" alt="image-habitat-1">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center mb-2">
@@ -40,7 +40,7 @@
 
                 {% if (habitat.imagesHabitats[2]|default) %}
                     <div class="d-flex justify-content-center mt-2">
-                        <img src="{{ habitat.imagesHabitats[2].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
+                        <img src="/images/uploads/habitats/{{ habitat.imagesHabitats[2].chemin }}" class="img-fluid" title="" alt="image-habitat-2">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center mt-2">
@@ -53,7 +53,7 @@
 
                 {% if (habitat.imagesHabitats[0]|default) %}
                     <div class="d-flex justify-content-center">
-                        <img src="{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
+                        <img src="/images/uploads/habitats/{{ habitat.imagesHabitats[0].chemin }}" class="img-fluid" title="" alt="image-habitat-3">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center">
@@ -67,7 +67,7 @@
 
                 {% if (habitat.imagesHabitats[4]|default) %}
                     <div class="d-flex justify-content-center mb-2">
-                        <img src="{{ habitat.imagesHabitats[4].chemin }}" class="img-fluid" title="" alt="image-habitat-4">
+                        <img src="/images/uploads/habitats/{{ habitat.imagesHabitats[4].chemin }}" class="img-fluid" title="" alt="image-habitat-4">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center mb-2">
@@ -77,7 +77,7 @@
 
                 {% if (habitat.imagesHabitats[5]|default) %}
                     <div class="d-flex justify-content-center mt-2">
-                        <img src="{{ habitat.iimagesHabitatsmages[5].chemin }}" class="img-fluid" title="" alt="image-habitat-5">
+                        <img src="/images/uploads/habitats/{{ habitat.iimagesHabitatsmages[5].chemin }}" class="img-fluid" title="" alt="image-habitat-5">
                     </div> 
                 {% else %}
                     <div class="d-flex justify-content-center mt-2">
@@ -133,11 +133,6 @@
                 {% if app.user is not null %}
                 <form id="form-reservation" action="{{ path('payment', { 'id': habitat.id }) }}" onsubmit="">
                     <div class="d-flex flex-column justify-content-between mb-2">
-                        <div>
-                            <label for="labelNbPersonnes" class="label-form">Nombres de personnes :</label>
-                            <output id="result-personnes">1</output>
-                            <input id="nb_personnes" name="nb_personnes" class="form-range" type="range" min="1" max="{{ habitat.nbPersonnes }}" value="1" oninput="document.querySelector('#result-personnes').value = this.value">
-                        </div>
                         <div>
                             <input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
                         </div>
