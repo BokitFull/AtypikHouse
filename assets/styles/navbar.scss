@@ -58,7 +58,7 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
 
 #login_div{
     width: 100%;
-    height: 500px;
+    height: 520px;
     margin-top: 20px;
     align-items: center;
     display: grid;
@@ -69,10 +69,14 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
 }
 
 #login_div_image {
-    background-image: url('/public/images/login_image.jpg');
-    grid-area: image;
     width: 100%;
     height: 100%;
+
+    img {
+        width: 100%;
+        min-height: 100%;
+        image-rendering: crisp-edges;
+    }
 }
 
 #login_div_form {
@@ -87,25 +91,31 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.authentication_form{
+#register_form {
+    display: none;   
+}
+
+.authentication_form {
+
     width: 70%;
-    height: 240px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
 
-#register_form{
-    display: none;   
-}
+    input {
 
-.authentication_form input {
-    background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	margin: 8px 0px;
-	width: 100%;
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 8px 0px;
+        width: 100%;
+    }
+
+    div {
+        width: 100%;
+    }
 }
 
 .submit-btn {
