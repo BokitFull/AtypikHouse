@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}AtypikHouse!{% endblock %}</title>
+        {# <meta name="description" content="Atypik House est le site de reservation d'habitat insolites par reference !">  #}
+		<meta name="robots"Âcontent="index,follow"> 
+        <title>{% block title %}Partez à l'aventure avec Atypik House !{% endblock %}</title>
+        <meta name="description" content="{% block description %}Atypik House est le site de réservation d'habitats insolites par référence ! Partez en aventure dans des lieux uniques au monde.{% endblock %}">
         <!-- CSS only -->
         {% block stylesheets %}
             {{ encore_entry_link_tags('app_s') }}

@@ -17,7 +17,7 @@ class ImagesHabitat
     #[ORM\Column(type: 'string', length: 255)]
     private $chemin;
 
-    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'imagesHabitats')]
+    #[ORM\ManyToOne(targetEntity: Habitats::class, inversedBy: 'imagesHabitats', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private $habitat;
 

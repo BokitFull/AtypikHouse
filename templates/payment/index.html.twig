@@ -33,7 +33,7 @@
         <article id="recap-article">
             <section id="section-habitat">
                 <div class="card">
-                    <img class="card-img-top" src="{{ habitat.imagesHabitats[0]|default("../images/default.png") }}" alt="Image habitat">
+                    <img class="card-img-top" src="/images/uploads/habitats/{{ habitat.imagesHabitats[0].chemin|default("../images/default.png") }}" alt="Image habitat">
                     <h5 class="card-title">{{ habitat.titre }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ habitat.type.nom }}</h6>
                     <div id="card-body">

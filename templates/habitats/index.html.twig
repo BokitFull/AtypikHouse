@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AtypikHouse!{% endblock %}
+{% block title %}Découvrez des habitats insolites et uniques au monde{% endblock %}
+{% block description %}Atypik House propose à ses clients de découvrir de toutes nouvelles expériences en allant dans des lieux insolites uniques au monde.{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -10,7 +11,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
-    {{ encore_entry_script_tags('index') }}
+    {{ encore_entry_script_tags('habitatJs') }}
 	<script>
         daterange = "{{ params["daterange"]|default }}";
     </script>

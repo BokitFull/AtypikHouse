@@ -40,7 +40,7 @@
 					<td>{{ reservation.dateDebut|date('D d M Y') }}</td>
 					<td>{{ reservation.dateFin|date('D d M Y') }}</td>
 					<td>{{ reservation.habitat.adresse }}</td>
-					<td>{{ reservation.habitat.ville.nom }}</td>
+					<td>{{ reservation.habitat.ville.nom|default }}</td>
 					<td>
 						<button type="button" class="btn">Télécharger la facture</button>
 					</td>

@@ -208,7 +208,6 @@ class AppFixtures extends Fixture
             $reservation = new Reservations();
             $reservation->setStatut(1);
             $reservation->setMontant(rand(60, 200));
-            $reservation->setNbPersonnes(rand(1, 3));
             $reservation->setDeletedAt(new DateTimeImmutable('now'));
             $reservation->setUtilisateur($utilisateurs[rand(0, count($utilisateurs)-1)]);
             $reservation->setHabitat($habitats[rand(0, count($habitats)-1)]);
