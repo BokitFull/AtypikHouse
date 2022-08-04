@@ -12,7 +12,7 @@
         <h1>Mon profil</h1> 
         <div>
             <h2>{{ utilisateur.nom }} {{ utilisateur.prenom }} :</h2>
-            <h3>{{ utilisateur.email }}</h3>
+            <h2 id="user-email">{{ utilisateur.email }}</h2>
         </div>
     </div>
     <div id="card-container">
@@ -25,7 +25,7 @@
             <p>Vérifier et modifier mes réservations.</p>
         </a> #}
         <a href="{{ path('hote_habitats') }}" class="data-card col-md-8">
-            <h5>Mes habitats</h5>
+            <h3 class="user-card-title">Mes habitats</h3>
             <p>Vérifier et modifier mes habitats.</p>
         </a> 
     </div>

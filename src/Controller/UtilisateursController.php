@@ -10,15 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Finder\Finder;
 
 #[Route('/utilisateurs')]
 class UtilisateursController extends AbstractController
 {   
     private $security;
+    private $finder;
 
     public function __construct(Security $security)
     {
        $this->security = $security;
+       $this->finder = new Finder();
     }
 
     //Page de profil utilisateur
@@ -26,6 +29,20 @@ class UtilisateursController extends AbstractController
     public function home(): Response
     {   
         $context['utilisateur'] = $this->getUser();
+
+        $this->finder->in("./images/uploads/users/")->files()->name($this->getUser()->getId() . ".jpg");
+        if($this->finder->hasResults()) {
+            foreach($this->finder as $file) {
+                if(file_exists($file)) {
+                    $context["imageExists"] = true;
+                }
+                else {
+                    $context["imageExists"] = false;
+                }
+                break;
+            }
+        }
+
         return $this->render('utilisateurs/index.html.twig', $context);
     }
 

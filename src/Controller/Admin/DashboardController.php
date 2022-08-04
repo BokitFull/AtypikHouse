@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\CaracteristiquesHabitat;
 use App\Entity\CaracteristiquesTypeHabitat;
 use App\Entity\Habitats;
+use App\Entity\ImagesHabitat;
 use App\Entity\Prestations;
 use App\Entity\Reservations;
 use App\Entity\TypesHabitat;
@@ -54,6 +55,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-map-marker-alt', Utilisateurs::class);
         yield MenuItem::linkToCrud('Habitats', 'fas fa-comments', Habitats::class);
         yield MenuItem::linkToCrud('TypesHabitat', 'fas fa-map-marker-alt', TypesHabitat::class);
+        yield MenuItem::linkToCrud('ImagesHabitat', 'fas fa-map-marker-alt', ImagesHabitat::class);
         yield MenuItem::linkToCrud('CaracteristiquesTypeHabitat', 'fas fa-map-marker-alt', CaracteristiquesTypeHabitat::class);
         yield MenuItem::linkToCrud('CaracteristiquesHabitat', 'fas fa-map-marker-alt', CaracteristiquesHabitat::class);
         yield MenuItem::linkToCrud('TypesPrestation', 'fas fa-map-marker-alt', TypesPrestation::class);

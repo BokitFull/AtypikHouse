@@ -58,16 +58,6 @@ class Habitats
     #[ORM\Column(type: 'string', length: 2)]
     private $code_postal;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(  
-     *      min = 1,
-     *      max = 80,
-     * )
-     */
-    #[ORM\Column(type: 'string', length: 80)]
-    private $pays;
-
     #[ORM\Column(type: 'text')]
     private $description;
 
@@ -115,16 +105,15 @@ class Habitats
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'habitats')]
     private $ville;
 
-    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: CaracteristiquesHabitat::class)]
     private Collection $caracteristiquesHabitat;
 
     public function __construct()
     {
-        $this->caracteristiques = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
-        $this->CaracteristiquesHabitat = new ArrayCollection();
+        $this->caracteristiquesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -313,14 +302,6 @@ class Habitats
     }
 
     /**
-     * @return Collection<int, CaracteristiquesHabitat>
-     */
-    public function getCaracteristiques(): Collection
-    {
-        return $this->caracteristiques;
-    }
-
-    /**
      * @return Collection<int, Reservations>
      */
     public function getReservations(): Collection
@@ -445,14 +426,14 @@ class Habitats
      */
     public function getCaracteristiquesHabitat(): Collection
     {
-        return $this->CaracteristiquesHabitat;
+        return $this->caracteristiquesHabitat;
     }
 
     public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if (!$this->CaracteristiquesHabitat->contains($caracteristiquesHabitat)) {
-            $this->CaracteristiquesHabitat->add($caracteristiquesHabitat);
-            $caracteristiquesHabitat->setHabitat($this);
+        if (!$this->caracteristiquesHabitat->contains($caracteristiquesHabitat)) {
+            $this->caracteristiquesHabitat->add($caracteristiquesHabitat);
+            $caracteristiquesHabitat->setHabitats($this);
         }
 
         return $this;
@@ -460,13 +441,14 @@ class Habitats
 
     public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if ($this->CaracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
+        if ($this->caracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
             // set the owning side to null (unless already changed)
-            if ($caracteristiquesHabitat->getHabitat() === $this) {
-                $caracteristiquesHabitat->setHabitat(null);
+            if ($caracteristiquesHabitat->getHabitats() === $this) {
+                $caracteristiquesHabitat->setHabitats(null);
             }
         }
 
         return $this;
     }
+
 }

@@ -11,21 +11,40 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('nom')
-            ->add('prenom')
-            ->add('civilite')
-            ->add('telephone')
-            ->add('pays')
-            ->add('ville')
-            ->add('adresse')
-            ->add('code_postal')
+            ->add('email', TextType::class, [
+                'label' => 'Email'
+            ])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom'
+            ])
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom'
+            ])
+            ->add('civilite', TextType::class, [
+                'label' => 'Civilité'
+            ])
+            ->add('telephone', TextType::class, [
+                'label' => 'Téléphone'
+            ])
+            ->add('pays', TextType::class, [
+                'label' => 'Pays'
+            ])
+            ->add('ville', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('adresse', TextType::class, [
+                'label' => 'Adresse'
+            ])
+            ->add('code_postal', TextType::class, [
+                'label' => 'Code postal'
+            ])
             // ->add('agreeTerms', CheckboxType::class, [
             //     'mapped' => false,
             //     'constraints' => [
@@ -35,6 +54,7 @@ class RegistrationFormType extends AbstractType
             //     ],
             // ])
             ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
