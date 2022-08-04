@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {# <meta name="description" content="Atypik House est le site de reservation d'habitat insolites par reference !">  #}
-		<meta name="robots"Âcontent="index,follow"> 
-        <title>{% block title %}Partez à l'aventure avec Atypik House !{% endblock %}</title>
-        <meta name="description" content="{% block description %}Atypik House est le site de réservation d'habitats insolites par référence ! Partez en aventure dans des lieux uniques au monde.{% endblock %}">
-        <meta name="keywords" content="{% block keywords %}habitats insolites, location hors du commun, maisons uniques au monde, réservation insolites, maisons atypiques, locations nature{% endblock %}">
-        <!-- CSS only -->
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app_s') }}
-            {{ encore_entry_link_tags('footer') }}
-            {{ encore_entry_link_tags('navbar_s') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1">
+		{# <meta name="description" content="Atypik House est le site de reservation d'habitat insolites par reference !">  #}
+		<meta name="robots" âcontent="index,follow">
+		<title>
+			{% block title %}Partez à l'aventure avec Atypik House !
+			{% endblock %}
+		</title>
+		<meta name="description" content="{% block description %}Atypik House est le site de réservation d'habitats insolites par référence ! Partez en aventure dans des lieux uniques au monde.{% endblock %}">
+		<meta
+		name="keywords" content="{% block keywords %}habitats insolites, location hors du commun, maisons uniques au monde, réservation insolites, maisons atypiques, locations nature{% endblock %}">
+		<!-- CSS only -->
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app_s') }}
+			{{ encore_entry_link_tags('footer') }}
+			{{ encore_entry_link_tags('navbar_s') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% if not app.user %}
-                {{ encore_entry_script_tags('navbar') }}
-            {% endif %}
-        {% endblock %}
-    </head>
-    <body class="d-flex flex-column min-vh-100" >
-        <header>
-            {{ include('_header.html.twig') }}
-        </header>
-        <main id="main-container">
-        
-        
-        {# {% block breadcrumb %}
-            {% set foo = app.request.pathinfo|split('/') %}
-            {% set foo2 = foo|slice(1) %}
-            <a href="/">Home</a> --> {% for item in foo2 %}{{item}} {% if not loop.last %}-->{% endif %} {% endfor %}
-        {% endblock %} #}
-
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			{% if not app.user %}
+				{{ encore_entry_script_tags('navbar') }}
+			{% endif %}
+		{% endblock %}
+	</head>
+	<body class="d-flex flex-column min-vh-100">
+		<header>
+			{{ include('_header.html.twig') }}
+		</header>
+		<main
+			id="main-container">
 
 
-            {% for label, messages in app.flashes(['success', 'warning']) %}
-                {% for message in messages %}
-                    <div class="flash-message flash-{{ label }}">
-                        <p>{{ message }}</p>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% block main %}{% endblock %}
-        </main>
-        <footer class="mt-auto" >
-            {{ include('_footer.html.twig') }}
-        </footer>
-    </body>
+			{# {% block breadcrumb %}
+			            {% set foo = app.request.pathinfo|split('/') %}
+			            {% set foo2 = foo|slice(1) %}
+			            <a href="/">Home</a> --> {% for item in foo2 %}{{item}} {% if not loop.last %}-->{% endif %} {% endfor %}
+			        {% endblock %} #}
+
+
+			{% for label, messages in app.flashes(['success', 'warning']) %}
+				{% for message in messages %}
+					<div class="flash-message flash-{{ label }}">
+						<p>{{ message }}</p>
+					</div>
+				{% endfor %}
+			{% endfor %}
+			{% block main %}{% endblock %}
+		</main>
+		<footer class="mt-auto">
+			{{ include('_footer.html.twig') }}
+			<script>
+				window.axeptioSettings = {
+                clientId: "62ebd34d8fb9fbfdb8502a4b",
+                cookiesVersion: "f2i-dev20-wd-al-ma-fa/-fr"
+                };
+
+                (function (d, s) {
+                var t = d.getElementsByTagName(s)[0],
+                e = d.createElement(s);
+                e.async = true;
+                e.src = "//static.axept.io/sdk.js";
+                t.parentNode.insertBefore(e, t);
+                })(document, "script");
+			</script>
+		</footer>
+	</body>
 </html>
