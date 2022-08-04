@@ -42,9 +42,11 @@ input {
     button{
         background-color: #b87247;
         border-color: #b87247;
+        color: black;
         &:hover{
             background-color: #d78b5c;
             border-color: #d78b5c;
+            color: white;
         }
     }
     a {

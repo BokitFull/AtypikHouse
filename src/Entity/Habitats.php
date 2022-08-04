@@ -105,14 +105,15 @@ class Habitats
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'habitats')]
     private $ville;
 
-    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
-    private Collection $CaracteristiquesHabitat;
+    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: CaracteristiquesHabitat::class)]
+    private Collection $caracteristiquesHabitat;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
+        $this->caracteristiquesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -423,30 +424,31 @@ class Habitats
     /**
      * @return Collection<int, CaracteristiquesHabitat>
      */
-    public function getCaracteristiques(): Collection
+    public function getCaracteristiquesHabitat(): Collection
     {
-        return $this->caracteristiques;
+        return $this->caracteristiquesHabitat;
     }
 
-    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiques): self
+    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if (!$this->caracteristiques->contains($caracteristiques)) {
-            $this->caracteristiques->add($caracteristiques);
-            $caracteristiques->setHabitat($this);
+        if (!$this->caracteristiquesHabitat->contains($caracteristiquesHabitat)) {
+            $this->caracteristiquesHabitat->add($caracteristiquesHabitat);
+            $caracteristiquesHabitat->setHabitats($this);
         }
 
         return $this;
     }
 
-    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiques): self
+    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if ($this->caracteristiques->removeElement($caracteristiquesHabitat)) {
+        if ($this->caracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
             // set the owning side to null (unless already changed)
-            if ($caracteristiques->getHabitat() === $this) {
-                $caracteristiques->setHabitat(null);
+            if ($caracteristiquesHabitat->getHabitats() === $this) {
+                $caracteristiquesHabitat->setHabitats(null);
             }
         }
 
         return $this;
     }
+
 }

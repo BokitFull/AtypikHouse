@@ -6,7 +6,7 @@
     </div>
     <div id="nav-col-menu">
         <input id="menu-toggle" type="checkbox" />
-        <span id="menu-btn" for="menu-toggle">
+        <label id="menu-btn" for="menu-toggle">
             <span id="first-pan"></span>
             <span id="burger"></span>
             <span id="second-pan"></span>
@@ -31,9 +31,9 @@
             {% endif %}
             <li class="nav-item d-md-none">
                 {% if app.user and not is_granted('ROLE_HOTE') %}
-                    <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#become_host_modal">Devenir hôte</button>
+                    <button id="btn_devenir_hote" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#become_host_modal">Devenir hôte</button>
                 {% elseif not app.user %}
-                    <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal">Devenir hôte</button>
+                    <button id="btn_devenir_hote" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal">Devenir hôte</button>
                 {% endif %}
             </li>
         </ul>
@@ -41,17 +41,19 @@
 
     <div class="nav-col-login">
         {% if app.user and not is_granted('ROLE_HOTE') %}
-            <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#become_host_modal">Devenir hôte</button>
+            <button id="btn_devenir_hote" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#become_host_modal">Devenir hôte</button>
+            {{ render(controller('App\\Controller\\HotesController::devenir_hote_form')) }}
         {% elseif not app.user %}
-            <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal">Devenir hôte</button>
+            <button id="btn_devenir_hote" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal">Devenir hôte</button>
+            {{ render(controller('App\\Controller\\HotesController::devenir_hote_form')) }}
         {% endif %}
-        {{ render(controller('App\\Controller\\HotesController::devenir_hote_form')) }}
         {% if app.user %}
             <div class="dropdown">
-                <button type="button" class="nav-link green-text bg-transparent" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="fa-solid fa-user-circle"></span>
+                <button id="btn_profil" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user-circle"></i>
+                    Profil
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul class="dropdown-menu" aria-labelledby="btn_profil">
                 {% if not is_granted('ROLE_HOTE') %}
                     <li><a class="dropdown-item" href="{{ path('accueil_utilisateur')}}">Profil</a></li>
                 {% elseif is_granted('ROLE_HOTE') %}
@@ -62,8 +64,9 @@
                 </ul>
             </div>
         {% elseif app.request.get('_route') != 'login' %}
-            <button id="btn_authenticate" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal" value="0">
-                <span class="fa-solid fa-user-circle"></span>
+            <button id="btn_authenticate" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal">
+                <i class="fa-solid fa-user-circle"></i>
+                Connexion
             </button>
             <div class="modal fade" id="authenticate_modal" tabindex="-1" aria-labelledby="btn_authenticate" aria-hidden="true">
                 <div class="modal-dialog modal-lg">

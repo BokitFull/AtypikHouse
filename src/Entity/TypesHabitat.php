@@ -39,9 +39,13 @@ class TypesHabitat
     #[ORM\ManyToMany(targetEntity: CaracteristiquesTypeHabitat::class, mappedBy: 'typesHabitat')]
     private Collection $caracteristiquesTypeHabitat;
 
+    #[ORM\OneToMany(mappedBy: 'typesHabitat', targetEntity: CaracteristiquesTypeHabitat::class)]
+    private Collection $OneToMany;
+
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
+        $this->OneToMany = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,25 +146,28 @@ class TypesHabitat
     /**
      * @return Collection<int, CaracteristiquesTypeHabitat>
      */
-    public function getCaracteristiquesTypeHabitat(): Collection
+    public function getOneToMany(): Collection
     {
-        return $this->caracteristiquesTypeHabitat;
+        return $this->OneToMany;
     }
 
-    public function addCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
+    public function addOneToMany(CaracteristiquesTypeHabitat $oneToMany): self
     {
-        if (!$this->caracteristiquesTypeHabitat->contains($caracteristiquesTypeHabitat)) {
-            $this->caracteristiquesTypeHabitat->add($caracteristiquesTypeHabitat);
-            $caracteristiquesTypeHabitat->addTypesHabitat($this);
+        if (!$this->OneToMany->contains($oneToMany)) {
+            $this->OneToMany->add($oneToMany);
+            $oneToMany->setTypesHabitat($this);
         }
 
         return $this;
     }
 
-    public function removeCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
+    public function removeOneToMany(CaracteristiquesTypeHabitat $oneToMany): self
     {
-        if ($this->caracteristiquesTypeHabitat->removeElement($caracteristiquesTypeHabitat)) {
-            $caracteristiquesTypeHabitat->removeTypesHabitat($this);
+        if ($this->OneToMany->removeElement($oneToMany)) {
+            // set the owning side to null (unless already changed)
+            if ($oneToMany->getTypesHabitat() === $this) {
+                $oneToMany->setTypesHabitat(null);
+            }
         }
 
         return $this;
