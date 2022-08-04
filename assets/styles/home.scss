@@ -1,14 +1,13 @@
 img.sr-only {
     position: absolute;
-        
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0,0,0,0);
-        white-space: nowrap;
-        border-width: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
     
     }
     
@@ -20,12 +19,14 @@ button.buttonAbonner {
 
 .btn-notdark {
     background-color: #B87247;
-    color: white;
+    color: black;
     width: 180px;
 }
 
 .messageHome {
-    color: white;
+    color: #265502;
+    background-color: #FFF;
+    padding: .2rem;
 }
 
 #home-pres{
@@ -52,8 +53,15 @@ button.buttonAbonner {
 #form-fields{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     gap: 50px;
+    margin: 0 50px;
+    padding: .1rem;
+    background-color: white;
+}
+
+.form-control {
+    border: 0;
 }
 
 .form-input{
@@ -61,6 +69,7 @@ button.buttonAbonner {
     width: 200px;
     height: 35px;
     border-radius: 5px;
+    border: 1px solid black;
     cursor: pointer;
 
     &::placeholder {
@@ -150,23 +159,56 @@ button.buttonAbonner {
 }
 
 .destination-title {
-    color: white;
+    color: black;
     margin-top: 5px;
+    font-size: 20px;
 }
 
 #site-info {
+    position: relative;
+    background: #313b29;
+    overflow: hidden;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: white;
+    
     height: 600px;
+    font-size: 20px;
+
     background-image: url('../../public/images/info2.png');
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
-    font-size: 20px;
+   
+    
+    h3, div {
+        position: relative;
+        color: white;
+        z-index: 2;
+    }
+
+    :before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .5;
+        z-index: 1;
+    }
+
+    // img {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     opacity: .5;
+    //     z-index: 1;
+    // }
 }
 .info-div {
     display: flex;
@@ -247,10 +289,6 @@ button.buttonAbonner {
     width: 100%;
 }
 
-.white-text {
-    color: white;
-}
-
 form.formulaireAbonnement {
     display: flex;
 }
@@ -267,6 +305,6 @@ form.formulaireAbonnement {
     text-align: center;
 }
 
-.font_italic{
+.font_italic {
     font-style: italic;
 }

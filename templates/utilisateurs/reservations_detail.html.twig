@@ -22,7 +22,7 @@
 	<h1>Détail de la réservation</h1>
 	<section id="reservation-container">
 		<div id="reservation-title">
-			<h4 id="reservation-status">Statut</h4>
+			<h2 id="reservation-status">Statut</h2>
 		</div>
 		<table class="table table-striped">
 			<thead>
@@ -59,14 +59,11 @@
 		</table>
 		<div id="separation"></div>
 		<div id="reservation-review-title">
-			<h4 id="reservation-status">Laisser un commentaire</h4>
+			<h3 id="reservation-status">Laisser un commentaire</h3>
 		</div>
 		<div id="reservation-review">
-
-
 			{{ form_start(form, { 'attr': {'id': 'commentaires_form', 'class': 'input-field personnal-form', 'placeholder': 'Nom'}}) }}
 			{{ form_row(form._token) }}
-			<h1 class="user_edit_title">Mes informations personnelles</h1>
 			<div id="form-input-div" class="commentaire_form">
 				<div class="commentaire_contenu">
 					{{ form_label(form.contenu) }}

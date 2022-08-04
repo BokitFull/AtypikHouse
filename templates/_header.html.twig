@@ -1,7 +1,7 @@
 <nav class="nav-col">
     <div class="nav-col-logo">
         <a href="/">
-            <img alt="Logo Atypik House" src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
+            <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
         </a>
     </div>
     <div id="nav-col-menu">
@@ -21,14 +21,14 @@
             <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="{{ path('app_contact') }}">Contact</a>
             </li>
-            {% if is_granted('ROLE_HOTE') %}
+        {% if is_granted('ROLE_HOTE') %}
             <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="{{ path('hote_habitats') }}">Habitats</a>
             </li>
             {# <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="{{ path('habitat_calendar') }}">Calendrier</a>
             </li> #}
-            {% endif %}
+        {% endif %}
             <li class="nav-item d-md-none">
                 {% if app.user and not is_granted('ROLE_HOTE') %}
                     <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#become_host_modal">Devenir hôte</button>

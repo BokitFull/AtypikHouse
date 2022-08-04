@@ -61,7 +61,6 @@ nav.nav-logo button:hover {
 #login_div {
     width: 100%;
     height: 500px;
-    margin-top: 20px;
     align-items: center;
     display: grid;
     grid-template: 'image       form' auto / 40% 60%;
@@ -99,7 +98,7 @@ nav.nav-logo button:hover {
     display: none;
 }
 
-.authentication_form input {
+nav .authentication_form input {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -107,7 +106,7 @@ nav.nav-logo button:hover {
     width: 100%;
 }
 
-.submit-btn {
+nav .submit-btn {
     margin-bottom: 8px;
     width: fit-content;
     color: white;

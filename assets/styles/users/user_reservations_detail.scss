@@ -163,9 +163,16 @@ hr {
     }
 }
 
-.commentaire_notes label{
-    width: 150px;
-    margin-right: 20px;
+.commentaire_notes {
+
+    label {
+        width: 150px;
+        margin-right: 20px;
+    }
+
+    input, select {
+        width: 100%;
+    }
 }
 
 .commentaire_btn{

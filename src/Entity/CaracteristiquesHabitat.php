@@ -16,10 +16,6 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $caracteristique_type;
-
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
 
@@ -34,8 +30,8 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToOne(inversedBy: 'CaracteristiquesHabitat')]
-    private ?Habitats $habitat = null;
+    #[ORM\ManyToOne(inversedBy: 'caracteristiquesHabitat')]
+    private ?Habitats $habitats = null;
 
 
     public function __construct()
@@ -46,18 +42,6 @@ class CaracteristiquesHabitat
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
-    {
-        return $this->caracteristique_type;
-    }
-
-    public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteristique_type): self
-    {
-        $this->caracteristique_type = $caracteristique_type;
-
-        return $this;
     }
 
     public function getValeur(): ?string
@@ -116,6 +100,18 @@ class CaracteristiquesHabitat
     public function setHabitat(?Habitats $habitat): self
     {
         $this->habitat = $habitat;
+
+        return $this;
+    }
+
+    public function getHabitats(): ?Habitats
+    {
+        return $this->habitats;
+    }
+
+    public function setHabitats(?Habitats $habitats): self
+    {
+        $this->habitats = $habitats;
 
         return $this;
     }
