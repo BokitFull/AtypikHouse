@@ -16,10 +16,6 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $caracteristique_type;
-
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
 
@@ -46,18 +42,6 @@ class CaracteristiquesHabitat
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
-    {
-        return $this->caracteristique_type;
-    }
-
-    public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteristique_type): self
-    {
-        $this->caracteristique_type = $caracteristique_type;
-
-        return $this;
     }
 
     public function getValeur(): ?string

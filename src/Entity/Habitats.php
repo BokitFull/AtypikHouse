@@ -116,7 +116,7 @@ class Habitats
     private $ville;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
-    private Collection $CaracteristiquesHabitat;
+    private Collection $caracteristiquesHabitat;
 
     public function __construct()
     {
