@@ -58,44 +58,58 @@ nav.nav-logo a.btn:hover, nav.nav-logo button:hover {
 
 #login_div{
     width: 100%;
-    height: 500px;
+    height: 520px;
     align-items: center;
     display: grid;
     grid-template:
         'image       form' auto /
         40%         60%      
     ;
+
+    #login_div_image {
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
-#login_div_image {
-    background-image: url('/public/images/login_image.jpg');
-    grid-area: image;
-    width: 100%;
-    height: 100%;
-}
+// #login_div_image {
+//     // background-image: url('/public/images/login_image.jpg');
+//     grid-area: image;
+//     width: 100%;
+//     height: 100%;
+// }
 
 #login_div_form {
     grid-area: form;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    div, input {
+        width: 100%;
+    }
 }
 
-nav .authentication_form{
+.authentication_form{
     width: 70%;
-    height: 240px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-nav #register_form{
+#register_form{
     display: none;   
 }
 
@@ -113,7 +127,7 @@ nav .submit-btn {
     color: white;
 }
 
-nav #login_btn_div{
+#login_btn_div{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,7 +144,7 @@ nav #login_btn_div button{
     border:none;
 }
 
-nav #login_form_btn{
+#login_form_btn{
     display: none;
 }
 

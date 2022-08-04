@@ -67,27 +67,28 @@
 			<div class="modal-content">
 				<form action="/habitats" method="GET">
 					<div class="modal-header">
-						<h5 class="modal-title" id="filtre_list_modal_label">Filtrer</h5>
+						<h2 class="modal-title" id="filtre_list_modal_label">Filtrer</h2>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 
 						<div class="flex">
+							<label for="date-picker" class="form-label">Dates</label>
 							<input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
 						</div>
 						
 						<div>
-							<label for="priceRange" class="form-label">Prix maximum :</label>
+							<label for="price" class="form-label">Prix maximum :</label>
 							<output id="result-prix">{{ params["prix"]|default('150') }}</output>&euro;
 							<input id="price" name="prix" class="form-range" type="range" value="{{ params["prix"]|default('150') }}" min="0" max="300" oninput="document.querySelector('#result-prix').value = this.value">
 						</div>
 						<div>
-							<label for="personnesRange" class="form-label">Nombre de personnes :</label>
+							<label for="nbPersonnes" class="form-label">Nombre de personnes :</label>
 							<output id="result-personnes">{{ params["nb_personnes"]|default('3') }}</output>
 							<input id="nbPersonnes" name="nb_personnes" class="form-range" type="range" value="{{ params["nb_personnes"]|default('3') }}" min="1" max="5" oninput="document.querySelector('#result-personnes').value = this.value">
 						</div>
 						<div>
-							<label for="typeHabitatSelect" class="form-label">Type d'habitat :</label>
+							<label for="ddlViewBy" class="form-label">Type d'habitat :</label>
 							<select id="ddlViewBy" name="type_habitat_id" class="form-select">
 							<option value="">Tous</option>
 								{% for type in types %}
@@ -98,7 +99,7 @@
 						
 						<div id="cp-div">
 							<label for="destinations" class="form-label">Destinations :</label>
-							<input type="text" id="destinations-name" class="form-control" placeholder="Toutes destinations">
+							<input id="destinations" type="text" id="destinations-name" class="form-control" placeholder="Toutes destinations">
 							<input type="hidden" name="destinations">
 							<div id="result-cp"></div>
 						</div>

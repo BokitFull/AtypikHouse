@@ -33,6 +33,9 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
+    #[ORM\ManyToOne(inversedBy: 'caracteristiquesTypeHabitat')]
+    private ?TypesHabitat $typesHabitat = null;
+
     public function __construct()
     {
         $this->typesHabitat = new ArrayCollection();
@@ -111,6 +114,18 @@ class CaracteristiquesTypeHabitat
     public function setTypes(?TypesHabitat $types): self
     {
         $this->types = $types;
+
+        return $this;
+    }
+
+    public function getTypesHabitat(): ?TypesHabitat
+    {
+        return $this->typesHabitat;
+    }
+
+    public function setTypesHabitat(?TypesHabitat $typesHabitat): self
+    {
+        $this->typesHabitat = $typesHabitat;
 
         return $this;
     }

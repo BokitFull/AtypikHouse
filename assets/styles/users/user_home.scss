@@ -80,12 +80,6 @@ a.displayed-card:focus,
     right: 0;
 }
 
-
-
-
-
-
-
 .data-card {
     display: flex;
     flex-direction: column;
@@ -107,7 +101,7 @@ a.displayed-card:focus,
         line-height: 1;
         padding-bottom: .5em;
         margin: 0 0 0.142857143em;
-        border-bottom: 2px solid #753BBD;
+        border-bottom: 2px solid black;
         transition: color .45s ease, border .45s ease;
     }
 
