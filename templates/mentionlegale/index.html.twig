@@ -12,6 +12,11 @@
 
 {% block main %}
 
+	{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('app_mentionlegale'), 'text': 'Mentions légales'},
+]) }}
 
 <section class ="container-legal" > 
 

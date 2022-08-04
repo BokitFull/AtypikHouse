@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block main %}
+
+	{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('accueil_utilisateur'), 'text': 'Profil'},
+]) }}
+
+
 	<div id="profil-title">
 		<h1>Mon profil</h1>
 		<div class="user_img_div">

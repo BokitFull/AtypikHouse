@@ -10,6 +10,11 @@
 {% block title %}POLITIQUE DE CONFIDENTIALITÉ {% endblock %}
 
 {% block main %}
+	{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('app_confidentialites'), 'text': 'Confidentialites'},
+]) }}
     {{ render(controller('App\\Controller\\ConfidentialitesController::content')) }}
 
 {% endblock %}

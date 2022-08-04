@@ -1,47 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vos habitats{% endblock %}
+{% block title %}Vos habitats
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('hote_habitats') }}
-    {{ encore_entry_link_tags('habitat_delete') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('hote_habitats') }}
+	{{ encore_entry_link_tags('habitat_delete') }}
 {% endblock %}
 
 {% block main %}
 
-    <div class="row col-12">
-        <div class="col-10"></div>
-        <div class="col-2">
-            <a href="{{ path('new_habitat') }}" class="btn btn-primary">Nouvel habitat</a>
-        </div>
-    </div>
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('hote_habitats'), 'text': 'Habitats'},
+]) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>N°</th>
-                <th>Nom</th>
-                <th>Statut</th>
-                <th>Actif</th>
-                <th>Prix par réservation (&euro;)</th>
-                <th></th>
-                {# <th></th> #}
-            </tr>
-        </thead>
-        <tbody>
-            {% for habitat in app.user.habitats%}
-            <tr>
-                <td><img src="{{ habitat.imagesHabitat[0]|default }}" class="vignette"></img></td>
-                <td>{{ loop.index}}</td>
-                <td>{{ habitat.titre }}</td>
-                <td>{% if habitat.estValide %} Validé {% else %} Non validé {% endif %}</td>
-                <td>{% if habitat.estActif %} Actif {% else %} Inactif {% endif %}</td>
-                <td>{{ habitat.prix }}</td>
-                <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}" class="green-text"><i class="fa-solid fa-pen-to-square"></i></a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+<div class="row col-12">
+	<div class="col-10"></div>
+	<div class="col-2">
+		<a href="{{ path('new_habitat') }}" class="btn btn-primary">Nouvel habitat</a>
+	</div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>N°</th>
+			<th>Nom</th>
+			<th>Statut</th>
+			<th>Actif</th>
+			<th>Prix par réservation (&euro;)</th>
+			<th></th>
+			{# <th></th> #}
+		</tr>
+	</thead>
+	<tbody>
+		{% for habitat in app.user.habitats%}
+			<tr>
+				<td><img src="{{ habitat.imagesHabitat[0]|default }}" class="vignette"></td>
+			</tr>
+		</img>
+	</tbody>
+</td>
+<td>{{ loop.index}}</td>
+<td>{{ habitat.titre }}</td>
+<td>
+	{% if habitat.estValide %}
+		Validé
+	{% else %}
+		Non validé
+	{% endif %}
+</td>
+<td>
+	{% if habitat.estActif %}
+		Actif
+	{% else %}
+		Inactif
+	{% endif %}
+</td>
+<td>{{ habitat.prix }}</td>
+<td>
+	<a href="{{ path('edit_habitat', {'id': habitat.id} ) }}" class="green-text">
+		<i class="fa-solid fa-pen-to-square"></i>
+	</a>
+</td></tr>{% endfor %}</tbody></table>{% endblock %}

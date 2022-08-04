@@ -7,6 +7,7 @@
 		<meta name="robots"Âcontent="index,follow"> 
         <title>{% block title %}Partez à l'aventure avec Atypik House !{% endblock %}</title>
         <meta name="description" content="{% block description %}Atypik House est le site de réservation d'habitats insolites par référence ! Partez en aventure dans des lieux uniques au monde.{% endblock %}">
+        <meta name="keywords" content="{% block keywords %}habitats insolites, location hors du commun, maisons uniques au monde, réservation insolites, maisons atypiques, locations nature{% endblock %}">
         <!-- CSS only -->
         {% block stylesheets %}
             {{ encore_entry_link_tags('app_s') }}
@@ -26,6 +27,16 @@
             {{ include('_header.html.twig') }}
         </header>
         <main id="main-container">
+        
+        
+        {# {% block breadcrumb %}
+            {% set foo = app.request.pathinfo|split('/') %}
+            {% set foo2 = foo|slice(1) %}
+            <a href="/">Home</a> --> {% for item in foo2 %}{{item}} {% if not loop.last %}-->{% endif %} {% endfor %}
+        {% endblock %} #}
+
+
+
             {% for label, messages in app.flashes(['success', 'warning']) %}
                 {% for message in messages %}
                     <div class="flash-message flash-{{ label }}">

@@ -11,6 +11,16 @@
 {% endblock %}
 
 {% block main %}
+
+
+	{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('reservations'), 'text': 'Reservations'},
+]) }}
+
+
+
 	<h1>Mes réservations</h1>
 
 	<div class="div_reservations">

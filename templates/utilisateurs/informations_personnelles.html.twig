@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block main %}
+
+	{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('informations_personnelles', {'id': app.user.id}), 'text': 'Informations personnelles'},
+]) }}
+
+
 	<div id="form-container" class="">
 		{{ form_start(form, { 'attr': {'id': 'registration_form', 'class': 'input-field personnal-form', 'placeholder': 'Nom'}}) }}
 		<div id="form-input-div">

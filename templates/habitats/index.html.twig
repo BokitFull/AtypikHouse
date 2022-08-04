@@ -18,6 +18,14 @@
 {% endblock %}
 
 {% block main %}
+
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('habitats_index'), 'text': 'Habitats'},
+]) }}
+
 	<div class="row div_titre_filtre">
 		<h1 class="titre_liste_habitats">Hébergement répondant à un critère</h1>
 		<a href="#" class="btn_filtre_liste_habitats" data-bs-toggle="modal" data-bs-target="#filtre_list_modal">Filtrer</a>

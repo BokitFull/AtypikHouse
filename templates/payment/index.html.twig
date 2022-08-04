@@ -24,6 +24,13 @@
 {% block title %}AtypikHouse!{% endblock %}
 
 {% block main %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('payment'), 'text': 'Paiement'},
+]) }}
+
     <article id="paiement-article">
         <h1> Finalisation de la réservation </h1>
     </article>

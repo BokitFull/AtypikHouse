@@ -7,8 +7,6 @@ html {
     height: 100vh;
 }
 
-
-
 html,
 body,
 div,
@@ -158,7 +156,6 @@ table {
 // .border-success {
 //     border-color: #2b7929;
 // }
-
 #main-container {
     margin: 0 auto;
     max-width: 2000px;
@@ -167,7 +164,6 @@ table {
 // .site-background-color {
 //     background-color: #e4e0d9;
 // }
-
 button {
     border-radius: 10px;
     border-width: 0;
@@ -177,7 +173,6 @@ button {
 // .selected, a.selected {
 //     color: #998763;
 // }
-
 // button.btn-primary, input.btn-primary, a.btn-primary,
 // button.btn-secondary, input.btn-secondary, a.btn-secondary {
 //     background-color: #2b7929;
@@ -190,7 +185,6 @@ button {
 //         border-color: #b87247;
 //         color: white;
 //     }
-
 // button.btn-outline-primary, input.btn-outline-primary, a.btn-outline-primary,
 // button.btn-outline-secondary, input.btn-outline-secondary, a.btn-outline-secondary {
 //     color: #2b7929;
@@ -202,7 +196,6 @@ button {
 //         background-color: #2b7929;
 //         border-color: #2b7929;
 //     }
-
 @media only screen and (max-width:1200px) {
     .container-80 {
         width: 90%;
@@ -217,8 +210,7 @@ button {
 }
 
 @import "~bootstrap/scss/bootstrap";
-
-.flash-success{
+.flash-success {
     background-color: rgba(43, 121, 41, 0.8);
     text-align: center;
     position: relative;
@@ -227,3 +219,8 @@ button {
     color: white;
 }
 
+main {
+    nav {
+        z-index: 2;
+    }
+}

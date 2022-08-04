@@ -3,6 +3,14 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block main %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+{{ breadcrumbs.render([
+    {'url': url('app_home'), 'text': 'Accueil'},
+    {'url': url('app_reset_password'), 'text': 'Mot de passe oublié'},
+]) }}
+
+
     <h1>Reset your password</h1>
 
     {{ form_start(resetForm) }}
