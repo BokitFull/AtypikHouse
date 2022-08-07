@@ -28,7 +28,6 @@
                 <th>Actif</th>
                 <th>Prix par réservation (&euro;)</th>
                 <th>Modifier</th>
-                {# <th></th> #}
             </tr>
         </thead>
         <tbody>
@@ -40,7 +39,7 @@
                 <td>{% if habitat.estValide %} Validé {% else %} Non validé {% endif %}</td>
                 <td>{% if habitat.estActif %} Actif {% else %} Inactif {% endif %}</td>
                 <td>{{ habitat.prix }}</td>
-                <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}" class="green-text"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><a href="{{ path('edit_habitat', {'id': habitat.id} ) }}" class="green-text"><i class="fa-solid fa-pen-to-square" title="Modifier l'habitat"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

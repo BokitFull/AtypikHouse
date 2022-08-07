@@ -27,7 +27,9 @@ class ContactType extends AbstractType
             ->add('telephone', TextType::class, [
                 'label' => 'Téléphone *'
             ])
-            ->add('message' , TextareaType::class )
+            ->add('message' , TextareaType::class, [
+                'label' => 'Message *'
+            ])
         ;
     }
 
