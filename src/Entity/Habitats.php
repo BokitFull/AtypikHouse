@@ -425,25 +425,25 @@ class Habitats
      */
     public function getCaracteristiques(): Collection
     {
-        return $this->caracteristiques;
+        return $this->caracteristiquesHabitat;
     }
 
-    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiques): self
+    public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if (!$this->caracteristiques->contains($caracteristiques)) {
-            $this->caracteristiques->add($caracteristiques);
-            $caracteristiques->setHabitat($this);
+        if (!$this->caracteristiquesHabitat->contains($caracteristiquesHabitat)) {
+            $this->caracteristiquesHabitat->add($caracteristiquesHabitat);
+            $caracteristiquesHabitat->setHabitat($this);
         }
 
         return $this;
     }
 
-    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiques): self
+    public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if ($this->caracteristiques->removeElement($caracteristiquesHabitat)) {
+        if ($this->caracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
             // set the owning side to null (unless already changed)
-            if ($caracteristiques->getHabitat() === $this) {
-                $caracteristiques->setHabitat(null);
+            if ($caracteristiquesHabitat->getHabitat() === $this) {
+                $caracteristiquesHabitat->setHabitat(null);
             }
         }
 

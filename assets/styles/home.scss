@@ -276,3 +276,84 @@ form.formulaireAbonnement {
 .font_italic {
     font-style: italic;
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+
+    #home-pres {
+        gap: 60px;
+        height: 400px;
+      
+    }
+
+
+    #form-fields {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 50px;
+        padding: 0.1rem;
+        flex-wrap: nowrap;
+    
+    }
+
+    // #form-fields {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: space-around;
+    //     gap: 0px;
+    //     margin: -65px 10px;
+    //     padding: 0px;
+    //     flex-wrap: wrap;
+    //     width: 79%;
+    // }
+
+    .form-home {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+        gap: 100px;
+    }
+
+    #form-fields {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 0px;
+        margin: 0 50px;
+        padding: 0.1rem;
+      
+    }
+
+
+    //Modal 
+
+    // .modal-content {
+    //     position: relative;
+    //     display: flex;
+    //     flex-direction: column;
+    //     width: 100%;
+    //     color: var(--bs-modal-color);
+    //     pointer-events: auto;
+    //     background-color: var(--bs-modal-bg);
+    //     background-clip: padding-box;
+    //     border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    //     border-radius: var(--bs-modal-border-radius);
+    //     outline: 0;
+    // }
+
+  }
+  @media (min-width: 1024px) and (max-width: 1300px) {
+  
+
+     #form-fields {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 50px;
+        padding: 0.1rem;
+        flex-wrap: nowrap;
+    
+    }
+}

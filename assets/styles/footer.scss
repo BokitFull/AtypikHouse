@@ -212,3 +212,20 @@ footer {
   }
 
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+.footer-distributed .footer-right {
+    width: 29%;
+    margin: 0 !important;
+    position: relative;
+    left: 33%;
+}
+}
+
+@media (min-width: 1024px) and (max-width: 1300px) {
+  .footer-distributed .footer-right {
+      width: 18%;
+      left: 8%;
+  
+  }
+  }

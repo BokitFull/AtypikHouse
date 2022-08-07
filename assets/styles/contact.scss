@@ -81,3 +81,52 @@ p.formLabel {
     border: 5px solid #478747;
 }
 
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+    .SectionForm {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .messageContact {
+
+        left: 0;
+    }
+
+   
+
+    .coordonnesPrenom {
+        margin-left: 50px;
+    }
+
+    .coordonnesEmail {
+        margin-left: 50px;
+    }
+
+
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  
+   body { 
+    background-color: red;
+   }
+
+   
+.SectionForm {
+    display: flex;
+    flex-direction: column;
+}
+.coordonnesNomPrenom {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.coordonnesPhoneEmail {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+  }

@@ -171,135 +171,164 @@ nav .green-text:hover {
 }
 
 
-@media only screen and (max-width:1200px){    
-    .nav-col{
-        display: grid;
-        grid-template:
-            'logo        menu        login'      auto /
-             30%         50%         18%
-        ;
-    }
+// @media only screen and (max-width:1200px){    
+//     .nav-col{
+//         display: grid;
+//         grid-template:
+//             'logo        menu        login'      auto /
+//              30%         50%         18%
+//         ;
+//     }
     
-    .nav-logo {
-        width: 12em;
-    }
-}
+//     .nav-logo {
+//         width: 12em;
+//     }
+// }
 
-@media only screen and (max-width:992px) {
-    .nav-col{
-        display: grid;
-        grid-template:
-            'logo        menu        login'      auto /
-             20%         55%         23%
-        ;
-    }
+// @media only screen and (max-width:992px) {
+//     .nav-col{
+//         display: grid;
+//         grid-template:
+//             'logo        menu        login'      auto /
+//              20%         55%         23%
+//         ;
+//     }
+
+//     #login_div{
+//         grid-template:
+//             'image  form' auto /
+//              30%    70%      
+//         ;
+//     }
+// }
+
+// @media only screen and (max-width:768px) {
+
+//     .nav-col{
+//         display: grid;
+//         grid-template:
+//             'menu       logo       login'      auto /
+//             1fr         1fr         1fr
+//         ;
+//     }
+    
+//     #nav-col-menu ul {
+//         display: flex;
+//         justify-content: flex-start;
+//         flex-direction: column;
+//         list-style: none;
+//     }
+
+//     #menu-toggle:checked + #menu-btn > #burger {
+//         transform: rotate(-45deg);
+//     }
+
+//     #menu-toggle:checked + #menu-btn > #first-pan {
+//         transform: translate(0, 7px) rotate(45deg);
+//     }
+
+//     #menu-toggle:checked + #menu-btn > #second-pan {
+//         transform: translate(0, -9px) rotate(45deg);
+//     }
+
+//     #menu-toggle:checked + #menu-btn {
+//         transform: translate(220px);
+//     }
+
+//     #menu-toggle:checked ~ #menu-box {
+//     left: 0 !important;
+//     }
+
+//     #menu-btn {
+//     position: relative;
+//     display: block;
+//     left: 40px;
+//     cursor: pointer;
+//     z-index: 1;
+//     }
+
+//     #nav-col-menu + #menu-toggle {
+//         z-index:100;
+//     }
+
+//     #first-pan{
+//     display: block;
+//     width: 30px;
+//     height: 2px;
+//     background-color: #616161;
+//     transition-duration: .25s;
+//     z-index: 1;
+//     }
+
+//     #burger{
+//     display: block;
+//     width: 30px;
+//     margin-top: 6px;
+//     margin-bottom: 6px;
+//     height: 2px;
+//     background-color: #616161;
+//     transition-duration: .25s;
+//     z-index: 1;
+//     }
+
+//     #second-pan{
+//     display: block;
+//     width: 30px;
+//     height: 2px;
+//     background-color: #616161;
+//     transition-duration: .25s;
+//     z-index: 1;
+//     }
+
+//     #menu-box {
+//     display: block;
+//     position: fixed;
+//     top: 0;
+//     left: -100%;
+//     width: 300px;
+//     height: 100%;
+//     margin: 0;
+//     padding: 80px 0;
+//     list-style: none;
+//     ;
+//     background-color: #ECEFF1;
+//     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+//     transition-duration: .25s;
+//     }
+
+//     #login_div{
+//         grid-template:
+//             'image  form' auto /
+//              0%     100%      
+//         ;
+//     }
+// }
+
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
 
     #login_div{
-        grid-template:
-            'image  form' auto /
-             30%    70%      
-        ;
-    }
-}
-
-@media only screen and (max-width:768px) {
-
-    .nav-col{
-        display: grid;
-        grid-template:
-            'menu       logo       login'      auto /
-            1fr         1fr         1fr
-        ;
-    }
-    
-    #nav-col-menu ul {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+        align-items: center;
         display: flex;
-        justify-content: flex-start;
         flex-direction: column;
-        list-style: none;
     }
 
-    #menu-toggle:checked + #menu-btn > #burger {
-        transform: rotate(-45deg);
+    .authentication_form {
+        width: 70%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
-    #menu-toggle:checked + #menu-btn > #first-pan {
-        transform: translate(0, 7px) rotate(45deg);
+    #login_div_image img {
+        width: 100%;
+        max-height: 320px;
     }
-
-    #menu-toggle:checked + #menu-btn > #second-pan {
-        transform: translate(0, -9px) rotate(45deg);
-    }
-
-    #menu-toggle:checked + #menu-btn {
-        transform: translate(220px);
-    }
-
-    #menu-toggle:checked ~ #menu-box {
-    left: 0 !important;
-    }
-
-    #menu-btn {
-    position: relative;
-    display: block;
-    left: 40px;
-    cursor: pointer;
-    z-index: 1;
-    }
-
-    #nav-col-menu + #menu-toggle {
-        z-index:100;
-    }
-
-    #first-pan{
-    display: block;
-    width: 30px;
-    height: 2px;
-    background-color: #616161;
-    transition-duration: .25s;
-    z-index: 1;
-    }
-
-    #burger{
-    display: block;
-    width: 30px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    height: 2px;
-    background-color: #616161;
-    transition-duration: .25s;
-    z-index: 1;
-    }
-
-    #second-pan{
-    display: block;
-    width: 30px;
-    height: 2px;
-    background-color: #616161;
-    transition-duration: .25s;
-    z-index: 1;
-    }
-
-    #menu-box {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 300px;
-    height: 100%;
-    margin: 0;
-    padding: 80px 0;
-    list-style: none;
-    ;
-    background-color: #ECEFF1;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
-    transition-duration: .25s;
-    }
-
-    #login_div{
-        grid-template:
-            'image  form' auto /
-             0%     100%      
-        ;
-    }
+    
 }
