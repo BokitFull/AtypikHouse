@@ -26,7 +26,11 @@
     z-index: 2;
     h1, h2, h3{
         margin-bottom: 0px;
-        color: white;
+        color: #404040;
+    }
+
+    #user-email {
+        font-size: 20px;
     }
 }
 
@@ -98,7 +102,7 @@ a.displayed-card:focus,
 
     h3 {
         color: #2E3C40;
-        font-size: 3.5em;
+        font-size: 2em;
         font-weight: 600;
         line-height: 1;
         padding-bottom: .5em;

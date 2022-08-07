@@ -33,10 +33,6 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToMany(targetEntity: TypesHabitat::class, inversedBy: 'caracteristiquesTypeHabitat')]
-    private Collection $typesHabitat;
-
-
     public function __construct()
     {
         $this->typesHabitat = new ArrayCollection();
@@ -115,30 +111,6 @@ class CaracteristiquesTypeHabitat
     public function setTypes(?TypesHabitat $types): self
     {
         $this->types = $types;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, TypesHabitat>
-     */
-    public function getTypesHabitat(): Collection
-    {
-        return $this->typesHabitat;
-    }
-
-    public function addTypesHabitat(TypesHabitat $typesHabitat): self
-    {
-        if (!$this->typesHabitat->contains($typesHabitat)) {
-            $this->typesHabitat->add($typesHabitat);
-        }
-
-        return $this;
-    }
-
-    public function removeTypesHabitat(TypesHabitat $typesHabitat): self
-    {
-        $this->typesHabitat->removeElement($typesHabitat);
 
         return $this;
     }

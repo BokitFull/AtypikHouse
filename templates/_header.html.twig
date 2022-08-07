@@ -1,16 +1,16 @@
 <nav class="nav-col">
     <div class="nav-col-logo">
         <a href="/">
-            <img alt="Logo header Atypik House" src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
+            <img src="{{ asset('images/atypik_long-removebg-preview.654ec52f.png') }}" class="nav-logo">
         </a>
     </div>
     <div id="nav-col-menu">
         <input id="menu-toggle" type="checkbox" />
-        <span id="menu-btn" for="menu-toggle">
+        <label id="menu-btn" for="menu-toggle">
             <span id="first-pan"></span>
             <span id="burger"></span>
             <span id="second-pan"></span>
-        </span>
+        </label>
         <ul id="menu-box">
             {# <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="/">Destinations</a>
@@ -21,14 +21,14 @@
             <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="{{ path('app_contact') }}">Contact</a>
             </li>
-            {% if is_granted('ROLE_HOTE') %}
+        {% if is_granted('ROLE_HOTE') %}
             <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="{{ path('hote_habitats') }}">Habitats</a>
             </li>
             {# <li class="nav-item">
                 <a class="nav-link fs-5 green-text" href="{{ path('habitat_calendar') }}">Calendrier</a>
             </li> #}
-            {% endif %}
+        {% endif %}
             <li class="nav-item d-md-none">
                 {% if app.user and not is_granted('ROLE_HOTE') %}
                     <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#become_host_modal">Devenir hôte</button>
@@ -62,14 +62,14 @@
                 </ul>
             </div>
         {% elseif app.request.get('_route') != 'login' %}
-            <button id="btn_authenticate" type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal" value="0">
+            <button type="button" class="nav-link green-text bg-transparent" data-bs-toggle="modal" data-bs-target="#authenticate_modal">
                 <span class="fa-solid fa-user-circle"></span>
             </button>
-            <div class="modal fade" id="authenticate_modal" tabindex="-1" aria-labelledby="btn_authenticate" aria-hidden="true">
+            <div class="modal fade" id="authenticate_modal" tabindex="-1" aria-labelledby="authenticateModal" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content site-background-color">
                         <div class="modal-header">
-                            <h2 class="modal-title w-100 text-center">Connexion ou Inscription</h2>
+                            <h5 class="modal-title w-100 text-center">Connexion ou Inscription</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

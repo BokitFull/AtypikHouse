@@ -10,6 +10,7 @@
 
 {% block main %}
 
+    <h1>Liste de vos habitats</h1>
     <div class="row col-12">
         <div class="col-10"></div>
         <div class="col-2">
@@ -20,20 +21,20 @@
     <table class="table">
         <thead>
             <tr>
-                <th></th>
+                <th>Image</th>
                 <th>N°</th>
                 <th>Nom</th>
                 <th>Statut</th>
                 <th>Actif</th>
                 <th>Prix par réservation (&euro;)</th>
-                <th></th>
+                <th>Modifier</th>
                 {# <th></th> #}
             </tr>
         </thead>
         <tbody>
             {% for habitat in app.user.habitats%}
             <tr>
-                <td><img src="{{ habitat.imagesHabitat[0]|default }}" class="vignette"></img></td>
+                <td><img alt="habitat.imagesHabitat[0]|default('No image') " src="{{ habitat.imagesHabitat[0]|default('/images/default.png') }}" class="vignette"></img></td>
                 <td>{{ loop.index}}</td>
                 <td>{{ habitat.titre }}</td>
                 <td>{% if habitat.estValide %} Validé {% else %} Non validé {% endif %}</td>
