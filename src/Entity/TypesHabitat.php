@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TypesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypesHabitatRepository::class)]
+#[ApiResource()]
 class TypesHabitat
 {
     #[ORM\Id]

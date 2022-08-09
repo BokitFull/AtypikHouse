@@ -31,9 +31,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for habitat in app.user.habitats%}
+            {% for habitat in app.user.habitats %}
             <tr>
-                <td><img alt="habitat.imagesHabitat[0]|default('No image') " src="{{ habitat.imagesHabitat[0]|default('/images/default.png') }}" class="vignette"></img></td>
+                <td><img alt="{{habitat.imagesHabitat[0].chemin|default('No image')}}" src="{{ habitat.imagesHabitat[0].chemin|default('/images/default.png') }}" class="vignette"></img></td>
                 <td>{{ loop.index}}</td>
                 <td>{{ habitat.titre }}</td>
                 <td>{% if habitat.estValide %} Validé {% else %} Non validé {% endif %}</td>

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateursRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +13,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 #[Gedmo\Loggable]
 #[ORM\Entity(repositoryClass: UtilisateursRepository::class)]
+#[ApiResource(
+	itemOperations: [ 'get' ],
+	collectionOperations: [ ]
+)]
 class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 {   
     #[ORM\Id]

@@ -14,6 +14,42 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
+#[ApiResource(
+    // collectionOperations: [
+    //     'get' => [
+    //     'normalization_context' => [
+    //         'groups' => 'read:collection'
+    //         ]
+    //     ],
+    //     'list_habitats' => [
+    //         'pagination_enabled'=>false,
+    //         'method' => 'GET',
+    //         'path' => 'get/habitats',
+    //         'controller' => GetHabitatsController::class,
+    //         'filters' => [],
+    //         'openapi_context' => [
+    //             'summary' => 'Récupère une liste',
+    //             'parameters' => [
+    //                 [
+    //                     'in' => 'query',
+    //                     'name' => 'id',
+    //                     'schema' => [
+    //                         'type' => 'integer'
+    //                     ]
+
+    //                 ]
+    //             ]
+    //         ]
+    //     ]
+    // ], 
+    // itemOperations: [
+    //     'get' => [
+    //         'normalization_context' => [
+    //             'groups' => 'comment:item'
+    //         ]
+    //     ],
+    // ]
+)]
 
 class Habitats
 {

@@ -134,8 +134,6 @@ class UtilisateursControllerTest extends WebTestCase
             'utilisateur[ville]' => 'Paris',
             'utilisateur[pays]' => 'France',
             'utilisateur[created_at]' => '2022-08-16',
-            // 'utilisateur[updated_at]' => 'Something New',
-            // 'utilisateur[deleted_at]' => 'Something New',
             'utilisateur[image]' => 'Something New',
         ]);
 
@@ -178,8 +176,6 @@ class UtilisateursControllerTest extends WebTestCase
         $fixture->setCodePostal('75');
         $fixture->setVille('Paris');
         $fixture->setPays('France');
-        // $fixture->setCreatedAt(new DateTimeImmutable('now'));
-        // $fixture->setUpdatedAt(new DateTimeImmutable('now'));
         $fixture->setDeletedAt(null);
         $fixture->setImage('My Title');
 

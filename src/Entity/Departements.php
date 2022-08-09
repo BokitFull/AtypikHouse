@@ -18,9 +18,6 @@ class Departements
     #[ORM\Column(type: 'string', length: 100)]
     private $nom;
 
-    // #[ORM\Column(type: 'string', length: 5)]
-    // private $numero;
-
     #[ORM\ManyToOne(targetEntity: Region::class, inversedBy: 'departements')]
     private $region;
 

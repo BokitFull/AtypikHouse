@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\PrestationsRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: PrestationsRepository::class)]
+#[ApiResource()]
 class Prestations
 {
     #[ORM\Id]

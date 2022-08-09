@@ -30,6 +30,10 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/hote, roles: ROLE_HOTE }
         - { path: ^/utilisateurs, roles: ROLE_USER }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/users/authentication, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS }
+
 
 when@test:
     security:

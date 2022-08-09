@@ -90,7 +90,7 @@
                 <div class="row col-12 mt-2">
                     <div class="col-3 col-lg-5"></div>
                     <div class="col-6 col-lg-2 text-center">
-                        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir plus</button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalImages">Voir plus</button>
 
                         <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -184,7 +184,7 @@
 
                     {% if (habitat.prestations.count > 4) %}
                         <div class="col-12 mt-3">
-                            <button id="btn_prestation" type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
+                            <button id="btn_prestation" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
 
                             <div class="modal fade" id="modalPrestations" tabindex="-1" aria-labelledby="btn_prestation" aria-hidden="true">
                                 <div class="modal-dialog modal-md modal-dialog-scrollable">
@@ -294,7 +294,7 @@
                             </h3>
                             
 
-                            <span class="card-subtitle small green-text">
+                            <span class="card-subtitle small dark-green-text">
                                 {{commentaire.createdAt|date('M-Y')}}
                             </span>
                             
@@ -306,7 +306,7 @@
 
                             <div class="ms-3">
                                 {% if commentaire.reponse is not empty %}
-                                    <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
+                                    <span class="small dark-green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
                                     <p>{{ commentaire.reponse|slice(0, 57) }}
                                     {% if commentaire.reponse|length > 57 %}
                                         ...
@@ -323,7 +323,7 @@
                 {% if commentaires|length > 3 %}
 
                 <div class="col-12 float-end mt-3">
-                    <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalCommentaires">Plus d'avis</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCommentaires">Plus d'avis</button>
 
                     <div class="modal fade" id="modalCommentaires" tabindex="-1" aria-labelledby="modalCommentaireysLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-scrollable">

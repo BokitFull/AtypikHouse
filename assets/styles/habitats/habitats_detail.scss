@@ -8,10 +8,12 @@
 
 .image-side img {
     width: 200px;
+    min-height: 150px;
 }
 
 .image-central img {
     width: 400px;
+    min-height: 250px;
 }
 
 .separator {
@@ -52,4 +54,26 @@ div.flatpickr-wrapper {
 #form-reservation button.btn {
     background-color: #2b7929;
     border-color: #2b7929;
+
+    :hover {
+        background-color: #184A17;
+        border-color: #184A17; 
+    }
 }  
+
+
+.btn-secondary {
+    background-color: #998763;
+    border-color: #998763;
+    :hover {
+        background-color: #b87247;
+        border-color: #b87247; 
+    }
+}
+
+.dark-green-text {
+    color: #184A17;
+}
+.green-text {
+    color: #2b7929;
+}

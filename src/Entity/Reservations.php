@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ReservationsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 #[Gedmo\Loggable]
 #[ORM\Entity(repositoryClass: ReservationsRepository::class)]
+#[ApiResource()]
 class Reservations
 {
     #[ORM\Id]
