@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TypesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypesHabitatRepository::class)]
@@ -18,9 +19,16 @@ class TypesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 50)
+     */
     #[ORM\Column(type: 'string', length: 50)]
     private $nom;
 
+    /**
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 

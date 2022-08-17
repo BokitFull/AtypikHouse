@@ -30,7 +30,7 @@ class UtilisateursController extends AbstractController
     {   
         $context['utilisateur'] = $this->getUser();
 
-        $this->finder->in("./images/uploads/users/")->files()->name($this->getUser()->getId() . ".jpg");
+        $this->finder->in("images/uploads/users/")->files()->name($this->getUser()->getId() . ".jpg");
         if($this->finder->hasResults()) {
             foreach($this->finder as $file) {
                 if(file_exists($file)) {
@@ -45,20 +45,6 @@ class UtilisateursController extends AbstractController
 
         return $this->render('utilisateurs/index.html.twig', $context);
     }
-
-    // #[Route('/informations_personnelles', name: 'informations_personnelles', methods: ['GET'])]
-    // public function informations_personelles(): Response
-    // {  
-    //     return $this->render('utilisateurs/informations_personnelles.html.twig');
-    // }
-
-    // #[Route('/reservations', name: 'reservation_utilisateur', methods: ['GET', 'POST'])]
-    // public function reservations(Request $request, UtilisateursRepository $utilisateursRepository): Response
-    // {   
-    //     $context['utilisateur'] = $this->getUser();
-
-    //     return $this->render('utilisateurs/reservations.html.twig', $context);
-    // }
 
     //Page d'édition des informations d'un utilisateur
     #[Route('/{id}/edit', name: 'informations_personnelles', methods: ['GET', 'POST'])]

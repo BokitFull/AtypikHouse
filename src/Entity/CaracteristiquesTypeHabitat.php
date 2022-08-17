@@ -7,6 +7,7 @@ use App\Repository\CaracteristiquesTypeHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CaracteristiquesTypeHabitatRepository::class)]
@@ -18,9 +19,16 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 100)
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $nom;
 
+    /**
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
@@ -40,7 +48,6 @@ class CaracteristiquesTypeHabitat
 
     public function __construct()
     {
-        $this->typesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,18 +111,6 @@ class CaracteristiquesTypeHabitat
     public function setDeletedAt(\DateTimeImmutable $deleted_at): self
     {
         $this->deleted_at = $deleted_at;
-
-        return $this;
-    }
-
-    public function getTypes(): ?TypesHabitat
-    {
-        return $this->types;
-    }
-
-    public function setTypes(?TypesHabitat $types): self
-    {
-        $this->types = $types;
 
         return $this;
     }

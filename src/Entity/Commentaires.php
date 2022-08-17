@@ -5,10 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommentairesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CommentairesRepository::class)]
-#[ApiResource()]
+    #[ApiResource()]
 class Commentaires
 {
     #[ORM\Id]
@@ -22,18 +23,33 @@ class Commentaires
     #[ORM\Column(type: 'text', nullable: true)]
     private $reponse;
 
+    /**
+     * @Assert\Regex("/^[0-5]{1}$/")
+     */
     #[ORM\Column(type: 'integer')]
     private $note_proprete;
 
+    /**
+     * @Assert\Regex("/^[0-5]{1}$/")
+     */
     #[ORM\Column(type: 'integer')]
     private $note_accueil;
 
+    /**
+     * @Assert\Regex("/^[0-5]{1}$/")
+     */
     #[ORM\Column(type: 'integer')]
     private $note_qualite_prix;
 
+    /**
+     * @Assert\Regex("/^[0-5]{1}$/")
+     */
     #[ORM\Column(type: 'integer')]
     private $note_emplacement;
 
+    /**
+     * @Assert\Regex("/^[0-5]{1}$/")
+     */
     #[ORM\Column(type: 'integer')]
     private $note_equipements;
 
@@ -48,6 +64,9 @@ class Commentaires
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
+    /**
+     * @Assert\NotBlank
+     */
     #[ORM\Column(type: 'text')]
     private $contenu;
 
