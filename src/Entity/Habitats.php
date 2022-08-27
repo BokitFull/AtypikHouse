@@ -81,10 +81,7 @@ class Habitats
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 150,
-     * )
+     * @Assert\Length(max = 150)
      */
     #[ORM\Column(type: 'string', length: 150)]
     private $titre;
@@ -95,20 +92,13 @@ class Habitats
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 100,
-     * )
+     * @Assert\Length(max = 100)
      */
     #[ORM\Column(type: 'string', length: 100)]
     private $adresse;
 
     /**
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 2,
-     * )
      * @Assert\Regex("/^\d{2}(?:[-\s]\d{4})?$/")
      */
     #[ORM\Column(type: 'string', length: 2)]
@@ -117,18 +107,33 @@ class Habitats
     #[ORM\Column(type: 'text')]
     private $description;
 
+    /**
+     * @Assert\PositiveOrZero
+     */
     #[ORM\Column(type: 'integer')]
     private $nb_personnes;
 
+    /**
+     * @Assert\PositiveOrZero
+     */
     #[ORM\Column(type: 'float')]
     private $prix;
 
+    /**
+     * @Assert\NotNull
+     */
     #[ORM\Column(type: 'datetime_immutable')]
     private $debut_disponibilite;
 
+    /**
+     * @Assert\NotNull
+     */
     #[ORM\Column(type: 'datetime_immutable')]
     private $fin_disponibilite;
     
+    /**
+     * @Assert\NotNull
+     */
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
@@ -140,6 +145,9 @@ class Habitats
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
+    /**
+     * @Assert\NotNull
+     */
     #[ORM\Column(type: 'boolean')]
     private $est_valide;
 
@@ -152,6 +160,9 @@ class Habitats
     #[ORM\ManyToMany(targetEntity: Prestations::class, inversedBy: 'habitats')]
     private $prestations;
 
+    /**
+     * @Assert\NotNull
+     */
     #[ORM\Column(type: 'boolean')]
     private $est_actif;
 

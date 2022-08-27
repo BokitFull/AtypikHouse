@@ -151,6 +151,9 @@
             "./config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "liip/test-fixtures-bundle": {
+        "version": "2.4.0"
+    },
     "monolog/monolog": {
         "version": "2.6.0"
     },

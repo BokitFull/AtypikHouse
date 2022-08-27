@@ -18,6 +18,7 @@ use App\Entity\Utilisateurs;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -33,7 +34,7 @@ class AppFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
         $utilisateurs = array();
 
-        // create 10 products! Bam!
+        // create 10 users! Bam!
         for ($i = 0; $i < 10; $i++) {
             $utilisateur = new Utilisateurs();
             $utilisateur->setNom($faker->firstName);
@@ -141,18 +142,39 @@ class AppFixtures extends Fixture
             }
         }
 
-        
+        $caracteristiquesTypeHabitat = array();
+        $caracteristiques_name = ['Altitude', 'Emplacement', 'Véranda', 'Balcon', 'Baie Vitré', 'Garage', 'Escalier', 'Toit', 'Jardin'];
+        for ($i = 0; $i < 10; $i++) {
+            $caracteristiques = new CaracteristiquesTypeHabitat();
+            $caracteristiques->setNom($faker->randomElement($caracteristiques_name));
+            $caracteristiques->setDescription($faker->sentence(20));
+            $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
+
+            array_push($caracteristiquesTypeHabitat, $caracteristiques);
+            $manager->persist($caracteristiques);
+        }
 
         $type_habitats = array();
         $habitat_name = ['Cabane', 'Tipi', 'Bulle', 'Tente', 'Roulotte', 'Yourte', 'Dôme', 'Tiny House', 'Chalet', 'Chalet'];
         for ($i = 0; $i < 10; $i++) {
             $type_habitat = new TypesHabitat();
-            $type_habitat->setNom($habitat_name[$i]);
+            $type_habitat->setNom($faker->randomElement($habitat_name));
             $type_habitat->setDescription($faker->sentence(20));
-            $type_habitat->setDeletedAt(new DateTimeImmutable('now'));
+            $type_habitat->addCaracteristiquesTypeHabitat($faker->randomElement($caracteristiquesTypeHabitat));
+            $type_habitat->setCreatedAt(new DateTimeImmutable('now'));
 
             array_push($type_habitats, $type_habitat);
             $manager->persist($type_habitat);
+        }
+
+        $caracteristiquesHabitat = array();
+        for ($i = 0; $i < 10; $i++) {
+            $caracteristiques = new CaracteristiquesHabitat();
+            $caracteristiques->setValeur($faker->sentence(1));
+            $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
+
+            array_push($caracteristiquesHabitat, $caracteristiques);
+            $manager->persist($caracteristiques);
         }
 
         $habitats = array();
@@ -168,39 +190,15 @@ class AppFixtures extends Fixture
             $habitat->setEstActif(rand(0, 1));
             $habitat->setPrix(rand(10,300));
             $habitat->setNbPersonnes(1);
+            $habitat->addCaracteristiquesHabitat($faker->randomElement($caracteristiquesHabitat));
             $habitat->setDebutDisponibilite(new DateTimeImmutable('now'));
             $habitat->setFinDisponibilite(new DateTimeImmutable('now'));
-            $habitat->addPrestation($prestations[rand(0, count($prestations)-1)]);
+            $habitat->addPrestation($faker->randomElement($prestations));
             $habitat->setType($type_habitats[rand(0, count($type_habitats)-1)]);
             $habitat->setUtilisateur($utilisateurs[rand(7, 9)]);
             $habitat->setDeletedAt(new DateTimeImmutable('now'));
             array_push($habitats, $habitat);
             $manager->persist($habitat);
-        }
-
-        $caracteristiquesTypeHabitat = array();
-        $caracteristiques_name = ['Altitude', 'Emplacement', 'Véranda', 'Balcon', 'Baie Vitré', 'Garage', 'Escalier', 'Toit', 'Jardin'];
-        for ($i = 0; $i < 10; $i++) {
-            $caracteristiques = new CaracteristiquesTypeHabitat();
-            $caracteristiques->setNom($faker->randomElement($caracteristiques_name));
-            $caracteristiques->setDescription($faker->sentence(20));
-            $caracteristiques->addTypesHabitat($faker->randomElement($type_habitats));
-            $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
-
-            array_push($caracteristiquesTypeHabitat, $caracteristiques);
-            $manager->persist($caracteristiques);
-        }
-
-        $caracteristiquesHabitat = array();
-        for ($i = 0; $i < 10; $i++) {
-            $caracteristiques = new CaracteristiquesHabitat();
-            $caracteristiques->setHabitat($faker->randomElement($habitats));
-            $caracteristiques->setCaracteritiqueType($faker->randomElement($caracteristiquesTypeHabitat));
-            $caracteristiques->setValeur($faker->sentence(1));
-            $caracteristiques->setDeletedAt(new DateTimeImmutable('now'));
-
-            array_push($caracteristiquesHabitat, $caracteristiques);
-            $manager->persist($caracteristiques);
         }
 
         $reservations = array();

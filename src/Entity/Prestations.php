@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\PrestationsRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: PrestationsRepository::class)]
+#[ApiResource()]
 class Prestations
 {
     #[ORM\Id]
@@ -16,9 +19,17 @@ class Prestations
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 100)
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $nom;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $icone;
 
@@ -29,6 +40,9 @@ class Prestations
     #[ORM\ManyToMany(targetEntity: Habitats::class, mappedBy: 'prestations')]
     private $habitats;
 
+    /**
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 

@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CaracteristiquesTypeHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CaracteristiquesTypeHabitatRepository::class)]
+#[ApiResource()]
 class CaracteristiquesTypeHabitat
 {
     #[ORM\Id]
@@ -16,9 +19,16 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 100)
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $nom;
 
+    /**
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
@@ -33,13 +43,11 @@ class CaracteristiquesTypeHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToMany(targetEntity: TypesHabitat::class, inversedBy: 'caracteristiquesTypeHabitat')]
-    private Collection $typesHabitat;
-
+    #[ORM\ManyToOne(inversedBy: 'caracteristiquesTypeHabitat')]
+    private ?TypesHabitat $typesHabitat = null;
 
     public function __construct()
     {
-        $this->typesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,14 +115,14 @@ class CaracteristiquesTypeHabitat
         return $this;
     }
 
-    public function getTypes(): ?TypesHabitat
+    public function getTypesHabitat(): ?TypesHabitat
     {
-        return $this->types;
+        return $this->typesHabitat;
     }
 
-    public function setTypes(?TypesHabitat $types): self
+    public function setTypesHabitat(?TypesHabitat $typesHabitat): self
     {
-        $this->types = $types;
+        $this->typesHabitat = $typesHabitat;
 
         return $this;
     }

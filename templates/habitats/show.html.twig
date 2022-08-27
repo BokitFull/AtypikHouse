@@ -22,8 +22,8 @@
 
 <div class="row">
 
-    <div class="col-12">
-        <h2>{{habitat.titre}}</h2>
+    <div class="col-12 page-title">
+        <h1>{{habitat.titre}}</h1>
     </div>
 
     <div class="col-12">
@@ -91,13 +91,13 @@
                 <div class="row col-12 mt-2">
                     <div class="col-3 col-lg-5"></div>
                     <div class="col-6 col-lg-2 text-center">
-                        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalImages">Voir plus</button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalImages">Voir plus</button>
 
                         <div class="modal fade" id="modalImages" tabindex="-1" aria-labelledby="modalImagesLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                 <div class="modal-content site-background-color">
                                     <div class="modal-header">
-                                        <h5 class="modal-title w-100 text-center">Toutes les images</h5>
+                                        <h3 class="modal-title w-100 text-center">Toutes les images</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body row">
@@ -128,14 +128,15 @@
         <div class="col-10">
             <div id="divPrix" class="row col-12 align-items-center justify-content-center">
 
-                <label for="labelPrix" class="col-5 fs-2">Prix par nuit :</label>
+                <span id="labelPrix" class="col-5 fs-2">Prix par nuit :</span>
                 <span class="fs-2 col-6">{{ habitat.prix }} &euro;</span>
 
                 {% if app.user is not null %}
                 <form id="form-reservation" action="{{ path('payment', { 'id': habitat.id }) }}" onsubmit="">
                     <div class="d-flex flex-column justify-content-between mb-2">
                         <div>
-                            <input id="date-picker" name="form-date" class="form-input" type="text" placeholder="Choisir une date" data-flatpickr>
+                        <label for="date-picker" class="label-form">Choisissez une date</label>
+                            <input id="date-picker" name="form-date" class="form-input" type="text" data-flatpickr>
                         </div>
                     </div>
                     
@@ -155,9 +156,9 @@
     <div class="col-3"></div>
 
     <div class="col-12">
-        <h4>L'hébergement - <span>Pour {{ habitat.nbPersonnes }} personne(s)</span></h4>
+        <h4 class="title-top" >L'hébergement - <span>Pour {{ habitat.nbPersonnes }} personne(s)</span></h4>
 
-        <p>{{habitat.description}}</p>
+        <p class="text-Habitat" >{{habitat.description}}</p>
     </div>
 
     {# Bloc de séparateur #}
@@ -169,28 +170,28 @@
 
         <div class="row col-12 mb-2 mb-lg-0">
 
-            <h4>Prestations</h4>
+            <h4 class="title-top" >Prestations</h4>
             <div class="row w-100">
                 {% if (habitat.prestations is empty) %}
                     <div class="col-12">
-                        <span>Aucun équipement ou service</span>
+                        <span class ="text-Habitat">Aucun équipement ou service</span>
                     </div>
                 {% else %}
                     {% for prestation in habitat.prestations|slice(0, 4) %}
                         <div class="col-6">
-                            <span>{{ prestation.nom }}</span>
+                            <span class ="text-Habitat">{{ prestation.nom }}</span>
                         </div>
                     {% endfor %}
 
                     {% if (habitat.prestations.count > 4) %}
                         <div class="col-12 mt-3">
-                            <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
+                            <button id="btn_prestation" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalPrestations">Voir plus</button>
 
-                            <div class="modal fade" id="modalPrestations" tabindex="-1" aria-labelledby="modalPrestationsLabel" aria-hidden="true">
+                            <div class="modal fade" id="modalPrestations" tabindex="-1" aria-labelledby="btn_prestation" aria-hidden="true">
                                 <div class="modal-dialog modal-md modal-dialog-scrollable">
                                     <div class="modal-content site-background-color">
                                         <div class="modal-header">
-                                            <h5 class="modal-title w-100 text-center">Tous les équipements</h5>
+                                            <h3 class="modal-title w-100 text-center">Toutes les prestations</h3>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -225,7 +226,7 @@
     <div class="row col-12">
         {% if notes[0]["note_generale"] is not null %}
 
-        <h4>Notes et avis</h4>
+        <h4 class="title-top" >Notes et avis</h4>
 
         <div class="row col-lg-6 col-sm-12 align-items-end">
             <p class="d-flex col-12 justify-content-center">
@@ -271,7 +272,7 @@
         {% else %}
 
         <div class="col-lg-6 col-sm-12 align-items-start">
-            <h4>Aucune note</h4>
+            <h4 class="title-top" >Aucune note</h4>
         </div>
 
         {% endif %}
@@ -283,7 +284,7 @@
                     
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">
+                            <h3 class="card-title">
 
                             {% if commentaire.utilisateur.image is empty %}
                             <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
@@ -291,10 +292,10 @@
                             <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
                             {% endif %}
                             <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
-                            </h5>
+                            </h3>
                             
 
-                            <span class="card-subtitle small green-text">
+                            <span class="card-subtitle small dark-green-text">
                                 {{commentaire.createdAt|date('M-Y')}}
                             </span>
                             
@@ -307,7 +308,7 @@
                             <div class="ms-3">
                                 {% if commentaire.reponse is not empty %}
                                     <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
-                                    <p>{{ commentaire.reponse|slice(0, 57) }}
+                                    <p class ="text-Habitat" >{{ commentaire.reponse|slice(0, 57) }}
                                     {% if commentaire.reponse|length > 57 %}
                                         ...
                                     {% endif %} 
@@ -323,7 +324,7 @@
                 {% if commentaires|length > 3 %}
 
                 <div class="col-12 float-end mt-3">
-                    <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#modalCommentaires">Plus d'avis</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCommentaires">Plus d'avis</button>
 
                     <div class="modal fade" id="modalCommentaires" tabindex="-1" aria-labelledby="modalCommentaireysLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -338,7 +339,7 @@
                                             {% if commentaire.commentaireParent is empty %}
                                             <div class="card col-12">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">
+                                                    <h3 class="card-title">
 
                                                     {% if commentaire.utilisateur.image is empty %}
                                                     <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
@@ -346,7 +347,7 @@
                                                     <img src="{{commentaire.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
                                                     {% endif %}
                                                     <span>{{commentaire.utilisateur.nom}}&nbsp;{{commentaire.utilisateur.prenom}}</span>
-                                                    </h5>
+                                                    </h3>
 
                                                     <span class="card-subtitle small green-text">{{commentaire.createdAt|date('M-Y')}}</span>
 
@@ -363,7 +364,7 @@
                                                 {% if reponse.commentaireParent.commentaireParent is empty %}
                                                 <div class="card col-12">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">
+                                                        <h3 class="card-title">
 
                                                         {% if reponse.utilisateur.image is empty %}
                                                         <img src="/images/profile-picture.jpg" class="rounded-circle profile-picture" alt="image_profil">
@@ -371,7 +372,7 @@
                                                         <img src="{{reponse.utilisateur.image}}" class="rounded-circle profile-picture" alt="image_profil">
                                                         {% endif %}
                                                         <span>{{reponse.utilisateur.nom}}&nbsp;{{reponse.utilisateur.prenom}}</span>
-                                                        </h5>
+                                                        </h3>
 
                                                         <span class="card-subtitle small green-text">
                                                         <i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>
@@ -405,7 +406,7 @@
             {% else %}
                 
             <div class="col-lg-6 col-sm-12 align-items-start">
-                <h4>Aucun commentaire</h4>
+                <h4 class="title-top" >Aucun commentaire</h4>
             </div>
 
             {% endif %}

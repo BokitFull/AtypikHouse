@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ImagesHabitatRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ImagesHabitatRepository::class)]
+#[ApiResource()]
 class ImagesHabitat
 {
     #[ORM\Id]
@@ -14,6 +17,10 @@ class ImagesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $chemin;
 
@@ -21,6 +28,9 @@ class ImagesHabitat
     #[ORM\JoinColumn(nullable: false)]
     private $habitat;
 
+    /**
+     * @Assert\PositiveOrZero
+     */
     #[ORM\Column(type: 'integer')]
     private $position;
 
