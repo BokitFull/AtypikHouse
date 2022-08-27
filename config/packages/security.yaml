@@ -14,10 +14,23 @@ security:
                 class: App\Entity\Utilisateurs
                 property: email
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
+        # dev:
+        #     pattern: ^/(_(profiler|wdt)|css|images|js)/
+        #     security: false
+        login:
+            pattern: ^/api/login_check$
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern: ^/api/
+            stateless: true
+            provider: users_provider
+            jwt: ~
         main:
             lazy: true
             provider: users_provider
@@ -30,6 +43,9 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/hote, roles: ROLE_HOTE }
         - { path: ^/utilisateurs, roles: ROLE_USER }
+        - { path: ^/api/docs, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/habitats, roles: ROLE_HOTE }
 
 when@test:
