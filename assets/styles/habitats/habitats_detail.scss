@@ -8,10 +8,12 @@
 
 .image-side img {
     width: 200px;
+    min-height: 150px;
 }
 
 .image-central img {
     width: 400px;
+    min-height: 250px;
 }
 
 .separator {
@@ -53,7 +55,7 @@ div.flatpickr-wrapper {
 #form-reservation button.btn {
     background-color: #2b7929;
     border-color: #2b7929;
-}
+}  
 
 
 @media (min-width: 768px) and (max-width: 1024px) {

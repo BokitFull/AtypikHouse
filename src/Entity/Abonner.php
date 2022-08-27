@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AbonnerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: AbonnerRepository::class)]
@@ -14,10 +15,18 @@ class Abonner
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\NotBlank
+     * @Assert\Email
+     * @Assert\Length(max = 100)
+     */
+    #[ORM\Column(type: 'string', length: 100)]
     private $emailAbonner;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    /**
+     * @Assert\Length(max = 100)
+     */
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $NomAbonner;
     
     #[Gedmo\Timestampable(on: 'create')]

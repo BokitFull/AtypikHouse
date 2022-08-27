@@ -29,10 +29,10 @@ class HotesController extends AbstractController
         return $this->render('hotes/index.html.twig', $context);
     }
 
-    //Page des habitats d'un hôt
+    //Page des habitats d'un hôte
     #[Route('/habitats', name: 'hote_habitats', methods: ['GET', 'POST'])]
     public function habitats(Request $request, UtilisateursRepository $utilisateursRepository, AuthenticationUtils $authenticationUtils): Response
-    {   
+    {
         return $this->render('hotes/habitats.html.twig', []);
     }
 

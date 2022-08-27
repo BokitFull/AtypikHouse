@@ -1,9 +1,12 @@
-.politique-inf h4 {
-    text-decoration: underline;
-    font-size: 25px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding-left: 90px;
+.politique-inf {
+
+    h1, h2 {
+        text-decoration: underline;
+        font-size: 25px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding-left: 90px;
+    }
 }
 
 .politique-inf p {
@@ -17,13 +20,23 @@ section.container-politique {
     margin-top: 50px;
     margin-bottom : 95px ; 
 }
-.legal-info h4 {
-    text-decoration: underline;
-    font-size: 25px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding-left: 90px;
-    margin-top: 20px;
+.legal-info {
+
+    h1, h2 {
+
+        text-decoration: underline;
+        font-size: 25px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding-left: 90px;
+        margin-top: 20px;
+    }
+
+    h3 {
+        margin-top: 20px;
+        padding-left: 90px;
+        color: black;
+    }
 }
 
 .legal-info p {
@@ -37,10 +50,4 @@ section.container-politique {
 section.container-legal {
     margin-top: 50px;
     margin-bottom : 95px ; 
-}
-
-.legal-info h5 {
-    margin-top: 20px;
-    padding-left: 90px;
-    color: black;
 }

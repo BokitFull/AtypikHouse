@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CaracteristiquesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CaracteristiquesHabitatRepository::class)]
+#[ApiResource()]
 class CaracteristiquesHabitat
 {
     #[ORM\Id]
@@ -15,10 +18,10 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $caracteristique_type;
-
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 50)
+     */
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
 
@@ -33,8 +36,9 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToOne(inversedBy: 'CaracteristiquesHabitat')]
-    private ?Habitats $habitat = null;
+    #[ORM\ManyToOne(inversedBy: 'caracteristiquesHabitat')]
+    private ?Habitats $habitats = null;
+
 
     public function __construct()
     {
@@ -44,18 +48,6 @@ class CaracteristiquesHabitat
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCaracteritiqueType(): ?CaracteristiquesTypeHabitat
-    {
-        return $this->caracteristique_type;
-    }
-
-    public function setCaracteritiqueType(?CaracteristiquesTypeHabitat $caracteristique_type): self
-    {
-        $this->caracteristique_type = $caracteristique_type;
-
-        return $this;
     }
 
     public function getValeur(): ?string
@@ -106,14 +98,14 @@ class CaracteristiquesHabitat
         return $this;
     }
 
-    public function getHabitat(): ?Habitats
+    public function getHabitats(): ?Habitats
     {
-        return $this->habitat;
+        return $this->habitats;
     }
 
-    public function setHabitat(?Habitats $habitat): self
+    public function setHabitats(?Habitats $habitats): self
     {
-        $this->habitat = $habitat;
+        $this->habitats = $habitats;
 
         return $this;
     }
