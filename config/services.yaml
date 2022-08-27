@@ -37,3 +37,8 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%images_directory%/uploads'
+
+    App\OpenApi\JwtDecorator:
+            decorates: 'api_platform.openapi.factory'
+            arguments: ['@.inner']
+    

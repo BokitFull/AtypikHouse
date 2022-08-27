@@ -14,7 +14,63 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HabitatsRepository::class)]
+#[ApiResource( 
+    attributes: ["security" => "is_granted('ROLE_USER')"]
+    // collectionOperations: [
+    //     'get' => [
+    //         'normalization_context' => [
+    //             'groups' => 'read:collection'
+    //             ]
+    //         ],
+    //         'list_habitats' => [
+    //             'pagination_enabled'=>false,
+    //             'method' => 'GET',
+    //             'path' => 'get/habitats',
+    //             'controller' => GetHabitatsController::class,
+    //             'filters' => [],
+    //             'openapi_context' => [
+    //                 'summary' => 'Récupère une liste',
+    //                 'parameters' => [
+    //                     [
+    //                         'in' => 'query',
+    //                         'name' => 'id',
+    //                         'schema' => [
+    //                             'type' => 'integer'
+    //                         ]
 
+    //                     ]
+    //                 ]
+    //             ]
+    //         ]
+    //     ], 
+    // itemOperations: [
+    //     'get' => [
+    //         'normalization_context' => [
+    //             'groups' => 'comment:item'
+    //             ]
+    //         ],
+        // 'list_habitats' => [
+        //     'method' => 'GET',
+        //     'path' => 'get/habitats/{id_array}',
+        //     'controller' => GetHabitatsController::class,
+        //     'filters' => [],
+        //     'openapi_context' => [
+        //         'summary' => 'Récupère une liste',
+        //         'parameters' => [
+        //             [
+        //                 'in' => 'query',
+        //                 'name' => 'habitats',
+        //                 'schema' => [
+        //                     'type' => 'array'
+        //                 ]
+
+        //             ]
+        //         ]
+        //     ]
+        // ]
+    // ],
+
+)]
 class Habitats
 {
     #[ORM\Id]

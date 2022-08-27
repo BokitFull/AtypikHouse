@@ -30,7 +30,20 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-            {% block main %}{% endblock %}
+            {% block main %}
+                {% set foo = app.request.pathinfo|split('/')|slice(1) %}
+                <div>
+                    <a href="/">Home</a> --> 
+                    {% for item in foo %}
+                        {% if item matches '/^\\d+$/' %}
+                            <a href="{{item}}">{{obj.title }}</a>
+                        {% else %}
+                            <a href="{{item}}">{{item}}</a>
+                        {% endif %}
+                        {% if not loop.last %}-->{% endif %}
+                    {% endfor %}
+                </div>
+            {% endblock %}
         </main>
         <footer class="mt-auto" >
             {{ include('_footer.html.twig') }}

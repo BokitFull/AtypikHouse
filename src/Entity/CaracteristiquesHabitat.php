@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CaracteristiquesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -19,7 +18,7 @@ class CaracteristiquesHabitat
     #[ORM\ManyToOne(targetEntity: CaracteristiquesTypeHabitat::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $caracteristique_type;
-
+    
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
 
@@ -36,7 +35,6 @@ class CaracteristiquesHabitat
 
     #[ORM\ManyToOne(inversedBy: 'CaracteristiquesHabitat')]
     private ?Habitats $habitat = null;
-
 
     public function __construct()
     {
