@@ -111,3 +111,36 @@ input[type='checkbox'] {
 //     border: 1px solid #a01313;
 //     color: red;
 // }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    #form-input-div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    #form-btn-div {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .miseAjourHabitat { 
+        display: flex;
+    justify-content: center;
+    }
+}
+@media (min-width: 320px) and (max-width: 767px) 
+
+{ 
+    .form-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+    #form-btn-div {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}

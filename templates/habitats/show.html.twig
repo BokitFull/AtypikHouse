@@ -154,9 +154,9 @@
     <div class="col-3"></div>
 
     <div class="col-12">
-        <h4>L'hébergement - <span>Pour {{ habitat.nbPersonnes }} personne(s)</span></h4>
+        <h4 class="title-top" >L'hébergement - <span>Pour {{ habitat.nbPersonnes }} personne(s)</span></h4>
 
-        <p>{{habitat.description}}</p>
+        <p class="text-Habitat" >{{habitat.description}}</p>
     </div>
 
     {# Bloc de séparateur #}
@@ -168,16 +168,16 @@
 
         <div class="row col-12 mb-2 mb-lg-0">
 
-            <h4>Prestations</h4>
+            <h4 class="title-top" >Prestations</h4>
             <div class="row w-100">
                 {% if (habitat.prestations is empty) %}
                     <div class="col-12">
-                        <span>Aucun équipement ou service</span>
+                        <span class ="text-Habitat">Aucun équipement ou service</span>
                     </div>
                 {% else %}
                     {% for prestation in habitat.prestations|slice(0, 4) %}
                         <div class="col-6">
-                            <span>{{ prestation.nom }}</span>
+                            <span class ="text-Habitat">{{ prestation.nom }}</span>
                         </div>
                     {% endfor %}
 
@@ -224,7 +224,7 @@
     <div class="row col-12">
         {% if notes[0]["note_generale"] is not null %}
 
-        <h4>Notes et avis</h4>
+        <h4 class="title-top" >Notes et avis</h4>
 
         <div class="row col-lg-6 col-sm-12 align-items-end">
             <p class="d-flex col-12 justify-content-center">
@@ -270,7 +270,7 @@
         {% else %}
 
         <div class="col-lg-6 col-sm-12 align-items-start">
-            <h4>Aucune note</h4>
+            <h4 class="title-top" >Aucune note</h4>
         </div>
 
         {% endif %}
@@ -306,7 +306,7 @@
                             <div class="ms-3">
                                 {% if commentaire.reponse is not empty %}
                                     <span class="small green-text"><i class="fas fa-level-down-alt" style="transform: scaleX(-1) rotate(90deg);"></i>&nbsp;Réponse</span>
-                                    <p>{{ commentaire.reponse|slice(0, 57) }}
+                                    <p class ="text-Habitat" >{{ commentaire.reponse|slice(0, 57) }}
                                     {% if commentaire.reponse|length > 57 %}
                                         ...
                                     {% endif %} 
@@ -404,7 +404,7 @@
             {% else %}
                 
             <div class="col-lg-6 col-sm-12 align-items-start">
-                <h4>Aucun commentaire</h4>
+                <h4 class="title-top" >Aucun commentaire</h4>
             </div>
 
             {% endif %}

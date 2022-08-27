@@ -105,15 +105,15 @@ class Habitats
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'habitats')]
     private $ville;
 
-    #[ORM\OneToMany(mappedBy: 'habitats', targetEntity: CaracteristiquesHabitat::class)]
-    private Collection $caracteristiquesHabitat;
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: CaracteristiquesHabitat::class)]
+    private Collection $CaracteristiquesHabitat;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->prestations = new ArrayCollection();
         $this->imagesHabitats = new ArrayCollection();
-        $this->caracteristiquesHabitat = new ArrayCollection();
+        $this->CaracteristiquesHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +301,7 @@ class Habitats
         return $this;
     }
 
+
     /**
      * @return Collection<int, Reservations>
      */
@@ -426,14 +427,14 @@ class Habitats
      */
     public function getCaracteristiquesHabitat(): Collection
     {
-        return $this->caracteristiquesHabitat;
+        return $this->CaracteristiquesHabitat;
     }
 
     public function addCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if (!$this->caracteristiquesHabitat->contains($caracteristiquesHabitat)) {
-            $this->caracteristiquesHabitat->add($caracteristiquesHabitat);
-            $caracteristiquesHabitat->setHabitats($this);
+        if (!$this->CaracteristiquesHabitat->contains($caracteristiquesHabitat)) {
+            $this->CaracteristiquesHabitat->add($caracteristiquesHabitat);
+            $caracteristiquesHabitat->setHabitat($this);
         }
 
         return $this;
@@ -441,14 +442,13 @@ class Habitats
 
     public function removeCaracteristiquesHabitat(CaracteristiquesHabitat $caracteristiquesHabitat): self
     {
-        if ($this->caracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
+        if ($this->CaracteristiquesHabitat->removeElement($caracteristiquesHabitat)) {
             // set the owning side to null (unless already changed)
-            if ($caracteristiquesHabitat->getHabitats() === $this) {
-                $caracteristiquesHabitat->setHabitats(null);
+            if ($caracteristiquesHabitat->getHabitat() === $this) {
+                $caracteristiquesHabitat->setHabitat(null);
             }
         }
 
         return $this;
     }
-
 }

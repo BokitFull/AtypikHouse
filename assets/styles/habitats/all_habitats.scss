@@ -228,3 +228,41 @@
             place-content: space-between;
         }
     }
+
+
+    @media (min-width: 320px) and (max-width: 767px) {
+        
+
+        .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: nowrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-0.5 * var(--bs-gutter-x));
+            margin-left: calc(-0.5 * var(--bs-gutter-x));
+            flex-direction: column;
+        }
+
+        .btn_filtre_liste_habitats {
+          
+            padding: 50px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          
+        }
+        
+        .displayed-card, .displayed-card:hover, a.displayed-card:focus, .displayed-card:active {
+            text-decoration: none;
+            color: #616161;
+            padding: 30px;
+        }
+        .form-select {
+            width: auto;
+        }
+
+        .form-control {
+            display: block;
+            width: auto;
+        }
+    }
