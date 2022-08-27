@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\TypesPrestationRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: TypesPrestationRepository::class)]
+#[ApiResource()]
 class TypesPrestation
 {
     #[ORM\Id]
@@ -16,10 +19,17 @@ class TypesPrestation
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\Length(max = 255)
+     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
     #[Gedmo\Timestampable(on: 'create')]

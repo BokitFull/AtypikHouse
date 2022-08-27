@@ -7,5 +7,13 @@ kernel:
     type: annotation
 
 home:
-  path: /
-  controller: App\Controller\HomeController::index
+    path: /
+    controller: App\Controller\HomeController::index
+
+auth:
+    path: /api/users/authentication
+    methods: ["POST"]
+
+swagger:
+    path: /docs
+    controller: api_platform.swagger.action.ui

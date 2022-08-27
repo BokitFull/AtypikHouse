@@ -34,7 +34,7 @@
 				<div class="form-control">
 					<label for="hebergements-name">Hébergements</label>
 					<select id="hebergements-name" name="type" class="form-input">
-						<option selected>
+						<option value="" selected>
 							Tous
 						</option>
 						{% for typeHebergement in TypesHabitat %}
@@ -46,7 +46,7 @@
 				<div class="form-control">
 					<label for="nombrePersonnes-name">Nombre de personnes</label>
 					<select id="nombrePersonnes-name" name="nb_personnes" class="form-input">
-						<option selected>
+						<option value="" selected>
 							N'importes
 						</option>
 						{% for i in 1..10 %}

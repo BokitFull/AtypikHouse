@@ -3,15 +3,21 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateursRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[Gedmo\Loggable]
 #[ORM\Entity(repositoryClass: UtilisateursRepository::class)]
+#[ApiResource(
+	itemOperations: [ 'get' ],
+	collectionOperations: [ ]
+)]
 class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 {   
     #[ORM\Id]
@@ -19,40 +25,101 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Email
+     * @Assert\Length(
+     *      max = 100,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 100, unique: true)]
     private $email;
     
+    /**
+     * @Assert\NotNull
+     */
     #[Gedmo\Versioned]
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    #[ORM\Column(type: 'string')]
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 100,
+     * )
+     */
+    #[ORM\Column(type: 'string', length: 100)]
     private $password;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 50,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 50)]
     private $nom;
 
-    #[ORM\Column(type: 'string', length: 80)]
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 50,
+     * )
+     */
+    #[ORM\Column(type: 'string', length: 50)]
     private $prenom;
 
+    /**
+     * @Assert\Length(
+     *      max = 2,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 2, nullable: true)]
     private $civilite;
 
+    /**
+     * @Assert\Length(
+     *      max = 20,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private $telephone;
 
+    /**
+     * @Assert\Length(
+     *      max = 100,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $adresse;
 
+    /**
+     * @Assert\Length(
+     *      max = 5,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
     private $code_postal;
 
-    #[ORM\Column(type: 'string', length: 70, nullable: true)]
+    /**
+     * @Assert\Length(
+     *      max = 80,
+     * )
+     */
+    #[ORM\Column(type: 'string', length: 80, nullable: true)]
     private $ville;
 
+    /**
+     * @Assert\Length(
+     *      max = 80,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 80, nullable: true)]
     private $pays;
 
+    /**
+     * @Assert\NotNull
+     */
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
@@ -73,6 +140,11 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaires::class)]
     private $commentaires;
 
+    /**
+     * @Assert\Length(
+     *      max = 255,
+     * )
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 

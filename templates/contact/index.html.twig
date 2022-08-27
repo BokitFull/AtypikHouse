@@ -12,13 +12,12 @@
 
 	{% block main %}
 	
-        
 		<div class="contactez-nousTitle">
 			<h1>
 				Contactez Nous
 			</h1>
 		</div>
- {{ form_start(formContact , { 'attr' : { 'class': 'formulaireAbonnement'  } }) }}
+ 		{{ form_start(formContact , { 'attr' : { 'class': 'formulaireAbonnement'  } }) }}
 		<section class="SectionForm">
 
 			<div class="coordonees">
@@ -70,13 +69,11 @@
 				<div class="coordonnesNomPrenom">
 
 					<div class="coordonnesNom">
-                    <p class="formLabel" for="" >  Nom*  </p>
-						{{form_widget(formContact.nom , { 'attr' : { 'placeholder': 'Votre Nom' , 'class': 'form-control' } })}}
+						{{form_row(formContact.nom , { 'attr' : { 'placeholder': 'Votre Nom' , 'class': 'form-control' } })}}
 					</div>
 
 					<div class="coordonnesPrenom">
-                    <p  class="formLabel" for="" >  Prenom* </p>
-						{{form_widget(formContact.prenom , { 'attr' : { 'placeholder': 'Votre Prénom' , 'class': 'form-control'  } })}}
+						{{form_row(formContact.prenom , { 'attr' : { 'placeholder': 'Votre Prénom' , 'class': 'form-control'  } })}}
 					</div>
 
 
@@ -86,13 +83,11 @@
                 <div class="coordonnesPhoneEmail">
 
 					<div class="coordonnesPhone">
-                    <p class="formLabel" for="" >  Téléphone  </p>
-					{{form_widget(formContact.telephone , { 'attr' : { 'placeholder': 'Votre Téléphone' , 'class': 'form-control'  } })}}
+						{{form_row(formContact.telephone , { 'attr' : { 'placeholder': 'Votre Téléphone' , 'class': 'form-control'  } })}}
 					</div>
 
 					<div class="coordonnesEmail">
-                    <p class="formLabel" for="" >  Email*  </p>
-					{{form_widget(formContact.Email , { 'attr' : { 'placeholder': 'Votre Email' , 'class': 'form-control'  } })}}
+						{{form_row(formContact.Email , { 'attr' : { 'placeholder': 'Votre Email' , 'class': 'form-control'  } })}}
 					</div>
 
 
@@ -100,14 +95,14 @@
 
                 <div class ="messageContact" >
 
-                <h5> <b> Raison de la demande * </b> </h5> 
+                <h2> <b> Raison de la demande</b> </h2> 
 
                 <div class="messageField"> 
-                {{form_widget(formContact.message , { 'attr' : { 'placeholder': '' , 'class': 'form-control' } })}}
+                	{{form_row(formContact.message , { 'attr' : { 'placeholder': '' , 'class': 'form-control' } })}}
                 </div>
 
                 <div class="ButtonEnboyer">
-                <button type="submit" class="buttonContact" > Envoyer  </button>
+                	<button type="submit" class="buttonContact" > Envoyer  </button>
                 </div>
 
                 {# {% if formContact.vars.submitted %}

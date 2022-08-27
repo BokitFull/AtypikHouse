@@ -39,14 +39,12 @@ class SecurityController extends AbstractController
 
             return $userAuthenticator->authenticateUser(
                 $user,
-                $authenticator,
+                $authenticator, 
                 $request
             );
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        // return $this->redirectToRoute('login', [], Response::HTTP_SEE_OTHER);
     }
 
     //Login de l'utilisateur
@@ -65,23 +63,6 @@ class SecurityController extends AbstractController
 
         ]);
     }
-
-    // #[Route(path: '/changement-mot-de-passe', name: 'reset_password')]
-    // public function reset_password(MailerInterface $mailer)
-    // {   
-    //     $email = (new TemplatedEmail())
-    //         ->from('hello@example.com')
-    //         ->to('you@example.com')
-
-    //         ->subject('Réinitilisation de mot de passe')
-    //         ->htmlTemplate('emails/signup.html.twig')
-    //         ->context([
-    //             'expiration_date' => new \DateTime('+7 days'),
-    //             'reset_password_link' => 'foo',]);
-
-    //     $mailer->send($email);
-    // }
-    
 
     //Formulaire d'authentification pour le login/inscription
     public function authentication_form(AuthenticationUtils $authenticationUtils): Response

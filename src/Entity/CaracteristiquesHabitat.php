@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CaracteristiquesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CaracteristiquesHabitatRepository::class)]
+#[ApiResource()]
 class CaracteristiquesHabitat
 {
     #[ORM\Id]
@@ -16,6 +19,10 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 50)
+     */
     #[ORM\Column(type: 'string', length: 50)]
     private $valeur;
 
@@ -36,7 +43,6 @@ class CaracteristiquesHabitat
 
     public function __construct()
     {
-        $this->habitats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,18 +94,6 @@ class CaracteristiquesHabitat
     public function setDeletedAt(?\DateTimeImmutable $deleted_at): self
     {
         $this->deleted_at = $deleted_at;
-
-        return $this;
-    }
-
-    public function getHabitat(): ?Habitats
-    {
-        return $this->habitat;
-    }
-
-    public function setHabitat(?Habitats $habitat): self
-    {
-        $this->habitat = $habitat;
 
         return $this;
     }

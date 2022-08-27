@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TypesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypesHabitatRepository::class)]
+#[ApiResource()]
 class TypesHabitat
 {
     #[ORM\Id]
@@ -16,9 +19,16 @@ class TypesHabitat
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max = 50)
+     */
     #[ORM\Column(type: 'string', length: 50)]
     private $nom;
 
+    /**
+     * @Assert\Length(max = 255)
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
@@ -36,16 +46,13 @@ class TypesHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToMany(targetEntity: CaracteristiquesTypeHabitat::class, mappedBy: 'typesHabitat')]
-    private Collection $caracteristiquesTypeHabitat;
-
     #[ORM\OneToMany(mappedBy: 'typesHabitat', targetEntity: CaracteristiquesTypeHabitat::class)]
-    private Collection $OneToMany;
+    private Collection $caracteristiquesTypeHabitat;
 
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
-        $this->OneToMany = new ArrayCollection();
+        $this->caracteristiquesTypeHabitat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,27 +153,27 @@ class TypesHabitat
     /**
      * @return Collection<int, CaracteristiquesTypeHabitat>
      */
-    public function getOneToMany(): Collection
+    public function getCaracteristiquesTypeHabitat(): Collection
     {
-        return $this->OneToMany;
+        return $this->caracteristiquesTypeHabitat;
     }
 
-    public function addOneToMany(CaracteristiquesTypeHabitat $oneToMany): self
+    public function addCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
     {
-        if (!$this->OneToMany->contains($oneToMany)) {
-            $this->OneToMany->add($oneToMany);
-            $oneToMany->setTypesHabitat($this);
+        if (!$this->caracteristiquesTypeHabitat->contains($caracteristiquesTypeHabitat)) {
+            $this->caracteristiquesTypeHabitat->add($caracteristiquesTypeHabitat);
+            $caracteristiquesTypeHabitat->setTypesHabitat($this);
         }
 
         return $this;
     }
 
-    public function removeOneToMany(CaracteristiquesTypeHabitat $oneToMany): self
+    public function removeCaracteristiquesTypeHabitat(CaracteristiquesTypeHabitat $caracteristiquesTypeHabitat): self
     {
-        if ($this->OneToMany->removeElement($oneToMany)) {
+        if ($this->caracteristiquesTypeHabitat->removeElement($caracteristiquesTypeHabitat)) {
             // set the owning side to null (unless already changed)
-            if ($oneToMany->getTypesHabitat() === $this) {
-                $oneToMany->setTypesHabitat(null);
+            if ($caracteristiquesTypeHabitat->getTypesHabitat() === $this) {
+                $caracteristiquesTypeHabitat->setTypesHabitat(null);
             }
         }
 
