@@ -40,10 +40,11 @@
     border-color: #2b7929;
 }
 
-#divPrix > #labelPrix {
+#divPrix>label {
     color: #998763;
 }
-#divPrix > span {
+
+#divPrix>span {
     color: #2b7929;
 }
 
@@ -54,26 +55,40 @@ div.flatpickr-wrapper {
 #form-reservation button.btn {
     background-color: #2b7929;
     border-color: #2b7929;
-
-    :hover {
-        background-color: #184A17;
-        border-color: #184A17; 
-    }
 }  
 
 
-.btn-secondary {
-    background-color: #998763;
-    border-color: #998763;
-    :hover {
-        background-color: #b87247;
-        border-color: #b87247; 
-    }
-}
+@media (min-width: 768px) and (max-width: 1024px) {
 
-.dark-green-text {
-    color: #184A17;
-}
-.green-text {
-    color: #2b7929;
+
+    .fs-2 {
+        font-size: 25px !important;
+    }
+
+    .col-5 {
+        flex: 0 0 auto;
+        width: 45.666667%;
+    }
+
+    .col-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .title-top {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .text-Habitat { 
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .col-sm-12 {
+        flex: 0 0 auto;
+        width: 100%;
+        padding-left: 50px;
+        margin-bottom: 20px;
+    }
 }

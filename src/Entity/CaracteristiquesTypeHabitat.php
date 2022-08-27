@@ -127,4 +127,28 @@ class CaracteristiquesTypeHabitat
         return $this;
     }
 
+    /**
+     * @return Collection<int, TypesHabitat>
+     */
+    public function getTypesHabitat(): Collection
+    {
+        return $this->typesHabitat;
+    }
+
+    public function addTypesHabitat(TypesHabitat $typesHabitat): self
+    {
+        if (!$this->typesHabitat->contains($typesHabitat)) {
+            $this->typesHabitat->add($typesHabitat);
+        }
+
+        return $this;
+    }
+
+    public function removeTypesHabitat(TypesHabitat $typesHabitat): self
+    {
+        $this->typesHabitat->removeElement($typesHabitat);
+
+        return $this;
+    }
+
 }

@@ -50,6 +50,15 @@ class UtilisateursController extends AbstractController
     #[Route('/{id}/edit', name: 'informations_personnelles', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateurs $utilisateur, UtilisateursRepository $utilisateursRepository): Response
     {
+        // Securiser Utilisateur 
+        $currentUser = $this->security->getUser();
+        if ($currentUser->getId() != $utilisateur->getId() )
+        { 
+            return $this->redirectToRoute('informations_personnelles', ["id" => $currentUser->getId()], Response::HTTP_SEE_OTHER);
+
+        }
+   
+
         $form = $this->createForm(EditUserType::class, $utilisateur);
         $form->handleRequest($request);
 

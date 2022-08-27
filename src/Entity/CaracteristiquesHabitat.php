@@ -5,7 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CaracteristiquesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -43,6 +42,7 @@ class CaracteristiquesHabitat
 
     public function __construct()
     {
+        $this->habitats = new ArrayCollection();
     }
 
     public function getId(): ?int

@@ -170,3 +170,99 @@
 .flatpickr-calendar {
     width: 100%;
 }
+
+@media (min-width: 768px) and (max-width: 1024px) { 
+
+    .ligne_liste_habitats {
+        text-align: -webkit-auto;
+        margin-left: 170px;
+        margin-right: 170px;
+    }
+
+    .div_titre_filtre {
+        align-items: center;
+        place-content: normal;
+    }
+
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .btn_filtre_liste_habitats { 
+
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .flex {
+        margin-bottom: 30px;
+    }
+
+    .form-select , .form-control  {
+        width: 60%;
+    }
+
+    .modal-footer {
+        justify-content: center;
+    }
+}
+    @media (min-width: 1024px) and (max-width: 1300px) { 
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+        .ligne_liste_habitats {
+            text-align: -webkit-auto;
+            margin-left: 0px; 
+            margin-right: 0px;
+        }
+
+
+        .div_titre_filtre {
+            align-items: center;
+            place-content: space-between;
+        }
+    }
+
+
+    @media (min-width: 320px) and (max-width: 767px) {
+        
+
+        .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: nowrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-0.5 * var(--bs-gutter-x));
+            margin-left: calc(-0.5 * var(--bs-gutter-x));
+            flex-direction: column;
+        }
+
+        .btn_filtre_liste_habitats {
+          
+            padding: 50px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          
+        }
+        
+        .displayed-card, .displayed-card:hover, a.displayed-card:focus, .displayed-card:active {
+            text-decoration: none;
+            color: #616161;
+            padding: 30px;
+        }
+        .form-select {
+            width: auto;
+        }
+
+        .form-control {
+            display: block;
+            width: auto;
+        }
+    }
