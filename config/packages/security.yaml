@@ -30,6 +30,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/hote, roles: ROLE_HOTE }
         - { path: ^/utilisateurs, roles: ROLE_USER }
+        - { path: ^/habitats, roles: ROLE_HOTE }
 
 when@test:
     security:

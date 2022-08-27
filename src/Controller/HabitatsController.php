@@ -188,7 +188,7 @@ class HabitatsController extends AbstractController
 
         return $this->render('habitats/show.html.twig', [
             'controller_name' => 'HabitatsController',
-            'habitat' => $habitat,
+            'habitat' => $habitat,  
             'commentaires' => $commentaires,
             'notes' => $notes,
         ]);
@@ -198,6 +198,13 @@ class HabitatsController extends AbstractController
     #[Route('/{id}/edit', name: 'edit_habitat', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitats $habitat, HabitatsRepository $habitatsRepository, FileUploader $uploader): Response
     {
+        /** @var Utilisateur $currentUser */
+        $currentUser = $this->security->getUser();
+        if (!$currentUser->getHabitats()->contains($habitat)) {
+            return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
+        }
+
+
         $context = [];
 
         //Création du formulaire + handle de la requête
