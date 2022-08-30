@@ -9,7 +9,7 @@
                 {{ form_row(form.titre, { 'attr': {'class': 'input-field', 'placeholder': 'Titre'} }) }}
             </div>
             <div class="form-group col-md-6">
-            {{ form_row(form.adresse, { 'attr': {'class': 'input-field', 'placeholder': 'Adresse'} }) }}
+            {{ form_row(form.adresse, { 'attr': {'class': 'input-field', 'placeholder': 'Adresse', 'autocomplete': 'off'} }) }}
             <input type="hidden" name="adresse">
             <div id="result_adresse"></div>
             </div>

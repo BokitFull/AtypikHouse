@@ -191,6 +191,7 @@ class HabitatsController extends AbstractController
             'habitat' => $habitat,  
             'commentaires' => $commentaires,
             'notes' => $notes,
+            'obj' => $habitat
         ]);
     }
 
@@ -200,17 +201,18 @@ class HabitatsController extends AbstractController
     {
         /** @var Utilisateur $currentUser */
         $currentUser = $this->security->getUser();
-
+        
         if (!$currentUser->getHabitats()->contains($habitat)) {
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
         }
-
+        
         $context = [];
-
+        
         $habitat->setUpdatedAt(new \DatetimeImmutable('now'));
-
+        
         //Création du formulaire + handle de la requête
         $form = $this->createForm(HabitatsType::class, $habitat);
+        // dump(1); die;    
         $form->handleRequest($request);
 
         $context['form'] = $form;

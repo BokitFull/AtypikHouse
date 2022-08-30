@@ -36,7 +36,7 @@ class CaracteristiquesHabitat
     private $deleted_at;
 
     #[ORM\ManyToOne(inversedBy: 'CaracteristiquesHabitat')]
-    private ?Habitats $habitat = null;
+    private ?Habitats $habitats = null;
 
     public function __construct()
     {

@@ -36,13 +36,16 @@
             {% endfor %}
             {% block main %}
                 {% set foo = app.request.pathinfo|split('/')|slice(1) %}
+                {% set chaine = "/" %}
                 <div>
                     <a href="/">Home</a> --> 
                     {% for item in foo %}
+                        {% set chaine = chaine ~ item ~ "/" %}
+
                         {% if item matches '/^\\d+$/' %}
-                            <a href="{{item}}">{{obj.title }}</a>
+                            <a href="{{chaine}}">{{obj.titre}}</a>
                         {% else %}
-                            <a href="{{item}}">{{item}}</a>
+                            <a href="{{chaine}}">{{item}}</a>
                         {% endif %}
                         {% if not loop.last %}-->{% endif %}
                     {% endfor %}
