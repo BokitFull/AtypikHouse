@@ -115,17 +115,17 @@ class CaracteristiquesTypeHabitat
         return $this;
     }
 
-    public function getTypesHabitat(): ?TypesHabitat
-    {
-        return $this->typesHabitat;
-    }
+    // public function getTypesHabitat(): ?TypesHabitat
+    // {
+    //     return $this->typesHabitat;
+    // }
 
-    public function setTypesHabitat(?TypesHabitat $typesHabitat): self
-    {
-        $this->typesHabitat = $typesHabitat;
+    // public function setTypesHabitat(?TypesHabitat $typesHabitat): self
+    // {
+    //     $this->typesHabitat = $typesHabitat;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, TypesHabitat>

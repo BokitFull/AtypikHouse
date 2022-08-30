@@ -95,6 +95,8 @@ class HabitatsController extends AbstractController
         
         //Création du formulaire + handle de la requête
         $habitat = new Habitats();
+        $habitat->setEstValide(false);
+        $habitat->setCreatedAt(new \DatetimeImmutable('now'));
         $form = $this->createForm(HabitatsType::class, $habitat);
         $form->handleRequest($request);
 
@@ -104,11 +106,9 @@ class HabitatsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $utilisateur = $this->getUser();
+            $habitat->setUtilisateur($utilisateur);
 
             //Définition des valeurs par défaut pour l'habitat
-            
-            $habitat->setEstValide(false);
-            $habitat->setUtilisateur($utilisateur);
             $habitatsRepository->add($habitat, true);
 
             //Ajout des images à l'habitat
@@ -200,12 +200,14 @@ class HabitatsController extends AbstractController
     {
         /** @var Utilisateur $currentUser */
         $currentUser = $this->security->getUser();
+
         if (!$currentUser->getHabitats()->contains($habitat)) {
             return $this->redirectToRoute('hote_habitats', [], Response::HTTP_SEE_OTHER);
         }
 
-
         $context = [];
+
+        $habitat->setUpdatedAt(new \DatetimeImmutable('now'));
 
         //Création du formulaire + handle de la requête
         $form = $this->createForm(HabitatsType::class, $habitat);
