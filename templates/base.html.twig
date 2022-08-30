@@ -35,21 +35,28 @@
                 {% endfor %}
             {% endfor %}
             {% block main %}
-                {% set foo = app.request.pathinfo|split('/')|slice(1) %}
-                {% set chaine = "/" %}
-                <div>
-                    <a href="/">Home</a> --> 
-                    {% for item in foo %}
-                        {% set chaine = chaine ~ item ~ "/" %}
 
-                        {% if item matches '/^\\d+$/' %}
-                            <a href="{{chaine}}">{{obj.titre}}</a>
-                        {% else %}
-                            <a href="{{chaine}}">{{item}}</a>
-                        {% endif %}
-                        {% if not loop.last %}-->{% endif %}
-                    {% endfor %}
-                </div>
+                {% if app.request.pathinfo != "/" %}
+
+                    {% set foo = app.request.pathinfo|split('/')|slice(1) %}
+                    {% set chaine = "/" %}
+                    <div>
+                        <a href="/">Home</a> 
+                        {% for item in foo %}
+
+                            {% if item != "" %}
+                            
+                                {% set chaine = chaine ~ item ~ "/" %}
+
+                                {% if item matches '/^\\d+$/' %}
+                                    --> <a href="{{chaine}}">{{obj.titre}}</a>
+                                {% else %}
+                                    --> <a href="{{chaine}}">{{item}}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endblock %}
         </main>
         <footer class="mt-auto" >

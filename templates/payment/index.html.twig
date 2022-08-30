@@ -33,7 +33,11 @@
         <article id="recap-article">
             <section id="section-habitat">
                 <div class="card">
-                    <img class="card-img-top" src="/images/uploads/habitats/{{ habitat.imagesHabitats[0].chemin|default("../images/default.png") }}" alt="Image habitat">
+                    {% if habitat.imagesHabitats is not empty and habitat.imagesHabitats[0] != "" %}
+                    <img class="card-img-top" src="/images/uploads/habitats/{{ habitat.imagesHabitats[0].chemin }}" alt="Image habitat">
+                    {% else %}
+                    <img class="card-img-top" src="../images/default.png" alt="Image habitat">     
+                    {% endif %}
                     <h5 class="card-title">{{ habitat.titre }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ habitat.type.nom }}</h6>
                     <div id="card-body">

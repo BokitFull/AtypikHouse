@@ -26,7 +26,8 @@ button.buttonAbonner {
 .messageHome {
     color: #265502;
     background-color: #FFF;
-    padding: .2rem;
+    padding: .5rem;
+    border-radius: 20px;
 }
 
 #home-pres{
@@ -58,10 +59,12 @@ button.buttonAbonner {
     margin: 0 50px;
     padding: .1rem;
     background-color: white;
+    border-radius: 20px;
 }
 
 .form-control {
     border: 0;
+    background: none;
 }
 
 .form-input{
