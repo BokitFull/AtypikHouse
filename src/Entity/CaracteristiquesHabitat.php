@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CaracteristiquesHabitatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,9 +35,8 @@ class CaracteristiquesHabitat
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $deleted_at;
 
-    #[ORM\ManyToOne(inversedBy: 'caracteristiquesHabitat')]
-    private ?Habitats $habitats = null;
-
+    #[ORM\ManyToOne(inversedBy: 'CaracteristiquesHabitat')]
+    private ?Habitats $habitat = null;
 
     public function __construct()
     {
